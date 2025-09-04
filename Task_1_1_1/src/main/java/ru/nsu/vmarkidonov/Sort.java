@@ -1,11 +1,11 @@
 package ru.nsu.vmarkidonov;
 
 /**
- * Class, containing sorting functions
+ * Class, containing sorting functions.
  */
 public class Sort {
     /**
-     * Returns child indices for given index in heap
+     * Returns child indices for given index in heap.
      *
      * @param index current index
      * @return array with left and right child indices
@@ -15,7 +15,7 @@ public class Sort {
     }
 
     /**
-     * Swaps two elements in array
+     * Swaps two elements in array.
      *
      * @param array input array
      * @param i     first index
@@ -28,7 +28,7 @@ public class Sort {
     }
 
     /**
-     * Restores heap property by moving element down the heap
+     * Restores heap property by moving element down the heap.
      *
      * @param heap heap array
      * @param i    current index
@@ -59,7 +59,7 @@ public class Sort {
     }
 
     /**
-     * Builds max-heap from array
+     * Builds max-heap from array.
      *
      * @param array input array
      */
@@ -70,7 +70,7 @@ public class Sort {
     }
 
     /**
-     * Heap sort aka pyramid sort
+     * Heap sort aka pyramid sort.
      *
      * @param array array to be sorted
      */

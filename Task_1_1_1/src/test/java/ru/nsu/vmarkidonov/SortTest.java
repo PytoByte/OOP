@@ -2,10 +2,9 @@ package ru.nsu.vmarkidonov;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-import org.junit.jupiter.api.Test;
-
 import java.util.Arrays;
 import java.util.Random;
+import org.junit.jupiter.api.Test;
 
 class SortTest {
     @Test
@@ -64,7 +63,7 @@ class SortTest {
         Sort.heapSort(array);
 
         Arrays.sort(expected);
-        
+
         assertArrayEquals(expected, array);
     }
 }
