@@ -46,16 +46,16 @@ public class Sort {
      */
     private static void heapifyDown(int[] heap, int i, int size) {
         while (true) {
-            int lChild = leftChild(i);
-            int rChild = rightChild(i);
+            int leftC = leftChild(i);
+            int rightC = rightChild(i);
 
-            if (lChild >= size) {
+            if (leftC >= size) {
                 break;
             }
 
-            int largestChild = lChild;
-            if (rChild < size && heap[rChild] > heap[lChild]) {
-                largestChild = rChild;
+            int largestChild = leftC;
+            if (rightC < size && heap[rightC] > heap[leftC]) {
+                largestChild = rightC;
             }
 
             if (heap[largestChild] > heap[i]) {
