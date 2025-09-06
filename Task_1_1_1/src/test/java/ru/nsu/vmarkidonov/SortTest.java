@@ -66,4 +66,12 @@ class SortTest {
 
         assertArrayEquals(expected, array);
     }
+
+    @Test
+    void heapsortDuplicates() {
+        int[] array = {3, 3, 3, 2, 2, 1};
+        Sort.heapSort(array);
+
+        assertArrayEquals(new int[]{1, 2, 2, 3, 3, 3}, array);
+    }
 }

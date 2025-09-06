@@ -5,13 +5,23 @@ package ru.nsu.vmarkidonov;
  */
 public class Sort {
     /**
-     * Returns child indices for given index in heap.
+     * Returns left child index.
      *
-     * @param index current index
-     * @return array with left and right child indices
+     * @param parent index of parent
+     * @return index of left child
      */
-    public static int[] childs(int index) {
-        return new int[]{index * 2 + 1, index * 2 + 2};
+    private static int leftChild(int parent) {
+        return parent * 2 + 1;
+    }
+
+    /**
+     * Returns right child index.
+     *
+     * @param parent index of parent
+     * @return index of right child
+     */
+    private static int rightChild(int parent) {
+        return parent * 2 + 2;
     }
 
     /**
@@ -21,7 +31,7 @@ public class Sort {
      * @param i     first index
      * @param j     second index
      */
-    public static void swap(int[] array, int i, int j) {
+    private static void swap(int[] array, int i, int j) {
         int tmp = array[i];
         array[i] = array[j];
         array[j] = tmp;
@@ -32,21 +42,20 @@ public class Sort {
      *
      * @param heap heap array
      * @param i    current index
-     * @param end  end index (exclusive)
+     * @param size current heap size
      */
-    public static void heapifyDown(int[] heap, int i, int end) {
+    private static void heapifyDown(int[] heap, int i, int size) {
         while (true) {
-            int[] children = childs(i);
-            int leftChild = children[0];
-            int rightChild = children[1];
+            int lChild = leftChild(i);
+            int rChild = rightChild(i);
 
-            if (leftChild >= end) {
+            if (lChild >= size) {
                 break;
             }
 
-            int largestChild = leftChild;
-            if (rightChild < end && heap[rightChild] > heap[leftChild]) {
-                largestChild = rightChild;
+            int largestChild = lChild;
+            if (rChild < size && heap[rChild] > heap[lChild]) {
+                largestChild = rChild;
             }
 
             if (heap[largestChild] > heap[i]) {
@@ -63,7 +72,7 @@ public class Sort {
      *
      * @param array input array
      */
-    public static void makeHeap(int[] array) {
+    private static void makeHeap(int[] array) {
         for (int i = array.length / 2 - 1; i >= 0; i--) {
             heapifyDown(array, i, array.length);
         }
