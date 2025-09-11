@@ -3,37 +3,40 @@ package ru.nsu.vmarkidonov;
 import java.util.ArrayList;
 
 public class Hand extends ArrayList<GameCard> {
+    private Deck deck;
+    private int score = 0;
 
-    Hand() {
-        this.add(GameCard.GameCardRandom());
-        this.add(GameCard.GameCardRandom());
-    }
-
-    Hand(boolean hide) {
-        this.add(GameCard.GameCardRandom());
-        this.add(GameCard.GameCardRandom(hide));
-    }
-
-    public int getScore() {
-        int sum = 0;
-        for (GameCard gameCard : this) {
-            if (!gameCard.hidden) {
-                sum += gameCard.getScore();
-            }
-        }
-        return sum;
+    Hand(Deck deck) {
+        this.deck = deck;
+        takeCards();
     }
 
     public void remake() {
         this.clear();
-        this.add(GameCard.GameCardRandom());
-        this.add(GameCard.GameCardRandom());
+        takeCards();
     }
 
-    public void remake(boolean hide) {
-        this.clear();
-        this.add(GameCard.GameCardRandom());
-        this.add(GameCard.GameCardRandom(hide));
+    private void takeCards() {
+        for (int i = 0; i < 2; i++) {
+            takeCard();
+        }
+    }
+
+    public GameCard takeCard() {
+        GameCard takenCard = deck.takeCard();
+        takenCard.initValue(score);
+        score += takenCard.getValue();
+        this.add(takenCard);
+
+        return takenCard;
+    }
+
+    public int getScore() {
+        int score = 0;
+        for (GameCard gameCard : this) {
+            score += gameCard.getValue();
+        }
+        return score;
     }
 
     @Override

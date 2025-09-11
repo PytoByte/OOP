@@ -6,17 +6,19 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Hand playerHand = new Hand();
-        Hand dealerHand = new Hand(true);
+        Deck deck = new Deck();
+
+        Hand playerHand = new Hand(deck);
+        Hand dealerHand = new Hand(deck);
 
         int roundCount = 1;
-        int playerScore = 0, dealerScore = 0;
+        int playerWins = 0, dealerWins = 0;
 
         System.out.println("Welcome to Blackjack!");
 
         while (true) {
             System.out.printf("\nRound %d\n", roundCount);
-            System.out.printf("player: %d | dealer %d\n", playerScore, dealerScore);
+            System.out.printf("player: %d | dealer %d\n", playerWins, dealerWins);
 
             System.out.println("The dealer has dealt the cards");
 
@@ -32,8 +34,7 @@ public class Main {
                     break;
                 }
 
-                GameCard newCard = GameCard.GameCardRandom();
-                playerHand.add(newCard);
+                GameCard newCard = playerHand.takeCard();
 
                 System.out.printf("New card is: %s\n", newCard);
 
@@ -41,14 +42,14 @@ public class Main {
 
                 if (playerHand.getScore() > 21) {
                     System.out.println("Dealer won!");
-                    dealerScore++;
+                    dealerWins++;
                     break;
                 }
             }
 
             if (playerHand.getScore() > 21) {
                 roundCount++;
-                remakeGame(playerHand, dealerHand);
+                remakeGame(deck, playerHand, dealerHand);
                 continue;
             }
 
@@ -63,7 +64,7 @@ public class Main {
             }
 
             while (dealerHand.getScore() < 17) {
-                GameCard newCard = GameCard.GameCardRandom();
+                GameCard newCard = dealerHand.takeCard();
                 dealerHand.add(newCard);
                 System.out.printf("Dealer took new card: %s\n", newCard);
                 printGameState(playerHand, dealerHand);
@@ -72,13 +73,13 @@ public class Main {
 
             if (playerHand.getScore() > dealerHand.getScore() || dealerHand.getScore() > 21) {
                 System.out.println("You won!");
-                playerScore++;
+                playerWins++;
             } else {
                 System.out.println("Dealer won!");
-                dealerScore++;
+                dealerWins++;
             }
 
-            remakeGame(playerHand, dealerHand);
+            remakeGame(deck, playerHand, dealerHand);
             roundCount++;
         }
     }
@@ -88,8 +89,9 @@ public class Main {
         System.out.printf("\tDealer cards: %s\n", dealerHand);
     }
 
-    private static void remakeGame(Hand playerHand, Hand dealerHand) {
+    private static void remakeGame(Deck deck, Hand playerHand, Hand dealerHand) {
+        deck.restore();
         playerHand.remake();
-        dealerHand.remake(true);
+        dealerHand.remake();
     }
 }

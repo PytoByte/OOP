@@ -1,41 +1,36 @@
 package ru.nsu.vmarkidonov;
 
-import java.util.Random;
-
 public class GameCard {
-    private final int nameIndex;
-    private final int suitIndex;
-    boolean hidden = false;
+    private final CardValues cardValue;
+    private final CardSuits cardSuit;
+    private int value = 0;
+    public boolean hidden;
 
-    public static GameCard GameCardRandom() {
-        Random random = new Random();
-
-        return new GameCard(
-                random.nextInt(CardNames.getNameCount()),
-                random.nextInt(CardNames.getSuitCount())
-        );
+    GameCard(CardValues cardValue, CardSuits cardSuit) {
+        this.cardValue = cardValue;
+        this.cardSuit = cardSuit;
+        hidden = true;
     }
 
-    public static GameCard GameCardRandom(boolean hide) {
-        Random random = new Random();
+    public void initValue(int currentScore) {
+        if (value > 0) {
+            throw new IllegalStateException("Card value already initialized");
+        }
 
-        GameCard newCard = new GameCard(
-                random.nextInt(CardNames.getNameCount()),
-                random.nextInt(CardNames.getSuitCount())
-        );
-
-        newCard.hidden = true;
-
-        return newCard;
+        if (currentScore + cardValue.primaryValue > 21) {
+            value = cardValue.primaryValue;
+        } else {
+            value = cardValue.alternativeValue;
+        }
     }
 
-    GameCard(int nameIndex, int suitIndex) {
-        this.nameIndex = nameIndex;
-        this.suitIndex = suitIndex;
+    public int getValue() {
+        return hidden ? 0 : this.value;
     }
 
-    public int getScore() {
-        return Math.min(nameIndex + 2, 10);
+    public void restore() {
+        value = 0;
+        hidden = true;
     }
 
     @Override
@@ -44,6 +39,6 @@ public class GameCard {
             return "<hidden card>";
         }
 
-        return String.format("%s %s (%d)", CardNames.getName(nameIndex), CardNames.getSuit(suitIndex), getScore());
+        return String.format("%s %s (%d)", cardValue, cardSuit, value);
     }
 }
