@@ -34,6 +34,9 @@ public class Hand extends ArrayList<GameCard> {
     public int getScore() {
         int score = 0;
         for (GameCard gameCard : this) {
+            if (gameCard.getValue() == 0) {
+                return 0;
+            }
             score += gameCard.getValue();
         }
         return score;

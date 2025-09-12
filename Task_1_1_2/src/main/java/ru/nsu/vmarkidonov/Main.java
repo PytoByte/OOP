@@ -1,32 +1,33 @@
 package ru.nsu.vmarkidonov;
 
-import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Deck deck = new Deck();
+        Game game = new Game();
+        Scanner in = new Scanner(System.in);
 
-        Hand playerHand = new Hand(deck);
-        Hand dealerHand = new Hand(deck);
-
-        int roundCount = 1;
-        int playerWins = 0, dealerWins = 0;
-
-        System.out.println("Welcome to Blackjack!");
-
+        game.printIntro();
         while (true) {
-            System.out.printf("\nRound %d\n", roundCount);
-            System.out.printf("player: %d | dealer %d\n", playerWins, dealerWins);
+            for (GameCard gameCard : game.playerHand) {
+                gameCard.hidden = false;
+            }
+            game.dealerHand.getFirst().hidden = false;
 
-            System.out.println("The dealer has dealt the cards");
+            game.printRoundStart();
 
-            printGameState(playerHand, dealerHand);
-
-            System.out.println("\nYour turn\n---");
-            Scanner in = new Scanner(System.in);
+            System.out.println("\nPlayer turn\n---");
             while (true) {
+                game.printState();
+
+                if (game.playerHand.getScore() == 21) {
+                    break;
+                }
+
+                if (game.playerHand.getScore() > 21) {
+                    break;
+                }
+
                 System.out.println("Enter \"1\" to take a card, and \"0\" to stop...");
                 int action = in.nextInt();
 
@@ -34,64 +35,53 @@ public class Main {
                     break;
                 }
 
-                GameCard newCard = playerHand.takeCard();
-
-                System.out.printf("New card is: %s\n", newCard);
-
-                printGameState(playerHand, dealerHand);
-
-                if (playerHand.getScore() > 21) {
-                    System.out.println("Dealer won!");
-                    dealerWins++;
-                    break;
-                }
+                GameCard newCard = game.playerHand.takeCard();
+                newCard.hidden = false;
+                System.out.printf("New card is: %s\n\n", newCard);
             }
 
-            if (playerHand.getScore() > 21) {
-                roundCount++;
-                remakeGame(deck, playerHand, dealerHand);
+            if (game.playerHand.getScore() > 21) {
+                System.out.println("Bust, Dealer won!");
+                game.dealerWins++;
+                game.nextRound();
+                continue;
+            } else if (game.playerHand.getScore() == 21) {
+                System.out.println("Blackjack, You won!");
+                game.playerWins++;
+                game.nextRound();
                 continue;
             }
 
             System.out.println("\nDealer turn\n---");
-            for (GameCard gameCard : dealerHand) {
+            for (GameCard gameCard : game.dealerHand) {
                 if (gameCard.hidden) {
                     gameCard.hidden = false;
                     System.out.printf("Dealer show the card: %s\n", gameCard);
-                    printGameState(playerHand, dealerHand);
-                    in.next();
+                    game.printState();
+                    System.out.print('\n');
                 }
             }
 
-            while (dealerHand.getScore() < 17) {
-                GameCard newCard = dealerHand.takeCard();
-                dealerHand.add(newCard);
+            while (game.dealerHand.getScore() < 17) {
+                GameCard newCard = game.dealerHand.takeCard();
+                newCard.hidden = false;
                 System.out.printf("Dealer took new card: %s\n", newCard);
-                printGameState(playerHand, dealerHand);
-                in.next();
+                game.printState();
+                System.out.print('\n');
             }
 
-            if (playerHand.getScore() > dealerHand.getScore() || dealerHand.getScore() > 21) {
+            if (game.dealerHand.getScore() > 21) {
+                System.out.println("Bust, You won!");
+                game.playerWins++;
+            } else if (game.playerHand.getScore() > game.dealerHand.getScore()) {
                 System.out.println("You won!");
-                playerWins++;
+                game.playerWins++;
             } else {
                 System.out.println("Dealer won!");
-                dealerWins++;
+                game.dealerWins++;
             }
-
-            remakeGame(deck, playerHand, dealerHand);
-            roundCount++;
+            game.nextRound();
         }
     }
 
-    private static void printGameState(Hand playerHand, Hand dealerHand) {
-        System.out.printf("\tYour cards: %s\n", playerHand);
-        System.out.printf("\tDealer cards: %s\n", dealerHand);
-    }
-
-    private static void remakeGame(Deck deck, Hand playerHand, Hand dealerHand) {
-        deck.restore();
-        playerHand.remake();
-        dealerHand.remake();
-    }
 }

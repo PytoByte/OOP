@@ -1,7 +1,10 @@
 package ru.nsu.vmarkidonov;
 
 public enum CardSuits {
-    SPADES("Spades"), DIAMONDS("Diamonds"), HEARTS("Hearts"), CLUBS("Clubs");
+    SPADES("Spades"),
+    DIAMONDS("Diamonds"),
+    HEARTS("Hearts"),
+    CLUBS("Clubs");
 
     private final String name;
 
