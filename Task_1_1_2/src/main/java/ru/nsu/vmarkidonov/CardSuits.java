@@ -1,5 +1,8 @@
 package ru.nsu.vmarkidonov;
 
+/**
+ * Represents cards suits
+ */
 public enum CardSuits {
     SPADES("Spades"),
     DIAMONDS("Diamonds"),

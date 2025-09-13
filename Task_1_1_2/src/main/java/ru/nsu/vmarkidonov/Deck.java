@@ -2,8 +2,10 @@ package ru.nsu.vmarkidonov;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.function.Consumer;
 
+/**
+ * Representation of the card deck
+ */
 public class Deck {
     private final ArrayList<GameCard> cards = new ArrayList<>();
     private final ArrayList<GameCard> takenCards = new ArrayList<>();
@@ -16,6 +18,10 @@ public class Deck {
         }
     }
 
+    /**
+     * Take card from deck
+     * @return Taken card
+     */
     public GameCard takeCard() {
         if (cards.isEmpty()) {
             throw new IndexOutOfBoundsException("Deck is empty");
@@ -27,9 +33,11 @@ public class Deck {
         return takenCard;
     }
 
+    /**
+     * Return taken cards to deck
+     */
     public void restore() {
         for (GameCard gameCard : takenCards) {
-            gameCard.hidden = true;
             gameCard.restore();
         }
         cards.addAll(takenCards);

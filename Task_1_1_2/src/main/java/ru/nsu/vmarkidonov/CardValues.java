@@ -1,5 +1,8 @@
 package ru.nsu.vmarkidonov;
 
+/**
+ * Represents cards names and their possible values
+ */
 public enum CardValues {
     TWO("two", 2),
     THREE("three", 3),

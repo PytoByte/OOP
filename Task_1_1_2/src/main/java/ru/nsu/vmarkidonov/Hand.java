@@ -2,26 +2,39 @@ package ru.nsu.vmarkidonov;
 
 import java.util.ArrayList;
 
+/**
+ * List of the player or dealer cards
+ */
 public class Hand extends ArrayList<GameCard> {
     private Deck deck;
     private int score = 0;
 
     Hand(Deck deck) {
         this.deck = deck;
-        takeCards();
+        takeTwoCards();
     }
 
-    public void remake() {
+    /**
+     * Clear hand and take 2 cards
+     */
+    public void reinit() {
         this.clear();
-        takeCards();
+        takeTwoCards();
     }
 
-    private void takeCards() {
+    /**
+     * Take two cards from deck
+     */
+    private void takeTwoCards() {
         for (int i = 0; i < 2; i++) {
             takeCard();
         }
     }
 
+    /**
+     * Take one card from deck and add it to hand
+     * @return Card taken from deck
+     */
     public GameCard takeCard() {
         GameCard takenCard = deck.takeCard();
         takenCard.initValue(score);
@@ -31,6 +44,10 @@ public class Hand extends ArrayList<GameCard> {
         return takenCard;
     }
 
+    /**
+     * Get sum of all cards values
+     * @return Sum of all cards values or 0 if has hidden cards
+     */
     public int getScore() {
         int score = 0;
         for (GameCard gameCard : this) {

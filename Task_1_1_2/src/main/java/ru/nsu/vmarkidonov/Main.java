@@ -4,27 +4,27 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Game game = new Game();
+        GameState gameState = new GameState();
         Scanner in = new Scanner(System.in);
 
-        game.printIntro();
+        gameState.printIntro();
         while (true) {
-            for (GameCard gameCard : game.playerHand) {
+            for (GameCard gameCard : gameState.playerHand) {
                 gameCard.hidden = false;
             }
-            game.dealerHand.getFirst().hidden = false;
+            gameState.dealerHand.get(0).hidden = false;
 
-            game.printRoundStart();
+            gameState.printRoundStart();
 
             System.out.println("\nPlayer turn\n---");
             while (true) {
-                game.printState();
+                gameState.printState();
 
-                if (game.playerHand.getScore() == 21) {
+                if (gameState.playerHand.getScore() == 21) {
                     break;
                 }
 
-                if (game.playerHand.getScore() > 21) {
+                if (gameState.playerHand.getScore() > 21) {
                     break;
                 }
 
@@ -35,53 +35,52 @@ public class Main {
                     break;
                 }
 
-                GameCard newCard = game.playerHand.takeCard();
+                GameCard newCard = gameState.playerHand.takeCard();
                 newCard.hidden = false;
                 System.out.printf("New card is: %s\n\n", newCard);
             }
 
-            if (game.playerHand.getScore() > 21) {
+            if (gameState.playerHand.getScore() > 21) {
                 System.out.println("Bust, Dealer won!");
-                game.dealerWins++;
-                game.nextRound();
+                gameState.dealerWins++;
+                gameState.nextRound();
                 continue;
-            } else if (game.playerHand.getScore() == 21) {
+            } else if (gameState.playerHand.getScore() == 21) {
                 System.out.println("Blackjack, You won!");
-                game.playerWins++;
-                game.nextRound();
+                gameState.playerWins++;
+                gameState.nextRound();
                 continue;
             }
 
             System.out.println("\nDealer turn\n---");
-            for (GameCard gameCard : game.dealerHand) {
+            for (GameCard gameCard : gameState.dealerHand) {
                 if (gameCard.hidden) {
                     gameCard.hidden = false;
                     System.out.printf("Dealer show the card: %s\n", gameCard);
-                    game.printState();
+                    gameState.printState();
                     System.out.print('\n');
                 }
             }
 
-            while (game.dealerHand.getScore() < 17) {
-                GameCard newCard = game.dealerHand.takeCard();
+            while (gameState.dealerHand.getScore() < 17) {
+                GameCard newCard = gameState.dealerHand.takeCard();
                 newCard.hidden = false;
                 System.out.printf("Dealer took new card: %s\n", newCard);
-                game.printState();
+                gameState.printState();
                 System.out.print('\n');
             }
 
-            if (game.dealerHand.getScore() > 21) {
+            if (gameState.dealerHand.getScore() > 21) {
                 System.out.println("Bust, You won!");
-                game.playerWins++;
-            } else if (game.playerHand.getScore() > game.dealerHand.getScore()) {
+                gameState.playerWins++;
+            } else if (gameState.playerHand.getScore() > gameState.dealerHand.getScore()) {
                 System.out.println("You won!");
-                game.playerWins++;
+                gameState.playerWins++;
             } else {
                 System.out.println("Dealer won!");
-                game.dealerWins++;
+                gameState.dealerWins++;
             }
-            game.nextRound();
+            gameState.nextRound();
         }
     }
-
 }
