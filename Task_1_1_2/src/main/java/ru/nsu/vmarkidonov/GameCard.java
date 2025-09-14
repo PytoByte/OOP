@@ -7,12 +7,11 @@ public class GameCard {
     private final CardValues cardValue;
     private final CardSuits cardSuit;
     private int value = 0;
-    public boolean hidden;
+    public boolean hidden = true;
 
     GameCard(CardValues cardValue, CardSuits cardSuit) {
         this.cardValue = cardValue;
         this.cardSuit = cardSuit;
-        hidden = true;
     }
 
     /**

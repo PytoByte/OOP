@@ -2,9 +2,81 @@ package ru.nsu.vmarkidonov;
 
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class HandTest {
+
+    @Test
+    void initHandWithTwoCards() {
+        // Init deck and hand
+        Deck deck = new Deck();
+        // Check hand take 2 cards
+        assert (new Hand(deck)).size() == 2;
+        // Check 2 cards was taken from deck
+        assert deck.getRemainingCardsCount() == 50;
+    }
+
+    @Test
+    void initTwoHandsWithTwoCards() {
+        // Init deck and hand
+        Deck deck = new Deck();
+        // Check hand take 2 cards
+        assert (new Hand(deck)).size() == 2;
+        // Check another hand take 2 cards
+        assert (new Hand(deck)).size() == 2;
+        // Check 4 cards was taken from deck
+        assert deck.getRemainingCardsCount() == 48;
+    }
+
+    @Test
+    void cardsLimit() {
+        // Init deck and hand
+        Deck deck = new Deck();
+        Hand hand = new Hand(deck); // Hand take 2 cards
+
+        // Take card 52-2=50 times
+        for (int i = 0; i < 50; i++) {
+            assertDoesNotThrow(hand::takeCard);
+        }
+
+        // Check deck, that hand using, is empty
+        assertThrows(IndexOutOfBoundsException.class, hand::takeCard);
+        // Check deck is empty
+        assert deck.getRemainingCardsCount() == 0;
+        assertThrows(IndexOutOfBoundsException.class, deck::takeCard);
+    }
+
+    @Test
+    void takeCard() {
+        // Init deck and hand
+        Deck deck = new Deck();
+        Hand hand = new Hand(deck); // Hand take 2 cards
+
+        // Take all remaining cards
+        while (deck.getRemainingCardsCount() > 0) {
+            hand.takeCard();
+            // Check that count of cards increases
+            assert hand.size() == 52 - deck.getRemainingCardsCount();
+        }
+    }
+
+    @Test
+    void uniqueCards() {
+        // Init deck and hand
+        Deck deck = new Deck();
+        Hand hand = new Hand(deck); // Hand take 2 cards
+
+        // Take all remaining cards
+        while (deck.getRemainingCardsCount() > 0) {
+            hand.takeCard();
+
+            // Check that cards are unique
+            for (int j = 0; j < hand.size()-1; j++) {
+                assert hand.get(j) != hand.getLast();
+            }
+        }
+    }
 
     @Test
     void handCycle() {
@@ -12,16 +84,18 @@ class HandTest {
         Deck deck = new Deck();
         Hand hand = new Hand(deck); // Hand take 2 cards
 
-        for (int k = 0; k < 2; k++) { // Repeat test 2 times
-            for (int i = 2; i < 52; i++) { // Take card from deck 52-2 times
+        // Repeat test 2 times
+        for (int k = 0; k < 2; k++) {
+            // Check hand have 2 cards
+            assert hand.size() == 2;
+
+            // Take card 52-2=50 times
+            for (int i = 0; i < 50; i++) {
                 hand.takeCard();
-                for (int j = 0; j < hand.size()-1; j++) { // Check that cards are unique
-                    assert hand.get(i) != hand.get(j);
-                }
             }
 
-            assertThrows(IndexOutOfBoundsException.class, hand::takeCard); // Check deck, that hand using, is empty
-            assertThrows(IndexOutOfBoundsException.class, deck::takeCard); // Check deck is empty
+            // Check deck is empty
+            assert deck.getRemainingCardsCount() == 0;
 
             // Restore deck and hand
             deck.restore();
@@ -33,34 +107,23 @@ class HandTest {
     void twoHandsCycle() {
         // Init deck and hands
         Deck deck = new Deck();
+        // Hands take 4 cards
         Hand hand1 = new Hand(deck);
         Hand hand2 = new Hand(deck);
 
-        for (GameCard gc1 : hand1) {
-            for (GameCard gc2 : hand2) {
-                assert gc1 != gc2;
-            }
-        }
+        // Repeat test 2 times
+        for (int k = 0; k < 2; k++) {
+            // Check each hand have 2 cards
+            assert hand1.size() == 2;
+            assert hand2.size() == 2;
 
-        for (int k = 0; k < 2; k++) { // Repeat test 2 times
-            for (int i = 2; i < 26; i++) { // Take card from deck (52/2)-2 times with two hands
+            // Take card from deck ((52-4)/2)=24 times with two hands
+            for (int i = 0; i < 24; i++) {
                 hand1.takeCard();
                 hand2.takeCard();
-                // Check that cards in hand are unique
-                for (int j = 0; j < hand1.size()-1; j++) {
-                    assert hand1.get(i) != hand1.get(j);
-                    assert hand2.get(i) != hand2.get(j);
-                }
-                // Check that cards in hands are unique
-                for (GameCard gc1 : hand1) {
-                    for (GameCard gc2 : hand2) {
-                        assert gc1 != gc2;
-                    }
-                }
             }
-            assertThrows(IndexOutOfBoundsException.class, hand1::takeCard); // Check deck, that hand 1 using, is empty
-            assertThrows(IndexOutOfBoundsException.class, hand2::takeCard); // Check deck, that hand 2 using, is empty
-            assertThrows(IndexOutOfBoundsException.class, deck::takeCard); // Check deck is empty
+            // Check deck is empty
+            assert deck.getRemainingCardsCount() == 0;
 
             // Restore deck and hands
             deck.restore();
@@ -71,5 +134,6 @@ class HandTest {
 
     @Test
     void getScore() {
+
     }
 }

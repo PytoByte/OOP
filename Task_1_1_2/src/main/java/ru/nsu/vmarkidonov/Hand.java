@@ -7,7 +7,6 @@ import java.util.ArrayList;
  */
 public class Hand extends ArrayList<GameCard> {
     private Deck deck;
-    private int score = 0;
 
     Hand(Deck deck) {
         this.deck = deck;
@@ -37,8 +36,7 @@ public class Hand extends ArrayList<GameCard> {
      */
     public GameCard takeCard() {
         GameCard takenCard = deck.takeCard();
-        takenCard.initValue(score);
-        score += takenCard.getValue();
+        takenCard.initValue(getScore());
         this.add(takenCard);
 
         return takenCard;
