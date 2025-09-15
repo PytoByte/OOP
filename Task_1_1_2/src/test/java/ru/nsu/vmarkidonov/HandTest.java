@@ -72,8 +72,8 @@ class HandTest {
             hand.takeCard();
 
             // Check that cards are unique
-            for (int j = 0; j < hand.size()-1; j++) {
-                assert hand.get(j) != hand.get(hand.size()-1);
+            for (int j = 0; j < hand.size() - 1; j++) {
+                assert hand.get(j) != hand.get(hand.size() - 1);
             }
         }
     }

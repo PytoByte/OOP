@@ -20,7 +20,7 @@ public class Deck {
 
     /**
      * Get count of remaining cards in deck.
-     * 
+     *
      * @return Count of remaining cards in deck
      */
     public int getRemainingCardsCount() {
