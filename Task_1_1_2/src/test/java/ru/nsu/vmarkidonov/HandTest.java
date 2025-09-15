@@ -1,9 +1,9 @@
 package ru.nsu.vmarkidonov;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
 
 class HandTest {
 
@@ -73,7 +73,7 @@ class HandTest {
 
             // Check that cards are unique
             for (int j = 0; j < hand.size()-1; j++) {
-                assert hand.get(j) != hand.getLast();
+                assert hand.get(j) != hand.get(hand.size()-1);
             }
         }
     }

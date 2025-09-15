@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Representation of the card deck
+ * Representation of the card deck.
  */
 public class Deck {
     private final ArrayList<GameCard> cards = new ArrayList<>();
@@ -19,7 +19,7 @@ public class Deck {
     }
 
     /**
-     * Get count of remaining cards in deck
+     * Get count of remaining cards in deck.
      * @return Count of remaining cards in deck
      */
     public int getRemainingCardsCount() {
@@ -27,7 +27,7 @@ public class Deck {
     }
 
     /**
-     * Take card from deck
+     * Take card from deck.
      * @return Taken card
      */
     public GameCard takeCard() {
@@ -42,7 +42,7 @@ public class Deck {
     }
 
     /**
-     * Return taken cards to deck
+     * Return taken cards to deck.
      */
     public void restore() {
         for (GameCard gameCard : takenCards) {

@@ -1,8 +1,7 @@
 package ru.nsu.vmarkidonov;
 
 /**
- * Holds game state
- * and has methods for printing state
+ * Holds game state and has methods for printing state.
  */
 public class GameState {
     private final Deck deck = new Deck();
@@ -13,14 +12,14 @@ public class GameState {
     public int dealerWins = 0;
 
     /**
-     * Prints welcome message
+     * Prints welcome message.
      */
     public void printIntro() {
         System.out.println("Welcome to Blackjack!");
     }
 
     /**
-     * Prints start round message
+     * Prints start round message.
      */
     public void printRoundStart() {
         System.out.printf("\nRound %d\n", roundCount);
@@ -29,7 +28,7 @@ public class GameState {
     }
 
     /**
-     * Prints game state
+     * Prints game state.
      */
     public void printState() {
         System.out.printf("\tYour cards: %s\n", playerHand);
@@ -37,7 +36,7 @@ public class GameState {
     }
 
     /**
-     * Get current round number value
+     * Get current round number value.
      * @return Round number
      */
     public int getRoundCount() {
@@ -45,8 +44,7 @@ public class GameState {
     }
 
     /**
-     * Increment round counter and restore deck
-     * with reinitialisation of hands
+     * Increment round counter and restore deck with reinitialisation of hands.
      */
     public void nextRound() {
         roundCount++;

@@ -1,7 +1,7 @@
 package ru.nsu.vmarkidonov;
 
 /**
- * Representation of card
+ * Representation of card.
  */
 public class GameCard {
     private final CardValues cardValue;
@@ -15,7 +15,7 @@ public class GameCard {
     }
 
     /**
-     * Initialize card value depends on hand score
+     * Initialize card value depends on hand score.
      * @param currentScore Current score of hand
      */
     public void initValue(int currentScore) {
@@ -31,7 +31,7 @@ public class GameCard {
     }
 
     /**
-     * Get card value
+     * Get card value.
      * @return Card value or 0 if hidden
      */
     public int getValue() {
@@ -39,7 +39,7 @@ public class GameCard {
     }
 
     /**
-     * Sets card value to uninitialized and hide the card
+     * Sets card value to uninitialized and hide the card.
      */
     public void restore() {
         value = 0;
