@@ -2,7 +2,15 @@ package ru.nsu.vmarkidonov;
 
 import java.util.Scanner;
 
+/**
+ * Class that runs the game
+ */
 public class Main {
+    /**
+     * Run the game
+     *
+     * @param args args from terminal
+     */
     public static void main(String[] args) {
         GameState gameState = new GameState();
         Scanner in = new Scanner(System.in);
