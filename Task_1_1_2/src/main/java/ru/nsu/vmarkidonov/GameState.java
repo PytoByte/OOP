@@ -8,7 +8,7 @@ public class GameState {
     private final Deck deck = new Deck();
     public final Hand playerHand = new Hand(deck);
     public final Hand dealerHand = new Hand(deck);
-    private int roundCount = 0;
+    private int roundCount = 1;
     public int playerWins = 0;
     public int dealerWins = 0;
 
@@ -34,6 +34,14 @@ public class GameState {
     public void printState() {
         System.out.printf("\tYour cards: %s\n", playerHand);
         System.out.printf("\tDealer cards: %s\n", dealerHand);
+    }
+
+    /**
+     * Get current round number value
+     * @return Round number
+     */
+    public int getRoundCount() {
+        return roundCount;
     }
 
     /**

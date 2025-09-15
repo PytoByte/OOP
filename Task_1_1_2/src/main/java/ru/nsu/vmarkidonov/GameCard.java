@@ -23,7 +23,7 @@ public class GameCard {
             throw new IllegalStateException("Card value already initialized");
         }
 
-        if (currentScore + cardValue.primaryValue > 21) {
+        if (currentScore + cardValue.primaryValue < 21) {
             value = cardValue.primaryValue;
         } else {
             value = cardValue.alternativeValue;

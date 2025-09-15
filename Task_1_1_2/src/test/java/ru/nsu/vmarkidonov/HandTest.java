@@ -134,6 +134,26 @@ class HandTest {
 
     @Test
     void getScore() {
+        // Init deck and hand
+        Deck deck = new Deck();
+        Hand hand = new Hand(deck); // Hand take 2 cards
 
+        for (GameCard gameCard : hand) {
+            gameCard.hidden = false;
+        }
+
+        int handScore = hand.getScore();
+
+        // Count with myself
+        int myScore = 0;
+        for (GameCard gameCard : hand) {
+            gameCard.restore();
+            gameCard.hidden = false;
+            gameCard.initValue(myScore);
+            myScore += gameCard.getValue();
+        }
+
+        // Test method
+        assert handScore == myScore;
     }
 }
