@@ -32,6 +32,7 @@ public class Hand extends ArrayList<GameCard> {
 
     /**
      * Take one card from deck and add it to hand.
+     *
      * @return Card taken from deck
      */
     public GameCard takeCard() {
@@ -44,6 +45,7 @@ public class Hand extends ArrayList<GameCard> {
 
     /**
      * Get sum of all cards values.
+     *
      * @return Sum of all cards values or 0 if it has hidden cards
      */
     public int getScore() {

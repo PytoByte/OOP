@@ -16,6 +16,7 @@ public class GameCard {
 
     /**
      * Initialize card value depends on hand score.
+     *
      * @param currentScore Current score of hand
      */
     public void initValue(int currentScore) {
@@ -32,6 +33,7 @@ public class GameCard {
 
     /**
      * Get card value.
+     *
      * @return Card value or 0 if hidden
      */
     public int getValue() {

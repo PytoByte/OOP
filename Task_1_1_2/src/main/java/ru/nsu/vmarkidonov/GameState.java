@@ -37,6 +37,7 @@ public class GameState {
 
     /**
      * Get current round number value.
+     *
      * @return Round number
      */
     public int getRoundCount() {

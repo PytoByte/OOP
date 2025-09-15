@@ -20,6 +20,7 @@ public class Deck {
 
     /**
      * Get count of remaining cards in deck.
+     * 
      * @return Count of remaining cards in deck
      */
     public int getRemainingCardsCount() {
@@ -28,6 +29,7 @@ public class Deck {
 
     /**
      * Take card from deck.
+     *
      * @return Taken card
      */
     public GameCard takeCard() {
