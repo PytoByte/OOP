@@ -3,11 +3,11 @@ package ru.nsu.vmarkidonov;
 import java.util.Scanner;
 
 /**
- * Class that runs the game
+ * Class that runs the game.
  */
 public class Main {
     /**
-     * Run the game
+     * Run the game.
      *
      * @param args args from terminal
      */
