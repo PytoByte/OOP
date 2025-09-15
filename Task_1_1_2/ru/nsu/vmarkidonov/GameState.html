@@ -76,8 +76,7 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">GameState</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
-<div class="block">Holds game state
- and has methods for printing state</div>
+<div class="block">Holds game state and has methods for printing state.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -129,26 +128,30 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#nextRound()" class="member-name-link">nextRound</a>()</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRoundCount()" class="member-name-link">getRoundCount</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Increment round counter and restore deck
- with reinitialisation of hands</div>
+<div class="block">Get current round number value.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#printIntro()" class="member-name-link">printIntro</a>()</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#nextRound()" class="member-name-link">nextRound</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Prints welcome message</div>
+<div class="block">Increment round counter and restore deck with reinitialisation of hands.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#printRoundStart()" class="member-name-link">printRoundStart</a>()</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#printIntro()" class="member-name-link">printIntro</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Prints start round message</div>
+<div class="block">Prints welcome message.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#printState()" class="member-name-link">printState</a>()</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#printRoundStart()" class="member-name-link">printRoundStart</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Prints game state</div>
+<div class="block">Prints start round message.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#printState()" class="member-name-link">printState</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Prints game state.</div>
 </div>
 </div>
 </div>
@@ -217,29 +220,39 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="printIntro()">
 <h3>printIntro</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">printIntro</span>()</div>
-<div class="block">Prints welcome message</div>
+<div class="block">Prints welcome message.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="printRoundStart()">
 <h3>printRoundStart</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">printRoundStart</span>()</div>
-<div class="block">Prints start round message</div>
+<div class="block">Prints start round message.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="printState()">
 <h3>printState</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">printState</span>()</div>
-<div class="block">Prints game state</div>
+<div class="block">Prints game state.</div>
+</section>
+</li>
+<li>
+<section class="detail" id="getRoundCount()">
+<h3>getRoundCount</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getRoundCount</span>()</div>
+<div class="block">Get current round number value.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>Round number</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="nextRound()">
 <h3>nextRound</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">nextRound</span>()</div>
-<div class="block">Increment round counter and restore deck
- with reinitialisation of hands</div>
+<div class="block">Increment round counter and restore deck with reinitialisation of hands.</div>
 </section>
 </li>
 </ul>
