@@ -1,30 +1,29 @@
 package ru.nsu.vmarkidonov;
 
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class DeckTest {
 
     @Test
     void cardsLimit() {
-        // Init deck
         Deck deck = new Deck();
 
-        // Take card from deck 52 times
         for (int i = 0; i < 52; i++) {
             assertDoesNotThrow(deck::takeCard);
         }
 
-        // Check deck is empty
-        assert deck.getRemainingCardsCount() == 0;
+        assertEquals(0, deck.getRemainingCardsCount());
         assertThrows(IndexOutOfBoundsException.class, deck::takeCard);
     }
 
     @Test
     void uniqueCards() {
-        // Init deck
         Deck deck = new Deck();
 
         // Take card from deck 52 times
@@ -32,58 +31,45 @@ class DeckTest {
         for (int i = 0; i < 52; i++) {
             gameCards[i] = deck.takeCard();
 
-            // Check that cards are unique
             for (int j = 0; j < i; j++) {
-                assert gameCards[i] != gameCards[j];
+                assertNotEquals(gameCards[i], gameCards[j]);
             }
         }
 
-        // Check deck is empty
-        assert deck.getRemainingCardsCount() == 0;
+        assertEquals(0, deck.getRemainingCardsCount());
     }
 
     @Test
     void deckCycle() {
-        // Init deck
         Deck deck = new Deck();
 
-        // Repeat test 2 times
         for (int k = 0; k < 2; k++) {
-            // Take card from deck 52 times
             for (int i = 0; i < 52; i++) {
                 deck.takeCard();
             }
 
-            // Check deck is empty
-            assert deck.getRemainingCardsCount() == 0;
+            assertEquals(0, deck.getRemainingCardsCount());
 
-            // Restore deck
             deck.restore();
         }
     }
 
     @Test
-    void memorySafe() {
-        // Init deck
+    void reusingSameCardObjects() {
         Deck deck = new Deck();
 
-        // Take card from deck 52 times
         GameCard[] gameCards = new GameCard[52];
         for (int i = 0; i < 52; i++) {
             gameCards[i] = deck.takeCard();
         }
 
-        // Check deck is empty
-        assert deck.getRemainingCardsCount() == 0;
+        assertEquals(0, deck.getRemainingCardsCount());
 
-        // Restore deck
         deck.restore();
 
-        // Take card from deck 52 times again
         for (int i = 0; i < 52; i++) {
             GameCard takenCard = deck.takeCard();
 
-            // Check takenCard pointer appeared in prev cycle
             int foundCard = 0;
             for (GameCard gameCard : gameCards) {
                 if (takenCard == gameCard) {
@@ -91,26 +77,23 @@ class DeckTest {
                     break;
                 }
             }
-            assert foundCard == 1;
+
+            assertEquals(1, foundCard);
         }
     }
 
     @Test
     void restoreCardState() {
-        // Init deck
         Deck deck = new Deck();
 
-        // Take card and change it's state
         GameCard gameCard = deck.takeCard();
         gameCard.hidden = false;
         gameCard.initValue(0);
 
-        // Restore deck
         deck.restore();
 
-        // Check card's state restored
-        assert gameCard.hidden;
+        assertTrue(gameCard.hidden);
         gameCard.hidden = false;
-        assert gameCard.getValue() == 0;
+        assertEquals(0, gameCard.getValue());
     }
 }

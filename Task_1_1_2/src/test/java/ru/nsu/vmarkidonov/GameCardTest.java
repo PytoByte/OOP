@@ -2,6 +2,9 @@ package ru.nsu.vmarkidonov;
 
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 class GameCardTest {
 
     @Test
@@ -9,9 +12,9 @@ class GameCardTest {
         GameCard gameCard = new GameCard(CardValues.TWO, CardSuits.CLUBS);
         gameCard.hidden = false;
 
-        assert gameCard.getValue() == 0;
+        assertEquals(0, gameCard.getValue());
         gameCard.initValue(0);
-        assert gameCard.getValue() == CardValues.TWO.primaryValue;
+        assertEquals(CardValues.TWO.primaryValue, gameCard.getValue());
     }
 
     @Test
@@ -19,9 +22,9 @@ class GameCardTest {
         GameCard gameCard = new GameCard(CardValues.ACE, CardSuits.CLUBS);
         gameCard.hidden = false;
 
-        assert gameCard.getValue() == 0;
+        assertEquals(0, gameCard.getValue());
         gameCard.initValue(20);
-        assert gameCard.getValue() == 1;
+        assertEquals(CardValues.ACE.alternativeValue, gameCard.getValue());
     }
 
     @Test
@@ -29,9 +32,9 @@ class GameCardTest {
         GameCard gameCard = new GameCard(CardValues.ACE, CardSuits.CLUBS);
         gameCard.hidden = false;
 
-        assert gameCard.getValue() == 0;
+        assertEquals(0, gameCard.getValue());
         gameCard.initValue(0);
-        assert gameCard.getValue() == 11;
+        assertEquals(CardValues.ACE.primaryValue, gameCard.getValue());
     }
 
     @Test
@@ -39,18 +42,18 @@ class GameCardTest {
         GameCard gameCard = new GameCard(CardValues.JACK, CardSuits.CLUBS);
         gameCard.hidden = false;
 
-        assert gameCard.getValue() == 0;
+        assertEquals(0, gameCard.getValue());
         gameCard.initValue(20);
-        assert gameCard.getValue() == 10;
+        assertEquals(CardValues.JACK.primaryValue, gameCard.getValue());
     }
 
     @Test
-    void initValueButCardHidden() {
+    void getValueButCardHidden() {
         GameCard gameCard = new GameCard(CardValues.JACK, CardSuits.CLUBS);
 
-        assert gameCard.getValue() == 0;
+        assertEquals(0, gameCard.getValue());
         gameCard.initValue(0);
-        assert gameCard.getValue() == 0;
+        assertEquals(0, gameCard.getValue());
     }
 
     @Test
@@ -60,8 +63,7 @@ class GameCardTest {
         gameCard.initValue(0);
 
         gameCard.restore();
-
-        assert gameCard.hidden;
-        assert gameCard.getValue() == 0;
+        assertTrue(gameCard.hidden);
+        assertEquals(0, gameCard.getValue());
     }
 }

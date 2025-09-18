@@ -11,28 +11,8 @@ public class GameState {
     public int playerWins = 0;
     public int dealerWins = 0;
 
-    /**
-     * Prints welcome message.
-     */
-    public void printIntro() {
-        System.out.println("Welcome to Blackjack!");
-    }
-
-    /**
-     * Prints start round message.
-     */
-    public void printRoundStart() {
-        System.out.printf("\nRound %d\n", roundCount);
-        System.out.printf("Score: player: %d | dealer %d\n", playerWins, dealerWins);
-        System.out.println("The dealer has dealt the cards");
-    }
-
-    /**
-     * Prints game state.
-     */
-    public void printState() {
-        System.out.printf("\tYour cards: %s\n", playerHand);
-        System.out.printf("\tDealer cards: %s\n", dealerHand);
+    GameState() {
+        initHandsCards();
     }
 
     /**
@@ -45,6 +25,16 @@ public class GameState {
     }
 
     /**
+     * Show all player cards and one dealer card.
+     */
+    private void initHandsCards() {
+        for (GameCard gameCard : playerHand) {
+            gameCard.hidden = false;
+        }
+        dealerHand.get(0).hidden = false;
+    }
+
+    /**
      * Increment round counter and restore deck with reinitialisation of hands.
      */
     public void nextRound() {
@@ -52,5 +42,6 @@ public class GameState {
         deck.restore();
         playerHand.reinit();
         dealerHand.reinit();
+        initHandsCards();
     }
 }

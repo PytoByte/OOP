@@ -1,14 +1,15 @@
 package ru.nsu.vmarkidonov;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Random;
 
 /**
  * Representation of the card deck.
  */
 public class Deck {
-    private final ArrayList<GameCard> cards = new ArrayList<>();
-    private final ArrayList<GameCard> takenCards = new ArrayList<>();
+    private final LinkedList<GameCard> cards = new LinkedList<>();
+    private final LinkedList<GameCard> takenCards = new LinkedList<>();
 
     Deck() {
         for (CardValues cardValue : CardValues.values()) {
