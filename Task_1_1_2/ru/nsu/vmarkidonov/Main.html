@@ -105,9 +105,35 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#main(java.lang.String%5B%5D)" class="member-name-link">main</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]&nbsp;args)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#dealerTurn(ru.nsu.vmarkidonov.GameState)" class="member-name-link">dealerTurn</a><wbr>(<a href="GameState.html" title="class in ru.nsu.vmarkidonov">GameState</a>&nbsp;gameState)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Dealer turn logic.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#main(java.lang.String%5B%5D)" class="member-name-link">main</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]&nbsp;args)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Run the game.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#playerTurn(ru.nsu.vmarkidonov.GameState,java.util.Scanner)" class="member-name-link">playerTurn</a><wbr>(<a href="GameState.html" title="class in ru.nsu.vmarkidonov">GameState</a>&nbsp;gameState,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Scanner.html" title="class or interface in java.util" class="external-link">Scanner</a>&nbsp;in)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Player turn logic.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#printIntro()" class="member-name-link">printIntro</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Prints welcome message.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#printRoundStart(ru.nsu.vmarkidonov.GameState)" class="member-name-link">printRoundStart</a><wbr>(<a href="GameState.html" title="class in ru.nsu.vmarkidonov">GameState</a>&nbsp;gameState)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Prints start round message.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#printState(ru.nsu.vmarkidonov.GameState)" class="member-name-link">printState</a><wbr>(<a href="GameState.html" title="class in ru.nsu.vmarkidonov">GameState</a>&nbsp;gameState)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Prints game state.</div>
 </div>
 </div>
 </div>
@@ -149,6 +175,51 @@ loadScripts(document, 'script');</script>
 <dt>Parameters:</dt>
 <dd><code>args</code> - args from terminal</dd>
 </dl>
+</section>
+</li>
+<li>
+<section class="detail" id="playerTurn(ru.nsu.vmarkidonov.GameState,java.util.Scanner)">
+<h3>playerTurn</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">playerTurn</span><wbr><span class="parameters">(<a href="GameState.html" title="class in ru.nsu.vmarkidonov">GameState</a>&nbsp;gameState,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Scanner.html" title="class or interface in java.util" class="external-link">Scanner</a>&nbsp;in)</span></div>
+<div class="block">Player turn logic.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>gameState</code> - State of the game</dd>
+<dd><code>in</code> - Scanner, that allowing player make choices</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="dealerTurn(ru.nsu.vmarkidonov.GameState)">
+<h3>dealerTurn</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">dealerTurn</span><wbr><span class="parameters">(<a href="GameState.html" title="class in ru.nsu.vmarkidonov">GameState</a>&nbsp;gameState)</span></div>
+<div class="block">Dealer turn logic.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>gameState</code> - State of the game</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="printIntro()">
+<h3>printIntro</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">printIntro</span>()</div>
+<div class="block">Prints welcome message.</div>
+</section>
+</li>
+<li>
+<section class="detail" id="printRoundStart(ru.nsu.vmarkidonov.GameState)">
+<h3>printRoundStart</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">printRoundStart</span><wbr><span class="parameters">(<a href="GameState.html" title="class in ru.nsu.vmarkidonov">GameState</a>&nbsp;gameState)</span></div>
+<div class="block">Prints start round message.</div>
+</section>
+</li>
+<li>
+<section class="detail" id="printState(ru.nsu.vmarkidonov.GameState)">
+<h3>printState</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">printState</span><wbr><span class="parameters">(<a href="GameState.html" title="class in ru.nsu.vmarkidonov">GameState</a>&nbsp;gameState)</span></div>
+<div class="block">Prints game state.</div>
 </section>
 </li>
 </ul>
