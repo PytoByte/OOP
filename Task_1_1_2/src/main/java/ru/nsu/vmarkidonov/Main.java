@@ -55,7 +55,7 @@ public class Main {
      * Player turn logic.
      *
      * @param gameState State of the game
-     * @param in Scanner, that allowing player make choices
+     * @param in        Scanner, that allowing player make choices
      */
     public static void playerTurn(GameState gameState, Scanner in) {
         System.out.println("\nPlayer turn\n---");
@@ -120,7 +120,8 @@ public class Main {
      */
     public static void printRoundStart(GameState gameState) {
         System.out.printf("\nRound %d\n", gameState.getRoundCount());
-        System.out.printf("Score: player: %d | dealer %d\n", gameState.playerWins, gameState.dealerWins);
+        System.out.printf("Score: player: %d | dealer %d\n",
+                gameState.playerWins, gameState.dealerWins);
         System.out.println("The dealer has dealt the cards");
     }
 
