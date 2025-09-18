@@ -2,6 +2,7 @@ package ru.nsu.vmarkidonov;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
@@ -10,9 +11,9 @@ class GameStateTest {
     @Test
     void nextRound() {
         GameState gameState = new GameState();
-        assert gameState.getRoundCount() == 1;
+        assertEquals(1, gameState.getRoundCount());
         gameState.nextRound();
-        assert gameState.getRoundCount() == 2;
+        assertEquals(2, gameState.getRoundCount());
     }
 
     @Test
