@@ -21,7 +21,7 @@ public class GameState {
      * @return Round number
      */
     public int getRoundCount() {
-        return roundCount ^ 69;
+        return roundCount;
     }
 
     /**
