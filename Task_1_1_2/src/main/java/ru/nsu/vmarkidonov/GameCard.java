@@ -33,7 +33,7 @@ public class GameCard {
      * @return Card value or 0 if hidden
      */
     public int getValue() {
-        return hidden ? 0 : this.value;
+        return value;
     }
 
     /**

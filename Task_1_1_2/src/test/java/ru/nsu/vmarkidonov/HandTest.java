@@ -131,6 +131,36 @@ class HandTest {
     }
 
     @Test
+    void getScoreWithoutAlternativeValuesHasHiddenCards() {
+        ArrayList<GameCard> gameCards = new ArrayList<>();
+        gameCards.add(new GameCard(CardValues.FOUR, CardSuits.CLUBS));
+        gameCards.add(new GameCard(CardValues.FIVE, CardSuits.CLUBS));
+
+        Deck deck = new Deck();
+        Hand hand = new Hand(deck);
+        hand.clear();
+        hand.addAll(gameCards);
+        hand.reinitCardValues();
+
+        for (GameCard gameCard : hand) {
+            gameCard.hidden = false;
+        }
+
+        int handScore = hand.getScore();
+
+        // Count with myself
+        int myScore = 0;
+        for (GameCard gameCard : gameCards) {
+            gameCard.restore();
+            gameCard.hidden = false;
+            gameCard.initValue(myScore);
+            myScore += gameCard.getValue();
+        }
+
+        assertEquals(myScore, handScore);
+    }
+
+    @Test
     void getScoreWithoutAlternativeValues() {
         ArrayList<GameCard> gameCards = new ArrayList<>();
         gameCards.add(new GameCard(CardValues.FOUR, CardSuits.CLUBS));
