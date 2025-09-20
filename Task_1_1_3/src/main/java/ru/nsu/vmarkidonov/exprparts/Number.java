@@ -1,9 +1,9 @@
-package ru.nsu.vmarkidonov.tokens;
+package ru.nsu.vmarkidonov.exprparts;
 
 import ru.nsu.vmarkidonov.Expression;
 
 public class Number extends Expression {
-    private final int num;
+    public final int num;
 
     public Number(int num) {
         this.num = num;

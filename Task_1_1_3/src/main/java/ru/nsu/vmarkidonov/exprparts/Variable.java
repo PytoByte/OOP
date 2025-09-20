@@ -1,11 +1,11 @@
-package ru.nsu.vmarkidonov.tokens;
+package ru.nsu.vmarkidonov.exprparts;
 
 import ru.nsu.vmarkidonov.Expression;
 
 import java.util.NoSuchElementException;
 
 public class Variable extends Expression {
-    private final String var;
+    public final String var;
 
     public Variable(String var) {
         this.var = var;

@@ -6,4 +6,8 @@ public abstract class Expression {
     public abstract Expression derivative(String var);
 
     public abstract Expression clone();
+
+    public void print() {
+        System.out.print(this.toString());
+    }
 }

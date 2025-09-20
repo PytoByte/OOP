@@ -1,10 +1,10 @@
-package ru.nsu.vmarkidonov.tokens;
+package ru.nsu.vmarkidonov.exprparts;
 
 import ru.nsu.vmarkidonov.Expression;
 
 public class Mul extends Expression {
-    private final Expression exp1;
-    private final Expression exp2;
+    public final Expression exp1;
+    public final Expression exp2;
 
     public Mul(Expression exp1, Expression exp2) {
         this.exp1 = exp1;
