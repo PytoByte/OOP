@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
@@ -37,6 +38,12 @@ class HandTest {
         assertEquals(3, hand.size());
         hand.reinit();
         assertEquals(2, hand.size());
+        for (GameCard gameCard : hand) {
+            assertTrue(gameCard.hidden);
+        }
+        while (deck.getRemainingCardsCount() > 0) {
+            assertTrue(deck.takeCard().hidden);
+        }
     }
 
     @Test
