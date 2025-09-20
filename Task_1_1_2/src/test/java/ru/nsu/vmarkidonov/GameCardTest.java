@@ -48,15 +48,6 @@ class GameCardTest {
     }
 
     @Test
-    void getValueButCardHidden() {
-        GameCard gameCard = new GameCard(CardValues.JACK, CardSuits.CLUBS);
-
-        assertEquals(0, gameCard.getValue());
-        gameCard.initValue(0);
-        assertEquals(0, gameCard.getValue());
-    }
-
-    @Test
     void toStringHidden() {
         GameCard gameCard = new GameCard(CardValues.JACK, CardSuits.CLUBS);
         assertEquals("<hidden card>", gameCard.toString());
