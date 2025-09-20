@@ -4,8 +4,8 @@ package ru.nsu.vmarkidonov;
  * Representation of card.
  */
 public class GameCard {
-    private final CardValues cardValue;
-    private final CardSuits cardSuit;
+    public final CardValues cardValue;
+    public final CardSuits cardSuit;
     private int value = 0;
     public boolean hidden = true;
 
@@ -20,10 +20,6 @@ public class GameCard {
      * @param currentScore Current score of hand
      */
     public void initValue(int currentScore) {
-        if (value > 0) {
-            throw new IllegalStateException("Card value already initialized");
-        }
-
         if (currentScore + cardValue.primaryValue < 21) {
             value = cardValue.primaryValue;
         } else {

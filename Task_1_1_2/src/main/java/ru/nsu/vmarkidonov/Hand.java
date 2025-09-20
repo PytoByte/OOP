@@ -25,9 +25,9 @@ public class Hand extends ArrayList<GameCard> {
      * Take two cards from deck.
      */
     private void takeTwoCards() {
-        for (int i = 0; i < 2; i++) {
-            takeCard();
-        }
+        this.add(deck.takeCard());
+        this.add(deck.takeCard());
+        reinitCardValues();
     }
 
     /**
@@ -37,10 +37,31 @@ public class Hand extends ArrayList<GameCard> {
      */
     public GameCard takeCard() {
         GameCard takenCard = deck.takeCard();
-        takenCard.initValue(getScore());
         this.add(takenCard);
-
+        reinitCardValues();
         return takenCard;
+    }
+
+    /**
+     * Reinit hand's cards values.
+     */
+    public void reinitCardValues() {
+        ArrayList<GameCard> softCards = new ArrayList<>();
+        int score = 0;
+        for (GameCard gameCard : this) {
+            if (gameCard.cardValue.primaryValue != gameCard.cardValue.alternativeValue) {
+                softCards.add(gameCard);
+                continue;
+            }
+
+            gameCard.initValue(score);
+            score += gameCard.getValue();
+        }
+
+        for (GameCard softCard : softCards) {
+            softCard.initValue(score);
+            score += softCard.getValue();
+        }
     }
 
     /**
@@ -51,7 +72,7 @@ public class Hand extends ArrayList<GameCard> {
     public int getScore() {
         int score = 0;
         for (GameCard gameCard : this) {
-            if (gameCard.getValue() == 0) {
+            if (gameCard.hidden) {
                 return 0;
             }
             score += gameCard.getValue();

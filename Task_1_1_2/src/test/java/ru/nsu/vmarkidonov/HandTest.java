@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 class HandTest {
 
     @Test
@@ -30,6 +32,9 @@ class HandTest {
         Hand hand = new Hand(deck);
 
         hand.takeCard();
+        for (GameCard gameCard : hand) {
+            gameCard.hidden = false;
+        }
         assertEquals(3, hand.size());
         hand.reinit();
         assertEquals(2, hand.size());
@@ -120,24 +125,104 @@ class HandTest {
     }
 
     @Test
-    void getScore() {
-        Deck deck = new Deck();
-        // Hand take 2 cards
-        Hand hand = new Hand(deck);
+    void getScoreWithoutAlternativeValues() {
+        ArrayList<GameCard> gameCards = new ArrayList<>();
+        gameCards.add(new GameCard(CardValues.FOUR, CardSuits.CLUBS));
+        gameCards.add(new GameCard(CardValues.FIVE, CardSuits.CLUBS));
 
-        for (GameCard gameCard : hand) {
+        for (GameCard gameCard : gameCards) {
             gameCard.hidden = false;
         }
+
+        Deck deck = new Deck();
+        Hand hand = new Hand(deck);
+        hand.clear();
+        hand.addAll(gameCards);
+        hand.reinitCardValues();
 
         int handScore = hand.getScore();
 
         // Count with myself
         int myScore = 0;
-        for (GameCard gameCard : hand) {
+        for (GameCard gameCard : gameCards) {
             gameCard.restore();
             gameCard.hidden = false;
             gameCard.initValue(myScore);
             myScore += gameCard.getValue();
+        }
+
+        assertEquals(myScore, handScore);
+    }
+
+    @Test
+    void getScoreWithAlternativeValuesWithoutBust() {
+        ArrayList<GameCard> gameCards = new ArrayList<>();
+        gameCards.add(new GameCard(CardValues.FOUR, CardSuits.CLUBS));
+        gameCards.add(new GameCard(CardValues.ACE, CardSuits.CLUBS));
+
+        for (GameCard gameCard : gameCards) {
+            gameCard.hidden = false;
+        }
+
+        Deck deck = new Deck();
+        Hand hand = new Hand(deck);
+        hand.clear();
+        hand.addAll(gameCards);
+        hand.reinitCardValues();
+
+        int handScore = hand.getScore();
+
+        // Count with myself
+        int myScore = 0;
+        for (GameCard gameCard : gameCards) {
+            gameCard.restore();
+            gameCard.hidden = false;
+            gameCard.initValue(myScore);
+            myScore += gameCard.getValue();
+        }
+
+        assertEquals(myScore, handScore);
+    }
+
+    @Test
+    void getScoreWithAlternativeValuesWithBust() {
+        ArrayList<GameCard> gameCards = new ArrayList<>();
+        gameCards.add(new GameCard(CardValues.JACK, CardSuits.CLUBS));
+        gameCards.add(new GameCard(CardValues.KING, CardSuits.CLUBS));
+        gameCards.add(new GameCard(CardValues.ACE, CardSuits.CLUBS));
+
+        for (GameCard gameCard : gameCards) {
+            gameCard.hidden = false;
+        }
+
+        Deck deck = new Deck();
+        Hand hand = new Hand(deck);
+        hand.clear();
+        hand.addAll(gameCards);
+        hand.reinitCardValues();
+
+        int handScore = hand.getScore();
+
+        ArrayList<GameCard> softCards = new ArrayList<>();
+
+        // Count with myself
+        int myScore = 0;
+        for (GameCard gameCard : gameCards) {
+            gameCard.restore();
+            gameCard.hidden = false;
+
+            if (gameCard.cardValue.primaryValue != gameCard.cardValue.alternativeValue) {
+                softCards.add(gameCard);
+                continue;
+            }
+
+            gameCard.initValue(myScore);
+            myScore += gameCard.getValue();
+        }
+
+        for (GameCard softCard : softCards) {
+            softCard.initValue(myScore);
+            myScore += softCard.getValue();
         }
 
         assertEquals(myScore, handScore);
