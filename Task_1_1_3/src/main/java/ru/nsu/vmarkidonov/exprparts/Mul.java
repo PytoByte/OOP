@@ -2,7 +2,7 @@ package ru.nsu.vmarkidonov.exprparts;
 
 import ru.nsu.vmarkidonov.Expression;
 
-public class Mul extends Expression {
+public class Mul extends Operator {
     public Expression exp1;
     public Expression exp2;
 

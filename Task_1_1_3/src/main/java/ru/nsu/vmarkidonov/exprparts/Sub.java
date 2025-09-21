@@ -2,7 +2,7 @@ package ru.nsu.vmarkidonov.exprparts;
 
 import ru.nsu.vmarkidonov.Expression;
 
-public class Sub extends Expression {
+public class Sub extends Operator {
     public Expression exp1;
     public Expression exp2;
 

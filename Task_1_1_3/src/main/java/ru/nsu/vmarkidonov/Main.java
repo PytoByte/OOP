@@ -1,5 +1,6 @@
 package ru.nsu.vmarkidonov;
 
+import jdk.jfr.Experimental;
 import ru.nsu.vmarkidonov.exprparts.Add;
 import ru.nsu.vmarkidonov.exprparts.Mul;
 import ru.nsu.vmarkidonov.exprparts.Variable;
@@ -16,6 +17,8 @@ public class Main {
         System.out.println(e);
         System.out.println(e.eval("x = 10; y = 20"));
         System.out.println(e.derivative("x"));
-        Parser.parseExpression("1+2*3+4-5/5");
+        e = Parser.parseExpression("1+1+1");
+
+        System.out.println(e);
     }
 }
