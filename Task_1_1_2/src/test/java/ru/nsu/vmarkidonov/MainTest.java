@@ -10,6 +10,6 @@ class MainTest {
     void dealerTurn() {
         GameState gameState = new GameState();
         Main.dealerTurn(gameState);
-        assertTrue(gameState.dealerHand.getScore() > Main.dealerScoreStrategy);
+        assertTrue(gameState.dealerHand.getScore() > Main.DEALER_SCORE_STRATEGY);
     }
 }
