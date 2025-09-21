@@ -3,8 +3,8 @@ package ru.nsu.vmarkidonov.exprparts;
 import ru.nsu.vmarkidonov.Expression;
 
 public class Sub extends Expression {
-    public final Expression exp1;
-    public final Expression exp2;
+    public Expression exp1;
+    public Expression exp2;
 
     public Sub(Expression exp1, Expression exp2) {
         this.exp1 = exp1;
