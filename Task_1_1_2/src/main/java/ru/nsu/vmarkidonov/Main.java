@@ -7,7 +7,7 @@ import java.util.Scanner;
  */
 public class Main {
     public static final int SCORE_LIMIT = 21;
-    public static final int DEALER_SCORE_STRATEGY = 21;
+    public static final int DEALER_SCORE_STRATEGY = 17;
 
     /**
      * Run the game.
