@@ -40,7 +40,7 @@ public class Parser {
             System.out.println("parse operator");
 
             boolean seenOperator = false;
-            while (expString.charAt(i) == '+') {
+            while (TokenType.isOperator(expString.charAt(i))) {
                 if (seenOperator) {
                     throw new RuntimeException("Unexpected operator while parsing expression");
                 }
@@ -51,14 +51,19 @@ public class Parser {
                 }
             }
             if (lexStart != i) {
-                tokenStack.push(new Token(TokenType.ADD, expString.substring(lexStart, i)));
+                tokenStack.push(
+                        new Token(
+                                TokenType.matchOperator(expString.charAt(lexStart)),
+                                expString.substring(lexStart, i)
+                        )
+                );
                 i--;
                 continue;
             }
 
             System.out.println("parse variable");
 
-            while (expString.charAt(i) != '+') {
+            while (expString.charAt(i) != '+' && !Character.isWhitespace(expString.charAt(i))) {
                 i++;
                 if (i >= expString.length()) {
                     break;
@@ -72,7 +77,7 @@ public class Parser {
         }
 
         for (Token token : tokenStack) {
-            System.out.println(token.lexeme());
+            System.out.printf("%s %s\n", token.type().toString(), token.lexeme());
         }
 
         return new Number(0);

@@ -8,5 +8,22 @@ public enum TokenType {
     SUB,
     VARIABLE,
     LBR,
-    RBR
+    RBR;
+
+    public static boolean isOperator(char c) {
+        return switch (c) {
+            case '+', '-', '*', '/'-> true;
+            default -> false;
+        };
+    }
+
+    public static TokenType matchOperator(char c) {
+        return switch (c) {
+            case '+' -> ADD;
+            case '-' -> SUB;
+            case '*' -> MUL;
+            case '/' -> DIV;
+            default -> throw new RuntimeException("Can't match operator");
+        };
+    }
 }

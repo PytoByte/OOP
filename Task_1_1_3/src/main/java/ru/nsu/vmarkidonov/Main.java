@@ -16,6 +16,6 @@ public class Main {
         System.out.println(e);
         System.out.println(e.eval("x = 10; y = 20"));
         System.out.println(e.derivative("x"));
-        Parser.parseExpression("1+2+3+4");
+        Parser.parseExpression("1+2*3+4-5/5");
     }
 }
