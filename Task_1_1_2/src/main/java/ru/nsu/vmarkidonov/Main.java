@@ -6,8 +6,8 @@ import java.util.Scanner;
  * Class that runs the game.
  */
 public class Main {
-    public static final int scoreLimit = 21;
-    public static final int dealerScoreStrategy = 21;
+    public static final int SCORE_LIMIT = 21;
+    public static final int DEALER_SCORE_STRATEGY = 21;
 
     /**
      * Run the game.
@@ -25,12 +25,12 @@ public class Main {
 
             playerTurn(gameState, in);
 
-            if (gameState.playerHand.getScore() > scoreLimit) {
+            if (gameState.playerHand.getScore() > SCORE_LIMIT) {
                 System.out.println("Bust, Dealer won!");
                 gameState.dealerWins++;
                 gameState.nextRound();
                 continue;
-            } else if (gameState.playerHand.getScore() == scoreLimit) {
+            } else if (gameState.playerHand.getScore() == SCORE_LIMIT) {
                 System.out.println("Blackjack, You won!");
                 gameState.playerWins++;
                 gameState.nextRound();
@@ -39,7 +39,7 @@ public class Main {
 
             dealerTurn(gameState);
 
-            if (gameState.dealerHand.getScore() > scoreLimit) {
+            if (gameState.dealerHand.getScore() > SCORE_LIMIT) {
                 System.out.println("Bust, You won!");
                 gameState.playerWins++;
             } else if (gameState.playerHand.getScore() > gameState.dealerHand.getScore()) {
@@ -65,11 +65,11 @@ public class Main {
         while (true) {
             printState(gameState);
 
-            if (gameState.playerHand.getScore() == scoreLimit) {
+            if (gameState.playerHand.getScore() == SCORE_LIMIT) {
                 break;
             }
 
-            if (gameState.playerHand.getScore() > scoreLimit) {
+            if (gameState.playerHand.getScore() > SCORE_LIMIT) {
                 break;
             }
 
@@ -102,7 +102,7 @@ public class Main {
             }
         }
 
-        while (gameState.dealerHand.getScore() < dealerScoreStrategy) {
+        while (gameState.dealerHand.getScore() < DEALER_SCORE_STRATEGY) {
             GameCard newCard = gameState.dealerHand.takeCard();
             newCard.hidden = false;
             System.out.printf("Dealer took new card: %s\n", newCard);
