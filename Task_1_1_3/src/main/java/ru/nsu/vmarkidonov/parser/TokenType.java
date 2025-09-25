@@ -1,19 +1,22 @@
 package ru.nsu.vmarkidonov.parser;
 
 public enum TokenType {
-    ADD(2),
-    DIV(1),
-    MUL(1),
-    NUMBER(3),
-    SUB(2),
-    VARIABLE(0),
-    LBR(0),
-    RBR(0);
+    ADD(2, 2),
+    DIV(1, 2),
+    MUL(1, 2),
+    NUMBER(3, 0),
+    SUB(2, 2),
+    VARIABLE(0, 0),
+    LBR(0, 0),
+    RBR(0, 0),
+    SUBEXP(0, 1);
 
     public final int priority;
+    public final int paramCount;
 
-    TokenType(int priority) {
+    TokenType(int priority, int paramCount) {
         this.priority = priority;
+        this.paramCount = paramCount;
     }
 
     public static boolean isBracket(char c) {
