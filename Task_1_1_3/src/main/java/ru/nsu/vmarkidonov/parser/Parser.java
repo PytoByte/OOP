@@ -99,13 +99,12 @@ public class Parser {
             if (token.type == TokenType.LBR) {
                 tokenTreeStack.push(null);
             } else if (token.type == TokenType.RBR) {
-                Token subToken = tokenTreeStack.pop();
+                Token subToken = new Token(TokenType.SUBEXP, "");
+                subToken.push(tokenTreeStack.pop());
                 Token currentToken = tokenTreeStack.pop();
 
                 if (currentToken == null) {
-                    currentToken = new Token(TokenType.SUBEXP, "");
-                    currentToken.push(subToken);
-                    tokenTreeStack.push(currentToken);
+                    tokenTreeStack.push(subToken);
                     continue;
                 }
 
@@ -125,8 +124,8 @@ public class Parser {
                     currentToken = token;
                 } else if (token.type.paramCount == 0) {
                     Token iterToken = currentToken;
-                    while (iterToken.params[1] != null) {
-                        iterToken = iterToken.params[1];
+                    while (iterToken.params[iterToken.type.paramCount-1] != null) {
+                        iterToken = iterToken.params[iterToken.type.paramCount-1];
                     }
                     iterToken.push(token);
                 } else if (currentToken.type.priority <= token.type.priority) {
@@ -134,8 +133,8 @@ public class Parser {
                     currentToken = token;
                 } else {
                     Token iterToken = currentToken;
-                    while (iterToken.params[1].type.paramCount != 0) {
-                        iterToken = iterToken.params[1];
+                    while (iterToken.params[iterToken.type.paramCount-1].type.paramCount > 1) {
+                        iterToken = iterToken.params[iterToken.type.paramCount-1];
                     }
                     Token secOp = iterToken.pop();
                     token.push(secOp);
@@ -145,7 +144,8 @@ public class Parser {
                 tokenTreeStack.push(currentToken);
             }
         }
-
-        return tokenTreeStack.pop().toExpression();
+        Token ttree = tokenTreeStack.pop();
+        System.out.println(ttree);
+        return ttree.toExpression();
     }
 }
