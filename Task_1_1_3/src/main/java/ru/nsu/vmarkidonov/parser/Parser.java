@@ -27,9 +27,9 @@ public class Parser {
 
                 tokenStack.push(
                         new Token(
-                            TokenType.matchBracket(expString.charAt(i)),
-                            expString.substring(lexStart, i+1),
-                            lexStart
+                                TokenType.matchBracket(expString.charAt(i)),
+                                expString.substring(lexStart, i + 1),
+                                lexStart
                         )
                 );
                 continue;
@@ -37,8 +37,8 @@ public class Parser {
 
             boolean seenDot = false;
             while (Character.isDigit(expString.charAt(i)) ||
-                            expString.charAt(i) == '.' ||
-                            expString.charAt(i) == '-') {
+                    expString.charAt(i) == '.' ||
+                    expString.charAt(i) == '-') {
                 if (expString.charAt(i) == '-' && !tokenStack.isEmpty()) {
                     if (tokenStack.peek().type == TokenType.RBR ||
                             tokenStack.peek().type == TokenType.NUMBER ||
@@ -158,8 +158,8 @@ public class Parser {
                 }
 
                 Token iterToken = currentToken;
-                while (iterToken.params[iterToken.type.paramCount-1] != null) {
-                    iterToken = iterToken.params[iterToken.type.paramCount-1];
+                while (iterToken.params[iterToken.type.paramCount - 1] != null) {
+                    iterToken = iterToken.params[iterToken.type.paramCount - 1];
                 }
                 iterToken.pushParam(subToken);
                 tokenTreeStack.push(currentToken);
@@ -173,8 +173,8 @@ public class Parser {
                     currentToken = token;
                 } else if (token.type.paramCount == 0) {
                     Token iterToken = currentToken;
-                    while (iterToken.params[iterToken.type.paramCount-1] != null) {
-                        iterToken = iterToken.params[iterToken.type.paramCount-1];
+                    while (iterToken.params[iterToken.type.paramCount - 1] != null) {
+                        iterToken = iterToken.params[iterToken.type.paramCount - 1];
                     }
                     iterToken.pushParam(token);
                 } else if (currentToken.type.priority <= token.type.priority) {
@@ -182,8 +182,8 @@ public class Parser {
                     currentToken = token;
                 } else {
                     Token iterToken = currentToken;
-                    while (iterToken.params[iterToken.type.paramCount-1].type.paramCount > 1) {
-                        iterToken = iterToken.params[iterToken.type.paramCount-1];
+                    while (iterToken.params[iterToken.type.paramCount - 1].type.paramCount > 1) {
+                        iterToken = iterToken.params[iterToken.type.paramCount - 1];
                     }
                     Token secOp = iterToken.popParam();
                     token.pushParam(secOp);

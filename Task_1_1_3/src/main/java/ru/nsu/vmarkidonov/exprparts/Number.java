@@ -31,7 +31,10 @@ public class Number extends Expression {
 
     @Override
     public String toString() {
-        return String.valueOf(num);
+        if (num >= 0) {
+            return String.valueOf(num);
+        }
+        return String.format("(%s)", num);
     }
 
     @Override
