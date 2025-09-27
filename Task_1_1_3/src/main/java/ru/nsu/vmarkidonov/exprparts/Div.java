@@ -2,7 +2,7 @@ package ru.nsu.vmarkidonov.exprparts;
 
 import ru.nsu.vmarkidonov.Expression;
 
-public class Div extends Operator {
+public class Div extends Expression {
     public Expression exp1;
     public Expression exp2;
 
@@ -12,13 +12,22 @@ public class Div extends Operator {
     }
 
     @Override
-    public int eval(String values) {
+    public double eval(String values) {
+        if (exp2.eval(values) == 0) {
+            throw new RuntimeException("Division by zero");
+        }
         return exp1.eval(values)/exp2.eval(values);
     }
 
     @Override
     public Expression derivative(String var) {
-        return new Div(new Sub(new Mul(exp1.derivative(var), exp2.clone()), new Mul(exp1.clone(), exp2.derivative(var))), new Mul(exp2.clone(), exp2.clone()));
+        return new Div(
+                new Sub(
+                        new Mul(exp1.derivative(var), exp2.clone()),
+                        new Mul(exp1.clone(), exp2.derivative(var))
+                ),
+                new Mul(exp2.clone(), exp2.clone())
+        );
     }
 
     @Override
@@ -27,7 +36,39 @@ public class Div extends Operator {
     }
 
     @Override
+    public Expression simplify() {
+        Expression exp1S = exp1.simplify();
+        Expression exp2S = exp2.simplify();
+
+        if (exp1S.getClass() == Number.class && exp2S.getClass() == Number.class) {
+            return new Number(eval(""));
+        } else if (exp1S.getClass() == Number.class && exp2S.getClass() == Variable.class) {
+            if (exp1S.eval("") == 0) {
+                return new Number(0);
+            }
+        } else if (exp1S.getClass() == Variable.class && exp2S.getClass() == Number.class) {
+            if (exp2S.eval("") == 0) {
+                throw new RuntimeException("Division by zero");
+            } else if (exp2S.eval("") == 1) {
+                return exp1.clone();
+            }
+        }
+
+        return new Div(exp1S, exp2S);
+    }
+
+    @Override
     public String toString() {
         return String.format("(%s/%s)", exp1, exp2);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+
+        Div other = (Div) obj;
+
+        return exp1.equals(other.exp1) && exp2.equals(other.exp2);
     }
 }

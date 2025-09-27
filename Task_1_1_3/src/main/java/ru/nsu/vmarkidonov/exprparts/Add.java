@@ -2,7 +2,9 @@ package ru.nsu.vmarkidonov.exprparts;
 
 import ru.nsu.vmarkidonov.Expression;
 
-public class Add extends Operator {
+import java.util.Objects;
+
+public class Add extends Expression {
     public Expression exp1;
     public Expression exp2;
 
@@ -12,7 +14,7 @@ public class Add extends Operator {
     }
 
     @Override
-    public int eval(String values) {
+    public double eval(String values) {
         return exp1.eval(values)+exp2.eval(values);
     }
 
@@ -27,7 +29,30 @@ public class Add extends Operator {
     }
 
     @Override
+    public Expression simplify() {
+        Expression exp1S = exp1.simplify();
+        Expression exp2S = exp2.simplify();
+
+        if (exp1S.getClass() == Number.class && exp2S.getClass() == Number.class) {
+            return new Number(eval(""));
+        }
+
+        return new Add(exp1S, exp2S);
+    }
+
+    @Override
     public String toString() {
         return String.format("(%s+%s)", exp1, exp2);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+
+        Add other = (Add) obj;
+
+        return (exp1.equals(other.exp1) && exp2.equals(other.exp2)) ||
+                (exp1.equals(other.exp2) && exp2.equals(other.exp1));
     }
 }

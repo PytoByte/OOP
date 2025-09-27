@@ -13,8 +13,9 @@ public class Main {
         System.out.println(e);
         System.out.println(e.eval("x = 10; y = 20"));
         System.out.println(e.derivative("x"));
-        e = Parser.parseExpression("999999+x+y-z*(56-0)/94794-88888/(345*890)");
-
+        e = Parser.parseExpression("999999+x+y-z*(56-0)/94794-88888.1314/(345*890)");
         System.out.println(e);
+        Expression e1 = e.simplify();
+        System.out.println(e1);
     }
 }

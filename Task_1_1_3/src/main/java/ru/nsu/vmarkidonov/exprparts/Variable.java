@@ -12,12 +12,12 @@ public class Variable extends Expression {
     }
 
     @Override
-    public int eval(String values) {
+    public double eval(String values) {
         String[] valuesArray = values.replaceAll("\\s", "").split(";");
         for (String pair : valuesArray) {
             String[] pairArray = pair.split("=");
             if (pairArray[0].strip().equals(var)) {
-                return Integer.parseInt(pairArray[1]);
+                return Double.parseDouble(pairArray[1]);
             }
         }
         throw new NoSuchElementException(String.format("Value for variable %s not found", var));
@@ -37,7 +37,22 @@ public class Variable extends Expression {
     }
 
     @Override
+    public Expression simplify() {
+        return this.clone();
+    }
+
+    @Override
     public String toString() {
         return var;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+
+        Variable other = (Variable) obj;
+
+        return other.var.equals(var);
     }
 }

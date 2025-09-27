@@ -42,7 +42,7 @@ public class Token {
             case MUL -> new Mul(exps[0], exps[1]);
             case DIV -> new Div(exps[0], exps[1]);
             case SUBEXP -> exps[0];
-            case NUMBER -> new Number(Integer.parseInt(lexeme));
+            case NUMBER -> new Number(Double.parseDouble(lexeme));
             case VARIABLE -> new Variable(lexeme);
             default -> null;
         };

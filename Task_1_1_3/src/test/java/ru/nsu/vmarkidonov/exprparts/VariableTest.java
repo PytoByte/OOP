@@ -24,13 +24,14 @@ class VariableTest {
     @Test
     void derivativeHasVar() {
         Expression exp = new Variable("x");
-        assertEquals("0", exp.derivative("x").toString());
+        Expression expected = new Number(0);
+        assertEquals(expected, exp.derivative("x"));
     }
 
     @Test
     void derivativeHasNotVar() {
         Expression exp = new Variable("x");
-        assertEquals("x", exp.derivative("y").toString());
+        assertEquals(exp, exp.derivative("y"));
     }
 
     @Test
@@ -43,5 +44,12 @@ class VariableTest {
     void testToString() {
         Expression exp = new Variable("x");
         assertEquals("x", exp.toString());
+    }
+
+    @Test
+    void simplify() {
+        Expression exp = new Variable("x");
+        Expression expS = exp.simplify();
+        assertEquals(exp, expS);
     }
 }

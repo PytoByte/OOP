@@ -144,8 +144,6 @@ public class Parser {
                 tokenTreeStack.push(currentToken);
             }
         }
-        Token ttree = tokenTreeStack.pop();
-        System.out.println(ttree);
-        return ttree.toExpression();
+        return tokenTreeStack.pop().toExpression();
     }
 }

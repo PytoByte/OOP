@@ -16,7 +16,8 @@ class AddTest {
     @Test
     void derivative() {
         Expression exp = new Add(new Number(1), new Variable("x"));
-        assertEquals("(0+0)", exp.derivative("x").toString());
+        Expression expected = new Add(new Number(0), new Number(0));
+        assertEquals(expected, exp.derivative("x"));
     }
 
     @Test
@@ -28,6 +29,27 @@ class AddTest {
     @Test
     void testToString() {
         Expression exp = new Add(new Number(1), new Number(1));
-        assertEquals("(1+1)", exp.toString());
+        assertEquals("(1.0+1.0)", exp.toString());
+    }
+
+    @Test
+    void simplifyNumbers() {
+        Expression exp = new Add(new Number(2), new Number(3));
+        Expression expS = exp.simplify();
+        assertEquals(new Number(5), expS);
+    }
+
+    @Test
+    void simplifyVariableLeft() {
+        Expression exp = new Add(new Variable("x"), new Number(3));
+        Expression expS = exp.simplify();
+        assertEquals(exp, expS);
+    }
+
+    @Test
+    void simplifyVariableRight() {
+        Expression exp = new Add(new Number(3), new Variable("x"));
+        Expression expS = exp.simplify();
+        assertEquals(exp, expS);
     }
 }

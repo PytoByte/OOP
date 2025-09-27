@@ -14,9 +14,22 @@ class DivTest {
     }
 
     @Test
+    void evalZeroRight() {
+        Expression exp = new Div(new Number(10), new Number(0));
+        assertThrows(RuntimeException.class, () -> exp.eval(""));
+    }
+
+    @Test
     void derivative() {
         Expression exp = new Div(new Number(1), new Variable("x"));
-        assertEquals("(((0*x)-(1*0))/(x*x))", exp.derivative("x").toString());
+        Expression expected = new Div(
+                new Sub(
+                    new Mul(new Number(0), new Variable("x")),
+                    new Mul(new Number(1), new Number(0))
+                ),
+                new Mul(new Variable("x"), new Variable("x"))
+        );
+        assertEquals(expected, exp.derivative("x"));
     }
 
     @Test
@@ -28,6 +41,47 @@ class DivTest {
     @Test
     void testToString() {
         Expression exp = new Div(new Number(1), new Number(1));
-        assertEquals("(1/1)", exp.toString());
+        assertEquals("(1.0/1.0)", exp.toString());
+    }
+
+    @Test
+    void simplifyNumbers() {
+        Expression exp = new Div(new Number(10), new Number(2));
+        Expression expS = exp.simplify();
+        assertEquals(new Number(5), expS);
+    }
+
+    @Test
+    void simplifyZeroLeft() {
+        Expression exp = new Div(new Number(0), new Variable("x"));
+        Expression expS = exp.simplify();
+        assertEquals(new Number(0), expS);
+    }
+
+    @Test
+    void simplifyZeroRight() {
+        Expression exp = new Div(new Variable("x"), new Number(0));
+        assertThrows(RuntimeException.class, exp::simplify);
+    }
+
+    @Test
+    void simplifyOneRight() {
+        Expression exp = new Div(new Variable("x"), new Number(1));
+        Expression expS = exp.simplify();
+        assertEquals(new Variable("x"), expS);
+    }
+
+    @Test
+    void simplifyVariableLeft() {
+        Expression exp = new Div(new Variable("x"), new Number(3));
+        Expression expS = exp.simplify();
+        assertEquals(exp, expS);
+    }
+
+    @Test
+    void simplifyVariableRight() {
+        Expression exp = new Div(new Number(3), new Variable("x"));
+        Expression expS = exp.simplify();
+        assertEquals(exp, expS);
     }
 }

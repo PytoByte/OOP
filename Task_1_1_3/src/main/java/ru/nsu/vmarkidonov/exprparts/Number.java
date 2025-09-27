@@ -3,14 +3,14 @@ package ru.nsu.vmarkidonov.exprparts;
 import ru.nsu.vmarkidonov.Expression;
 
 public class Number extends Expression {
-    public final int num;
+    public final double num;
 
-    public Number(int num) {
+    public Number(double num) {
         this.num = num;
     }
 
     @Override
-    public int eval(String values) {
+    public double eval(String values) {
         return num;
     }
 
@@ -25,7 +25,22 @@ public class Number extends Expression {
     }
 
     @Override
+    public Expression simplify() {
+        return this.clone();
+    }
+
+    @Override
     public String toString() {
         return String.valueOf(num);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+
+        Number other = (Number) obj;
+
+        return other.num == num;
     }
 }
