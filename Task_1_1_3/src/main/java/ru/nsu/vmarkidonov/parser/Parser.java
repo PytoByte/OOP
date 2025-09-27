@@ -1,14 +1,13 @@
 package ru.nsu.vmarkidonov.parser;
 
 import ru.nsu.vmarkidonov.Expression;
-import ru.nsu.vmarkidonov.exprparts.*;
-import ru.nsu.vmarkidonov.exprparts.Number;
 
 import java.util.Stack;
 
 public class Parser {
     public static Expression parseExpression(String expString) {
         Stack<Token> tokenStack = new Stack<>();
+        int openBracketsCount = 0;
         for (int i = 0; i < expString.length(); i++) {
             if (Character.isWhitespace(expString.charAt(i))) {
                 continue;
@@ -16,41 +15,79 @@ public class Parser {
 
             int lexStart = i;
 
-            System.out.println("parse br-s");
             if (TokenType.isBracket(expString.charAt(i))) {
-                tokenStack.push(new Token(
-                        TokenType.matchBracket(expString.charAt(i)),
-                        expString.substring(lexStart, i+1))
+                TokenType brType = TokenType.matchBracket(expString.charAt(i));
+                if (brType == TokenType.LBR) {
+                    openBracketsCount++;
+                } else if (brType == TokenType.RBR) {
+                    if (--openBracketsCount < 0) {
+                        throw new RuntimeException("Unexpected \")\"");
+                    }
+                }
+
+                tokenStack.push(
+                        new Token(
+                            TokenType.matchBracket(expString.charAt(i)),
+                            expString.substring(lexStart, i+1),
+                            lexStart
+                        )
                 );
                 continue;
             }
 
-            System.out.println("parse number");
             boolean seenDot = false;
-            while (Character.isDigit(expString.charAt(i)) || expString.charAt(i) == '.') {
+            while (Character.isDigit(expString.charAt(i)) ||
+                            expString.charAt(i) == '.' ||
+                            expString.charAt(i) == '-') {
+                if (expString.charAt(i) == '-' && !tokenStack.isEmpty()) {
+                    if (tokenStack.peek().type == TokenType.RBR ||
+                            tokenStack.peek().type == TokenType.NUMBER ||
+                            tokenStack.peek().type == TokenType.VARIABLE) {
+                        break;
+                    }
+                }
+
                 if (expString.charAt(i) == '.') {
                     if (seenDot) {
-                        throw new RuntimeException("Unexpected . while parsing number");
+                        throw new RuntimeException(
+                                String.format("Unexpected \".\" at pos %d", i)
+                        );
                     }
                     seenDot = true;
                 }
+
+                if (expString.charAt(i) == '-' && lexStart != i) {
+                    if (expString.charAt(lexStart) == '-') {
+                        throw new RuntimeException(
+                                String.format("Unexpected \"-\" at pos %d", i)
+                        );
+                    }
+                    break;
+                }
+
                 i++;
                 if (i >= expString.length()) {
                     break;
                 }
             }
             if (lexStart != i) {
-                tokenStack.push(new Token(TokenType.NUMBER, expString.substring(lexStart, i)));
+                tokenStack.push(
+                        new Token(
+                                TokenType.NUMBER,
+                                expString.substring(lexStart, i),
+                                lexStart
+                        )
+                );
                 i--;
                 continue;
             }
 
-            System.out.println("parse operator");
-
             boolean seenOperator = false;
             while (TokenType.isOperator(expString.charAt(i))) {
                 if (seenOperator) {
-                    throw new RuntimeException("Unexpected operator while parsing expression");
+                    throw new RuntimeException(
+                            String.format("Unexpected operator at pos %d", i)
+                    );
                 }
                 seenOperator = true;
                 i++;
@@ -62,14 +99,13 @@ public class Parser {
                 tokenStack.push(
                         new Token(
                                 TokenType.matchOperator(expString.charAt(lexStart)),
-                                expString.substring(lexStart, i)
+                                expString.substring(lexStart, i),
+                                lexStart
                         )
                 );
                 i--;
                 continue;
             }
-
-            System.out.println("parse variable");
 
             while (
                     !TokenType.isOperator(expString.charAt(i)) &&
@@ -82,14 +118,23 @@ public class Parser {
                 }
             }
             if (lexStart != i) {
-                tokenStack.push(new Token(TokenType.VARIABLE, expString.substring(lexStart, i)));
+                tokenStack.push(
+                        new Token(
+                                TokenType.VARIABLE,
+                                expString.substring(lexStart, i),
+                                lexStart
+                        )
+                );
                 i--;
-                continue;
             }
         }
 
+        if (openBracketsCount > 0) {
+            throw new RuntimeException("Not all brackets are closed");
+        }
+
         for (Token token : tokenStack) {
-            System.out.printf("%s %s\n", token.type.toString(), token.lexeme);
+            System.out.println(token);
         }
 
         Stack<Token> tokenTreeStack = new Stack<>();
@@ -99,8 +144,12 @@ public class Parser {
             if (token.type == TokenType.LBR) {
                 tokenTreeStack.push(null);
             } else if (token.type == TokenType.RBR) {
-                Token subToken = new Token(TokenType.SUBEXP, "");
-                subToken.push(tokenTreeStack.pop());
+                Token subToken = new Token(
+                        TokenType.SUBEXP,
+                        "",
+                        -1
+                );
+                subToken.pushParam(tokenTreeStack.pop());
                 Token currentToken = tokenTreeStack.pop();
 
                 if (currentToken == null) {
@@ -110,9 +159,9 @@ public class Parser {
 
                 Token iterToken = currentToken;
                 while (iterToken.params[iterToken.type.paramCount-1] != null) {
-                    iterToken = iterToken.params[1];
+                    iterToken = iterToken.params[iterToken.type.paramCount-1];
                 }
-                iterToken.push(subToken);
+                iterToken.pushParam(subToken);
                 tokenTreeStack.push(currentToken);
             } else {
                 Token currentToken = tokenTreeStack.pop();
@@ -120,25 +169,25 @@ public class Parser {
                 if (currentToken == null) {
                     currentToken = token;
                 } else if (currentToken.type.paramCount == 0) {
-                    token.push(currentToken);
+                    token.pushParam(currentToken);
                     currentToken = token;
                 } else if (token.type.paramCount == 0) {
                     Token iterToken = currentToken;
                     while (iterToken.params[iterToken.type.paramCount-1] != null) {
                         iterToken = iterToken.params[iterToken.type.paramCount-1];
                     }
-                    iterToken.push(token);
+                    iterToken.pushParam(token);
                 } else if (currentToken.type.priority <= token.type.priority) {
-                    token.push(currentToken);
+                    token.pushParam(currentToken);
                     currentToken = token;
                 } else {
                     Token iterToken = currentToken;
                     while (iterToken.params[iterToken.type.paramCount-1].type.paramCount > 1) {
                         iterToken = iterToken.params[iterToken.type.paramCount-1];
                     }
-                    Token secOp = iterToken.pop();
-                    token.push(secOp);
-                    iterToken.push(token);
+                    Token secOp = iterToken.popParam();
+                    token.pushParam(secOp);
+                    iterToken.pushParam(token);
                 }
 
                 tokenTreeStack.push(currentToken);
