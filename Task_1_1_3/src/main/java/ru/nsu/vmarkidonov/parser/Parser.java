@@ -205,7 +205,9 @@ public class Parser {
                     currentToken = token;
                 } else {
                     Token iterToken = currentToken;
-                    while (iterToken.type.paramCount == 2 && iterToken.params[iterToken.type.paramCount - 1].type.paramCount > 1) {
+                    while (iterToken.type.paramCount == 2
+                            && iterToken.params[iterToken.type.paramCount - 1].type.paramCount > 1
+                    ) {
                         iterToken = iterToken.params[iterToken.type.paramCount - 1];
                     }
                     if (iterToken.type.paramCount != 2) {

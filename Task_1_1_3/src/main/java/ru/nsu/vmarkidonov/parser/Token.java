@@ -17,7 +17,14 @@ public class Token {
     public final Token[] params;
     private int paramsSize = 0;
     private final int pos;
-    
+
+    /**
+     * Token for parser.
+     *
+     * @param type type of token
+     * @param lexeme substring, which represents the actual text of the token
+     * @param pos start position of lexeme in string
+     */
     public Token(TokenType type, String lexeme, int pos) {
         this.params = new Token[type.paramCount];
         this.type = type;
