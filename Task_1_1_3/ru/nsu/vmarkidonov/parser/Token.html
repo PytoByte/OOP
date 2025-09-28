@@ -93,12 +93,9 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color"><code>final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color"><code><a href="#lexeme" class="member-name-link">lexeme</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>final <a href="Token.html" title="class in ru.nsu.vmarkidonov.parser">Token</a>[]</code></div>
-<div class="col-second odd-row-color"><code><a href="#params" class="member-name-link">params</a></code></div>
+<div class="col-first odd-row-color"><code>final <a href="TokenType.html" title="enum class in ru.nsu.vmarkidonov.parser">TokenType</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#type" class="member-name-link">type</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
-<div class="col-first even-row-color"><code>final <a href="TokenType.html" title="enum class in ru.nsu.vmarkidonov.parser">TokenType</a></code></div>
-<div class="col-second even-row-color"><code><a href="#type" class="member-name-link">type</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
 </div>
 </section>
 </li>
@@ -110,11 +107,17 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(ru.nsu.vmarkidonov.parser.TokenType,java.lang.String,int)" class="member-name-link">Token</a><wbr>(<a href="TokenType.html" title="enum class in ru.nsu.vmarkidonov.parser">TokenType</a>&nbsp;type,
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;lexeme,
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(ru.nsu.vmarkidonov.parser.TokenType,char,int)" class="member-name-link">Token</a><wbr>(<a href="TokenType.html" title="enum class in ru.nsu.vmarkidonov.parser">TokenType</a>&nbsp;type,
+ char&nbsp;lexeme,
  int&nbsp;pos)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Token for parser.</div>
+<div class="block">Creates token from lexeme char.</div>
+</div>
+<div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(ru.nsu.vmarkidonov.parser.TokenType,java.lang.String,int)" class="member-name-link">Token</a><wbr>(<a href="TokenType.html" title="enum class in ru.nsu.vmarkidonov.parser">TokenType</a>&nbsp;type,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;lexeme,
+ int&nbsp;pos)</code></div>
+<div class="col-last odd-row-color">
+<div class="block">Creates token from lexeme string.</div>
 </div>
 </div>
 </section>
@@ -130,10 +133,20 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isComplete()" class="member-name-link">isComplete</a>()</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Token.html" title="class in ru.nsu.vmarkidonov.parser">Token</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getLastParam()" class="member-name-link">getLastParam</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Get last element of parameters array.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isComplete()" class="member-name-link">isComplete</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Checks if parameters array is full.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isOperator()" class="member-name-link">isOperator</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Checks if this token is operator.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Token.html" title="class in ru.nsu.vmarkidonov.parser">Token</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#popParam()" class="member-name-link">popParam</a>()</code></div>
@@ -182,12 +195,6 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">lexeme</span></div>
 </section>
 </li>
-<li>
-<section class="detail" id="params">
-<h3>params</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="Token.html" title="class in ru.nsu.vmarkidonov.parser">Token</a>[]</span>&nbsp;<span class="element-name">params</span></div>
-</section>
-</li>
 </ul>
 </section>
 </li>
@@ -202,7 +209,22 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">Token</span><wbr><span class="parameters">(<a href="TokenType.html" title="enum class in ru.nsu.vmarkidonov.parser">TokenType</a>&nbsp;type,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;lexeme,
  int&nbsp;pos)</span></div>
-<div class="block">Token for parser.</div>
+<div class="block">Creates token from lexeme string.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>type</code> - type of token</dd>
+<dd><code>lexeme</code> - substring, which represents the actual text of the token</dd>
+<dd><code>pos</code> - start position of lexeme in string</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="&lt;init&gt;(ru.nsu.vmarkidonov.parser.TokenType,char,int)">
+<h3>Token</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">Token</span><wbr><span class="parameters">(<a href="TokenType.html" title="enum class in ru.nsu.vmarkidonov.parser">TokenType</a>&nbsp;type,
+ char&nbsp;lexeme,
+ int&nbsp;pos)</span></div>
+<div class="block">Creates token from lexeme char.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>type</code> - type of token</dd>
@@ -235,6 +257,28 @@ loadScripts(document, 'script');</script>
 <h3>popParam</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Token.html" title="class in ru.nsu.vmarkidonov.parser">Token</a></span>&nbsp;<span class="element-name">popParam</span>()</div>
 <div class="block">Pops parameter from parameters array.</div>
+</section>
+</li>
+<li>
+<section class="detail" id="getLastParam()">
+<h3>getLastParam</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Token.html" title="class in ru.nsu.vmarkidonov.parser">Token</a></span>&nbsp;<span class="element-name">getLastParam</span>()</div>
+<div class="block">Get last element of parameters array.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>last element of parameters array</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="isOperator()">
+<h3>isOperator</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isOperator</span>()</div>
+<div class="block">Checks if this token is operator.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>true if operator, false overwise</dd>
+</dl>
 </section>
 </li>
 <li>

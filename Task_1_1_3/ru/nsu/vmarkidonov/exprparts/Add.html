@@ -50,7 +50,7 @@ loadScripts(document, 'script');</script>
 </ul>
 <ul class="sub-nav-list">
 <li>Detail:&nbsp;</li>
-<li><a href="#field-detail">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor-detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method-detail">Method</a></li>
 </ul>
@@ -72,13 +72,15 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
 <div class="inheritance"><a href="../Expression.html" title="class in ru.nsu.vmarkidonov">ru.nsu.vmarkidonov.Expression</a>
+<div class="inheritance"><a href="Operator.html" title="class in ru.nsu.vmarkidonov.exprparts">ru.nsu.vmarkidonov.exprparts.Operator</a>
 <div class="inheritance">ru.nsu.vmarkidonov.exprparts.Add</div>
+</div>
 </div>
 </div>
 <section class="class-description" id="class-description">
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">Add</span>
-<span class="extends-implements">extends <a href="../Expression.html" title="class in ru.nsu.vmarkidonov">Expression</a></span></div>
+<span class="extends-implements">extends <a href="Operator.html" title="class in ru.nsu.vmarkidonov.exprparts">Operator</a></span></div>
 <div class="block">Representation of the add operator.</div>
 </section>
 <section class="summary">
@@ -87,18 +89,9 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="field-summary" id="field-summary">
 <h2>Field Summary</h2>
-<div class="caption"><span>Fields</span></div>
-<div class="summary-table three-column-summary">
-<div class="table-header col-first">Modifier and Type</div>
-<div class="table-header col-second">Field</div>
-<div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code><a href="../Expression.html" title="class in ru.nsu.vmarkidonov">Expression</a></code></div>
-<div class="col-second even-row-color"><code><a href="#exp1" class="member-name-link">exp1</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code><a href="../Expression.html" title="class in ru.nsu.vmarkidonov">Expression</a></code></div>
-<div class="col-second odd-row-color"><code><a href="#exp2" class="member-name-link">exp2</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
-</div>
+<div class="inherited-list">
+<h3 id="fields-inherited-from-class-ru.nsu.vmarkidonov.exprparts.Operator">Fields inherited from class&nbsp;ru.nsu.vmarkidonov.exprparts.<a href="Operator.html" title="class in ru.nsu.vmarkidonov.exprparts">Operator</a></h3>
+<code><a href="Operator.html#exp1">exp1</a>, <a href="Operator.html#exp2">exp2</a></code></div>
 </section>
 </li>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
@@ -111,7 +104,9 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(ru.nsu.vmarkidonov.Expression,ru.nsu.vmarkidonov.Expression)" class="member-name-link">Add</a><wbr>(<a href="../Expression.html" title="class in ru.nsu.vmarkidonov">Expression</a>&nbsp;exp1,
  <a href="../Expression.html" title="class in ru.nsu.vmarkidonov">Expression</a>&nbsp;exp2)</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Creates add expression.</div>
+</div>
 </div>
 </section>
 </li>
@@ -164,26 +159,6 @@ loadScripts(document, 'script');</script>
 </section>
 <section class="details">
 <ul class="details-list">
-<!-- ============ FIELD DETAIL =========== -->
-<li>
-<section class="field-details" id="field-detail">
-<h2>Field Details</h2>
-<ul class="member-list">
-<li>
-<section class="detail" id="exp1">
-<h3>exp1</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../Expression.html" title="class in ru.nsu.vmarkidonov">Expression</a></span>&nbsp;<span class="element-name">exp1</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="exp2">
-<h3>exp2</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../Expression.html" title="class in ru.nsu.vmarkidonov">Expression</a></span>&nbsp;<span class="element-name">exp2</span></div>
-</section>
-</li>
-</ul>
-</section>
-</li>
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 <li>
 <section class="constructor-details" id="constructor-detail">
@@ -194,6 +169,14 @@ loadScripts(document, 'script');</script>
 <h3>Add</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">Add</span><wbr><span class="parameters">(<a href="../Expression.html" title="class in ru.nsu.vmarkidonov">Expression</a>&nbsp;exp1,
  <a href="../Expression.html" title="class in ru.nsu.vmarkidonov">Expression</a>&nbsp;exp2)</span></div>
+<div class="block">Creates add expression.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>exp1</code> - first subexpression</dd>
+<dd><code>exp2</code> - second subexpression</dd>
+<dt>Throws:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/NullPointerException.html" title="class or interface in java.lang" class="external-link">NullPointerException</a></code> - if exp1 or exp2 is null</dd>
+</dl>
 </section>
 </li>
 </ul>
