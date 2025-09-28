@@ -5,11 +5,18 @@ import ru.nsu.vmarkidonov.Expression;
 /**
  * Representation of the division operator.
  */
-public class Div extends Expression {
-    public Expression exp1;
-    public Expression exp2;
-
+public class Div extends Operator {
+    /**
+     * Creates divide expression.
+     *
+     * @param exp1 first subexpression
+     * @param exp2 second subexpression
+     * @throws NullPointerException if exp1 or exp2 is null
+     */
     public Div(Expression exp1, Expression exp2) {
+        if (exp1 == null || exp2 == null) {
+            throw new NullPointerException("Null subexpression");
+        }
         this.exp1 = exp1;
         this.exp2 = exp2;
     }
@@ -17,7 +24,7 @@ public class Div extends Expression {
     @Override
     public double eval(String values) {
         if (exp2.eval(values) == 0) {
-            throw new RuntimeException("Division by zero");
+            throw new ArithmeticException("Division by zero");
         }
         return exp1.eval(values) / exp2.eval(values);
     }

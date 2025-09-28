@@ -2,6 +2,7 @@ package ru.nsu.vmarkidonov.parser;
 
 import java.util.ArrayList;
 import java.util.Stack;
+
 import ru.nsu.vmarkidonov.Expression;
 
 /**
@@ -22,7 +23,7 @@ public class Parser {
      * Gets bracket token from string.
      *
      * @param expString string that contains expression
-     * @param lexStart index of expString, there lexeme starts
+     * @param lexStart  index of expString, there lexeme starts
      * @return bracket token
      */
     private static Token readBracket(String expString, int lexStart) {
@@ -34,17 +35,22 @@ public class Parser {
      * Gets number token from string.
      *
      * @param expString string that contains expression
-     * @param lexStart index of expString, there lexeme starts
+     * @param lexStart  index of expString, there lexeme starts
      * @return number token
      */
     private static Token readNumber(String expString, int lexStart) {
         int lexEnd = lexStart;
 
         boolean seenDot = false;
-        while (Character.isDigit(expString.charAt(lexEnd)) || expString.charAt(lexEnd) == '.') {
+        while (Character.isDigit(expString.charAt(lexEnd))
+                || expString.charAt(lexEnd) == '.'
+                || (expString.charAt(lexEnd) == '-' && lexStart == lexEnd)) {
             if (expString.charAt(lexEnd) == '.') {
                 if (seenDot) {
-                    throw new ParserException("Unexpected \".\"", lexEnd);
+                    throw new ParserException(
+                            "Too many dots",
+                            new Token(TokenType.ERROR, expString.charAt(lexEnd), lexEnd)
+                    );
                 }
                 seenDot = true;
             }
@@ -61,7 +67,7 @@ public class Parser {
      * Gets operator token from string.
      *
      * @param expString string that contains expression
-     * @param lexStart index of expString, there lexeme starts
+     * @param lexStart  index of expString, there lexeme starts
      * @return operator token
      */
     private static Token readOperator(String expString, int lexStart) {
@@ -73,7 +79,7 @@ public class Parser {
      * Gets variable token from string.
      *
      * @param expString string that contains expression
-     * @param lexStart index of expString, there lexeme starts
+     * @param lexStart  index of expString, there lexeme starts
      * @return variable token
      */
     private static Token readVariable(String expString, int lexStart) {
@@ -108,24 +114,69 @@ public class Parser {
         while (i < expString.length()) {
             char curChar = expString.charAt(i);
 
+            boolean minusIsNumber = false;
+            if (curChar == '-') {
+                if (tokens.isEmpty()) {
+                    minusIsNumber = true;
+                } else if (tokens.get(tokens.size() - 1).type == TokenType.LBR) {
+                    minusIsNumber = true;
+                }
+            }
+
+
             if (TokenType.isBracket(curChar)) {
                 Token token = readBracket(expString, i);
-                tokens.add(token);
+
+                if (!tokens.isEmpty() && token.type == TokenType.RBR) {
+                    if (tokens.get(tokens.size() - 1).isOperator()) {
+                        throw new ParserException(
+                                "Expression incomplete",
+                                tokens.get(tokens.size() - 1)
+                        );
+                    }
+                } else if (!tokens.isEmpty() && token.type == TokenType.LBR) {
+                    if (!tokens.get(tokens.size() - 1).isOperator()
+                            && tokens.get(tokens.size() - 1).type != TokenType.LBR) {
+                        throw new ParserException("Unexpected bracket", token);
+                    }
+                }
 
                 if (token.type == TokenType.LBR) {
-                    brackets.push(tokens.get(tokens.size() - 1));
-                } else if (token.type == TokenType.RBR && brackets.empty()) {
-                    throw new ParserException("Unexpected \")\"", i);
+                    brackets.push(token);
+                } else if (brackets.empty()) {
+                    throw new ParserException("Unexpected bracket", token);
+                } else if (!tokens.isEmpty()) {
+                    if (tokens.get(tokens.size() - 1).type == TokenType.LBR) {
+                        throw new ParserException(
+                                "Empty subexpression",
+                                tokens.get(tokens.size() - 1)
+                        );
+                    } else {
+                        brackets.pop();
+                    }
                 } else {
                     brackets.pop();
                 }
+
+                tokens.add(token);
                 i += getLexemeLength(token);
-            } else if (Character.isDigit(curChar) || curChar == '.') {
+            } else if (Character.isDigit(curChar) || curChar == '.' || minusIsNumber) {
                 Token token = readNumber(expString, i);
+
+                if (token.lexeme.equals("-")) {
+                    throw new ParserException("Unexpected operator or incomplete number", token);
+                }
+
                 tokens.add(token);
                 i += getLexemeLength(token);
             } else if (TokenType.isOperator(curChar)) {
                 Token token = readOperator(expString, i);
+                if (tokens.isEmpty()) {
+                    throw new ParserException("Unexpected operator", token);
+                } else if (tokens.get(tokens.size() - 1).isOperator()
+                        || tokens.get(tokens.size() - 1).type == TokenType.LBR) {
+                    throw new ParserException("Unexpected operator", token);
+                }
                 tokens.add(token);
                 i += getLexemeLength(token);
             } else if (!TokenType.isOperator(curChar) && !TokenType.isBracket(curChar)) {
@@ -133,12 +184,22 @@ public class Parser {
                 tokens.add(token);
                 i += getLexemeLength(token);
             } else {
-                throw new ParserException(String.format("Unrecognized char \"%c\"", curChar));
+                throw new ParserException(
+                        "Unrecognized char",
+                        new Token(TokenType.ERROR, curChar, i)
+                );
             }
         }
 
         if (!brackets.empty()) {
             throw new ParserException(String.format("Unclosed brackets: %s", brackets));
+        }
+
+        if (tokens.get(tokens.size() - 1).isOperator()) {
+            throw new ParserException(
+                    "Expression incomplete",
+                    tokens.get(tokens.size() - 1)
+            );
         }
 
         return tokens.toArray(Token[]::new);
@@ -171,12 +232,10 @@ public class Parser {
                 }
 
                 Token iterToken = currentToken;
-                while (iterToken.type.paramCount == 2
-                        && iterToken.params[iterToken.type.paramCount - 1] != null
-                ) {
-                    iterToken = iterToken.params[iterToken.type.paramCount - 1];
+                while (iterToken.isOperator() && iterToken.isComplete()) {
+                    iterToken = iterToken.getLastParam();
                 }
-                if (iterToken.type.paramCount != 2) {
+                if (!iterToken.isOperator()) {
                     throw new ParserException("Subexpression outside operator", subToken);
                 }
                 iterToken.pushParam(subToken);
@@ -191,12 +250,10 @@ public class Parser {
                     currentToken = token;
                 } else if (token.type.paramCount == 0) {
                     Token iterToken = currentToken;
-                    while (iterToken.type.paramCount == 2
-                            && iterToken.params[iterToken.type.paramCount - 1] != null
-                    ) {
-                        iterToken = iterToken.params[iterToken.type.paramCount - 1];
+                    while (iterToken.isOperator() && iterToken.isComplete()) {
+                        iterToken = iterToken.getLastParam();
                     }
-                    if (iterToken.type.paramCount != 2) {
+                    if (!iterToken.isOperator()) {
                         throw new ParserException("Subexpression outside operator", token);
                     }
                     iterToken.pushParam(token);
@@ -204,18 +261,12 @@ public class Parser {
                     token.pushParam(currentToken);
                     currentToken = token;
                 } else {
-                    Token iterToken = currentToken;
-                    while (iterToken.type.paramCount == 2
-                            && iterToken.params[iterToken.type.paramCount - 1].type.paramCount > 1
-                    ) {
-                        iterToken = iterToken.params[iterToken.type.paramCount - 1];
-                    }
-                    if (iterToken.type.paramCount != 2) {
+                    if (!currentToken.isOperator()) {
                         throw new ParserException("Subexpression outside operator", token);
                     }
-                    Token secOp = iterToken.popParam();
+                    Token secOp = currentToken.popParam();
                     token.pushParam(secOp);
-                    iterToken.pushParam(token);
+                    currentToken.pushParam(token);
                 }
 
                 tokenTreeStack.push(currentToken);

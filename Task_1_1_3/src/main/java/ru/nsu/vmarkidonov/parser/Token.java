@@ -8,18 +8,20 @@ import ru.nsu.vmarkidonov.exprparts.Number;
 import ru.nsu.vmarkidonov.exprparts.Sub;
 import ru.nsu.vmarkidonov.exprparts.Variable;
 
+import java.util.Stack;
+
 /**
  * Token for parser.
  */
 public class Token {
     public final TokenType type;
     public final String lexeme;
-    public final Token[] params;
+    private final Token[] params;
     private int paramsSize = 0;
     private final int pos;
 
     /**
-     * Token for parser.
+     * Creates token from lexeme string.
      *
      * @param type type of token
      * @param lexeme substring, which represents the actual text of the token
@@ -29,6 +31,20 @@ public class Token {
         this.params = new Token[type.paramCount];
         this.type = type;
         this.lexeme = lexeme;
+        this.pos = pos;
+    }
+
+    /**
+     * Creates token from lexeme char.
+     *
+     * @param type type of token
+     * @param lexeme substring, which represents the actual text of the token
+     * @param pos start position of lexeme in string
+     */
+    public Token(TokenType type, char lexeme, int pos) {
+        this.params = new Token[type.paramCount];
+        this.type = type;
+        this.lexeme = String.valueOf(lexeme);
         this.pos = pos;
     }
 
@@ -49,6 +65,24 @@ public class Token {
     }
 
     /**
+     * Get last element of parameters array.
+     *
+     * @return last element of parameters array
+     */
+    public Token getLastParam() {
+        return params[params.length-1];
+    }
+
+    /**
+     * Checks if this token is operator.
+     *
+     * @return true if operator, false overwise
+     */
+    public boolean isOperator() {
+        return type.paramCount == 2;
+    }
+
+    /**
      * Checks if parameters array is full.
      *
      * @return true if parameters array is full, false overwise
@@ -66,7 +100,7 @@ public class Token {
         Expression[] exprs = new Expression[type.paramCount];
         for (int i = 0; i < exprs.length; i++) {
             if (params[i] == null) {
-                throw new ParserException(String.format("Expression incomplete: %s", params[i]));
+                throw new NullPointerException(String.format("Expression incomplete: %s", this));
             }
             exprs[i] = params[i].toExpression();
         }

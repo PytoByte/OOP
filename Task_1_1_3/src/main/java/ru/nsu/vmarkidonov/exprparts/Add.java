@@ -5,11 +5,18 @@ import ru.nsu.vmarkidonov.Expression;
 /**
  * Representation of the add operator.
  */
-public class Add extends Expression {
-    public Expression exp1;
-    public Expression exp2;
-
+public class Add extends Operator {
+    /**
+     * Creates add expression.
+     *
+     * @param exp1 first subexpression
+     * @param exp2 second subexpression
+     * @throws NullPointerException if exp1 or exp2 is null
+     */
     public Add(Expression exp1, Expression exp2) {
+        if (exp1 == null || exp2 == null) {
+            throw new NullPointerException("Null subexpression");
+        }
         this.exp1 = exp1;
         this.exp2 = exp2;
     }

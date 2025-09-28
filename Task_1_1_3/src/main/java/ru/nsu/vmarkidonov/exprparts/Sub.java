@@ -5,11 +5,18 @@ import ru.nsu.vmarkidonov.Expression;
 /**
  * Representation of the subtract operator.
  */
-public class Sub extends Expression {
-    public Expression exp1;
-    public Expression exp2;
-
+public class Sub extends Operator {
+    /**
+     * Creates subtract expression.
+     *
+     * @param exp1 first subexpression
+     * @param exp2 second subexpression
+     * @throws NullPointerException if exp1 or exp2 is null
+     */
     public Sub(Expression exp1, Expression exp2) {
+        if (exp1 == null || exp2 == null) {
+            throw new NullPointerException("Null subexpression");
+        }
         this.exp1 = exp1;
         this.exp2 = exp2;
     }

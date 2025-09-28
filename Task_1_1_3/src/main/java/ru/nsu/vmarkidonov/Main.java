@@ -1,8 +1,10 @@
 package ru.nsu.vmarkidonov;
 
 import java.util.Scanner;
+import ru.nsu.vmarkidonov.exprparts.Number;
 import ru.nsu.vmarkidonov.parser.Parser;
 import ru.nsu.vmarkidonov.parser.ParserException;
+
 
 /**
  * User interface.
@@ -15,10 +17,11 @@ public class Main {
      */
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        String prevExpr = null;
+        Expression prevExpr = null;
         while (true) {
-            System.out.print("Enter expression (\"-\" to exit;  \"+\" to choose prev res expr): ");
+            System.out.print("Enter expression (\"-\" to exit; \"+\" to choose prev res expr): ");
             String exprString = in.next();
+            Expression expr;
             if (exprString.equals("-")) {
                 System.out.println("exit");
                 break;
@@ -27,43 +30,45 @@ public class Main {
                     System.out.println("Previous expression empty");
                     continue;
                 } else {
-                    exprString = prevExpr;
+                    expr = prevExpr;
                 }
-            }
-            Expression expr;
-            try {
-                expr = Parser.parseExpression(exprString);
-            } catch (ParserException exception) {
-                System.out.println(exception.getMessage());
-                continue;
+            } else {
+                try {
+                    expr = Parser.parseExpression(exprString);
+                } catch (ParserException exception) {
+                    System.out.println(exception.getMessage());
+                    continue;
+                }
             }
 
             try {
-                System.out.print("Choose action (0=eval, 1=derivate, 2=simplify): ");
+                System.out.print("Choose action (0=eval, 1=derivative, 2=simplify, 3=cancel): ");
                 int action = in.nextInt();
                 if (action == 0) {
                     System.out.print("Assignment variable (example: x=1;y=2) (\"-\" for empty): ");
                     String varAssignment = in.next();
                     if (varAssignment.equals("-")) {
-                        prevExpr = String.valueOf(expr.eval(""));
+                        prevExpr = new Number(expr.eval(""));
                         System.out.println(prevExpr);
                     } else {
-                        prevExpr = String.valueOf(expr.eval(varAssignment));
+                        prevExpr = new Number(expr.eval(varAssignment));
                         System.out.println(prevExpr);
                     }
                 } else if (action == 1) {
                     System.out.print("Enter variable (example: x) (\"-\" for empty): ");
                     String var = in.next();
                     if (var.equals("-")) {
-                        prevExpr = expr.derivative("").toString();
+                        prevExpr = expr.derivative("");
                         System.out.println(prevExpr);
                     } else {
-                        prevExpr = expr.derivative(var).toString();
+                        prevExpr = expr.derivative(var);
                         System.out.println(prevExpr);
                     }
                 } else if (action == 2) {
-                    prevExpr = expr.simplify().toString();
+                    prevExpr = expr.simplify();
                     System.out.println(prevExpr);
+                } else {
+                    System.out.println("Cancel");
                 }
             } catch (Exception exception) {
                 System.out.println(exception.getMessage());

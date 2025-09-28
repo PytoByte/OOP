@@ -4,12 +4,21 @@ import java.util.NoSuchElementException;
 import ru.nsu.vmarkidonov.Expression;
 
 /**
- * Representation of the number.
+ * Representation of the variable.
  */
 public class Variable extends Expression {
     public final String var;
 
+    /**
+     * Creates variable.
+     *
+     * @param var variable name
+     * @throws NullPointerException if variable name is null
+     */
     public Variable(String var) {
+        if (var == null) {
+            throw new NullPointerException("Null variable name");
+        }
         this.var = var;
     }
 

@@ -12,7 +12,8 @@ public enum TokenType {
     VARIABLE(0, 0),
     LBR(0, 0),
     RBR(0, 0),
-    SUBEXP(0, 1);
+    SUBEXP(0, 1),
+    ERROR(0, 0);
 
     public final int priority;
     public final int paramCount;

@@ -36,6 +36,20 @@ class ParserTest {
     }
 
     @Test
+    void parseExprNegNum() {
+        Expression exp = Parser.parseExpression("-3.1415");
+        Expression expected = new Number(-3.1415);
+        assertEquals(expected, exp);
+    }
+
+    @Test
+    void parseExprNegNumInBrackets() {
+        Expression exp = Parser.parseExpression("(-3.1415)");
+        Expression expected = new Number(-3.1415);
+        assertEquals(expected, exp);
+    }
+
+    @Test
     void parseExprVar() {
         Expression exp = Parser.parseExpression("someVar");
         Expression expected = new Variable("someVar");
@@ -154,12 +168,42 @@ class ParserTest {
     }
 
     @Test
-    void parseExprIncomplete() {
+    void parseExprIncompleteRight() {
         assertThrows(ParserException.class, () -> Parser.parseExpression("1+"));
     }
 
     @Test
-    void parseExprOutsideOperator() {
+    void parseExprIncompleteLeft() {
+        assertThrows(ParserException.class, () -> Parser.parseExpression("+1"));
+    }
+
+    @Test
+    void parseExprIncompleteRightInBrackets() {
+        assertThrows(ParserException.class, () -> Parser.parseExpression("(1+)"));
+    }
+
+    @Test
+    void parseExprIncompleteLeftInBrackets() {
+        assertThrows(ParserException.class, () -> Parser.parseExpression("(+1)"));
+    }
+
+    @Test
+    void parseExprOutsideOperatorRight() {
         assertThrows(ParserException.class, () -> Parser.parseExpression("(1+)1"));
+    }
+
+    @Test
+    void parseExprOutsideOperatorLeft() {
+        assertThrows(ParserException.class, () -> Parser.parseExpression("1(+1)"));
+    }
+
+    @Test
+    void parseExprToManyMinuses() {
+        assertThrows(ParserException.class, () -> Parser.parseExpression("--1"));
+    }
+
+    @Test
+    void parseExprUnexpectedOperator() {
+        assertThrows(ParserException.class, () -> Parser.parseExpression("1++1"));
     }
 }
