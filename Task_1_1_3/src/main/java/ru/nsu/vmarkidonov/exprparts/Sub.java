@@ -2,6 +2,9 @@ package ru.nsu.vmarkidonov.exprparts;
 
 import ru.nsu.vmarkidonov.Expression;
 
+/**
+ * Representation of the subtract operator.
+ */
 public class Sub extends Expression {
     public Expression exp1;
     public Expression exp2;

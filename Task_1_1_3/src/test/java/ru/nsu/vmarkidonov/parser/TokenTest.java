@@ -1,11 +1,13 @@
 package ru.nsu.vmarkidonov.parser;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
 import ru.nsu.vmarkidonov.Expression;
 import ru.nsu.vmarkidonov.exprparts.Add;
 import ru.nsu.vmarkidonov.exprparts.Number;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class TokenTest {
 

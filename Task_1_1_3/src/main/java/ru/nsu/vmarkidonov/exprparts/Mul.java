@@ -2,6 +2,9 @@ package ru.nsu.vmarkidonov.exprparts;
 
 import ru.nsu.vmarkidonov.Expression;
 
+/**
+ * Representation of the multiplication operator.
+ */
 public class Mul extends Expression {
     public Expression exp1;
     public Expression exp2;

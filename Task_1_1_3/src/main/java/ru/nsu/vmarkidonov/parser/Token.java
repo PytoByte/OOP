@@ -4,6 +4,9 @@ import ru.nsu.vmarkidonov.Expression;
 import ru.nsu.vmarkidonov.exprparts.*;
 import ru.nsu.vmarkidonov.exprparts.Number;
 
+/**
+ * Token for parser
+ */
 public class Token {
     public final TokenType type;
     public final String lexeme;
@@ -18,23 +21,41 @@ public class Token {
         this.pos = pos;
     }
 
+    /**
+     * Pushes new parameter into parameters array.
+     *
+     * @param token any token
+     */
     public void pushParam(Token token) {
         params[paramsSize++] = token;
     }
 
+    /**
+     * Pops parameter from parameters array.
+     */
     public Token popParam() {
         return params[--paramsSize];
     }
 
+    /**
+     * Checks if parameters array is full.
+     *
+     * @return true if parameters array is full, false overwise
+     */
     public boolean isComplete() {
         return paramsSize == type.paramCount;
     }
 
+    /**
+     * Converts token tree into expression.
+     *
+     * @return expression, that token tree represents
+     */
     public Expression toExpression() {
         Expression[] exprs = new Expression[type.paramCount];
         for (int i = 0; i < exprs.length; i++) {
             if (params[i] == null) {
-                throw new RuntimeException("Expression incomplete");
+                throw new ParserException(String.format("Expression incomplete: %s", params[i]));
             }
             exprs[i] = params[i].toExpression();
         }

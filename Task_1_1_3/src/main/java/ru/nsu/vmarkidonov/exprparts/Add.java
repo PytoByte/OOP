@@ -4,6 +4,9 @@ import ru.nsu.vmarkidonov.Expression;
 
 import java.util.Objects;
 
+/**
+ * Representation of the add operator.
+ */
 public class Add extends Expression {
     public Expression exp1;
     public Expression exp2;

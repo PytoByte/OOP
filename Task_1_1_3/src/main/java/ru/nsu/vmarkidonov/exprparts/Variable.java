@@ -4,6 +4,9 @@ import ru.nsu.vmarkidonov.Expression;
 
 import java.util.NoSuchElementException;
 
+/**
+ * Representation of the number.
+ */
 public class Variable extends Expression {
     public final String var;
 

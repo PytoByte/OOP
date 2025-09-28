@@ -2,6 +2,9 @@ package ru.nsu.vmarkidonov.exprparts;
 
 import ru.nsu.vmarkidonov.Expression;
 
+/**
+ * Representation of the division operator.
+ */
 public class Div extends Expression {
     public Expression exp1;
     public Expression exp2;

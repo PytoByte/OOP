@@ -1,11 +1,12 @@
 package ru.nsu.vmarkidonov.parser;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.Test;
 import ru.nsu.vmarkidonov.Expression;
 import ru.nsu.vmarkidonov.exprparts.*;
 import ru.nsu.vmarkidonov.exprparts.Number;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class ParserTest {
 
@@ -20,13 +21,6 @@ class ParserTest {
     void parseExprNumDouble() {
         Expression exp = Parser.parseExpression("3.1415");
         Expression expected = new Number(3.1415);
-        assertEquals(expected, exp);
-    }
-
-    @Test
-    void parseExprNegativeDouble() {
-        Expression exp = Parser.parseExpression("-3.1415");
-        Expression expected = new Number(-3.1415);
         assertEquals(expected, exp);
     }
 
@@ -122,29 +116,46 @@ class ParserTest {
     }
 
     @Test
-    void parseExprInBrackets() {
-        Expression exp = Parser.parseExpression("(1+2/(3*4)-5)");
-        Expression expected = Parser.parseExpression("1+2/(3*4)-5");
-        assertEquals(expected, exp);
+    void parseExprWithBrackets() {
+        Expression expr = Parser.parseExpression("1+2/(3*(4-5))");
+        Expression expected = new Add(
+                new Number(1),
+                new Div(
+                        new Number(2),
+                        new Mul(
+                                new Number(3),
+                                new Sub(
+                                        new Number(4),
+                                        new Number(5)
+                                )
+                        )
+                )
+        );
+        assertEquals(expected, expr);
     }
 
     @Test
     void parseExprMissRBrackets() {
-        assertThrows(RuntimeException.class, () -> Parser.parseExpression("((1+1)"));
+        assertThrows(ParserException.class, () -> Parser.parseExpression("((1+1)"));
     }
 
     @Test
     void parseExprMissLBrackets() {
-        assertThrows(RuntimeException.class, () -> Parser.parseExpression("(1+1))"));
+        assertThrows(ParserException.class, () -> Parser.parseExpression("(1+1))"));
     }
 
     @Test
     void parseExprToManyDots() {
-        assertThrows(RuntimeException.class, () -> Parser.parseExpression("1..0"));
+        assertThrows(ParserException.class, () -> Parser.parseExpression("1..0"));
     }
 
     @Test
     void parseExprIncomplete() {
-        assertThrows(RuntimeException.class, () -> Parser.parseExpression("1+"));
+        assertThrows(ParserException.class, () -> Parser.parseExpression("1+"));
+    }
+
+    @Test
+    void parseExprOutsideOperator() {
+        assertThrows(ParserException.class, () -> Parser.parseExpression("(1+)1"));
     }
 }

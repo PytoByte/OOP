@@ -2,6 +2,9 @@ package ru.nsu.vmarkidonov.exprparts;
 
 import ru.nsu.vmarkidonov.Expression;
 
+/**
+ * Representation of the number.
+ */
 public class Number extends Expression {
     public final double num;
 
