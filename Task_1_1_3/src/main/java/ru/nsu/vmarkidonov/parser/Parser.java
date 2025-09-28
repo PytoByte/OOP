@@ -2,7 +2,6 @@ package ru.nsu.vmarkidonov.parser;
 
 import java.util.ArrayList;
 import java.util.Stack;
-
 import ru.nsu.vmarkidonov.Expression;
 
 /**

@@ -8,8 +8,6 @@ import ru.nsu.vmarkidonov.exprparts.Number;
 import ru.nsu.vmarkidonov.exprparts.Sub;
 import ru.nsu.vmarkidonov.exprparts.Variable;
 
-import java.util.Stack;
-
 /**
  * Token for parser.
  */
@@ -70,7 +68,7 @@ public class Token {
      * @return last element of parameters array
      */
     public Token getLastParam() {
-        return params[params.length-1];
+        return params[params.length - 1];
     }
 
     /**
