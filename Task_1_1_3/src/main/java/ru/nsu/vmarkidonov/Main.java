@@ -55,11 +55,10 @@ public class Main {
                         System.out.println(prevExpr);
                     }
                 } else if (action == 1) {
-                    System.out.print("Enter variable (example: x) (\"-\" for empty): ");
+                    System.out.print("Enter variable (example: x) (\"-\" for cancel): ");
                     String var = in.next();
                     if (var.equals("-")) {
-                        prevExpr = expr.derivative("");
-                        System.out.println(prevExpr);
+                        System.out.println("Cancel");
                     } else {
                         prevExpr = expr.derivative(var);
                         System.out.println(prevExpr);
