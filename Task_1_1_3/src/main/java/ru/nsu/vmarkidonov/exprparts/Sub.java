@@ -16,7 +16,7 @@ public class Sub extends Expression {
 
     @Override
     public double eval(String values) {
-        return exp1.eval(values)-exp2.eval(values);
+        return exp1.eval(values) - exp2.eval(values);
     }
 
     @Override
@@ -50,8 +50,12 @@ public class Sub extends Expression {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
 
         Sub other = (Sub) obj;
 

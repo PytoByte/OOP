@@ -4,9 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.NoSuchElementException;
 import org.junit.jupiter.api.Test;
 import ru.nsu.vmarkidonov.Expression;
-import java.util.NoSuchElementException;
 
 class VariableTest {
 

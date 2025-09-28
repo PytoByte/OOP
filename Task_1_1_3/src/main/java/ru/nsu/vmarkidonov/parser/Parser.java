@@ -1,10 +1,8 @@
 package ru.nsu.vmarkidonov.parser;
 
-import ru.nsu.vmarkidonov.Expression;
-
 import java.util.ArrayList;
-import java.util.Queue;
 import java.util.Stack;
+import ru.nsu.vmarkidonov.Expression;
 
 /**
  * Expression parser from string.
@@ -45,7 +43,9 @@ public class Parser {
         boolean seenDot = false;
         while (Character.isDigit(expString.charAt(lexEnd)) || expString.charAt(lexEnd) == '.') {
             if (expString.charAt(lexEnd) == '.') {
-                if (seenDot) throw new ParserException("Unexpected \".\"", lexEnd);
+                if (seenDot) {
+                    throw new ParserException("Unexpected \".\"", lexEnd);
+                }
                 seenDot = true;
             }
             lexEnd++;
@@ -64,7 +64,7 @@ public class Parser {
      */
     private static Token readOperator(String expString, int lexStart) {
         TokenType operType = TokenType.matchOperator(expString.charAt(lexStart));
-        return new Token(operType, expString.substring(lexStart, lexStart+1), lexStart);
+        return new Token(operType, expString.substring(lexStart, lexStart + 1), lexStart);
     }
 
     /**
@@ -80,7 +80,9 @@ public class Parser {
         char curChar = expString.charAt(lexEnd);
         while (!TokenType.isOperator(curChar) && !TokenType.isBracket(curChar)) {
             lexEnd++;
-            if (lexEnd >= expString.length()) break;
+            if (lexEnd >= expString.length()) {
+                break;
+            }
             curChar = expString.charAt(lexEnd);
         }
 
@@ -109,7 +111,7 @@ public class Parser {
                 tokens.add(token);
 
                 if (token.type == TokenType.LBR) {
-                    brackets.push(tokens.get(tokens.size()-1));
+                    brackets.push(tokens.get(tokens.size() - 1));
                 } else if (token.type == TokenType.RBR && brackets.empty()) {
                     throw new ParserException("Unexpected \")\"", i);
                 } else {
@@ -167,7 +169,9 @@ public class Parser {
                 }
 
                 Token iterToken = currentToken;
-                while (iterToken.type.paramCount == 2 && iterToken.params[iterToken.type.paramCount - 1] != null) {
+                while (iterToken.type.paramCount == 2
+                        && iterToken.params[iterToken.type.paramCount - 1] != null
+                ) {
                     iterToken = iterToken.params[iterToken.type.paramCount - 1];
                 }
                 if (iterToken.type.paramCount != 2) {

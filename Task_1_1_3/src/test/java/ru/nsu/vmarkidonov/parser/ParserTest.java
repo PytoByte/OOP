@@ -5,8 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 import ru.nsu.vmarkidonov.Expression;
-import ru.nsu.vmarkidonov.exprparts.*;
+import ru.nsu.vmarkidonov.exprparts.Add;
+import ru.nsu.vmarkidonov.exprparts.Div;
+import ru.nsu.vmarkidonov.exprparts.Mul;
 import ru.nsu.vmarkidonov.exprparts.Number;
+import ru.nsu.vmarkidonov.exprparts.Sub;
+import ru.nsu.vmarkidonov.exprparts.Variable;
 
 class ParserTest {
 
@@ -135,12 +139,12 @@ class ParserTest {
     }
 
     @Test
-    void parseExprMissRBrackets() {
+    void parseExprMissRightBrackets() {
         assertThrows(ParserException.class, () -> Parser.parseExpression("((1+1)"));
     }
 
     @Test
-    void parseExprMissLBrackets() {
+    void parseExprMissLeftBrackets() {
         assertThrows(ParserException.class, () -> Parser.parseExpression("(1+1))"));
     }
 

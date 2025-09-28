@@ -1,8 +1,12 @@
 package ru.nsu.vmarkidonov.parser;
 
 import ru.nsu.vmarkidonov.Expression;
-import ru.nsu.vmarkidonov.exprparts.*;
+import ru.nsu.vmarkidonov.exprparts.Add;
+import ru.nsu.vmarkidonov.exprparts.Div;
+import ru.nsu.vmarkidonov.exprparts.Mul;
 import ru.nsu.vmarkidonov.exprparts.Number;
+import ru.nsu.vmarkidonov.exprparts.Sub;
+import ru.nsu.vmarkidonov.exprparts.Variable;
 
 /**
  * Token for parser
@@ -73,7 +77,9 @@ public class Token {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder(String.format("%s(lexeme=\"%s\",pos=%d)", type, lexeme, pos));
+        StringBuilder sb = new StringBuilder(
+                String.format("%s(lexeme=\"%s\",pos=%d)", type, lexeme, pos)
+        );
         if (params.length > 0) {
             sb.append("[");
             for (int i = 0; i < params.length; i++) {
@@ -83,7 +89,7 @@ public class Token {
                     sb.append(String.format("%s", params[i]));
                 }
 
-                if (i < params.length-1) {
+                if (i < params.length - 1) {
                     sb.append(", ");
                 }
             }

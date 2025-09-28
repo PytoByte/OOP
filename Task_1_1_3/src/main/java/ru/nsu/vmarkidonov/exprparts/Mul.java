@@ -16,12 +16,15 @@ public class Mul extends Expression {
 
     @Override
     public double eval(String values) {
-        return exp1.eval(values)*exp2.eval(values);
+        return exp1.eval(values) * exp2.eval(values);
     }
 
     @Override
     public Expression derivative(String var) {
-        return new Add(new Mul(exp1.derivative(var), exp2.clone()), new Mul(exp1.clone(), exp2.derivative(var)));
+        return new Add(
+                new Mul(exp1.derivative(var), exp2.clone()),
+                new Mul(exp1.clone(), exp2.derivative(var))
+        );
     }
 
     @Override
@@ -60,12 +63,16 @@ public class Mul extends Expression {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
 
         Mul other = (Mul) obj;
 
-        return (exp1.equals(other.exp1) && exp2.equals(other.exp2)) ||
-                (exp1.equals(other.exp2) && exp2.equals(other.exp1));
+        return (exp1.equals(other.exp1) && exp2.equals(other.exp2))
+                || (exp1.equals(other.exp2) && exp2.equals(other.exp1));
     }
 }

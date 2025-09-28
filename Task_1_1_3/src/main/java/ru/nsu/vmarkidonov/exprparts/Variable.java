@@ -1,8 +1,7 @@
 package ru.nsu.vmarkidonov.exprparts;
 
-import ru.nsu.vmarkidonov.Expression;
-
 import java.util.NoSuchElementException;
+import ru.nsu.vmarkidonov.Expression;
 
 /**
  * Representation of the number.
@@ -51,8 +50,12 @@ public class Variable extends Expression {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
 
         Variable other = (Variable) obj;
 

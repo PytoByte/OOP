@@ -19,7 +19,7 @@ public class Div extends Expression {
         if (exp2.eval(values) == 0) {
             throw new RuntimeException("Division by zero");
         }
-        return exp1.eval(values)/exp2.eval(values);
+        return exp1.eval(values) / exp2.eval(values);
     }
 
     @Override
@@ -67,8 +67,12 @@ public class Div extends Expression {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
 
         Div other = (Div) obj;
 

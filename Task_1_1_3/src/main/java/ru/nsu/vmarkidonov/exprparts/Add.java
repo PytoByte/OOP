@@ -2,8 +2,6 @@ package ru.nsu.vmarkidonov.exprparts;
 
 import ru.nsu.vmarkidonov.Expression;
 
-import java.util.Objects;
-
 /**
  * Representation of the add operator.
  */
@@ -18,7 +16,7 @@ public class Add extends Expression {
 
     @Override
     public double eval(String values) {
-        return exp1.eval(values)+exp2.eval(values);
+        return exp1.eval(values) + exp2.eval(values);
     }
 
     @Override
@@ -50,12 +48,16 @@ public class Add extends Expression {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
 
         Add other = (Add) obj;
 
-        return (exp1.equals(other.exp1) && exp2.equals(other.exp2)) ||
-                (exp1.equals(other.exp2) && exp2.equals(other.exp1));
+        return (exp1.equals(other.exp1) && exp2.equals(other.exp2))
+                || (exp1.equals(other.exp2) && exp2.equals(other.exp1));
     }
 }
