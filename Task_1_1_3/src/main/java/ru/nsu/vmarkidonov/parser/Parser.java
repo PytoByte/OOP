@@ -49,7 +49,9 @@ public class Parser {
                 seenDot = true;
             }
             lexEnd++;
-            if (lexEnd >= expString.length()) break;
+            if (lexEnd >= expString.length()) {
+                break;
+            }
         }
 
         return new Token(TokenType.NUMBER, expString.substring(lexStart, lexEnd), lexStart);
@@ -189,7 +191,9 @@ public class Parser {
                     currentToken = token;
                 } else if (token.type.paramCount == 0) {
                     Token iterToken = currentToken;
-                    while (iterToken.type.paramCount == 2 && iterToken.params[iterToken.type.paramCount - 1] != null) {
+                    while (iterToken.type.paramCount == 2
+                            && iterToken.params[iterToken.type.paramCount - 1] != null
+                    ) {
                         iterToken = iterToken.params[iterToken.type.paramCount - 1];
                     }
                     if (iterToken.type.paramCount != 2) {

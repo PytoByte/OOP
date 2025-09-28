@@ -9,7 +9,7 @@ import ru.nsu.vmarkidonov.exprparts.Sub;
 import ru.nsu.vmarkidonov.exprparts.Variable;
 
 /**
- * Token for parser
+ * Token for parser.
  */
 public class Token {
     public final TokenType type;
@@ -17,7 +17,7 @@ public class Token {
     public final Token[] params;
     private int paramsSize = 0;
     private final int pos;
-
+    
     public Token(TokenType type, String lexeme, int pos) {
         this.params = new Token[type.paramCount];
         this.type = type;
