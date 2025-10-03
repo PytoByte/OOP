@@ -5,7 +5,7 @@ import ru.nsu.vmarkidonov.Expression;
 /**
  * Representation of the add operator.
  */
-public class Add extends Operator {
+public class Add extends SymmetricOperator {
     /**
      * Creates add expression.
      *
@@ -51,20 +51,5 @@ public class Add extends Operator {
     @Override
     public String toString() {
         return String.format("(%s+%s)", exp1, exp2);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-
-        Add other = (Add) obj;
-
-        return (exp1.equals(other.exp1) && exp2.equals(other.exp2))
-                || (exp1.equals(other.exp2) && exp2.equals(other.exp1));
     }
 }

@@ -41,6 +41,11 @@ public class Number extends Expression {
     }
 
     @Override
+    public int hashCode() {
+        return Double.hashCode(num);
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;

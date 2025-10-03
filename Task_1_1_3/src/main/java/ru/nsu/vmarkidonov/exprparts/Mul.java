@@ -5,7 +5,7 @@ import ru.nsu.vmarkidonov.Expression;
 /**
  * Representation of the multiplication operator.
  */
-public class Mul extends Operator {
+public class Mul extends SymmetricOperator {
     /**
      * Creates divide expression.
      *
@@ -66,20 +66,5 @@ public class Mul extends Operator {
     @Override
     public String toString() {
         return String.format("(%s*%s)", exp1, exp2);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-
-        Mul other = (Mul) obj;
-
-        return (exp1.equals(other.exp1) && exp2.equals(other.exp2))
-                || (exp1.equals(other.exp2) && exp2.equals(other.exp1));
     }
 }

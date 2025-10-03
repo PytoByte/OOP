@@ -5,7 +5,7 @@ import ru.nsu.vmarkidonov.Expression;
 /**
  * Representation of the subtract operator.
  */
-public class Sub extends Operator {
+public class Sub extends AsymmetricOperator {
     /**
      * Creates subtract expression.
      *
@@ -53,19 +53,5 @@ public class Sub extends Operator {
     @Override
     public String toString() {
         return String.format("(%s-%s)", exp1, exp2);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-
-        Sub other = (Sub) obj;
-
-        return exp1.equals(other.exp1) && exp2.equals(other.exp2);
     }
 }

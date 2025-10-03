@@ -58,6 +58,11 @@ public class Variable extends Expression {
     }
 
     @Override
+    public int hashCode() {
+        return var.hashCode();
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
