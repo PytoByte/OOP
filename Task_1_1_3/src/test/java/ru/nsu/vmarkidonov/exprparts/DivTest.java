@@ -7,12 +7,20 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 import ru.nsu.vmarkidonov.Expression;
 
+import java.util.HashMap;
+
 class DivTest {
 
     @Test
     void eval() {
         Expression exp = new Div(new Number(10), new Number(2));
         assertEquals(5, exp.eval(""));
+    }
+
+    @Test
+    void evalHashMap() {
+        Expression exp = new Div(new Number(10), new Number(2));
+        assertEquals(5, exp.eval(new HashMap<>()));
     }
 
     @Test

@@ -2,6 +2,8 @@ package ru.nsu.vmarkidonov.exprparts;
 
 import ru.nsu.vmarkidonov.Expression;
 
+import java.util.HashMap;
+
 /**
  * Representation of the number.
  */
@@ -13,7 +15,7 @@ public class Number extends Expression {
     }
 
     @Override
-    public double eval(String values) {
+    public double eval(HashMap<String, Double> values) {
         return num;
     }
 

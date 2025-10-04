@@ -3,7 +3,7 @@ package ru.nsu.vmarkidonov.parser;
 /**
  * Contains types of tokens.
  */
-public enum TokenType {
+enum TokenType {
     ADD(2, 2),
     DIV(1, 2),
     MUL(1, 2),

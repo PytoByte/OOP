@@ -6,12 +6,20 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import org.junit.jupiter.api.Test;
 import ru.nsu.vmarkidonov.Expression;
 
+import java.util.HashMap;
+
 class SubTest {
 
     @Test
     void eval() {
         Expression exp = new Sub(new Number(2), new Number(7));
         assertEquals(-5, exp.eval(""));
+    }
+
+    @Test
+    void evalHashMap() {
+        Expression exp = new Sub(new Number(2), new Number(7));
+        assertEquals(-5, exp.eval(new HashMap<>()));
     }
 
     @Test

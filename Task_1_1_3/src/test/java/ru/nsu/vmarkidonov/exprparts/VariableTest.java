@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.HashMap;
 import java.util.NoSuchElementException;
 import org.junit.jupiter.api.Test;
 import ru.nsu.vmarkidonov.Expression;
@@ -20,6 +21,22 @@ class VariableTest {
     void evalHasNotVarValue() {
         Expression exp = new Variable("x");
         assertThrows(NoSuchElementException.class, () -> exp.eval(""));
+    }
+
+    @Test
+    void evalHashMapHasVarValue() {
+        Expression exp = new Variable("x");
+        HashMap<String, Double> values = new HashMap<>();
+        values.put("x", 5.0);
+        assertEquals(5, exp.eval(values));
+    }
+
+    @Test
+    void evalHashMapHasNotVarValue() {
+        Expression exp = new Variable("x");
+        HashMap<String, Double> values = new HashMap<>();
+        values.put("y", 5.0);
+        assertThrows(NoSuchElementException.class, () -> exp.eval(values));
     }
 
     @Test

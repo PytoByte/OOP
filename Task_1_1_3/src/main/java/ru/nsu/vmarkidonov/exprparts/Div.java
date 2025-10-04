@@ -2,6 +2,8 @@ package ru.nsu.vmarkidonov.exprparts;
 
 import ru.nsu.vmarkidonov.Expression;
 
+import java.util.HashMap;
+
 /**
  * Representation of the division operator.
  */
@@ -22,7 +24,7 @@ public class Div extends AsymmetricOperator {
     }
 
     @Override
-    public double eval(String values) {
+    public double eval(HashMap<String, Double> values) {
         if (exp2.eval(values) == 0) {
             throw new ArithmeticException("Division by zero");
         }

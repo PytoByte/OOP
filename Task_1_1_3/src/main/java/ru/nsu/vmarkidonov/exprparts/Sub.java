@@ -2,6 +2,8 @@ package ru.nsu.vmarkidonov.exprparts;
 
 import ru.nsu.vmarkidonov.Expression;
 
+import java.util.HashMap;
+
 /**
  * Representation of the subtract operator.
  */
@@ -22,7 +24,7 @@ public class Sub extends AsymmetricOperator {
     }
 
     @Override
-    public double eval(String values) {
+    public double eval(HashMap<String, Double> values) {
         return exp1.eval(values) - exp2.eval(values);
     }
 

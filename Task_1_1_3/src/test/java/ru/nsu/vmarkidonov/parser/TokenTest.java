@@ -43,7 +43,7 @@ class TokenTest {
     void toExpressionIncomplete() {
         Token tokenTree = new Token(TokenType.ADD, "+", 1);
         tokenTree.pushParam(new Token(TokenType.NUMBER, "1", 0));
-        assertThrows(NullPointerException.class, tokenTree::toExpression);
+        assertThrows(ParserException.class, tokenTree::toExpression);
     }
 
     @Test

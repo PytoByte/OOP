@@ -11,7 +11,7 @@ import ru.nsu.vmarkidonov.exprparts.Variable;
 /**
  * Token for parser.
  */
-public class Token {
+class Token {
     public final TokenType type;
     public final String lexeme;
     private final Token[] params;
@@ -98,7 +98,7 @@ public class Token {
         Expression[] exprs = new Expression[type.paramCount];
         for (int i = 0; i < exprs.length; i++) {
             if (params[i] == null) {
-                throw new NullPointerException(String.format("Expression incomplete: %s", this));
+                throw new ParserException(String.format("Expression incomplete: %s", this));
             }
             exprs[i] = params[i].toExpression();
         }

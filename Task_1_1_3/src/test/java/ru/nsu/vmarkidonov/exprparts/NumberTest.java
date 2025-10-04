@@ -6,12 +6,20 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import org.junit.jupiter.api.Test;
 import ru.nsu.vmarkidonov.Expression;
 
+import java.util.HashMap;
+
 class NumberTest {
 
     @Test
     void eval() {
         Expression exp = new Number(5);
         assertEquals(5, exp.eval(""));
+    }
+
+    @Test
+    void evalHashMap() {
+        Expression exp = new Number(5);
+        assertEquals(5, exp.eval(new HashMap<>()));
     }
 
     @Test

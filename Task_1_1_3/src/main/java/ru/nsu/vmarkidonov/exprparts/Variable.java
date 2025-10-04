@@ -1,7 +1,11 @@
 package ru.nsu.vmarkidonov.exprparts;
 
+import java.util.HashMap;
 import java.util.NoSuchElementException;
+import java.util.regex.PatternSyntaxException;
+
 import ru.nsu.vmarkidonov.Expression;
+import ru.nsu.vmarkidonov.parser.ParserException;
 
 /**
  * Representation of the variable.
@@ -23,15 +27,12 @@ public class Variable extends Expression {
     }
 
     @Override
-    public double eval(String values) {
-        String[] valuesArray = values.replaceAll("\\s", "").split(";");
-        for (String pair : valuesArray) {
-            String[] pairArray = pair.split("=");
-            if (pairArray[0].strip().equals(var)) {
-                return Double.parseDouble(pairArray[1]);
-            }
+    public double eval(HashMap<String, Double> values) {
+        if (!values.containsKey(var)) {
+            throw new NoSuchElementException(String.format("Value for variable %s not found", var));
         }
-        throw new NoSuchElementException(String.format("Value for variable %s not found", var));
+
+        return values.get(var);
     }
 
     @Override

@@ -1,6 +1,10 @@
 package ru.nsu.vmarkidonov.exprparts;
 
 import ru.nsu.vmarkidonov.Expression;
+import ru.nsu.vmarkidonov.parser.ParserException;
+
+import java.util.HashMap;
+import java.util.NoSuchElementException;
 
 /**
  * Representation of the add operator.
@@ -22,7 +26,7 @@ public class Add extends SymmetricOperator {
     }
 
     @Override
-    public double eval(String values) {
+    public double eval(HashMap<String, Double> values) {
         return exp1.eval(values) + exp2.eval(values);
     }
 
