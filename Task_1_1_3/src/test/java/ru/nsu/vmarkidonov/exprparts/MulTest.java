@@ -1,6 +1,7 @@
 package ru.nsu.vmarkidonov.exprparts;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 
 import java.util.HashMap;
@@ -90,5 +91,29 @@ class MulTest {
         Expression exp = new Mul(new Number(3), new Variable("x"));
         Expression expS = exp.simplify();
         assertEquals(exp, expS);
+    }
+
+    @Test
+    void testEqualsAsymmetrical() {
+        Expression exp1 = new Mul(new Number(2), new Number(3));
+        Expression exp2 = new Mul(new Number(2), new Number(3));
+        assertEquals(exp1.hashCode(), exp2.hashCode());
+        assertEquals(exp1, exp2);
+    }
+
+    @Test
+    void testEqualsSymmetrical() {
+        Expression exp1 = new Mul(new Number(2), new Number(3));
+        Expression exp2 = new Mul(new Number(3), new Number(2));
+        assertEquals(exp1.hashCode(), exp2.hashCode());
+        assertEquals(exp1, exp2);
+    }
+
+    @Test
+    void testNotEquals() {
+        Expression exp1 = new Mul(new Number(6), new Number(1));
+        Expression exp2 = new Mul(new Number(5), new Number(10));
+        assertNotEquals(exp1.hashCode(), exp2.hashCode());
+        assertNotEquals(exp1, exp2);
     }
 }

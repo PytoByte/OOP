@@ -1,6 +1,7 @@
 package ru.nsu.vmarkidonov.exprparts;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -69,5 +70,21 @@ class VariableTest {
         Expression exp = new Variable("x");
         Expression expS = exp.simplify();
         assertEquals(exp, expS);
+    }
+
+    @Test
+    void testEquals() {
+        Expression exp1 = new Variable("x");
+        Expression exp2 = new Variable("x");
+        assertEquals(exp1.hashCode(), exp2.hashCode());
+        assertEquals(exp1, exp2);
+    }
+
+    @Test
+    void testNotEquals() {
+        Expression exp1 = new Variable("x");
+        Expression exp2 = new Variable("y");
+        assertNotEquals(exp1.hashCode(), exp2.hashCode());
+        assertNotEquals(exp1, exp2);
     }
 }

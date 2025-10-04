@@ -1,6 +1,7 @@
 package ru.nsu.vmarkidonov.exprparts;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -92,5 +93,29 @@ class DivTest {
         Expression exp = new Div(new Number(3), new Variable("x"));
         Expression expS = exp.simplify();
         assertEquals(exp, expS);
+    }
+
+    @Test
+    void testEquals() {
+        Expression exp1 = new Div(new Number(10), new Number(2));
+        Expression exp2 = new Div(new Number(10), new Number(2));
+        assertEquals(exp1.hashCode(), exp2.hashCode());
+        assertEquals(exp1, exp2);
+    }
+
+    @Test
+    void testNotEquals() {
+        Expression exp1 = new Div(new Number(46), new Number(62));
+        Expression exp2 = new Div(new Number(74), new Number(473));
+        assertNotEquals(exp1.hashCode(), exp2.hashCode());
+        assertNotEquals(exp1, exp2);
+    }
+
+    @Test
+    void testNotEqualsSymmetrical() {
+        Expression exp1 = new Div(new Number(10), new Number(2));
+        Expression exp2 = new Div(new Number(2), new Number(10));
+        assertNotEquals(exp1.hashCode(), exp2.hashCode());
+        assertNotEquals(exp1, exp2);
     }
 }
