@@ -2,10 +2,7 @@ package ru.nsu.vmarkidonov.exprparts;
 
 import java.util.HashMap;
 import java.util.NoSuchElementException;
-import java.util.regex.PatternSyntaxException;
-
 import ru.nsu.vmarkidonov.Expression;
-import ru.nsu.vmarkidonov.parser.ParserException;
 
 /**
  * Representation of the variable.

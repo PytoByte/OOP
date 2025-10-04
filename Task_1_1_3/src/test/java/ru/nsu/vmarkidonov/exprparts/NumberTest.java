@@ -3,10 +3,9 @@ package ru.nsu.vmarkidonov.exprparts;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 
+import java.util.HashMap;
 import org.junit.jupiter.api.Test;
 import ru.nsu.vmarkidonov.Expression;
-
-import java.util.HashMap;
 
 class NumberTest {
 

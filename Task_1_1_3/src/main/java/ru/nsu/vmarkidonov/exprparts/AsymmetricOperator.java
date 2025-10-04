@@ -2,10 +2,10 @@ package ru.nsu.vmarkidonov.exprparts;
 
 import java.util.Objects;
 
-public abstract class AsymmetricOperator extends Operator {
+abstract class AsymmetricOperator extends Operator {
     @Override
     public int hashCode() {
-        return Objects.hash(exp1, exp2);
+        return Objects.hash(getClass(), exp1, exp2);
     }
 
     @Override

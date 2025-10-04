@@ -1,8 +1,7 @@
 package ru.nsu.vmarkidonov.exprparts;
 
-import ru.nsu.vmarkidonov.Expression;
-
 import java.util.HashMap;
+import ru.nsu.vmarkidonov.Expression;
 
 /**
  * Representation of the multiplication operator.

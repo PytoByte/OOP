@@ -1,10 +1,7 @@
 package ru.nsu.vmarkidonov.exprparts;
 
-import ru.nsu.vmarkidonov.Expression;
-import ru.nsu.vmarkidonov.parser.ParserException;
-
 import java.util.HashMap;
-import java.util.NoSuchElementException;
+import ru.nsu.vmarkidonov.Expression;
 
 /**
  * Representation of the add operator.

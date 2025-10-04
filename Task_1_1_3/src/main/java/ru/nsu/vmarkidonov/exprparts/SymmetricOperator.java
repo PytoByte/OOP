@@ -2,10 +2,16 @@ package ru.nsu.vmarkidonov.exprparts;
 
 import java.util.Objects;
 
-public abstract class SymmetricOperator extends Operator {
+import static java.lang.Math.max;
+import static java.lang.Math.min;
+
+abstract class SymmetricOperator extends Operator {
     @Override
     public int hashCode() {
-        return Objects.hash(exp1, exp2);
+        int hash1 = exp1.hashCode();
+        int hash2 = exp2.hashCode();
+
+        return Objects.hash(getClass(), min(hash1, hash2), max(hash1, hash2));
     }
 
     @Override
