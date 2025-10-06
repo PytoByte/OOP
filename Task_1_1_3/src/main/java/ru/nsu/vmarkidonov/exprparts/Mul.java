@@ -47,13 +47,13 @@ public class Mul extends SymmetricOperator {
 
         if (exp1S.getClass() == Number.class && exp2S.getClass() == Number.class) {
             return new Number(eval(""));
-        } else if (exp1S.getClass() == Number.class && exp2S.getClass() == Variable.class) {
+        } else if (exp1S.getClass() == Number.class) {
             if (exp1S.eval("") == 0) {
                 return new Number(0);
             } else if (exp1S.eval("") == 1) {
                 return exp2S.clone();
             }
-        } else if (exp1S.getClass() == Variable.class && exp2S.getClass() == Number.class) {
+        } else if (exp2S.getClass() == Number.class) {
             if (exp2S.eval("") == 0) {
                 return new Number(0);
             } else if (exp2S.eval("") == 1) {

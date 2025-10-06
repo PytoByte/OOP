@@ -53,14 +53,14 @@ class MulTest {
 
     @Test
     void simplifyZeroLeft() {
-        Expression exp = new Mul(new Number(0), new Variable("x"));
+        Expression exp = new Mul(new Number(0), new Add(new Variable("x"), new Number(1)));
         Expression expS = exp.simplify();
         assertEquals(new Number(0), expS);
     }
 
     @Test
     void simplifyZeroRight() {
-        Expression exp = new Mul(new Variable("x"), new Number(0));
+        Expression exp = new Mul(new Add(new Variable("x"), new Number(1)), new Number(0));
         Expression expS = exp.simplify();
         assertEquals(new Number(0), expS);
     }

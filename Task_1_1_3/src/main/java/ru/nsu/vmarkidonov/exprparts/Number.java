@@ -19,6 +19,11 @@ public class Number extends Expression {
     }
 
     @Override
+    public double eval(String values) {
+        return num;
+    }
+
+    @Override
     public Expression derivative(String var) {
         return new Number(0);
     }
