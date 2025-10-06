@@ -34,7 +34,7 @@ public class Sub extends AsymmetricOperator {
 
     @Override
     public Expression clone() {
-        return new Sub(exp1, exp2);
+        return new Sub(exp1.clone(), exp2.clone());
     }
 
     @Override

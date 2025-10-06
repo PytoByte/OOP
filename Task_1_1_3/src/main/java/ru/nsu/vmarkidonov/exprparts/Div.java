@@ -43,7 +43,7 @@ public class Div extends AsymmetricOperator {
 
     @Override
     public Expression clone() {
-        return new Div(exp1, exp2);
+        return new Div(exp1.clone(), exp2.clone());
     }
 
     @Override

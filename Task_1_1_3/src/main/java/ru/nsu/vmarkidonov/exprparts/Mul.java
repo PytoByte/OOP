@@ -37,7 +37,7 @@ public class Mul extends SymmetricOperator {
 
     @Override
     public Expression clone() {
-        return new Mul(exp1, exp2);
+        return new Mul(exp1.clone(), exp2.clone());
     }
 
     @Override

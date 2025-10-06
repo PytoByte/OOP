@@ -34,7 +34,7 @@ public class Add extends SymmetricOperator {
 
     @Override
     public Expression clone() {
-        return new Add(exp1, exp2);
+        return new Add(exp1.clone(), exp2.clone());
     }
 
     @Override
