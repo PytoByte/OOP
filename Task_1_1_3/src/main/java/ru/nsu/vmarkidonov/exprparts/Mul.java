@@ -45,23 +45,25 @@ public class Mul extends SymmetricOperator {
         Expression exp1S = exp1.simplify();
         Expression exp2S = exp2.simplify();
 
+        Expression mulS = new Mul(exp1S, exp2S);
+
         if (exp1S.getClass() == Number.class && exp2S.getClass() == Number.class) {
-            return new Number(eval(""));
+            return new Number(mulS.eval(""));
         } else if (exp1S.getClass() == Number.class) {
-            if (exp1S.eval("") == 0) {
-                return new Number(0);
-            } else if (exp1S.eval("") == 1) {
+            if (exp1S.equals(Number.zero)) {
+                return Number.zero;
+            } else if (exp1S.equals(Number.one)) {
                 return exp2S.clone();
             }
         } else if (exp2S.getClass() == Number.class) {
-            if (exp2S.eval("") == 0) {
-                return new Number(0);
-            } else if (exp2S.eval("") == 1) {
+            if (exp2S.equals(Number.zero)) {
+                return Number.zero;
+            } else if (exp2S.equals(Number.one)) {
                 return exp1S.clone();
             }
         }
 
-        return new Mul(exp1S, exp2S);
+        return mulS;
     }
 
     @Override

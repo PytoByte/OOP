@@ -48,6 +48,24 @@ class AddTest {
     }
 
     @Test
+    void simplifyZeroRight() {
+        Expression exp = new Add(new Mul(new Variable("x"), new Number(10)), new Number(0));
+        Expression expS = exp.simplify();
+
+        Expression expected = new Mul(new Variable("x"), new Number(10));
+        assertEquals(expected, expS);
+    }
+
+    @Test
+    void simplifyZeroLeft() {
+        Expression exp = new Add(new Number(0), new Mul(new Variable("x"), new Number(10)));
+        Expression expS = exp.simplify();
+
+        Expression expected = new Mul(new Variable("x"), new Number(10));
+        assertEquals(expected, expS);
+    }
+
+    @Test
     void simplifyVariableLeft() {
         Expression exp = new Add(new Variable("x"), new Number(3));
         Expression expS = exp.simplify();

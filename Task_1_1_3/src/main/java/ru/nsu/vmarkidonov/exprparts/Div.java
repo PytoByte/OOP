@@ -51,21 +51,23 @@ public class Div extends AsymmetricOperator {
         Expression exp1S = exp1.simplify();
         Expression exp2S = exp2.simplify();
 
+        Expression divS = new Div(exp1S, exp2S);
+
         if (exp1S.getClass() == Number.class && exp2S.getClass() == Number.class) {
-            return new Number(eval(""));
+            return new Number(divS.eval(""));
         } else if (exp1S.getClass() == Number.class && exp2S.getClass() == Variable.class) {
-            if (exp1S.eval("") == 0) {
-                return new Number(0);
+            if (exp1S.equals(Number.zero)) {
+                return Number.zero;
             }
         } else if (exp1S.getClass() == Variable.class && exp2S.getClass() == Number.class) {
-            if (exp2S.eval("") == 0) {
+            if (exp2S.equals(Number.zero)) {
                 throw new RuntimeException("Division by zero");
-            } else if (exp2S.eval("") == 1) {
+            } else if (exp2S.equals(Number.one)) {
                 return exp1.clone();
             }
         }
 
-        return new Div(exp1S, exp2S);
+        return divS;
     }
 
     @Override

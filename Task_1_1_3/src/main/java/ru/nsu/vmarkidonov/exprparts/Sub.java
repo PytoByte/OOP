@@ -42,13 +42,15 @@ public class Sub extends AsymmetricOperator {
         Expression exp1S = exp1.simplify();
         Expression exp2S = exp2.simplify();
 
+        Expression subS = new Sub(exp1S, exp2S);
+
         if (exp1S.getClass() == Number.class && exp2S.getClass() == Number.class) {
-            return new Number(eval(""));
+            return new Number(subS.eval(""));
         } else if (exp1S.equals(exp2S)) {
-            return new Number(0);
+            return Number.zero;
         }
 
-        return new Sub(exp1S, exp2S);
+        return subS;
     }
 
     @Override

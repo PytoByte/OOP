@@ -9,6 +9,9 @@ import ru.nsu.vmarkidonov.Expression;
 public class Number extends Expression {
     public final double num;
 
+    public static final Number zero = new Number(0);
+    public static final Number one = new Number(1);
+
     public Number(double num) {
         this.num = num;
     }
