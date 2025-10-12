@@ -3,7 +3,7 @@ package Graphs;
 import java.util.HashMap;
 
 public class GraphIncidenceMatrix implements Graph {
-    HashMap<String, HashMap<String, Integer>> matrix = new HashMap<>();
+    HashMap<String, List<String, Integer>> matrix = new HashMap<>();
 
     @Override
     public void addNode(String name) {
