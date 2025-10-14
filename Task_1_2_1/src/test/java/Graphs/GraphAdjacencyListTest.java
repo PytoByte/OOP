@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.HashMap;
 import org.junit.jupiter.api.Test;
 
-class GraphIncidenceMatrixTest {
+class GraphAdjacencyListTest {
     public static void assertArraysEqualIgnoreOrder(String[] expected, String[] actual) {
         if (expected == null || actual == null) {
             return;

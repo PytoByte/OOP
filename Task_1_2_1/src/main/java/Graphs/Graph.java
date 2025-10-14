@@ -1,6 +1,8 @@
 package Graphs;
 
 public interface Graph {
+    String[] getNodes();
+
     void addNode(String name);
 
     void addEdge(String name1, String name2);

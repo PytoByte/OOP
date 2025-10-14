@@ -6,6 +6,11 @@ public class GraphAdjacencyMatrix implements Graph {
     HashMap<String, HashMap<String, Boolean>> matrix = new HashMap<>();
 
     @Override
+    public String[] getNodes() {
+        return matrix.keySet().toArray(String[]::new);
+    }
+
+    @Override
     public void addNode(String name) {
         matrix.put(name, new HashMap<>());
     }
