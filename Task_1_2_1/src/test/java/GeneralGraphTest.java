@@ -9,7 +9,16 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.function.Supplier;
 
+/**
+ * General test for Graph interface realizations.
+ */
 public class GeneralGraphTest {
+
+    /**
+     * Run all tests.
+     * @param tempDir temporary directory for file-based tests
+     * @param newGraph supplier function that creates an empty Graph instance
+     */
     public static void runTests(Path tempDir, Supplier<Graph> newGraph) {
         addAndGetNodes(newGraph);
         addEdgeIn(newGraph);
@@ -28,6 +37,11 @@ public class GeneralGraphTest {
         notEqualHashCodeByNodeTest(newGraph);
     }
 
+    /**
+     * Test adding and getting nodes.
+     *
+     * @param newGraph supplier function that creates an empty Graph instance
+     */
     public static void addAndGetNodes(Supplier<Graph> newGraph) {
         Graph graph = newGraph.get();
         assertEquals(0, graph.getNodes().length);
@@ -37,6 +51,11 @@ public class GeneralGraphTest {
         assertArraysEqualIgnoreOrder(new String[]{"1", "2"}, graph.getNodes());
     }
 
+    /**
+     * Test adding incoming edges.
+     *
+     * @param newGraph supplier function that creates an empty Graph instance
+     */
     public static void addEdgeIn(Supplier<Graph> newGraph) {
         Graph graph = newGraph.get();
         graph.addNode("1");
@@ -45,6 +64,11 @@ public class GeneralGraphTest {
         assertArraysEqualIgnoreOrder(new String[]{"1"}, graph.getNeighbours("2").in());
     }
 
+    /**
+     * Test adding outgoing edges.
+     *
+     * @param newGraph supplier function that creates an empty Graph instance
+     */
     public static void addEdgeOut(Supplier<Graph> newGraph) {
         Graph graph = newGraph.get();
         graph.addNode("1");
@@ -53,6 +77,11 @@ public class GeneralGraphTest {
         assertArraysEqualIgnoreOrder(new String[]{"2"}, graph.getNeighbours("1").out());
     }
 
+    /**
+     * Test node removal.
+     *
+     * @param newGraph supplier function that creates an empty Graph instance
+     * */
     public static void removeNode(Supplier<Graph> newGraph) {
         Graph graph = newGraph.get();
         graph.addNode("1");
@@ -62,6 +91,11 @@ public class GeneralGraphTest {
         assertArraysEqualIgnoreOrder(new String[]{"2", "3"}, graph.getNodes());
     }
 
+    /**
+     * Test edge removal.
+     *
+     * @param newGraph supplier function that creates an empty Graph instance
+     */
     public static void removeEdge(Supplier<Graph> newGraph) {
         Graph graph = newGraph.get();
         graph.addNode("1");
@@ -73,6 +107,11 @@ public class GeneralGraphTest {
         assertArraysEqualIgnoreOrder(new String[]{"3"}, graph.getNeighbours("1").out());
     }
 
+    /**
+     * Test node removal with edges.
+     *
+     * @param newGraph supplier function that creates an empty Graph instance
+     */
     public static void removeNodeWithEdge(Supplier<Graph> newGraph) {
         Graph graph = newGraph.get();
         graph.addNode("1");
@@ -85,6 +124,11 @@ public class GeneralGraphTest {
         assertArraysEqualIgnoreOrder(new String[]{"3"}, graph.getNeighbours("1").out());
     }
 
+    /**
+     * Test getting neighbors.
+     *
+     * @param newGraph supplier function that creates an empty Graph instance
+     */
     public static void getNeighbours(Supplier<Graph> newGraph) {
         Graph graph = newGraph.get();
         graph.addNode("a");
@@ -105,6 +149,12 @@ public class GeneralGraphTest {
         assertArraysEqualIgnoreOrder(expectedOut, actualOut);
     }
 
+    /**
+     * Test saving graph to file.
+     *
+     * @param tempDir temporary directory for file-based tests
+     * @param newGraph supplier function that creates an empty Graph instance
+     */
     public static void toFile(Path tempDir, Supplier<Graph> newGraph) {
         Path testFilePath = tempDir.resolve("test.graph");
 
@@ -137,6 +187,12 @@ public class GeneralGraphTest {
         );
     }
 
+    /**
+     * Test loading graph from file.
+     *
+     * @param tempDir temporary directory for file-based tests
+     * @param newGraph supplier function that creates an empty Graph instance
+     */
     public static void fromFile(Path tempDir, Supplier<Graph> newGraph) {
         Path testFilePath = tempDir.resolve("test.graph");
 
@@ -153,6 +209,11 @@ public class GeneralGraphTest {
         assertEquals(graphWriter, graphReader);
     }
 
+    /**
+     * Test graph equality.
+     *
+     * @param newGraph supplier function that creates an empty Graph instance
+     */
     public static void equalsTest(Supplier<Graph> newGraph) {
         Graph graph1 = newGraph.get();
         graph1.addNode("A");
@@ -173,6 +234,11 @@ public class GeneralGraphTest {
         assertEquals(graph1, graph2);
     }
 
+    /**
+     * Test inequality by edges.
+     *
+     * @param newGraph supplier function that creates an empty Graph instance
+     */
     public static void notEqualsByEdgeTest(Supplier<Graph> newGraph) {
         Graph graph1 = newGraph.get();
         graph1.addNode("A");
@@ -193,6 +259,11 @@ public class GeneralGraphTest {
         assertNotEquals(graph1, graph2);
     }
 
+    /**
+     * Test inequality by nodes.
+     *
+     * @param newGraph supplier function that creates an empty Graph instance
+     */
     public static void notEqualsByNodeTest(Supplier<Graph> newGraph) {
         Graph graph1 = newGraph.get();
         graph1.addNode("A");
@@ -213,6 +284,11 @@ public class GeneralGraphTest {
         assertNotEquals(graph1, graph2);
     }
 
+    /**
+     * Test equal hash codes.
+     *
+     * @param newGraph supplier function that creates an empty Graph instance
+     */
     public static void equalHashCodeTest(Supplier<Graph> newGraph) {
         Graph graph1 = newGraph.get();
         graph1.addNode("A");
@@ -233,6 +309,11 @@ public class GeneralGraphTest {
         assertEquals(graph1.hashCode(), graph2.hashCode());
     }
 
+    /**
+     * Test different hash codes by edges.
+     *
+     * @param newGraph supplier function that creates an empty Graph instance
+     */
     public static void notEqualHashCodeByEdgeTest(Supplier<Graph> newGraph) {
         Graph graph1 = newGraph.get();
         graph1.addNode("A");
@@ -253,6 +334,11 @@ public class GeneralGraphTest {
         assertNotEquals(graph1.hashCode(), graph2.hashCode());
     }
 
+    /**
+     * Test different hash codes by nodes.
+     *
+     * @param newGraph supplier function that creates an empty Graph instance
+     */
     public static void notEqualHashCodeByNodeTest(Supplier<Graph> newGraph) {
         Graph graph1 = newGraph.get();
         graph1.addNode("A");

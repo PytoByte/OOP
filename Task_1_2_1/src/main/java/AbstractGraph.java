@@ -1,8 +1,10 @@
 import static java.nio.file.Files.newBufferedWriter;
 import static java.nio.file.Files.readAllLines;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.List;
 
 /**
  * Abstract graph class which contains
@@ -13,7 +15,7 @@ public abstract class AbstractGraph implements Graph {
      * {@inheritDoc}
      */
     public void toFile(String filepath) {
-        try (var writer = newBufferedWriter(Paths.get(filepath))) {
+        try (BufferedWriter writer = newBufferedWriter(Paths.get(filepath))) {
             String[] nodes = getNodes();
 
             writer.write(nodes.length + "\n");
@@ -37,8 +39,10 @@ public abstract class AbstractGraph implements Graph {
      */
     public void fromFile(String filepath) {
         try {
-            var lines = readAllLines(Paths.get(filepath));
-            if (lines.isEmpty()) return;
+            List<String> lines = readAllLines(Paths.get(filepath));
+            if (lines.isEmpty()) {
+                return;
+            }
 
             int nodeCount = Integer.parseInt(lines.get(0));
             for (int i = 1; i <= nodeCount && i < lines.size(); i++) {
@@ -46,7 +50,7 @@ public abstract class AbstractGraph implements Graph {
             }
 
             for (int i = nodeCount + 1; i < lines.size(); i++) {
-                var parts = lines.get(i).split("\\s+", 2);
+                String[] parts = lines.get(i).split("\\s+", 2);
                 if (parts.length == 2) {
                     addEdge(parts[0].trim(), parts[1].trim());
                 }

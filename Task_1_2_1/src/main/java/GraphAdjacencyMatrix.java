@@ -97,7 +97,7 @@ public class GraphAdjacencyMatrix extends AbstractGraph {
             sb.append(" ".repeat(maxNodeName - from.length() + 1));
             for (String to : allNodes) {
                 boolean hasEdge = matrix.get(from).containsKey(to);
-                int toLen = to.length()/2;
+                int toLen = to.length() / 2;
                 sb.append(" ".repeat(toLen));
                 sb.append(String.format("%s", hasEdge ? "1" : "0"));
                 sb.append(" ".repeat(to.length() % 2 == 0 ? toLen : toLen+1));
@@ -109,8 +109,12 @@ public class GraphAdjacencyMatrix extends AbstractGraph {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         GraphAdjacencyMatrix that = (GraphAdjacencyMatrix) o;
         return matrix.equals(that.matrix);

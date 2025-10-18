@@ -6,9 +6,18 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashMap;
 
+/**
+ * Utils for graph testing.
+ */
 public class TestsUtils {
     private TestsUtils() { throw new UnsupportedOperationException(); }
 
+    /**
+     * Assert arrays equal with ignoring order.
+     *
+     * @param expected expected array
+     * @param actual actual array
+     */
     public static void assertArraysEqualIgnoreOrder(String[] expected, String[] actual) {
         if (expected == null || actual == null) {
             return;
