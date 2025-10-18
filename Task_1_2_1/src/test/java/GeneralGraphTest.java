@@ -1,7 +1,7 @@
+import static Utils.TestsUtils.assertArraysEqualIgnoreOrder;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static Utils.TestsUtils.assertArraysEqualIgnoreOrder;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -16,6 +16,7 @@ public class GeneralGraphTest {
 
     /**
      * Run all tests.
+     *
      * @param tempDir temporary directory for file-based tests
      * @param newGraph supplier function that creates an empty Graph instance
      */

@@ -124,7 +124,7 @@ class GraphSortingTest {
 
     @ParameterizedTest
     @MethodSource("graphImplementations")
-    void topologicalSort_complexDAG(Supplier<Graph> graphSupplier) {
+    void topologicalSort_sortTree(Supplier<Graph> graphSupplier) {
         //     A
         //    / \
         //   B   C

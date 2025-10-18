@@ -36,7 +36,7 @@ public class GraphAdjacencyMatrix extends AbstractGraph {
      */
     @Override
     public void removeNode(String name) {
-        HashMap<String, Boolean> value = matrix.remove(name);
+        matrix.remove(name);
         for (String node : matrix.keySet()) {
             matrix.get(node).remove(name);
         }
@@ -100,7 +100,7 @@ public class GraphAdjacencyMatrix extends AbstractGraph {
                 int toLen = to.length() / 2;
                 sb.append(" ".repeat(toLen));
                 sb.append(String.format("%s", hasEdge ? "1" : "0"));
-                sb.append(" ".repeat(to.length() % 2 == 0 ? toLen : toLen+1));
+                sb.append(" ".repeat(to.length() % 2 == 0 ? toLen : toLen + 1));
             }
             sb.append("\n");
         }

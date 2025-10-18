@@ -59,7 +59,7 @@ public class GraphSorting {
         }
 
         if (result.size() != nodes.length) {
-            throw new IllegalArgumentException("Graph has a cycle, topological sort is not possible.");
+            throw new IllegalArgumentException("Graph has a cycle.");
         }
 
         return result.toArray(new String[0]);
