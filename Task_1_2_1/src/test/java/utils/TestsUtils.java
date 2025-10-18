@@ -1,4 +1,4 @@
-package Utils;
+package utils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -10,7 +10,9 @@ import java.util.HashMap;
  * Utils for graph testing.
  */
 public class TestsUtils {
-    private TestsUtils() { throw new UnsupportedOperationException(); }
+    private TestsUtils() {
+        throw new UnsupportedOperationException();
+    }
 
     /**
      * Assert arrays equal with ignoring order.

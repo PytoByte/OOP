@@ -1,4 +1,4 @@
-import static Utils.TestsUtils.assertArraysEqualIgnoreOrder;
+import static utils.TestsUtils.assertArraysEqualIgnoreOrder;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
