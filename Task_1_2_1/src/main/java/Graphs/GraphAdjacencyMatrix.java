@@ -1,8 +1,9 @@
 package Graphs;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 
-public class GraphAdjacencyMatrix implements Graph {
+public class GraphAdjacencyMatrix extends AbstractGraph {
     HashMap<String, HashMap<String, Boolean>> matrix = new HashMap<>();
 
     @Override
@@ -35,13 +36,64 @@ public class GraphAdjacencyMatrix implements Graph {
     }
 
     @Override
-    public String[] getNeighbours(String name) {
-        return matrix.get(name).keySet().toArray(String[]::new);
+    public NodeNeighbours getNeighbours(String name) {
+        LinkedList<String> neighboursIn = new LinkedList<>();
+        for (String node : getNodes()) {
+            if (matrix.get(node).containsKey(name)) {
+                neighboursIn.add(node);
+            }
+        }
+        return new NodeNeighbours(
+                neighboursIn.toArray(String[]::new),
+                matrix.get(name).keySet().toArray(String[]::new)
+        );
     }
 
     @Override
-    public Graph fromFile(String filepath) {
-        return null;
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        String[] allNodes = getNodes();
+        int maxNodeName = 0;
+        for (String node : allNodes) {
+            maxNodeName = Math.max(node.length(), maxNodeName);
+        }
+
+        // Заголовок
+        sb.append(" ".repeat(maxNodeName + 1));
+        for (String to : allNodes) {
+            sb.append(String.format("%s ", to));
+        }
+        sb.append("\n");
+
+        // Строки матрицы
+        for (String from : allNodes) {
+            sb.append(String.format("%s", from));
+            sb.append(" ".repeat(maxNodeName - from.length() + 1));
+            for (String to : allNodes) {
+                boolean hasEdge = matrix.get(from).containsKey(to);
+                int toLen = to.length()/2;
+                sb.append(" ".repeat(toLen));
+                sb.append(String.format("%s", hasEdge ? "1" : "0"));
+                sb.append(" ".repeat(to.length() % 2 == 0 ? toLen : toLen+1));
+            }
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        GraphAdjacencyMatrix that = (GraphAdjacencyMatrix) o;
+        return matrix.equals(that.matrix);
+    }
+
+    @Override
+    public int hashCode() {
+        return matrix.hashCode();
     }
 }
 

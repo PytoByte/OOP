@@ -46,12 +46,21 @@ class GraphIncidenceMatrixTest {
     }
 
     @Test
-    void addEdge() {
+    void addEdgeIn() {
         Graph graph = new GraphIncidenceMatrix();
         graph.addNode("1");
         graph.addNode("2");
         graph.addEdge("1", "2");
-        assertArraysEqualIgnoreOrder(new String[]{"2"}, graph.getNeighbours("1"));
+        assertArraysEqualIgnoreOrder(new String[]{"1"}, graph.getNeighbours("2").in());
+    }
+
+    @Test
+    void addEdgeOut() {
+        Graph graph = new GraphIncidenceMatrix();
+        graph.addNode("1");
+        graph.addNode("2");
+        graph.addEdge("1", "2");
+        assertArraysEqualIgnoreOrder(new String[]{"2"}, graph.getNeighbours("1").out());
     }
 
     @Test
@@ -73,7 +82,7 @@ class GraphIncidenceMatrixTest {
         graph.addEdge("1", "2");
         graph.addEdge("1", "3");
         graph.removeEdge("1", "2");
-        assertArraysEqualIgnoreOrder(new String[]{"1"}, graph.getNeighbours("3"));
+        assertArraysEqualIgnoreOrder(new String[]{"3"}, graph.getNeighbours("1").out());
     }
 
     @Test
@@ -88,22 +97,13 @@ class GraphIncidenceMatrixTest {
         graph.addEdge("c", "a");
         graph.addEdge("a", "d");
 
-        String[] expected = {"b", "c", "d"};
-        String[] actual = graph.getNeighbours("a");
-        assertEquals(expected.length, actual.length);
+        String[] expectedIn = {"c"};
+        String[] expectedOut = {"b", "d"};
+        String[] actualIn = graph.getNeighbours("a").in();
+        String[] actualOut = graph.getNeighbours("a").out();
 
-        for (int i = 0; i < expected.length; i++) {
-            boolean found = false;
-            for (int j = 0; j < actual.length; j++) {
-                if (expected[i].equals(actual[j])) {
-                    expected[i] = "match_e";
-                    actual[j] = "match_a";
-                    found = true;
-                    break;
-                }
-            }
-            assertTrue(found);
-        }
+        assertArraysEqualIgnoreOrder(expectedIn, actualIn);
+        assertArraysEqualIgnoreOrder(expectedOut, actualOut);
     }
 
     @Test

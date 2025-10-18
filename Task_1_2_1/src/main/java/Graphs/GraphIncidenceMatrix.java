@@ -1,9 +1,11 @@
 package Graphs;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Objects;
 
-public class GraphIncidenceMatrix implements Graph {
+public class GraphIncidenceMatrix extends AbstractGraph {
     LinkedList<String> nodes = new LinkedList<>();
     LinkedList<HashMap<String, Integer>> matrix = new LinkedList<>();
 
@@ -42,23 +44,106 @@ public class GraphIncidenceMatrix implements Graph {
     }
 
     @Override
-    public String[] getNeighbours(String name) {
-        LinkedList<String> neighbours = new LinkedList<>();
+    public NodeNeighbours getNeighbours(String name) {
+        LinkedList<String> neighboursIn = new LinkedList<>();
+        LinkedList<String> neighboursOut = new LinkedList<>();
         for (HashMap<String, Integer> edge : matrix) {
             if (edge.containsKey(name)) {
                 for (String node : edge.keySet()) {
                     if (!node.equals(name)) {
-                        neighbours.add(node);
+                        if (edge.get(node) == 1) {
+                            neighboursOut.add(node);
+                        } else {
+                            neighboursIn.add(node);
+                        }
                         break;
                     }
                 }
             }
         }
-        return neighbours.toArray(String[]::new);
+        return new NodeNeighbours(
+                neighboursIn.toArray(String[]::new),
+                neighboursOut.toArray(String[]::new)
+        );
     }
 
     @Override
-    public Graph fromFile(String filepath) {
-        return null;
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        String[] allNodes = getNodes();
+        int edgeCount = matrix.size();
+
+        if (edgeCount == 0) {
+            sb.append("(no edges)\n");
+            return sb.toString();
+        }
+
+        // Определяем ширину для имён узлов (левая колонка)
+        int maxNodeNameWidth = 0;
+        for (String node : allNodes) {
+            maxNodeNameWidth = Math.max(maxNodeNameWidth, node.length());
+        }
+
+        // Генерируем имена рёбер: E0, E1, ..., En-1
+        String[] edgeLabels = new String[edgeCount];
+        int maxEdgeLabelWidth = 0;
+        for (int i = 0; i < edgeCount; i++) {
+            edgeLabels[i] = "E" + i;
+            maxEdgeLabelWidth = Math.max(maxEdgeLabelWidth, edgeLabels[i].length());
+        }
+
+        // Заголовок: отступ под узлы + имена рёбер
+        sb.append(" ".repeat(maxNodeNameWidth + 1));
+        for (String label : edgeLabels) {
+            sb.append(String.format("%" + maxEdgeLabelWidth + "s ", label));
+        }
+        sb.append("\n");
+
+        // Строки по узлам
+        for (String node : allNodes) {
+            // Имя узла слева
+            sb.append(node);
+            sb.append(" ".repeat(maxNodeNameWidth - node.length() + 1));
+
+            // Значения в строке
+            for (int e = 0; e < edgeCount; e++) {
+                HashMap<String, Integer> edge = matrix.get(e);
+                Integer value = edge.get(node);
+                String cell = (value != null) ? value.toString() : "0";
+
+                // Выравнивание по центру ячейки (аналогично твоему стилю)
+                int padTotal = maxEdgeLabelWidth - cell.length();
+                int padLeft = padTotal / 2;
+                int padRight = padTotal - padLeft;
+
+                sb.append(" ".repeat(padLeft))
+                        .append(cell)
+                        .append(" ".repeat(padRight))
+                        .append(" ");
+            }
+            sb.append("\n");
+        }
+
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        GraphIncidenceMatrix that = (GraphIncidenceMatrix) o;
+
+        if (!new HashSet<>(nodes).equals(new HashSet<>(that.nodes))) {
+            return false;
+        }
+
+        return new HashSet<>(matrix).equals(new HashSet<>(that.matrix));
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(new HashSet<>(nodes), new HashSet<>(matrix));
     }
 }

@@ -1,10 +1,8 @@
 package Graphs;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.*;
 
-public class GraphAdjacencyList implements Graph {
+public class GraphAdjacencyList extends AbstractGraph {
     private final HashMap<String, LinkedList<String>> lists = new HashMap<>();
 
     @Override
@@ -43,22 +41,69 @@ public class GraphAdjacencyList implements Graph {
     }
 
     @Override
-    public String[] getNeighbours(String name) {
+    public NodeNeighbours getNeighbours(String name) {
         if (lists.containsKey(name)) {
-            ArrayList<String> neighbours = new ArrayList<>(lists.get(name));
-            for (String node : lists.keySet()) {
-                if (lists.get(node).contains(name) && !neighbours.contains(node)) {
-                    neighbours.add(node);
+            LinkedList<String> neighboursIn = new LinkedList<>(lists.get(name));
+            LinkedList<String> neighboursOut = new LinkedList<>();
+            for (String node : getNodes()) {
+                if (lists.get(node).contains(name) && !neighboursOut.contains(node)) {
+                    neighboursOut.add(node);
                 }
             }
-            return neighbours.toArray(String[]::new);
+            return new NodeNeighbours(
+                    neighboursIn.toArray(String[]::new),
+                    neighboursOut.toArray(String[]::new)
+            );
         }
         return null;
     }
 
     @Override
-    public Graph fromFile(String filepath) {
-        return null;
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        String[] allNodes = getNodes();
+        if (allNodes.length == 0) {
+            sb.append("  (no nodes)\n");
+            return sb.toString();
+        }
+
+        // Находим максимальную длину имени узла для выравнивания
+        int maxNodeNameWidth = 0;
+        for (String node : allNodes) {
+            maxNodeNameWidth = Math.max(maxNodeNameWidth, node.length());
+        }
+
+        // Формируем строки
+        for (String node : allNodes) {
+            sb.append(node);
+            sb.append(" ".repeat(maxNodeNameWidth - node.length()));
+            sb.append(" -> [");
+
+            LinkedList<String> neighbours = lists.get(node);
+            if (!neighbours.isEmpty()) {
+                sb.append(String.join(", ", neighbours));
+            }
+
+            sb.append("]\n");
+        }
+
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        GraphAdjacencyList that = (GraphAdjacencyList) o;
+
+        return lists.equals(that.lists);
+    }
+
+    @Override
+    public int hashCode() {
+        return lists.hashCode();
     }
 }
 
