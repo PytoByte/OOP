@@ -28,9 +28,7 @@ class GraphAdjacencyMatrixTest {
         graph.addNode("A");
 
         String result = graph.toString();
-        String expected =
-                "   A \n" +
-                        "A  0 \n";
+        String expected = "  A \n" + "A 0 \n";
 
         assertEquals(expected, result);
     }

@@ -1,7 +1,6 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static utils.TestsUtils.assertArraysEqualIgnoreOrder;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -47,9 +46,9 @@ public class GeneralGraphTest {
         Graph graph = newGraph.get();
         assertEquals(0, graph.getNodes().length);
         graph.addNode("1");
-        assertArraysEqualIgnoreOrder(new String[]{"1"}, graph.getNodes());
+        TestsUtils.assertArraysEqualIgnoreOrder(new String[]{"1"}, graph.getNodes());
         graph.addNode("2");
-        assertArraysEqualIgnoreOrder(new String[]{"1", "2"}, graph.getNodes());
+        TestsUtils.assertArraysEqualIgnoreOrder(new String[]{"1", "2"}, graph.getNodes());
     }
 
     /**
@@ -62,7 +61,7 @@ public class GeneralGraphTest {
         graph.addNode("1");
         graph.addNode("2");
         graph.addEdge("1", "2");
-        assertArraysEqualIgnoreOrder(new String[]{"1"}, graph.getNeighbours("2").in());
+        TestsUtils.assertArraysEqualIgnoreOrder(new String[]{"1"}, graph.getNeighbours("2").in());
     }
 
     /**
@@ -75,7 +74,7 @@ public class GeneralGraphTest {
         graph.addNode("1");
         graph.addNode("2");
         graph.addEdge("1", "2");
-        assertArraysEqualIgnoreOrder(new String[]{"2"}, graph.getNeighbours("1").out());
+        TestsUtils.assertArraysEqualIgnoreOrder(new String[]{"2"}, graph.getNeighbours("1").out());
     }
 
     /**
@@ -89,7 +88,7 @@ public class GeneralGraphTest {
         graph.addNode("2");
         graph.addNode("3");
         graph.removeNode("1");
-        assertArraysEqualIgnoreOrder(new String[]{"2", "3"}, graph.getNodes());
+        TestsUtils.assertArraysEqualIgnoreOrder(new String[]{"2", "3"}, graph.getNodes());
     }
 
     /**
@@ -105,7 +104,7 @@ public class GeneralGraphTest {
         graph.addEdge("1", "2");
         graph.addEdge("1", "3");
         graph.removeEdge("1", "2");
-        assertArraysEqualIgnoreOrder(new String[]{"3"}, graph.getNeighbours("1").out());
+        TestsUtils.assertArraysEqualIgnoreOrder(new String[]{"3"}, graph.getNeighbours("1").out());
     }
 
     /**
@@ -121,8 +120,8 @@ public class GeneralGraphTest {
         graph.addEdge("1", "2");
         graph.addEdge("1", "3");
         graph.removeNode("2");
-        assertArraysEqualIgnoreOrder(new String[]{"1", "3"}, graph.getNodes());
-        assertArraysEqualIgnoreOrder(new String[]{"3"}, graph.getNeighbours("1").out());
+        TestsUtils.assertArraysEqualIgnoreOrder(new String[]{"1", "3"}, graph.getNodes());
+        TestsUtils.assertArraysEqualIgnoreOrder(new String[]{"3"}, graph.getNeighbours("1").out());
     }
 
     /**
@@ -146,8 +145,8 @@ public class GeneralGraphTest {
         String[] actualIn = graph.getNeighbours("a").in();
         String[] actualOut = graph.getNeighbours("a").out();
 
-        assertArraysEqualIgnoreOrder(expectedIn, actualIn);
-        assertArraysEqualIgnoreOrder(expectedOut, actualOut);
+        TestsUtils.assertArraysEqualIgnoreOrder(expectedIn, actualIn);
+        TestsUtils.assertArraysEqualIgnoreOrder(expectedOut, actualOut);
     }
 
     /**
@@ -178,11 +177,11 @@ public class GeneralGraphTest {
         }
 
         assertEquals("3", content.get(0));
-        assertArraysEqualIgnoreOrder(
+        TestsUtils.assertArraysEqualIgnoreOrder(
                 new String[]{"A", "B", "C"},
                 content.subList(1, 4).toArray(String[]::new)
         );
-        assertArraysEqualIgnoreOrder(
+        TestsUtils.assertArraysEqualIgnoreOrder(
                 new String[]{"A B", "B C"},
                 content.subList(4, 6).toArray(String[]::new)
         );

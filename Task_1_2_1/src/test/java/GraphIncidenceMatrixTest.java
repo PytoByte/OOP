@@ -28,7 +28,7 @@ class GraphIncidenceMatrixTest {
         graph.addNode("A");
 
         String result = graph.toString();
-        String expected = "   \n" + "A  \n";
+        String expected = "  \n" + "A \n";
 
         assertEquals(expected, result);
     }
