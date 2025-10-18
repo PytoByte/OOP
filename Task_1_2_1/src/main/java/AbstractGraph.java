@@ -1,14 +1,17 @@
-package Graphs;
-
 import static java.nio.file.Files.newBufferedWriter;
 import static java.nio.file.Files.readAllLines;
 
-import java.io.*;
 import java.nio.file.Paths;
 import java.io.IOException;
-import java.util.*;
 
+/**
+ * Abstract graph class which contains
+ * serialization/deserialization to/from files realizations.
+ */
 public abstract class AbstractGraph implements Graph {
+    /**
+     * {@inheritDoc}
+     */
     public void toFile(String filepath) {
         try (var writer = newBufferedWriter(Paths.get(filepath))) {
             String[] nodes = getNodes();
@@ -29,6 +32,9 @@ public abstract class AbstractGraph implements Graph {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void fromFile(String filepath) {
         try {
             var lines = readAllLines(Paths.get(filepath));

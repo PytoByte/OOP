@@ -1,10 +1,5 @@
-package Graphs;
-
-import java.io.IOException;
-
 /**
- * Interface representing a graph with basic operations.
- * Supports adding/removing nodes and edges, retrieving graph information,
+ * Interface representing a graph with basic operations
  * and serialization/deserialization to/from files.
  */
 public interface Graph {

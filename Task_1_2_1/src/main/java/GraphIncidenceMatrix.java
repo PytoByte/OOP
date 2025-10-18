@@ -1,19 +1,26 @@
-package Graphs;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Objects;
 
+/**
+ * Graph with incidence matrix structure.
+ */
 public class GraphIncidenceMatrix extends AbstractGraph {
     LinkedList<String> nodes = new LinkedList<>();
     LinkedList<HashMap<String, Integer>> matrix = new LinkedList<>();
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String[] getNodes() {
         return nodes.toArray(String[]::new);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addNode(String name) {
         if (!nodes.contains(name)) {
@@ -21,16 +28,26 @@ public class GraphIncidenceMatrix extends AbstractGraph {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addEdge(String name1, String name2) {
         if (nodes.contains(name1) && nodes.contains(name2)) {
             HashMap<String, Integer> edge = new HashMap<>();
-            edge.put(name1, -1);
-            edge.put(name2, 1);
+            if (name1.equals(name2)) {
+                edge.put(name1, 2);
+            } else {
+                edge.put(name1, -1);
+                edge.put(name2, 1);
+            }
             matrix.add(edge);
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeNode(String name) {
         if (nodes.remove(name)) {
@@ -38,17 +55,28 @@ public class GraphIncidenceMatrix extends AbstractGraph {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeEdge(String name1, String name2) {
         matrix.removeIf(edge -> edge.containsKey(name1) && edge.containsKey(name2));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public NodeNeighbours getNeighbours(String name) {
         LinkedList<String> neighboursIn = new LinkedList<>();
         LinkedList<String> neighboursOut = new LinkedList<>();
         for (HashMap<String, Integer> edge : matrix) {
             if (edge.containsKey(name)) {
+                if (edge.get(name) == 2) {
+                    neighboursIn.add(name);
+                    neighboursOut.add(name);
+                    continue;
+                }
                 for (String node : edge.keySet()) {
                     if (!node.equals(name)) {
                         if (edge.get(node) == 1) {
@@ -74,18 +102,16 @@ public class GraphIncidenceMatrix extends AbstractGraph {
         String[] allNodes = getNodes();
         int edgeCount = matrix.size();
 
-        if (edgeCount == 0) {
-            sb.append("(no edges)\n");
+        if (allNodes.length == 0) {
+            sb.append("(no nodes)\n");
             return sb.toString();
         }
 
-        // Определяем ширину для имён узлов (левая колонка)
         int maxNodeNameWidth = 0;
         for (String node : allNodes) {
             maxNodeNameWidth = Math.max(maxNodeNameWidth, node.length());
         }
 
-        // Генерируем имена рёбер: E0, E1, ..., En-1
         String[] edgeLabels = new String[edgeCount];
         int maxEdgeLabelWidth = 0;
         for (int i = 0; i < edgeCount; i++) {
@@ -93,26 +119,21 @@ public class GraphIncidenceMatrix extends AbstractGraph {
             maxEdgeLabelWidth = Math.max(maxEdgeLabelWidth, edgeLabels[i].length());
         }
 
-        // Заголовок: отступ под узлы + имена рёбер
         sb.append(" ".repeat(maxNodeNameWidth + 1));
         for (String label : edgeLabels) {
             sb.append(String.format("%" + maxEdgeLabelWidth + "s ", label));
         }
         sb.append("\n");
 
-        // Строки по узлам
         for (String node : allNodes) {
-            // Имя узла слева
             sb.append(node);
             sb.append(" ".repeat(maxNodeNameWidth - node.length() + 1));
 
-            // Значения в строке
             for (int e = 0; e < edgeCount; e++) {
                 HashMap<String, Integer> edge = matrix.get(e);
                 Integer value = edge.get(node);
                 String cell = (value != null) ? value.toString() : "0";
 
-                // Выравнивание по центру ячейки (аналогично твоему стилю)
                 int padTotal = maxEdgeLabelWidth - cell.length();
                 int padLeft = padTotal / 2;
                 int padRight = padTotal - padLeft;

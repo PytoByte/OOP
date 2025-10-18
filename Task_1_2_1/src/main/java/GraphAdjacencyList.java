@@ -1,20 +1,30 @@
-package Graphs;
-
 import java.util.*;
 
+/**
+ * Graph with adjacency list structure.
+ */
 public class GraphAdjacencyList extends AbstractGraph {
     private final HashMap<String, LinkedList<String>> lists = new HashMap<>();
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String[] getNodes() {
         return lists.keySet().toArray(String[]::new);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addNode(String name) {
         lists.put(name, new LinkedList<>());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addEdge(String name1, String name2) {
         if (lists.containsKey(name1) && lists.containsKey(name2)) {
@@ -22,16 +32,20 @@ public class GraphAdjacencyList extends AbstractGraph {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeNode(String name) {
-        LinkedList<String> adj = lists.remove(name);
-        if (adj != null) {
-            for (String node : adj) {
-                lists.get(node).remove(name);
-            }
+        lists.remove(name);
+        for (String node : lists.keySet()) {
+            lists.get(node).remove(name);
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeEdge(String name1, String name2) {
         if (lists.containsKey(name1) && lists.containsKey(name2)) {
@@ -40,14 +54,17 @@ public class GraphAdjacencyList extends AbstractGraph {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public NodeNeighbours getNeighbours(String name) {
         if (lists.containsKey(name)) {
-            LinkedList<String> neighboursIn = new LinkedList<>(lists.get(name));
-            LinkedList<String> neighboursOut = new LinkedList<>();
+            LinkedList<String> neighboursOut = new LinkedList<>(lists.get(name));
+            LinkedList<String> neighboursIn = new LinkedList<>();
             for (String node : getNodes()) {
                 if (lists.get(node).contains(name) && !neighboursOut.contains(node)) {
-                    neighboursOut.add(node);
+                    neighboursIn.add(node);
                 }
             }
             return new NodeNeighbours(
@@ -58,23 +75,24 @@ public class GraphAdjacencyList extends AbstractGraph {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
         String[] allNodes = getNodes();
         if (allNodes.length == 0) {
-            sb.append("  (no nodes)\n");
+            sb.append("(no nodes)\n");
             return sb.toString();
         }
 
-        // Находим максимальную длину имени узла для выравнивания
         int maxNodeNameWidth = 0;
         for (String node : allNodes) {
             maxNodeNameWidth = Math.max(maxNodeNameWidth, node.length());
         }
 
-        // Формируем строки
         for (String node : allNodes) {
             sb.append(node);
             sb.append(" ".repeat(maxNodeNameWidth - node.length()));

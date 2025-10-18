@@ -1,40 +1,59 @@
-package Graphs;
-
 import java.util.HashMap;
 import java.util.LinkedList;
 
+/**
+ * Graph with adjacency matrix structure.
+ */
 public class GraphAdjacencyMatrix extends AbstractGraph {
     HashMap<String, HashMap<String, Boolean>> matrix = new HashMap<>();
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String[] getNodes() {
         return matrix.keySet().toArray(String[]::new);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addNode(String name) {
         matrix.put(name, new HashMap<>());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addEdge(String name1, String name2) {
         matrix.get(name1).put(name2, true);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeNode(String name) {
         HashMap<String, Boolean> value = matrix.remove(name);
-        for (String key : value.keySet()) {
-            matrix.get(key).remove(name);
+        for (String node : matrix.keySet()) {
+            matrix.get(node).remove(name);
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeEdge(String name1, String name2) {
         matrix.get(name1).remove(name2);
         matrix.get(name2).remove(name1);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public NodeNeighbours getNeighbours(String name) {
         LinkedList<String> neighboursIn = new LinkedList<>();
@@ -49,24 +68,30 @@ public class GraphAdjacencyMatrix extends AbstractGraph {
         );
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
         String[] allNodes = getNodes();
+        if (allNodes.length == 0) {
+            sb.append("(no nodes)\n");
+            return sb.toString();
+        }
+
         int maxNodeName = 0;
         for (String node : allNodes) {
             maxNodeName = Math.max(node.length(), maxNodeName);
         }
 
-        // Заголовок
         sb.append(" ".repeat(maxNodeName + 1));
         for (String to : allNodes) {
             sb.append(String.format("%s ", to));
         }
         sb.append("\n");
 
-        // Строки матрицы
         for (String from : allNodes) {
             sb.append(String.format("%s", from));
             sb.append(" ".repeat(maxNodeName - from.length() + 1));
