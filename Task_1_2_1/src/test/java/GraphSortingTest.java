@@ -1,10 +1,12 @@
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.function.Supplier;
 import java.util.stream.Stream;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 class GraphSortingTest {
     private int indexOf(String[] array, String value) {
@@ -217,7 +219,6 @@ class GraphSortingTest {
 
         String[] result = GraphSorting.topologicalSort(graph);
 
-        assertNotNull(result);
         assertEquals(3, result.length);
         assertTrue(containsAll(result, "X", "Y", "Z"));
     }

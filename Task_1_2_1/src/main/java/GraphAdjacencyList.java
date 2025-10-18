@@ -1,4 +1,5 @@
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
 
 /**
  * Graph with adjacency list structure.

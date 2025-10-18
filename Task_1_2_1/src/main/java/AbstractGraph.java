@@ -1,8 +1,8 @@
 import static java.nio.file.Files.newBufferedWriter;
 import static java.nio.file.Files.readAllLines;
 
-import java.nio.file.Paths;
 import java.io.IOException;
+import java.nio.file.Paths;
 
 /**
  * Abstract graph class which contains
