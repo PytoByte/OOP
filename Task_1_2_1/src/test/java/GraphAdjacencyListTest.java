@@ -5,26 +5,22 @@ import java.nio.file.Path;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-class GraphAdjacencyListTest {
-    static Graph newGraph() {
+class GraphAdjacencyListTest implements GeneralGraphTest {
+    @Override
+    public Graph newGraph() {
         return new GraphAdjacencyList();
     }
 
     @Test
-    void generalTests(@TempDir Path tempDir) {
-        GeneralGraphTest.runTests(tempDir, GraphAdjacencyListTest::newGraph);
-    }
-
-    @Test
     void testToString_emptyGraph() {
-        GraphAdjacencyList graph = new GraphAdjacencyList();
+        Graph graph = newGraph();
         String result = graph.toString();
         assertEquals("(no nodes)\n", result);
     }
 
     @Test
     void testToString_singleNode() {
-        GraphAdjacencyList graph = new GraphAdjacencyList();
+        Graph graph = newGraph();
         graph.addNode("A");
         String result = graph.toString();
         assertEquals("A -> []\n", result);
@@ -32,7 +28,7 @@ class GraphAdjacencyListTest {
 
     @Test
     void testToString_withEdges() {
-        GraphAdjacencyList graph = new GraphAdjacencyList();
+        Graph graph = newGraph();
         graph.addNode("A");
         graph.addNode("B");
         graph.addNode("C");

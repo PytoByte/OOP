@@ -1,30 +1,24 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.nio.file.Path;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
 
-class GraphIncidenceMatrixTest {
-    static Graph newGraph() {
+class GraphIncidenceMatrixTest implements GeneralGraphTest {
+    @Override
+    public Graph newGraph() {
         return new GraphIncidenceMatrix();
     }
 
     @Test
-    void generalTests(@TempDir Path tempDir) {
-        GeneralGraphTest.runTests(tempDir, GraphIncidenceMatrixTest::newGraph);
-    }
-
-    @Test
     void testToString_emptyGraph() {
-        GraphIncidenceMatrix graph = new GraphIncidenceMatrix();
+        Graph graph = newGraph();
         String result = graph.toString();
         assertEquals("(no nodes)\n", result);
     }
 
     @Test
     void testToString_singleNode() {
-        GraphIncidenceMatrix graph = new GraphIncidenceMatrix();
+        Graph graph = newGraph();
         graph.addNode("A");
 
         String result = graph.toString();
@@ -35,7 +29,7 @@ class GraphIncidenceMatrixTest {
 
     @Test
     void testToString_withEdges() {
-        GraphIncidenceMatrix graph = new GraphIncidenceMatrix();
+        Graph graph = newGraph();
         graph.addNode("A");
         graph.addNode("B");
         graph.addNode("C");

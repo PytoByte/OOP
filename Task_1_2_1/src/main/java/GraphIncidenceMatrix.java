@@ -6,23 +6,24 @@ import java.util.Objects;
 /**
  * Graph with incidence matrix structure.
  */
-public class GraphIncidenceMatrix extends AbstractGraph {
-    LinkedList<String> nodes = new LinkedList<>();
-    LinkedList<HashMap<String, Integer>> matrix = new LinkedList<>();
+public class GraphIncidenceMatrix<NodeType> implements Graph<NodeType> {
+    LinkedList<NodeType> nodes = new LinkedList<>();
+    LinkedList<HashMap<NodeType, IncidenceMatrixValues>> matrix = new LinkedList<>();
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public String[] getNodes() {
-        return nodes.toArray(String[]::new);
+    public NodeType[] getNodes() {
+        //noinspection unchecked
+        return (NodeType[]) nodes.toArray();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void addNode(String name) {
+    public void addNode(NodeType name) {
         if (!nodes.contains(name)) {
             nodes.add(name);
         }
@@ -32,14 +33,14 @@ public class GraphIncidenceMatrix extends AbstractGraph {
      * {@inheritDoc}
      */
     @Override
-    public void addEdge(String name1, String name2) {
+    public void addEdge(NodeType name1, NodeType name2) {
         if (nodes.contains(name1) && nodes.contains(name2)) {
-            HashMap<String, Integer> edge = new HashMap<>();
+            HashMap<NodeType, IncidenceMatrixValues> edge = new HashMap<>();
             if (name1.equals(name2)) {
-                edge.put(name1, 2);
+                edge.put(name1, IncidenceMatrixValues.SELF_LOOP);
             } else {
-                edge.put(name1, -1);
-                edge.put(name2, 1);
+                edge.put(name1, IncidenceMatrixValues.FROM);
+                edge.put(name2, IncidenceMatrixValues.TO);
             }
             matrix.add(edge);
         }
@@ -49,7 +50,7 @@ public class GraphIncidenceMatrix extends AbstractGraph {
      * {@inheritDoc}
      */
     @Override
-    public void removeNode(String name) {
+    public void removeNode(NodeType name) {
         if (nodes.remove(name)) {
             matrix.removeIf(edge -> edge.containsKey(name));
         }
@@ -59,7 +60,7 @@ public class GraphIncidenceMatrix extends AbstractGraph {
      * {@inheritDoc}
      */
     @Override
-    public void removeEdge(String name1, String name2) {
+    public void removeEdge(NodeType name1, NodeType name2) {
         matrix.removeIf(edge -> edge.containsKey(name1) && edge.containsKey(name2));
     }
 
@@ -67,21 +68,21 @@ public class GraphIncidenceMatrix extends AbstractGraph {
      * {@inheritDoc}
      */
     @Override
-    public NodeNeighbours getNeighbours(String name) {
-        LinkedList<String> neighboursIn = new LinkedList<>();
-        LinkedList<String> neighboursOut = new LinkedList<>();
-        for (HashMap<String, Integer> edge : matrix) {
+    public NodeNeighbours<NodeType> getNeighbours(NodeType name) {
+        LinkedList<NodeType> neighboursIn = new LinkedList<>();
+        LinkedList<NodeType> neighboursOut = new LinkedList<>();
+        for (HashMap<NodeType, IncidenceMatrixValues> edge : matrix) {
             if (edge.containsKey(name)) {
-                if (edge.get(name) == 2) {
+                if (edge.get(name) == IncidenceMatrixValues.SELF_LOOP) {
                     neighboursIn.add(name);
                     neighboursOut.add(name);
                     continue;
                 }
-                for (String node : edge.keySet()) {
+                for (NodeType node : edge.keySet()) {
                     if (!node.equals(name)) {
-                        if (edge.get(node) == 1) {
+                        if (edge.get(node) == IncidenceMatrixValues.TO) {
                             neighboursOut.add(node);
-                        } else {
+                        } else if (edge.get(node) == IncidenceMatrixValues.FROM) {
                             neighboursIn.add(node);
                         }
                         break;
@@ -89,9 +90,10 @@ public class GraphIncidenceMatrix extends AbstractGraph {
                 }
             }
         }
-        return new NodeNeighbours(
-                neighboursIn.toArray(String[]::new),
-                neighboursOut.toArray(String[]::new)
+        //noinspection unchecked
+        return new NodeNeighbours<>(
+                (NodeType[]) neighboursIn.toArray(),
+                (NodeType[]) neighboursOut.toArray()
         );
     }
 
@@ -99,7 +101,7 @@ public class GraphIncidenceMatrix extends AbstractGraph {
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        String[] allNodes = getNodes();
+        NodeType[] allNodes = getNodes();
         int edgeCount = matrix.size();
 
         if (allNodes.length == 0) {
@@ -108,8 +110,8 @@ public class GraphIncidenceMatrix extends AbstractGraph {
         }
 
         int maxNodeNameWidth = 0;
-        for (String node : allNodes) {
-            maxNodeNameWidth = Math.max(maxNodeNameWidth, node.length());
+        for (NodeType node : allNodes) {
+            maxNodeNameWidth = Math.max(maxNodeNameWidth, node.toString().length());
         }
 
         String[] edgeLabels = new String[edgeCount];
@@ -125,14 +127,14 @@ public class GraphIncidenceMatrix extends AbstractGraph {
         }
         sb.append("\n");
 
-        for (String node : allNodes) {
+        for (NodeType node : allNodes) {
             sb.append(node);
-            sb.append(" ".repeat(maxNodeNameWidth - node.length() + 1));
+            sb.append(" ".repeat(maxNodeNameWidth - node.toString().length() + 1));
 
             for (int e = 0; e < edgeCount; e++) {
-                HashMap<String, Integer> edge = matrix.get(e);
-                Integer value = edge.get(node);
-                String cell = (value != null) ? value.toString() : "0";
+                HashMap<NodeType, IncidenceMatrixValues> edge = matrix.get(e);
+                IncidenceMatrixValues value = edge.get(node);
+                String cell = (value != null) ? value.value : IncidenceMatrixValues.EMPTY.value;
 
                 int padTotal = maxEdgeLabelWidth - cell.length();
                 int padLeft = padTotal / 2;
@@ -158,7 +160,8 @@ public class GraphIncidenceMatrix extends AbstractGraph {
             return false;
         }
 
-        GraphIncidenceMatrix that = (GraphIncidenceMatrix) o;
+        @SuppressWarnings("unchecked")
+        GraphIncidenceMatrix<NodeType> that = (GraphIncidenceMatrix<NodeType>) o;
 
         if (!new HashSet<>(nodes).equals(new HashSet<>(that.nodes))) {
             return false;

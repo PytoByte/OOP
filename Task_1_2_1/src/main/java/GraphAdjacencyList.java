@@ -4,7 +4,7 @@ import java.util.LinkedList;
 /**
  * Graph with adjacency list structure.
  */
-public class GraphAdjacencyList extends AbstractGraph {
+public class GraphAdjacencyList<NodeType> implements Graph {
     private final HashMap<String, LinkedList<String>> lists = new HashMap<>();
 
     /**
