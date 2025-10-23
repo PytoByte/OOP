@@ -27,7 +27,7 @@ class GraphSortingTest {
         return true;
     }
 
-    private static Stream<Supplier<Graph>> graphImplementations() {
+    private static Stream<Supplier<Graph<String>>> graphImplementations() {
         return Stream.of(
                 GraphAdjacencyList::new,
                 GraphAdjacencyMatrix::new,
@@ -37,9 +37,9 @@ class GraphSortingTest {
 
     @ParameterizedTest
     @MethodSource("graphImplementations")
-    void topologicalSort_linearDependencies(Supplier<Graph> graphSupplier) {
+    void topologicalSort_linearDependencies(Supplier<Graph<String>> graphSupplier) {
         // A -> B -> C
-        Graph graph = graphSupplier.get();
+        Graph<String> graph = graphSupplier.get();
         graph.addNode("A");
         graph.addNode("B");
         graph.addNode("C");
@@ -56,13 +56,13 @@ class GraphSortingTest {
 
     @ParameterizedTest
     @MethodSource("graphImplementations")
-    void topologicalSort_multipleBranches(Supplier<Graph> graphSupplier) {
+    void topologicalSort_multipleBranches(Supplier<Graph<String>> graphSupplier) {
         //   A
         //  / \
         // B   C
         //  \ /
         //   D
-        Graph graph = graphSupplier.get();
+        Graph<String> graph = graphSupplier.get();
         graph.addNode("A");
         graph.addNode("B");
         graph.addNode("C");
@@ -84,8 +84,8 @@ class GraphSortingTest {
 
     @ParameterizedTest
     @MethodSource("graphImplementations")
-    void topologicalSort_emptyGraph(Supplier<Graph> graphSupplier) {
-        Graph graph = graphSupplier.get();
+    void topologicalSort_emptyGraph(Supplier<Graph<String>> graphSupplier) {
+        Graph<String> graph = graphSupplier.get();
         String[] result = GraphSorting.topologicalSort(graph);
 
         assertEquals(0, result.length);
@@ -93,8 +93,8 @@ class GraphSortingTest {
 
     @ParameterizedTest
     @MethodSource("graphImplementations")
-    void topologicalSort_singleNode(Supplier<Graph> graphSupplier) {
-        Graph graph = graphSupplier.get();
+    void topologicalSort_singleNode(Supplier<Graph<String>> graphSupplier) {
+        Graph<String> graph = graphSupplier.get();
         graph.addNode("A");
 
         String[] result = GraphSorting.topologicalSort(graph);
@@ -104,9 +104,9 @@ class GraphSortingTest {
 
     @ParameterizedTest
     @MethodSource("graphImplementations")
-    void topologicalSort_disconnectedComponents(Supplier<Graph> graphSupplier) {
+    void topologicalSort_disconnectedComponents(Supplier<Graph<String>> graphSupplier) {
         // A -> B    C -> D
-        Graph graph = graphSupplier.get();
+        Graph<String> graph = graphSupplier.get();
         graph.addNode("A");
         graph.addNode("B");
         graph.addNode("C");
@@ -124,13 +124,13 @@ class GraphSortingTest {
 
     @ParameterizedTest
     @MethodSource("graphImplementations")
-    void topologicalSort_sortTree(Supplier<Graph> graphSupplier) {
+    void topologicalSort_sortTree(Supplier<Graph<String>> graphSupplier) {
         //     A
         //    / \
         //   B   C
         //  / \ / \
         // D   E   F
-        Graph graph = graphSupplier.get();
+        Graph<String> graph = graphSupplier.get();
         graph.addNode("A");
         graph.addNode("B");
         graph.addNode("C");
@@ -158,9 +158,9 @@ class GraphSortingTest {
 
     @ParameterizedTest
     @MethodSource("graphImplementations")
-    void topologicalSort_cycleDetection(Supplier<Graph> graphSupplier) {
+    void topologicalSort_cycleDetection(Supplier<Graph<String>> graphSupplier) {
         // A -> B -> C -> A (loop)
-        Graph graph = graphSupplier.get();
+        Graph<String> graph = graphSupplier.get();
         graph.addNode("A");
         graph.addNode("B");
         graph.addNode("C");
@@ -175,9 +175,9 @@ class GraphSortingTest {
 
     @ParameterizedTest
     @MethodSource("graphImplementations")
-    void topologicalSort_selfLoop(Supplier<Graph> graphSupplier) {
+    void topologicalSort_selfLoop(Supplier<Graph<String>> graphSupplier) {
         // A -> A (loop)
-        Graph graph = graphSupplier.get();
+        Graph<String> graph = graphSupplier.get();
         graph.addNode("A");
         graph.addEdge("A", "A");
 
@@ -188,9 +188,9 @@ class GraphSortingTest {
 
     @ParameterizedTest
     @MethodSource("graphImplementations")
-    void topologicalSort_multipleValidOrders(Supplier<Graph> graphSupplier) {
+    void topologicalSort_multipleValidOrders(Supplier<Graph<String>> graphSupplier) {
         // A -> C, B -> C (несколько валидных порядков)
-        Graph graph = graphSupplier.get();
+        Graph<String> graph = graphSupplier.get();
         graph.addNode("A");
         graph.addNode("B");
         graph.addNode("C");
@@ -209,8 +209,8 @@ class GraphSortingTest {
 
     @ParameterizedTest
     @MethodSource("graphImplementations")
-    void topologicalSort_allNodesInResult(Supplier<Graph> graphSupplier) {
-        Graph graph = graphSupplier.get();
+    void topologicalSort_allNodesInResult(Supplier<Graph<String>> graphSupplier) {
+        Graph<String> graph = graphSupplier.get();
         graph.addNode("X");
         graph.addNode("Y");
         graph.addNode("Z");

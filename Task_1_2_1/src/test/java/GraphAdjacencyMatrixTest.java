@@ -1,26 +1,27 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.Serializable;
 import java.nio.file.Path;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 class GraphAdjacencyMatrixTest implements GeneralGraphTest {
     @Override
-    public Graph newGraph() {
-        return new GraphAdjacencyMatrix();
+    public <NodeType extends Serializable> Graph<NodeType> newGraph() {
+        return new GraphAdjacencyMatrix<>();
     }
 
     @Test
     void testToString_emptyGraph() {
-        Graph graph = newGraph();
+        Graph<String> graph = newGraph();
         String result = graph.toString();
         assertEquals("(no nodes)\n", result);
     }
 
     @Test
     void testToString_singleNode() {
-        Graph graph = newGraph();
+        Graph<String> graph = newGraph();
         graph.addNode("A");
 
         String result = graph.toString();
@@ -31,7 +32,7 @@ class GraphAdjacencyMatrixTest implements GeneralGraphTest {
 
     @Test
     void testToString_withEdges() {
-        Graph graph = newGraph();
+        Graph<String> graph = newGraph();
         graph.addNode("A");
         graph.addNode("B");
         graph.addNode("C");

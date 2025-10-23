@@ -1,8 +1,18 @@
 import exceptions.GraphException;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
+import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static java.nio.file.Files.newBufferedWriter;
@@ -12,7 +22,7 @@ import static java.nio.file.Files.readAllLines;
  * Interface representing a graph with basic operations
  * and serialization/deserialization to/from files.
  */
-public interface Graph<NodeType> {
+public interface Graph<NodeType extends Serializable> {
 
     /**
      * Returns an array of all nodes in the graph.
@@ -61,7 +71,7 @@ public interface Graph<NodeType> {
      *
      * @param name the name of the node to get neighbors for
      * @return NodeNeighbours object containing incoming and outgoing neighbors,
-     *         or null if the node doesn't exist
+     * or null if the node doesn't exist
      */
     NodeNeighbours<NodeType> getNeighbours(NodeType name);
 
@@ -72,25 +82,27 @@ public interface Graph<NodeType> {
      * @throws RuntimeException if an I/O error occurs during writing
      */
     default void toFile(String filepath) {
-        try (BufferedWriter writer = newBufferedWriter(Paths.get(filepath))) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(filepath)))) {
             NodeType[] nodes = getNodes();
+            oos.writeInt(nodes.length); // Записываем количество узлов
 
-            writer.write(nodes.length + "\n");
+            // Записываем узлы
             for (NodeType node : nodes) {
-                writer.write(node + "\n");
+                oos.writeObject(node);
             }
 
+            // Записываем рёбра
             for (NodeType node : nodes) {
-                NodeNeighbours<NodeType> neighbours = getNeighbours(node);
-                for (NodeType target : neighbours.out()) {
-                    writer.write(node + " " + target.toString() + "\n");
+                for (NodeType target : getNeighbours(node).out()) {
+                    oos.writeObject(node);
+                    oos.writeObject(target);
                 }
             }
+            oos.flush();
         } catch (IOException e) {
-            throw new GraphException(String.format(
-                    "Error reading graph from file: %s\nCausing by: %s",
-                    filepath, e
-            ));
+            throw new GraphException(
+                    String.format("Error writing graph to file: %s. Because %s", filepath, e)
+            );
         }
     }
 
@@ -98,32 +110,35 @@ public interface Graph<NodeType> {
      * Reads a graph from a file and initializes the current instance.
      *
      * @param filepath the path to the input file
-     * @throws RuntimeException if an I/O error occurs during reading
+     * @throws RuntimeException         if an I/O error occurs during reading
      * @throws IllegalArgumentException if the file format is invalid
      */
     default void fromFile(String filepath) {
-        try {
-            List<String> lines = readAllLines(Paths.get(filepath));
-            if (lines.isEmpty()) {
-                return;
+        try (ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(filepath)))) {
+            int nodeCount = ois.readInt(); // Читаем количество узлов
+            if (nodeCount < 0) {
+                throw new GraphException("Invalid file format: negative node count.");
             }
 
-            int nodeCount = Integer.parseInt(lines.get(0));
-            for (int i = 1; i <= nodeCount && i < lines.size(); i++) {
-                addNode(lines.get(i).trim());
+            // Читаем и добавляем узлы
+            for (int i = 0; i < nodeCount; i++) {
+                NodeType node = (NodeType) ois.readObject();
+                addNode(node);
             }
-
-            for (int i = nodeCount + 1; i < lines.size(); i++) {
-                NodeType[] parts = lines.get(i).split("\\s+", 2);
-                if (parts.length == 2) {
-                    addEdge(parts[0].trim(), parts[1].trim());
+            try {
+                while (true) { // Бесконечный цикл, который завершится исключением EOF
+                    NodeType source = (NodeType) ois.readObject();
+                    NodeType target = (NodeType) ois.readObject();
+                    addEdge(source, target);
                 }
+            } catch (EOFException e) {
+                // Ожидаемое завершение цикла, когда закончились объекты
             }
+
         } catch (IOException e) {
-            throw new GraphException(String.format(
-                    "Error reading graph from file: %s\nCausing by: %s",
-                    filepath, e
-            ));
+            throw new GraphException(String.format("Error reading graph from file: %s. Because: %s", filepath, e));
+        } catch (ClassNotFoundException e) {
+            throw new GraphException(String.format("Class not found during deserialization while reading file: %s. Because: %s", filepath, e));
         }
     }
 }

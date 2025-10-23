@@ -3,6 +3,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -11,11 +12,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 public interface GeneralGraphTest {
-    Graph newGraph();
+    <NodeType extends Serializable> Graph<NodeType> newGraph();
 
     @Test
     default void addAndGetNodes() {
-        Graph graph = newGraph();
+        Graph<String> graph = newGraph();
         assertEquals(0, graph.getNodes().length);
         graph.addNode("1");
         TestsUtils.assertArraysEqualIgnoreOrder(new String[]{"1"}, graph.getNodes());
@@ -25,7 +26,7 @@ public interface GeneralGraphTest {
 
     @Test
     default void addEdgeIn() {
-        Graph graph = newGraph();
+        Graph<String> graph = newGraph();
         graph.addNode("1");
         graph.addNode("2");
         graph.addEdge("1", "2");
@@ -34,7 +35,7 @@ public interface GeneralGraphTest {
 
     @Test
     default void addEdgeOut() {
-        Graph graph = newGraph();
+        Graph<String> graph = newGraph();
         graph.addNode("1");
         graph.addNode("2");
         graph.addEdge("1", "2");
@@ -43,7 +44,7 @@ public interface GeneralGraphTest {
 
     @Test
     default void removeNode() {
-        Graph graph = newGraph();
+        Graph<String> graph = newGraph();
         graph.addNode("1");
         graph.addNode("2");
         graph.addNode("3");
@@ -53,7 +54,7 @@ public interface GeneralGraphTest {
 
     @Test
     default void removeEdge() {
-        Graph graph = newGraph();
+        Graph<String> graph = newGraph();
         graph.addNode("1");
         graph.addNode("2");
         graph.addNode("3");
@@ -65,7 +66,7 @@ public interface GeneralGraphTest {
 
     @Test
     default void removeNodeWithEdge() {
-        Graph graph = newGraph();
+        Graph<String> graph = newGraph();
         graph.addNode("1");
         graph.addNode("2");
         graph.addNode("3");
@@ -78,7 +79,7 @@ public interface GeneralGraphTest {
 
     @Test
     default void getNeighbours() {
-        Graph graph = newGraph();
+        Graph<String> graph = newGraph();
         graph.addNode("a");
         graph.addNode("b");
         graph.addNode("c");
@@ -101,7 +102,7 @@ public interface GeneralGraphTest {
     default void toFile(@TempDir Path tempDir) {
         Path testFilePath = tempDir.resolve("test.graph");
 
-        Graph graph = newGraph();
+        Graph<String> graph = newGraph();
         graph.addNode("A");
         graph.addNode("B");
         graph.addNode("C");
@@ -133,7 +134,7 @@ public interface GeneralGraphTest {
     default void fromFile(@TempDir Path tempDir) {
         Path testFilePath = tempDir.resolve("test.graph");
 
-        Graph graphWriter = newGraph();
+        Graph<String> graphWriter = newGraph();
         graphWriter.addNode("A");
         graphWriter.addNode("B");
         graphWriter.addNode("C");
@@ -141,14 +142,14 @@ public interface GeneralGraphTest {
         graphWriter.addEdge("B", "C");
         graphWriter.toFile(testFilePath.toString());
 
-        Graph graphReader = newGraph();
+        Graph<String> graphReader = newGraph();
         graphReader.fromFile(testFilePath.toString());
         assertEquals(graphWriter, graphReader);
     }
 
     @Test
     default void equalsTest() {
-        Graph graph1 = newGraph();
+        Graph<String> graph1 = newGraph();
         graph1.addNode("A");
         graph1.addNode("B");
         graph1.addNode("C");
@@ -156,7 +157,7 @@ public interface GeneralGraphTest {
         graph1.addEdge("B", "C");
         graph1.addEdge("C", "A");
 
-        Graph graph2 = newGraph();
+        Graph<String> graph2 = newGraph();
         graph2.addNode("A");
         graph2.addNode("B");
         graph2.addNode("C");
@@ -169,7 +170,7 @@ public interface GeneralGraphTest {
 
     @Test
     default void notEqualsByEdgeTest() {
-        Graph graph1 = newGraph();
+        Graph<String> graph1 = newGraph();
         graph1.addNode("A");
         graph1.addNode("B");
         graph1.addNode("C");
@@ -177,7 +178,7 @@ public interface GeneralGraphTest {
         graph1.addEdge("B", "C");
         graph1.addEdge("A", "C");
 
-        Graph graph2 = newGraph();
+        Graph<String> graph2 = newGraph();
         graph2.addNode("A");
         graph2.addNode("B");
         graph2.addNode("C");
@@ -190,7 +191,7 @@ public interface GeneralGraphTest {
 
     @Test
     default void notEqualsByNodeTest() {
-        Graph graph1 = newGraph();
+        Graph<String> graph1 = newGraph();
         graph1.addNode("A");
         graph1.addNode("B");
         graph1.addNode("D");
@@ -198,7 +199,7 @@ public interface GeneralGraphTest {
         graph1.addEdge("B", "D");
         graph1.addEdge("D", "A");
 
-        Graph graph2 = newGraph();
+        Graph<String> graph2 = newGraph();
         graph2.addNode("A");
         graph2.addNode("B");
         graph2.addNode("C");
@@ -211,7 +212,7 @@ public interface GeneralGraphTest {
 
     @Test
     default void equalHashCodeTest() {
-        Graph graph1 = newGraph();
+        Graph<String> graph1 = newGraph();
         graph1.addNode("A");
         graph1.addNode("B");
         graph1.addNode("C");
@@ -219,7 +220,7 @@ public interface GeneralGraphTest {
         graph1.addEdge("B", "C");
         graph1.addEdge("C", "A");
 
-        Graph graph2 = newGraph();
+        Graph<String> graph2 = newGraph();
         graph2.addNode("A");
         graph2.addNode("B");
         graph2.addNode("C");
@@ -232,7 +233,7 @@ public interface GeneralGraphTest {
 
     @Test
     default void notEqualHashCodeByEdgeTest() {
-        Graph graph1 = newGraph();
+        Graph<String> graph1 = newGraph();
         graph1.addNode("A");
         graph1.addNode("B");
         graph1.addNode("C");
@@ -240,7 +241,7 @@ public interface GeneralGraphTest {
         graph1.addEdge("B", "C");
         graph1.addEdge("A", "C");
 
-        Graph graph2 = newGraph();
+        Graph<String> graph2 = newGraph();
         graph2.addNode("A");
         graph2.addNode("B");
         graph2.addNode("C");
@@ -253,7 +254,7 @@ public interface GeneralGraphTest {
 
     @Test
     default void notEqualHashCodeByNodeTest() {
-        Graph graph1 = newGraph();
+        Graph<String> graph1 = newGraph();
         graph1.addNode("A");
         graph1.addNode("B");
         graph1.addNode("D");
@@ -261,7 +262,7 @@ public interface GeneralGraphTest {
         graph1.addEdge("B", "D");
         graph1.addEdge("D", "A");
 
-        Graph graph2 = newGraph();
+        Graph<String> graph2 = newGraph();
         graph2.addNode("A");
         graph2.addNode("B");
         graph2.addNode("C");

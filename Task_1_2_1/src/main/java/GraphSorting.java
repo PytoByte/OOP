@@ -1,3 +1,5 @@
+import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -15,42 +17,43 @@ public class GraphSorting {
      * @param graph any realization of Graph interface.
      * @return array of nodes, sorted by topological sort.
      */
-    public static String[] topologicalSort(Graph graph) {
+    public static <NodeType extends Serializable> NodeType[] topologicalSort(Graph<NodeType> graph) {
         if (graph == null) {
-            return new String[]{};
+            //noinspection unchecked
+            return (NodeType[]) Array.newInstance(Object.class, 0);
         }
 
-        Map<String, Integer> inDegree = new HashMap<>();
-        Map<String, List<String>> adjList = new HashMap<>();
-        Queue<String> zeroInDegreeQueue = new LinkedList<>();
-        List<String> result = new ArrayList<>();
+        Map<NodeType, Integer> inDegree = new HashMap<>();
+        Map<NodeType, List<NodeType>> adjList = new HashMap<>();
+        Queue<NodeType> zeroInDegreeQueue = new LinkedList<>();
+        List<NodeType> result = new ArrayList<>();
 
-        String[] nodes = graph.getNodes();
-        for (String node : nodes) {
+        NodeType[] nodes = graph.getNodes();
+        for (NodeType node : nodes) {
             inDegree.put(node, 0);
             adjList.put(node, new ArrayList<>());
         }
 
-        for (String node : nodes) {
-            NodeNeighbours neighbours = graph.getNeighbours(node);
-            String[] out = neighbours.out();
-            for (String to : out) {
+        for (NodeType node : nodes) {
+            NodeNeighbours<NodeType> neighbours = graph.getNeighbours(node);
+            NodeType[] out = neighbours.out();
+            for (NodeType to : out) {
                 adjList.get(node).add(to);
                 inDegree.put(to, inDegree.get(to) + 1);
             }
         }
 
-        for (String node : nodes) {
+        for (NodeType node : nodes) {
             if (inDegree.get(node) == 0) {
                 zeroInDegreeQueue.offer(node);
             }
         }
 
         while (!zeroInDegreeQueue.isEmpty()) {
-            String current = zeroInDegreeQueue.poll();
+            NodeType current = zeroInDegreeQueue.poll();
             result.add(current);
 
-            for (String neighbor : adjList.get(current)) {
+            for (NodeType neighbor : adjList.get(current)) {
                 inDegree.put(neighbor, inDegree.get(neighbor) - 1);
                 if (inDegree.get(neighbor) == 0) {
                     zeroInDegreeQueue.offer(neighbor);
@@ -62,6 +65,11 @@ public class GraphSorting {
             throw new IllegalArgumentException("Graph has a cycle.");
         }
 
-        return result.toArray(new String[0]);
+        //noinspection unchecked
+        NodeType[] resultArray = (NodeType[]) Array.newInstance(
+                nodes.getClass().getComponentType(), // Получаем тип компонента из входного массива nodes
+                result.size()                        // Указываем размер
+        );
+        return result.toArray(resultArray);
     }
 }

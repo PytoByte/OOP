@@ -1,3 +1,5 @@
+import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -6,7 +8,7 @@ import java.util.Objects;
 /**
  * Graph with incidence matrix structure.
  */
-public class GraphIncidenceMatrix<NodeType> implements Graph<NodeType> {
+public class GraphIncidenceMatrix<NodeType extends Serializable> implements Graph<NodeType> {
     LinkedList<NodeType> nodes = new LinkedList<>();
     LinkedList<HashMap<NodeType, IncidenceMatrixValues>> matrix = new LinkedList<>();
 
@@ -16,7 +18,10 @@ public class GraphIncidenceMatrix<NodeType> implements Graph<NodeType> {
     @Override
     public NodeType[] getNodes() {
         //noinspection unchecked
-        return (NodeType[]) nodes.toArray();
+        return (NodeType[]) Array.newInstance(
+                nodes.getClass().getComponentType(), // Получаем тип компонента из входного массива nodes
+                nodes.size()                        // Указываем размер
+        );
     }
 
     /**

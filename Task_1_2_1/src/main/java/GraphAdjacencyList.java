@@ -1,25 +1,27 @@
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedList;
 
 /**
  * Graph with adjacency list structure.
  */
-public class GraphAdjacencyList<NodeType> implements Graph {
-    private final HashMap<String, LinkedList<String>> lists = new HashMap<>();
+public class GraphAdjacencyList<NodeType extends Serializable> implements Graph<NodeType> {
+    private final HashMap<NodeType, LinkedList<NodeType>> lists = new HashMap<>();
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public String[] getNodes() {
-        return lists.keySet().toArray(String[]::new);
+    public NodeType[] getNodes() {
+        //noinspection unchecked
+        return (NodeType[]) lists.keySet().toArray();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void addNode(String name) {
+    public void addNode(NodeType name) {
         lists.put(name, new LinkedList<>());
     }
 
@@ -27,7 +29,7 @@ public class GraphAdjacencyList<NodeType> implements Graph {
      * {@inheritDoc}
      */
     @Override
-    public void addEdge(String name1, String name2) {
+    public void addEdge(NodeType name1, NodeType name2) {
         if (lists.containsKey(name1) && lists.containsKey(name2)) {
             lists.get(name1).add(name2);
         }
@@ -37,9 +39,9 @@ public class GraphAdjacencyList<NodeType> implements Graph {
      * {@inheritDoc}
      */
     @Override
-    public void removeNode(String name) {
+    public void removeNode(NodeType name) {
         lists.remove(name);
-        for (String node : lists.keySet()) {
+        for (NodeType node : lists.keySet()) {
             lists.get(node).remove(name);
         }
     }
@@ -48,7 +50,7 @@ public class GraphAdjacencyList<NodeType> implements Graph {
      * {@inheritDoc}
      */
     @Override
-    public void removeEdge(String name1, String name2) {
+    public void removeEdge(NodeType name1, NodeType name2) {
         if (lists.containsKey(name1) && lists.containsKey(name2)) {
             lists.get(name1).remove(name2);
             lists.get(name2).remove(name1);
@@ -59,18 +61,19 @@ public class GraphAdjacencyList<NodeType> implements Graph {
      * {@inheritDoc}
      */
     @Override
-    public NodeNeighbours getNeighbours(String name) {
+    public NodeNeighbours<NodeType> getNeighbours(NodeType name) {
         if (lists.containsKey(name)) {
-            LinkedList<String> neighboursOut = new LinkedList<>(lists.get(name));
-            LinkedList<String> neighboursIn = new LinkedList<>();
-            for (String node : getNodes()) {
+            LinkedList<NodeType> neighboursOut = new LinkedList<>(lists.get(name));
+            LinkedList<NodeType> neighboursIn = new LinkedList<>();
+            for (NodeType node : getNodes()) {
                 if (lists.get(node).contains(name) && !neighboursOut.contains(node)) {
                     neighboursIn.add(node);
                 }
             }
-            return new NodeNeighbours(
-                    neighboursIn.toArray(String[]::new),
-                    neighboursOut.toArray(String[]::new)
+            //noinspection unchecked
+            return new NodeNeighbours<>(
+                    (NodeType[])neighboursIn.toArray(),
+                    (NodeType[])neighboursOut.toArray()
             );
         }
         return null;
@@ -83,27 +86,28 @@ public class GraphAdjacencyList<NodeType> implements Graph {
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        String[] allNodes = getNodes();
+        NodeType[] allNodes = getNodes();
         if (allNodes.length == 0) {
             sb.append("(no nodes)\n");
             return sb.toString();
         }
 
         int maxNodeNameWidth = 0;
-        for (String node : allNodes) {
-            maxNodeNameWidth = Math.max(maxNodeNameWidth, node.length());
+        for (NodeType node : allNodes) {
+            maxNodeNameWidth = Math.max(maxNodeNameWidth, node.toString().length());
         }
 
-        for (String node : allNodes) {
+        for (NodeType node : allNodes) {
             sb.append(node);
-            sb.append(" ".repeat(maxNodeNameWidth - node.length()));
+            sb.append(" ".repeat(maxNodeNameWidth - node.toString().length()));
             sb.append(" -> [");
 
-            LinkedList<String> neighbours = lists.get(node);
+            LinkedList<NodeType> neighbours = lists.get(node);
             if (!neighbours.isEmpty()) {
-                sb.append(String.join(", ", neighbours));
+                sb.append(
+                        String.join(", ", neighbours.stream().map(Object::toString).toList())
+                );
             }
-
             sb.append("]\n");
         }
 
@@ -119,7 +123,8 @@ public class GraphAdjacencyList<NodeType> implements Graph {
             return false;
         }
 
-        GraphAdjacencyList that = (GraphAdjacencyList) o;
+        @SuppressWarnings("unchecked")
+        GraphAdjacencyList<NodeType> that = (GraphAdjacencyList<NodeType>) o;
 
         return lists.equals(that.lists);
     }
