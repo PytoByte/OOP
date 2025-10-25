@@ -71,18 +71,17 @@ public interface Graph<T extends Serializable> {
      * Serializes the graph and writes it to a file.
      *
      * @param filepath the path to the output file
-     * @throws RuntimeException if an I/O error occurs during writing
+     * @throws GraphException if an I/O error occurs during writing
      */
     default void toFile(String filepath) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(filepath)))) {
             List<T> nodes = getNodes();
-            oos.writeInt(nodes.size()); // Записываем количество узлов
+            oos.writeInt(nodes.size());
             // Записываем узлы
             for (T node : nodes) {
                 oos.writeObject(node);
             }
 
-            // Записываем рёбра
             for (T node : nodes) {
                 for (T target : getNeighbours(node).out()) {
                     oos.writeObject(node);
@@ -101,17 +100,15 @@ public interface Graph<T extends Serializable> {
      * Reads a graph from a file and initializes the current instance.
      *
      * @param filepath the path to the input file
-     * @throws RuntimeException         if an I/O error occurs during reading
-     * @throws IllegalArgumentException if the file format is invalid
+     * @throws GraphException if an I/O error occurs during reading or the file format is invalid
      */
     default void fromFile(String filepath) {
         try (ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(filepath)))) {
-            int nodeCount = ois.readInt(); // Читаем количество узлов
+            int nodeCount = ois.readInt();
             if (nodeCount < 0) {
                 throw new GraphException("Invalid file format: negative node count.");
             }
 
-            // Читаем и добавляем узлы
             for (int i = 0; i < nodeCount; i++) {
                 @SuppressWarnings("unchecked")
                 T node = (T) ois.readObject();
@@ -119,7 +116,7 @@ public interface Graph<T extends Serializable> {
             }
             try {
                 //noinspection InfiniteLoopStatement
-                while (true) { // Бесконечный цикл, который завершится исключением EOF
+                while (true) {
                     @SuppressWarnings("unchecked") T source = (T) ois.readObject();
                     @SuppressWarnings("unchecked") T target = (T) ois.readObject();
                     addEdge(source, target);
