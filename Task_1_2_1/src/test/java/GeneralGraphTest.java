@@ -122,11 +122,25 @@ public interface GeneralGraphTest {
     }
 
     @Test
-    default void serializationBadTest(@TempDir Path tempDir) {
+    default void deserializationBadCountTest(@TempDir Path tempDir) {
         Path testFilePath = tempDir.resolve("test.graph");
 
         try (ObjectOutputStream oos = new ObjectOutputStream(Files.newOutputStream(testFilePath))) {
             oos.writeInt(-5);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        Graph<String> graphReader = newGraph();
+        assertThrows(GraphException.class, () -> graphReader.fromFile(testFilePath.toString()));
+    }
+
+    @Test
+    default void deserializationNoEnoughObjectsTest(@TempDir Path tempDir) {
+        Path testFilePath = tempDir.resolve("test.graph");
+
+        try (ObjectOutputStream oos = new ObjectOutputStream(Files.newOutputStream(testFilePath))) {
+            oos.writeInt(1);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
