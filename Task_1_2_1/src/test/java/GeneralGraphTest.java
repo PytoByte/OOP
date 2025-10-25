@@ -122,7 +122,21 @@ public interface GeneralGraphTest {
     }
 
     @Test
-    default void deserializationBadPathTest(@TempDir Path tempDir) {
+    default void serializationBadPathTest() {
+        Graph<String> graphWriter = newGraph();
+        graphWriter.addNode("A");
+        graphWriter.addNode("B");
+        graphWriter.addNode("C");
+        graphWriter.addEdge("A", "B");
+        graphWriter.addEdge("B", "C");
+        assertThrows(
+                GraphException.class,
+                () -> graphWriter.toFile("/where/is/this/path/huh/bruh.idk")
+        );
+    }
+
+    @Test
+    default void deserializationBadPathTest() {
         Graph<String> graphReader = newGraph();
         assertThrows(GraphException.class, () -> graphReader.fromFile("bruh.idk"));
     }
