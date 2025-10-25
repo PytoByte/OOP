@@ -174,6 +174,6 @@ public class GraphIncidenceMatrix<NodeType extends Serializable> implements Grap
 
     @Override
     public int hashCode() {
-        return Objects.hash(new HashSet<>(matrix));
+        return Objects.hash(new HashSet<>(nodes), new HashSet<>(matrix));
     }
 }
