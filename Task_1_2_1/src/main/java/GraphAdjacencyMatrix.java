@@ -14,8 +14,7 @@ public class GraphAdjacencyMatrix<NodeType extends Serializable> implements Grap
      */
     @Override
     public List<NodeType> getNodes() {
-        //noinspection unchecked
-        return (List<NodeType>) matrix.keySet();
+        return matrix.keySet().stream().toList();
     }
 
     /**
@@ -65,10 +64,9 @@ public class GraphAdjacencyMatrix<NodeType extends Serializable> implements Grap
                 neighboursIn.add(node);
             }
         }
-        //noinspection unchecked
         return new NodeNeighbours<>(
                 neighboursIn,
-                (List<NodeType>)matrix.get(name).keySet()
+                matrix.get(name).keySet().stream().toList()
         );
     }
 

@@ -10,24 +10,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
 class GraphSortingTest {
-    private int indexOf(String[] array, String value) {
-        for (int i = 0; i < array.length; i++) {
-            if (array[i].equals(value)) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    private boolean containsAll(String[] array, String... values) {
-        for (String value : values) {
-            if (indexOf(array, value) == -1) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     private static Stream<Supplier<Graph<String>>> graphImplementations() {
         return Stream.of(
                 GraphAdjacencyList::new,
@@ -76,19 +58,19 @@ class GraphSortingTest {
 
         assertEquals(4, result.size());
 
-        assertTrue(indexOf(result, "A") < indexOf(result, "B"));
-        assertTrue(indexOf(result, "A") < indexOf(result, "C"));
-        assertTrue(indexOf(result, "B") < indexOf(result, "D"));
-        assertTrue(indexOf(result, "C") < indexOf(result, "D"));
+        assertTrue(result.indexOf("A") < result.indexOf("B"));
+        assertTrue(result.indexOf("A") < result.indexOf("C"));
+        assertTrue(result.indexOf("B") < result.indexOf("D"));
+        assertTrue(result.indexOf("C") < result.indexOf("D"));
     }
 
     @ParameterizedTest
     @MethodSource("graphImplementations")
     void topologicalSort_emptyGraph(Supplier<Graph<String>> graphSupplier) {
         Graph<String> graph = graphSupplier.get();
-        String[] result = GraphSorting.topologicalSort(graph);
+        List<String> result = GraphSorting.topologicalSort(graph);
 
-        assertEquals(0, result.length);
+        assertEquals(0, result.size());
     }
 
     @ParameterizedTest
@@ -97,9 +79,8 @@ class GraphSortingTest {
         Graph<String> graph = graphSupplier.get();
         graph.addNode("A");
 
-        String[] result = GraphSorting.topologicalSort(graph);
-
-        assertArrayEquals(new String[]{"A"}, result);
+        List<String> result = GraphSorting.topologicalSort(graph);
+        TestsUtils.assertListsEqualIgnoreOrder(List.of("A"), result);
     }
 
     @ParameterizedTest
@@ -114,12 +95,12 @@ class GraphSortingTest {
         graph.addEdge("A", "B");
         graph.addEdge("C", "D");
 
-        String[] result = GraphSorting.topologicalSort(graph);
+        List<String> result = GraphSorting.topologicalSort(graph);
 
-        assertEquals(4, result.length);
+        assertEquals(4, result.size());
 
-        assertTrue(indexOf(result, "A") < indexOf(result, "B"));
-        assertTrue(indexOf(result, "C") < indexOf(result, "D"));
+        assertTrue(result.indexOf("A") < result.indexOf("B"));
+        assertTrue(result.indexOf("C") < result.indexOf("D"));
     }
 
     @ParameterizedTest
@@ -144,16 +125,16 @@ class GraphSortingTest {
         graph.addEdge("C", "E");
         graph.addEdge("C", "F");
 
-        String[] result = GraphSorting.topologicalSort(graph);
+        List<String> result = GraphSorting.topologicalSort(graph);
 
-        assertEquals(6, result.length);
+        assertEquals(6, result.size());
 
-        assertTrue(indexOf(result, "A") < indexOf(result, "B"));
-        assertTrue(indexOf(result, "A") < indexOf(result, "C"));
-        assertTrue(indexOf(result, "B") < indexOf(result, "D"));
-        assertTrue(indexOf(result, "B") < indexOf(result, "E"));
-        assertTrue(indexOf(result, "C") < indexOf(result, "E"));
-        assertTrue(indexOf(result, "C") < indexOf(result, "F"));
+        assertTrue(result.indexOf("A") < result.indexOf("B"));
+        assertTrue(result.indexOf("A") < result.indexOf("C"));
+        assertTrue(result.indexOf("B") < result.indexOf("D"));
+        assertTrue(result.indexOf("B") < result.indexOf("E"));
+        assertTrue(result.indexOf("C") < result.indexOf("E"));
+        assertTrue(result.indexOf("C") < result.indexOf("F"));
     }
 
     @ParameterizedTest
@@ -197,14 +178,14 @@ class GraphSortingTest {
         graph.addEdge("A", "C");
         graph.addEdge("B", "C");
 
-        String[] result = GraphSorting.topologicalSort(graph);
+        List<String> result = GraphSorting.topologicalSort(graph);
 
-        assertEquals(3, result.length);
+        assertEquals(3, result.size());
 
-        assertTrue(indexOf(result, "A") < indexOf(result, "C"));
-        assertTrue(indexOf(result, "B") < indexOf(result, "C"));
+        assertTrue(result.indexOf("A") < result.indexOf("C"));
+        assertTrue(result.indexOf("B") < result.indexOf("C"));
 
-        assertTrue(containsAll(result, "A", "B", "C"));
+        assertTrue(result.containsAll(List.of("A", "B", "C")));
     }
 
     @ParameterizedTest
@@ -217,9 +198,9 @@ class GraphSortingTest {
         graph.addEdge("X", "Y");
         graph.addEdge("Y", "Z");
 
-        String[] result = GraphSorting.topologicalSort(graph);
+        List<String> result = GraphSorting.topologicalSort(graph);
 
-        assertEquals(3, result.length);
-        assertTrue(containsAll(result, "X", "Y", "Z"));
+        assertEquals(3, result.size());
+        assertTrue(result.containsAll(List.of("X", "Y", "Z")));
     }
 }

@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-import java.util.Arrays; // Добавлен импорт для Arrays.asList и Arrays.stream
+import java.util.Arrays; // Добавлен импорт для List.of и Arrays.stream
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -18,12 +18,11 @@ public interface GeneralGraphTest {
     @Test
     default void addAndGetNodes() {
         Graph<String> graph = newGraph();
-        assertEquals(0, graph.getNodes().size());
-        
-        TestsUtils.assertListsEqualIgnoreOrder(Arrays.asList("1"), graph.getNodes());
+        assertTrue(graph.getNodes().isEmpty());
+        graph.addNode("1");
+        TestsUtils.assertListsEqualIgnoreOrder(List.of("1"), graph.getNodes());
         graph.addNode("2");
-        
-        TestsUtils.assertListsEqualIgnoreOrder(Arrays.asList("1", "2"), graph.getNodes());
+        TestsUtils.assertListsEqualIgnoreOrder(List.of("1", "2"), graph.getNodes());
     }
 
     @Test
@@ -33,7 +32,7 @@ public interface GeneralGraphTest {
         graph.addNode("2");
         graph.addEdge("1", "2");
         
-        TestsUtils.assertListsEqualIgnoreOrder(Arrays.asList("1"), graph.getNeighbours("2").in());
+        TestsUtils.assertListsEqualIgnoreOrder(List.of("1"), graph.getNeighbours("2").in());
     }
 
     @Test
@@ -42,7 +41,7 @@ public interface GeneralGraphTest {
         graph.addNode("1");
         graph.addNode("2");
         graph.addEdge("1", "2");
-        TestsUtils.assertListsEqualIgnoreOrder(Arrays.asList("2"), graph.getNeighbours("1").out());
+        TestsUtils.assertListsEqualIgnoreOrder(List.of("2"), graph.getNeighbours("1").out());
     }
 
     @Test
@@ -52,7 +51,7 @@ public interface GeneralGraphTest {
         graph.addNode("2");
         graph.addNode("3");
         graph.removeNode("1");
-        TestsUtils.assertListsEqualIgnoreOrder(Arrays.asList("2", "3"), graph.getNodes());
+        TestsUtils.assertListsEqualIgnoreOrder(List.of("2", "3"), graph.getNodes());
     }
 
     @Test
@@ -64,7 +63,7 @@ public interface GeneralGraphTest {
         graph.addEdge("1", "2");
         graph.addEdge("1", "3");
         graph.removeEdge("1", "2");
-        TestsUtils.assertListsEqualIgnoreOrder(Arrays.asList("3"), graph.getNeighbours("1").out());
+        TestsUtils.assertListsEqualIgnoreOrder(List.of("3"), graph.getNeighbours("1").out());
     }
 
     @Test
@@ -77,9 +76,9 @@ public interface GeneralGraphTest {
         graph.addEdge("1", "3");
         graph.removeNode("2");
         
-        TestsUtils.assertListsEqualIgnoreOrder(Arrays.asList("1", "3"), graph.getNodes());
+        TestsUtils.assertListsEqualIgnoreOrder(List.of("1", "3"), graph.getNodes());
         
-        TestsUtils.assertListsEqualIgnoreOrder(Arrays.asList("3"), graph.getNeighbours("1").out());
+        TestsUtils.assertListsEqualIgnoreOrder(List.of("3"), graph.getNeighbours("1").out());
     }
 
     @Test
@@ -94,8 +93,8 @@ public interface GeneralGraphTest {
         graph.addEdge("c", "a");
         graph.addEdge("a", "d");
 
-        List<String> expectedIn = Arrays.asList("c");
-        List<String> expectedOut = Arrays.asList("b", "d");
+        List<String> expectedIn = List.of("c");
+        List<String> expectedOut = List.of("b", "d");
 
         List<String> actualIn = graph.getNeighbours("a").in();
         List<String> actualOut = graph.getNeighbours("a").out();
@@ -105,40 +104,7 @@ public interface GeneralGraphTest {
     }
 
     @Test
-    default void toFile(@TempDir Path tempDir) {
-        Path testFilePath = tempDir.resolve("test.graph");
-
-        Graph<String> graph = newGraph();
-        graph.addNode("A");
-        graph.addNode("B");
-        graph.addNode("C");
-        graph.addEdge("A", "B");
-        graph.addEdge("B", "C");
-
-        graph.toFile(testFilePath.toString());
-
-        assertTrue(Files.exists(testFilePath));
-        List<String> content;
-        try {
-            content = Files.readAllLines(testFilePath);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        assertEquals("3", content.get(0));
-        TestsUtils.assertListsEqualIgnoreOrder(
-                Arrays.asList("A", "B", "C"),
-                content.subList(1, 4)
-        );
-
-        TestsUtils.assertListsEqualIgnoreOrder(
-                Arrays.asList("A B", "B C"),
-                content.subList(4, 6)
-        );
-    }
-
-    @Test
-    default void fromFile(@TempDir Path tempDir) {
+    default void serializationTest(@TempDir Path tempDir) {
         Path testFilePath = tempDir.resolve("test.graph");
 
         Graph<String> graphWriter = newGraph();

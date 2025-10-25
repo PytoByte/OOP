@@ -85,7 +85,6 @@ public interface Graph<NodeType extends Serializable> {
         try (ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(filepath)))) {
             List<NodeType> nodes = getNodes();
             oos.writeInt(nodes.size()); // Записываем количество узлов
-
             // Записываем узлы
             for (NodeType node : nodes) {
                 oos.writeObject(node);
@@ -122,13 +121,15 @@ public interface Graph<NodeType extends Serializable> {
 
             // Читаем и добавляем узлы
             for (int i = 0; i < nodeCount; i++) {
+                @SuppressWarnings("unchecked")
                 NodeType node = (NodeType) ois.readObject();
                 addNode(node);
             }
             try {
+                //noinspection InfiniteLoopStatement
                 while (true) { // Бесконечный цикл, который завершится исключением EOF
-                    NodeType source = (NodeType) ois.readObject();
-                    NodeType target = (NodeType) ois.readObject();
+                    @SuppressWarnings("unchecked") NodeType source = (NodeType) ois.readObject();
+                    @SuppressWarnings("unchecked") NodeType target = (NodeType) ois.readObject();
                     addEdge(source, target);
                 }
             } catch (EOFException e) {

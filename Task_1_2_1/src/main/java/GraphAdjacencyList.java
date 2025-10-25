@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,8 +15,7 @@ public class GraphAdjacencyList<NodeType extends Serializable> implements Graph<
      */
     @Override
     public List<NodeType> getNodes() {
-        //noinspection unchecked
-        return (List<NodeType>) lists.keySet();
+        return new ArrayList<>(lists.keySet());
     }
 
     /**
