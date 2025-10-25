@@ -30,7 +30,7 @@ public interface GeneralGraphTest {
         graph.addNode(el1);
         TestsUtils.assertListsEqualIgnoreOrder(expected, graph.getNodes());
 
-        int[] el2 = new int[]{4,5};
+        int[] el2 = new int[]{4, 5};
         expected.add(el2);
         graph.addNode(el2);
         TestsUtils.assertListsEqualIgnoreOrder(expected, graph.getNodes());
