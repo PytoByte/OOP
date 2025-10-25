@@ -6,7 +6,7 @@ import java.util.List;
  * @param in array of incoming neighbours
  * @param out array of outgoing neighbors
  */
-public record NodeNeighbours<NodeType>(
-        List<NodeType> in,
-        List<NodeType> out
+public record NodeNeighbours<T>(
+        List<T> in,
+        List<T> out
 ) {}

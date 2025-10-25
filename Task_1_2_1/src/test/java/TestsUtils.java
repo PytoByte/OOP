@@ -17,9 +17,9 @@ public class TestsUtils {
      * @param expected expected array
      * @param actual actual array
      */
-    public static <NodeType> void assertListsEqualIgnoreOrder(
-            List<NodeType> expected,
-            List<NodeType> actual
+    public static <T> void assertListsEqualIgnoreOrder(
+            List<T> expected,
+            List<T> actual
     ) {
         if (expected == null || actual == null) {
             return;

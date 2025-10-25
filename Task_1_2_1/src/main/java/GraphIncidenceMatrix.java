@@ -8,15 +8,15 @@ import java.util.Objects;
 /**
  * Graph with incidence matrix structure.
  */
-public class GraphIncidenceMatrix<NodeType extends Serializable> implements Graph<NodeType> {
-    LinkedList<NodeType> nodes = new LinkedList<>();
-    LinkedList<HashMap<NodeType, IncidenceMatrixValues>> matrix = new LinkedList<>();
+public class GraphIncidenceMatrix<T extends Serializable> implements Graph<T> {
+    LinkedList<T> nodes = new LinkedList<>();
+    LinkedList<HashMap<T, IncidenceMatrixValues>> matrix = new LinkedList<>();
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public List<NodeType> getNodes() {
+    public List<T> getNodes() {
         return nodes;
     }
 
@@ -24,7 +24,7 @@ public class GraphIncidenceMatrix<NodeType extends Serializable> implements Grap
      * {@inheritDoc}
      */
     @Override
-    public void addNode(NodeType name) {
+    public void addNode(T name) {
         if (!nodes.contains(name)) {
             nodes.add(name);
         }
@@ -34,9 +34,9 @@ public class GraphIncidenceMatrix<NodeType extends Serializable> implements Grap
      * {@inheritDoc}
      */
     @Override
-    public void addEdge(NodeType name1, NodeType name2) {
+    public void addEdge(T name1, T name2) {
         if (nodes.contains(name1) && nodes.contains(name2)) {
-            HashMap<NodeType, IncidenceMatrixValues> edge = new HashMap<>();
+            HashMap<T, IncidenceMatrixValues> edge = new HashMap<>();
             if (name1.equals(name2)) {
                 edge.put(name1, IncidenceMatrixValues.SELF_LOOP);
             } else {
@@ -51,7 +51,7 @@ public class GraphIncidenceMatrix<NodeType extends Serializable> implements Grap
      * {@inheritDoc}
      */
     @Override
-    public void removeNode(NodeType name) {
+    public void removeNode(T name) {
         if (nodes.remove(name)) {
             matrix.removeIf(edge -> edge.containsKey(name));
         }
@@ -61,7 +61,7 @@ public class GraphIncidenceMatrix<NodeType extends Serializable> implements Grap
      * {@inheritDoc}
      */
     @Override
-    public void removeEdge(NodeType name1, NodeType name2) {
+    public void removeEdge(T name1, T name2) {
         matrix.removeIf(edge -> edge.containsKey(name1) && edge.containsKey(name2));
     }
 
@@ -69,17 +69,17 @@ public class GraphIncidenceMatrix<NodeType extends Serializable> implements Grap
      * {@inheritDoc}
      */
     @Override
-    public NodeNeighbours<NodeType> getNeighbours(NodeType name) {
-        LinkedList<NodeType> neighboursIn = new LinkedList<>();
-        LinkedList<NodeType> neighboursOut = new LinkedList<>();
-        for (HashMap<NodeType, IncidenceMatrixValues> edge : matrix) {
+    public NodeNeighbours<T> getNeighbours(T name) {
+        LinkedList<T> neighboursIn = new LinkedList<>();
+        LinkedList<T> neighboursOut = new LinkedList<>();
+        for (HashMap<T, IncidenceMatrixValues> edge : matrix) {
             if (edge.containsKey(name)) {
                 if (edge.get(name) == IncidenceMatrixValues.SELF_LOOP) {
                     neighboursIn.add(name);
                     neighboursOut.add(name);
                     continue;
                 }
-                for (NodeType node : edge.keySet()) {
+                for (T node : edge.keySet()) {
                     if (!node.equals(name)) {
                         if (edge.get(node) == IncidenceMatrixValues.TO) {
                             neighboursOut.add(node);
@@ -101,7 +101,7 @@ public class GraphIncidenceMatrix<NodeType extends Serializable> implements Grap
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        List<NodeType> allNodes = getNodes();
+        List<T> allNodes = getNodes();
         int edgeCount = matrix.size();
 
         if (allNodes.isEmpty()) {
@@ -110,7 +110,7 @@ public class GraphIncidenceMatrix<NodeType extends Serializable> implements Grap
         }
 
         int maxNodeNameWidth = 0;
-        for (NodeType node : allNodes) {
+        for (T node : allNodes) {
             maxNodeNameWidth = Math.max(maxNodeNameWidth, node.toString().length());
         }
 
@@ -127,12 +127,12 @@ public class GraphIncidenceMatrix<NodeType extends Serializable> implements Grap
         }
         sb.append("\n");
 
-        for (NodeType node : allNodes) {
+        for (T node : allNodes) {
             sb.append(node);
             sb.append(" ".repeat(maxNodeNameWidth - node.toString().length() + 1));
 
             for (int e = 0; e < edgeCount; e++) {
-                HashMap<NodeType, IncidenceMatrixValues> edge = matrix.get(e);
+                HashMap<T, IncidenceMatrixValues> edge = matrix.get(e);
                 IncidenceMatrixValues value = edge.get(node);
                 String cell = (value != null) ? value.value : IncidenceMatrixValues.EMPTY.value;
 
@@ -161,7 +161,7 @@ public class GraphIncidenceMatrix<NodeType extends Serializable> implements Grap
         }
 
         @SuppressWarnings("unchecked")
-        GraphIncidenceMatrix<NodeType> that = (GraphIncidenceMatrix<NodeType>) o;
+        GraphIncidenceMatrix<T> that = (GraphIncidenceMatrix<T>) o;
 
         if (!new HashSet<>(nodes).equals(new HashSet<>(that.nodes))) {
             return false;

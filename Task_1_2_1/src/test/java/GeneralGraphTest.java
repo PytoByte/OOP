@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 public interface GeneralGraphTest {
-    <NodeType extends Serializable> Graph<NodeType> newGraph();
+    <T extends Serializable> Graph<T> newGraph();
 
     @Test
     default void addAndGetNodes() {

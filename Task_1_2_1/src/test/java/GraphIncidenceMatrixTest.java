@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 class GraphIncidenceMatrixTest implements GeneralGraphTest {
     @Override
-    public <NodeType extends Serializable> Graph<NodeType> newGraph() {
+    public <T extends Serializable> Graph<T> newGraph() {
         return new GraphIncidenceMatrix<>();
     }
 

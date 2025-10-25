@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 class GraphAdjacencyListTest implements GeneralGraphTest {
     @Override
-    public <NodeType extends Serializable> Graph<NodeType> newGraph() {
+    public <T extends Serializable> Graph<T> newGraph() {
         return new GraphAdjacencyList<>();
     }
 

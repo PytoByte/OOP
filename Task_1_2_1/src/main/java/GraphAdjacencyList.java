@@ -7,14 +7,14 @@ import java.util.List;
 /**
  * Graph with adjacency list structure.
  */
-public class GraphAdjacencyList<NodeType extends Serializable> implements Graph<NodeType> {
-    private final HashMap<NodeType, LinkedList<NodeType>> lists = new HashMap<>();
+public class GraphAdjacencyList<T extends Serializable> implements Graph<T> {
+    private final HashMap<T, LinkedList<T>> lists = new HashMap<>();
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public List<NodeType> getNodes() {
+    public List<T> getNodes() {
         return new ArrayList<>(lists.keySet());
     }
 
@@ -22,7 +22,7 @@ public class GraphAdjacencyList<NodeType extends Serializable> implements Graph<
      * {@inheritDoc}
      */
     @Override
-    public void addNode(NodeType name) {
+    public void addNode(T name) {
         lists.put(name, new LinkedList<>());
     }
 
@@ -30,7 +30,7 @@ public class GraphAdjacencyList<NodeType extends Serializable> implements Graph<
      * {@inheritDoc}
      */
     @Override
-    public void addEdge(NodeType name1, NodeType name2) {
+    public void addEdge(T name1, T name2) {
         if (lists.containsKey(name1) && lists.containsKey(name2)) {
             lists.get(name1).add(name2);
         }
@@ -40,9 +40,9 @@ public class GraphAdjacencyList<NodeType extends Serializable> implements Graph<
      * {@inheritDoc}
      */
     @Override
-    public void removeNode(NodeType name) {
+    public void removeNode(T name) {
         lists.remove(name);
-        for (NodeType node : lists.keySet()) {
+        for (T node : lists.keySet()) {
             lists.get(node).remove(name);
         }
     }
@@ -51,7 +51,7 @@ public class GraphAdjacencyList<NodeType extends Serializable> implements Graph<
      * {@inheritDoc}
      */
     @Override
-    public void removeEdge(NodeType name1, NodeType name2) {
+    public void removeEdge(T name1, T name2) {
         if (lists.containsKey(name1) && lists.containsKey(name2)) {
             lists.get(name1).remove(name2);
             lists.get(name2).remove(name1);
@@ -62,11 +62,11 @@ public class GraphAdjacencyList<NodeType extends Serializable> implements Graph<
      * {@inheritDoc}
      */
     @Override
-    public NodeNeighbours<NodeType> getNeighbours(NodeType name) {
+    public NodeNeighbours<T> getNeighbours(T name) {
         if (lists.containsKey(name)) {
-            LinkedList<NodeType> neighboursOut = new LinkedList<>(lists.get(name));
-            LinkedList<NodeType> neighboursIn = new LinkedList<>();
-            for (NodeType node : getNodes()) {
+            LinkedList<T> neighboursOut = new LinkedList<>(lists.get(name));
+            LinkedList<T> neighboursIn = new LinkedList<>();
+            for (T node : getNodes()) {
                 if (lists.get(node).contains(name) && !neighboursOut.contains(node)) {
                     neighboursIn.add(node);
                 }
@@ -87,23 +87,23 @@ public class GraphAdjacencyList<NodeType extends Serializable> implements Graph<
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        List<NodeType> allNodes = getNodes();
+        List<T> allNodes = getNodes();
         if (allNodes.isEmpty()) {
             sb.append("(no nodes)\n");
             return sb.toString();
         }
 
         int maxNodeNameWidth = 0;
-        for (NodeType node : allNodes) {
+        for (T node : allNodes) {
             maxNodeNameWidth = Math.max(maxNodeNameWidth, node.toString().length());
         }
 
-        for (NodeType node : allNodes) {
+        for (T node : allNodes) {
             sb.append(node);
             sb.append(" ".repeat(maxNodeNameWidth - node.toString().length()));
             sb.append(" -> [");
 
-            LinkedList<NodeType> neighbours = lists.get(node);
+            LinkedList<T> neighbours = lists.get(node);
             if (!neighbours.isEmpty()) {
                 sb.append(
                         String.join(", ", neighbours.stream().map(Object::toString).toList())
@@ -125,7 +125,7 @@ public class GraphAdjacencyList<NodeType extends Serializable> implements Graph<
         }
 
         @SuppressWarnings("unchecked")
-        GraphAdjacencyList<NodeType> that = (GraphAdjacencyList<NodeType>) o;
+        GraphAdjacencyList<T> that = (GraphAdjacencyList<T>) o;
 
         return lists.equals(that.lists);
     }

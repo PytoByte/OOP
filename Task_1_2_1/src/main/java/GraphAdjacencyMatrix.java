@@ -6,14 +6,14 @@ import java.util.List;
 /**
  * Graph with adjacency matrix structure.
  */
-public class GraphAdjacencyMatrix<NodeType extends Serializable> implements Graph<NodeType> {
-    HashMap<NodeType, HashMap<NodeType, Boolean>> matrix = new HashMap<>();
+public class GraphAdjacencyMatrix<T extends Serializable> implements Graph<T> {
+    HashMap<T, HashMap<T, Boolean>> matrix = new HashMap<>();
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public List<NodeType> getNodes() {
+    public List<T> getNodes() {
         return matrix.keySet().stream().toList();
     }
 
@@ -21,7 +21,7 @@ public class GraphAdjacencyMatrix<NodeType extends Serializable> implements Grap
      * {@inheritDoc}
      */
     @Override
-    public void addNode(NodeType name) {
+    public void addNode(T name) {
         matrix.put(name, new HashMap<>());
     }
 
@@ -29,7 +29,7 @@ public class GraphAdjacencyMatrix<NodeType extends Serializable> implements Grap
      * {@inheritDoc}
      */
     @Override
-    public void addEdge(NodeType name1, NodeType name2) {
+    public void addEdge(T name1, T name2) {
         matrix.get(name1).put(name2, true);
     }
 
@@ -37,9 +37,9 @@ public class GraphAdjacencyMatrix<NodeType extends Serializable> implements Grap
      * {@inheritDoc}
      */
     @Override
-    public void removeNode(NodeType name) {
+    public void removeNode(T name) {
         matrix.remove(name);
-        for (NodeType node : matrix.keySet()) {
+        for (T node : matrix.keySet()) {
             matrix.get(node).remove(name);
         }
     }
@@ -48,7 +48,7 @@ public class GraphAdjacencyMatrix<NodeType extends Serializable> implements Grap
      * {@inheritDoc}
      */
     @Override
-    public void removeEdge(NodeType name1, NodeType name2) {
+    public void removeEdge(T name1, T name2) {
         matrix.get(name1).remove(name2);
         matrix.get(name2).remove(name1);
     }
@@ -57,9 +57,9 @@ public class GraphAdjacencyMatrix<NodeType extends Serializable> implements Grap
      * {@inheritDoc}
      */
     @Override
-    public NodeNeighbours<NodeType> getNeighbours(NodeType name) {
-        LinkedList<NodeType> neighboursIn = new LinkedList<>();
-        for (NodeType node : getNodes()) {
+    public NodeNeighbours<T> getNeighbours(T name) {
+        LinkedList<T> neighboursIn = new LinkedList<>();
+        for (T node : getNodes()) {
             if (matrix.get(node).containsKey(name)) {
                 neighboursIn.add(node);
             }
@@ -77,27 +77,27 @@ public class GraphAdjacencyMatrix<NodeType extends Serializable> implements Grap
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        List<NodeType> allNodes = getNodes();
+        List<T> allNodes = getNodes();
         if (allNodes.isEmpty()) {
             sb.append("(no nodes)\n");
             return sb.toString();
         }
 
         int maxNodeName = 0;
-        for (NodeType node : allNodes) {
+        for (T node : allNodes) {
             maxNodeName = Math.max(node.toString().length(), maxNodeName);
         }
 
         sb.append(" ".repeat(maxNodeName + 1));
-        for (NodeType to : allNodes) {
+        for (T to : allNodes) {
             sb.append(String.format("%s ", to));
         }
         sb.append("\n");
 
-        for (NodeType from : allNodes) {
+        for (T from : allNodes) {
             sb.append(String.format("%s", from));
             sb.append(" ".repeat(maxNodeName - from.toString().length() + 1));
-            for (NodeType to : allNodes) {
+            for (T to : allNodes) {
                 boolean hasEdge = matrix.get(from).containsKey(to);
                 int toLen = to.toString().length() / 2;
                 sb.append(" ".repeat(toLen));
@@ -119,7 +119,7 @@ public class GraphAdjacencyMatrix<NodeType extends Serializable> implements Grap
         }
 
         @SuppressWarnings("unchecked")
-        GraphAdjacencyMatrix<NodeType> that = (GraphAdjacencyMatrix<NodeType>) o;
+        GraphAdjacencyMatrix<T> that = (GraphAdjacencyMatrix<T>) o;
         return matrix.equals(that.matrix);
     }
 

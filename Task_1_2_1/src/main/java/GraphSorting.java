@@ -16,42 +16,42 @@ public class GraphSorting {
      * @param graph any realization of Graph interface.
      * @return list of nodes, sorted by topological sort.
      */
-    public static <NodeType extends Serializable> List<NodeType> topologicalSort(Graph<NodeType> graph) {
+    public static <T extends Serializable> List<T> topologicalSort(Graph<T> graph) {
         if (graph == null) {
             return new ArrayList<>();
         }
 
-        Map<NodeType, Integer> inDegree = new HashMap<>();
-        Map<NodeType, List<NodeType>> adjList = new HashMap<>();
-        Queue<NodeType> zeroInDegreeQueue = new LinkedList<>();
-        List<NodeType> result = new ArrayList<>();
+        Map<T, Integer> inDegree = new HashMap<>();
+        Map<T, List<T>> adjList = new HashMap<>();
+        Queue<T> zeroInDegreeQueue = new LinkedList<>();
+        List<T> result = new ArrayList<>();
 
-        List<NodeType> nodes = graph.getNodes();
-        for (NodeType node : nodes) {
+        List<T> nodes = graph.getNodes();
+        for (T node : nodes) {
             inDegree.put(node, 0);
             adjList.put(node, new ArrayList<>());
         }
 
-        for (NodeType node : nodes) {
-            NodeNeighbours<NodeType> neighbours = graph.getNeighbours(node);
-            List<NodeType> out = neighbours.out();
-            for (NodeType to : out) {
+        for (T node : nodes) {
+            NodeNeighbours<T> neighbours = graph.getNeighbours(node);
+            List<T> out = neighbours.out();
+            for (T to : out) {
                 adjList.get(node).add(to);
                 inDegree.put(to, inDegree.get(to) + 1);
             }
         }
 
-        for (NodeType node : nodes) {
+        for (T node : nodes) {
             if (inDegree.get(node) == 0) {
                 zeroInDegreeQueue.offer(node);
             }
         }
 
         while (!zeroInDegreeQueue.isEmpty()) {
-            NodeType current = zeroInDegreeQueue.poll();
+            T current = zeroInDegreeQueue.poll();
             result.add(current);
 
-            for (NodeType neighbor : adjList.get(current)) {
+            for (T neighbor : adjList.get(current)) {
                 inDegree.put(neighbor, inDegree.get(neighbor) - 1);
                 if (inDegree.get(neighbor) == 0) {
                     zeroInDegreeQueue.offer(neighbor);

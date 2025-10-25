@@ -1,7 +1,6 @@
 import exceptions.GraphException;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.BufferedWriter;
 import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -9,26 +8,20 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
-import static java.nio.file.Files.newBufferedWriter;
-import static java.nio.file.Files.readAllLines;
 
 /**
  * Interface representing a graph with basic operations
  * and serialization/deserialization to/from files.
  */
-public interface Graph<NodeType extends Serializable> {
+public interface Graph<T extends Serializable> {
 
     /**
      * Returns an array of all nodes in the graph.
      *
      * @return list of nodes, or empty list if graph has no nodes
      */
-    List<NodeType> getNodes();
+    List<T> getNodes();
 
     /**
      * Adds a new node to the graph.
@@ -36,7 +29,7 @@ public interface Graph<NodeType extends Serializable> {
      * @param name the name of the node to add
      * @throws IllegalArgumentException if node name is null or empty
      */
-    void addNode(NodeType name);
+    void addNode(T name);
 
     /**
      * Adds an edge between two existing nodes.
@@ -47,14 +40,14 @@ public interface Graph<NodeType extends Serializable> {
      * @param name2 the name of the second node
      * @throws IllegalArgumentException if either node doesn't exist
      */
-    void addEdge(NodeType name1, NodeType name2);
+    void addEdge(T name1, T name2);
 
     /**
      * Removes a node and all edges connected to it from the graph.
      *
      * @param name the name of the node to remove
      */
-    void removeNode(NodeType name);
+    void removeNode(T name);
 
     /**
      * Removes an edge between two nodes.
@@ -62,7 +55,7 @@ public interface Graph<NodeType extends Serializable> {
      * @param name1 the name of the first node
      * @param name2 the name of the second node
      */
-    void removeEdge(NodeType name1, NodeType name2);
+    void removeEdge(T name1, T name2);
 
     /**
      * Returns the neighbors of a specified node.
@@ -72,7 +65,7 @@ public interface Graph<NodeType extends Serializable> {
      * @return NodeNeighbours object containing incoming and outgoing neighbors,
      * or null if the node doesn't exist
      */
-    NodeNeighbours<NodeType> getNeighbours(NodeType name);
+    NodeNeighbours<T> getNeighbours(T name);
 
     /**
      * Serializes the graph and writes it to a file.
@@ -82,16 +75,16 @@ public interface Graph<NodeType extends Serializable> {
      */
     default void toFile(String filepath) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(filepath)))) {
-            List<NodeType> nodes = getNodes();
+            List<T> nodes = getNodes();
             oos.writeInt(nodes.size()); // Записываем количество узлов
             // Записываем узлы
-            for (NodeType node : nodes) {
+            for (T node : nodes) {
                 oos.writeObject(node);
             }
 
             // Записываем рёбра
-            for (NodeType node : nodes) {
-                for (NodeType target : getNeighbours(node).out()) {
+            for (T node : nodes) {
+                for (T target : getNeighbours(node).out()) {
                     oos.writeObject(node);
                     oos.writeObject(target);
                 }
@@ -121,14 +114,14 @@ public interface Graph<NodeType extends Serializable> {
             // Читаем и добавляем узлы
             for (int i = 0; i < nodeCount; i++) {
                 @SuppressWarnings("unchecked")
-                NodeType node = (NodeType) ois.readObject();
+                T node = (T) ois.readObject();
                 addNode(node);
             }
             try {
                 //noinspection InfiniteLoopStatement
                 while (true) { // Бесконечный цикл, который завершится исключением EOF
-                    @SuppressWarnings("unchecked") NodeType source = (NodeType) ois.readObject();
-                    @SuppressWarnings("unchecked") NodeType target = (NodeType) ois.readObject();
+                    @SuppressWarnings("unchecked") T source = (T) ois.readObject();
+                    @SuppressWarnings("unchecked") T target = (T) ois.readObject();
                     addEdge(source, target);
                 }
             } catch (EOFException e) {
