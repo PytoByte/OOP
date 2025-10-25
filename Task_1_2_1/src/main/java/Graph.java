@@ -63,7 +63,7 @@ public interface Graph<T extends Serializable> {
      *
      * @param name the name of the node to get neighbors for
      * @return NodeNeighbours object containing incoming and outgoing neighbors,
-     * or null if the node doesn't exist
+     *     or null if the node doesn't exist
      */
     NodeNeighbours<T> getNeighbours(T name);
 

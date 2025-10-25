@@ -13,6 +13,9 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+/**
+ * General tests for each graph.
+ */
 public interface GeneralGraphTest {
     <T extends Serializable> Graph<T> newGraph();
 
