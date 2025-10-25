@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -18,6 +19,22 @@ import org.junit.jupiter.api.io.TempDir;
  */
 public interface GeneralGraphTest {
     <T extends Serializable> Graph<T> newGraph();
+
+    @Test
+    default void notOnlyStringNode() {
+        Graph<int[]> graph = newGraph();
+        assertTrue(graph.getNodes().isEmpty());
+
+        int[] el1 = new int[]{1, 2, 3};
+        List<int[]> expected = new ArrayList<>(List.of(el1));
+        graph.addNode(el1);
+        TestsUtils.assertListsEqualIgnoreOrder(expected, graph.getNodes());
+
+        int[] el2 = new int[]{4,5};
+        expected.add(el2);
+        graph.addNode(el2);
+        TestsUtils.assertListsEqualIgnoreOrder(expected, graph.getNodes());
+    }
 
     @Test
     default void addAndGetNodes() {
