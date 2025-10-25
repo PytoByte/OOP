@@ -3,6 +3,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -46,12 +47,11 @@ class GraphSortingTest {
         graph.addEdge("A", "B");
         graph.addEdge("B", "C");
 
-        String[] result = GraphSorting.topologicalSort(graph);
+        List<String> result = GraphSorting.topologicalSort(graph);
 
-        assertEquals(3, result.length);
-
-        assertTrue(indexOf(result, "A") < indexOf(result, "B"));
-        assertTrue(indexOf(result, "B") < indexOf(result, "C"));
+        assertEquals(3, result.size());
+        assertTrue(result.indexOf("A") < result.indexOf("B"));
+        assertTrue(result.indexOf("B") < result.indexOf("C"));
     }
 
     @ParameterizedTest
@@ -72,9 +72,9 @@ class GraphSortingTest {
         graph.addEdge("B", "D");
         graph.addEdge("C", "D");
 
-        String[] result = GraphSorting.topologicalSort(graph);
+        List<String> result = GraphSorting.topologicalSort(graph);
 
-        assertEquals(4, result.length);
+        assertEquals(4, result.size());
 
         assertTrue(indexOf(result, "A") < indexOf(result, "B"));
         assertTrue(indexOf(result, "A") < indexOf(result, "C"));

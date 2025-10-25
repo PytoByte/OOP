@@ -15,12 +15,11 @@ public class GraphSorting {
      * Topological sort.
      *
      * @param graph any realization of Graph interface.
-     * @return array of nodes, sorted by topological sort.
+     * @return list of nodes, sorted by topological sort.
      */
-    public static <NodeType extends Serializable> NodeType[] topologicalSort(Graph<NodeType> graph) {
+    public static <NodeType extends Serializable> List<NodeType> topologicalSort(Graph<NodeType> graph) {
         if (graph == null) {
-            //noinspection unchecked
-            return (NodeType[]) Array.newInstance(Object.class, 0);
+            return new ArrayList<>();
         }
 
         Map<NodeType, Integer> inDegree = new HashMap<>();
@@ -28,7 +27,7 @@ public class GraphSorting {
         Queue<NodeType> zeroInDegreeQueue = new LinkedList<>();
         List<NodeType> result = new ArrayList<>();
 
-        NodeType[] nodes = graph.getNodes();
+        List<NodeType> nodes = graph.getNodes();
         for (NodeType node : nodes) {
             inDegree.put(node, 0);
             adjList.put(node, new ArrayList<>());
@@ -36,7 +35,7 @@ public class GraphSorting {
 
         for (NodeType node : nodes) {
             NodeNeighbours<NodeType> neighbours = graph.getNeighbours(node);
-            NodeType[] out = neighbours.out();
+            List<NodeType> out = neighbours.out();
             for (NodeType to : out) {
                 adjList.get(node).add(to);
                 inDegree.put(to, inDegree.get(to) + 1);
@@ -61,15 +60,10 @@ public class GraphSorting {
             }
         }
 
-        if (result.size() != nodes.length) {
+        if (result.size() != nodes.size()) {
             throw new IllegalArgumentException("Graph has a cycle.");
         }
 
-        //noinspection unchecked
-        NodeType[] resultArray = (NodeType[]) Array.newInstance(
-                nodes.getClass().getComponentType(), // Получаем тип компонента из входного массива nodes
-                result.size()                        // Указываем размер
-        );
-        return result.toArray(resultArray);
+        return result;
     }
 }

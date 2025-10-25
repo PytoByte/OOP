@@ -1,6 +1,7 @@
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Graph with adjacency matrix structure.
@@ -12,9 +13,9 @@ public class GraphAdjacencyMatrix<NodeType extends Serializable> implements Grap
      * {@inheritDoc}
      */
     @Override
-    public NodeType[] getNodes() {
+    public List<NodeType> getNodes() {
         //noinspection unchecked
-        return (NodeType[]) matrix.keySet().toArray();
+        return (List<NodeType>) matrix.keySet();
     }
 
     /**
@@ -66,8 +67,8 @@ public class GraphAdjacencyMatrix<NodeType extends Serializable> implements Grap
         }
         //noinspection unchecked
         return new NodeNeighbours<>(
-                (NodeType[])neighboursIn.toArray(),
-                (NodeType[])matrix.get(name).keySet().toArray()
+                neighboursIn,
+                (List<NodeType>)matrix.get(name).keySet()
         );
     }
 
@@ -78,8 +79,8 @@ public class GraphAdjacencyMatrix<NodeType extends Serializable> implements Grap
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        NodeType[] allNodes = getNodes();
-        if (allNodes.length == 0) {
+        List<NodeType> allNodes = getNodes();
+        if (allNodes.isEmpty()) {
             sb.append("(no nodes)\n");
             return sb.toString();
         }

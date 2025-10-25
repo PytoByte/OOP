@@ -27,9 +27,9 @@ public interface Graph<NodeType extends Serializable> {
     /**
      * Returns an array of all nodes in the graph.
      *
-     * @return array of node names, or empty array if graph has no nodes
+     * @return list of nodes, or empty list if graph has no nodes
      */
-    NodeType[] getNodes();
+    List<NodeType> getNodes();
 
     /**
      * Adds a new node to the graph.
@@ -83,8 +83,8 @@ public interface Graph<NodeType extends Serializable> {
      */
     default void toFile(String filepath) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(filepath)))) {
-            NodeType[] nodes = getNodes();
-            oos.writeInt(nodes.length); // Записываем количество узлов
+            List<NodeType> nodes = getNodes();
+            oos.writeInt(nodes.size()); // Записываем количество узлов
 
             // Записываем узлы
             for (NodeType node : nodes) {

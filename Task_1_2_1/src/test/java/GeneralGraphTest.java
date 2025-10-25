@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Arrays; // Добавлен импорт для Arrays.asList и Arrays.stream
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -17,11 +18,12 @@ public interface GeneralGraphTest {
     @Test
     default void addAndGetNodes() {
         Graph<String> graph = newGraph();
-        assertEquals(0, graph.getNodes().length);
-        graph.addNode("1");
-        TestsUtils.assertArraysEqualIgnoreOrder(new String[]{"1"}, graph.getNodes());
+        assertEquals(0, graph.getNodes().size());
+        
+        TestsUtils.assertListsEqualIgnoreOrder(Arrays.asList("1"), graph.getNodes());
         graph.addNode("2");
-        TestsUtils.assertArraysEqualIgnoreOrder(new String[]{"1", "2"}, graph.getNodes());
+        
+        TestsUtils.assertListsEqualIgnoreOrder(Arrays.asList("1", "2"), graph.getNodes());
     }
 
     @Test
@@ -30,7 +32,8 @@ public interface GeneralGraphTest {
         graph.addNode("1");
         graph.addNode("2");
         graph.addEdge("1", "2");
-        TestsUtils.assertArraysEqualIgnoreOrder(new String[]{"1"}, graph.getNeighbours("2").in());
+        
+        TestsUtils.assertListsEqualIgnoreOrder(Arrays.asList("1"), graph.getNeighbours("2").in());
     }
 
     @Test
@@ -39,7 +42,7 @@ public interface GeneralGraphTest {
         graph.addNode("1");
         graph.addNode("2");
         graph.addEdge("1", "2");
-        TestsUtils.assertArraysEqualIgnoreOrder(new String[]{"2"}, graph.getNeighbours("1").out());
+        TestsUtils.assertListsEqualIgnoreOrder(Arrays.asList("2"), graph.getNeighbours("1").out());
     }
 
     @Test
@@ -49,7 +52,7 @@ public interface GeneralGraphTest {
         graph.addNode("2");
         graph.addNode("3");
         graph.removeNode("1");
-        TestsUtils.assertArraysEqualIgnoreOrder(new String[]{"2", "3"}, graph.getNodes());
+        TestsUtils.assertListsEqualIgnoreOrder(Arrays.asList("2", "3"), graph.getNodes());
     }
 
     @Test
@@ -61,7 +64,7 @@ public interface GeneralGraphTest {
         graph.addEdge("1", "2");
         graph.addEdge("1", "3");
         graph.removeEdge("1", "2");
-        TestsUtils.assertArraysEqualIgnoreOrder(new String[]{"3"}, graph.getNeighbours("1").out());
+        TestsUtils.assertListsEqualIgnoreOrder(Arrays.asList("3"), graph.getNeighbours("1").out());
     }
 
     @Test
@@ -73,8 +76,10 @@ public interface GeneralGraphTest {
         graph.addEdge("1", "2");
         graph.addEdge("1", "3");
         graph.removeNode("2");
-        TestsUtils.assertArraysEqualIgnoreOrder(new String[]{"1", "3"}, graph.getNodes());
-        TestsUtils.assertArraysEqualIgnoreOrder(new String[]{"3"}, graph.getNeighbours("1").out());
+        
+        TestsUtils.assertListsEqualIgnoreOrder(Arrays.asList("1", "3"), graph.getNodes());
+        
+        TestsUtils.assertListsEqualIgnoreOrder(Arrays.asList("3"), graph.getNeighbours("1").out());
     }
 
     @Test
@@ -89,13 +94,14 @@ public interface GeneralGraphTest {
         graph.addEdge("c", "a");
         graph.addEdge("a", "d");
 
-        String[] expectedIn = {"c"};
-        String[] expectedOut = {"b", "d"};
-        String[] actualIn = graph.getNeighbours("a").in();
-        String[] actualOut = graph.getNeighbours("a").out();
+        List<String> expectedIn = Arrays.asList("c");
+        List<String> expectedOut = Arrays.asList("b", "d");
 
-        TestsUtils.assertArraysEqualIgnoreOrder(expectedIn, actualIn);
-        TestsUtils.assertArraysEqualIgnoreOrder(expectedOut, actualOut);
+        List<String> actualIn = graph.getNeighbours("a").in();
+        List<String> actualOut = graph.getNeighbours("a").out();
+
+        TestsUtils.assertListsEqualIgnoreOrder(expectedIn, actualIn);
+        TestsUtils.assertListsEqualIgnoreOrder(expectedOut, actualOut);
     }
 
     @Test
@@ -120,13 +126,14 @@ public interface GeneralGraphTest {
         }
 
         assertEquals("3", content.get(0));
-        TestsUtils.assertArraysEqualIgnoreOrder(
-                new String[]{"A", "B", "C"},
-                content.subList(1, 4).toArray(String[]::new)
+        TestsUtils.assertListsEqualIgnoreOrder(
+                Arrays.asList("A", "B", "C"),
+                content.subList(1, 4)
         );
-        TestsUtils.assertArraysEqualIgnoreOrder(
-                new String[]{"A B", "B C"},
-                content.subList(4, 6).toArray(String[]::new)
+
+        TestsUtils.assertListsEqualIgnoreOrder(
+                Arrays.asList("A B", "B C"),
+                content.subList(4, 6)
         );
     }
 

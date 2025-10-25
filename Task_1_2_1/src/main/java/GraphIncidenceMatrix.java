@@ -1,8 +1,10 @@
 import java.io.Serializable;
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -16,12 +18,8 @@ public class GraphIncidenceMatrix<NodeType extends Serializable> implements Grap
      * {@inheritDoc}
      */
     @Override
-    public NodeType[] getNodes() {
-        //noinspection unchecked
-        return (NodeType[]) Array.newInstance(
-                nodes.getClass().getComponentType(), // Получаем тип компонента из входного массива nodes
-                nodes.size()                        // Указываем размер
-        );
+    public List<NodeType> getNodes() {
+        return nodes;
     }
 
     /**
@@ -95,10 +93,9 @@ public class GraphIncidenceMatrix<NodeType extends Serializable> implements Grap
                 }
             }
         }
-        //noinspection unchecked
         return new NodeNeighbours<>(
-                (NodeType[]) neighboursIn.toArray(),
-                (NodeType[]) neighboursOut.toArray()
+                neighboursIn,
+                neighboursOut
         );
     }
 
@@ -106,10 +103,10 @@ public class GraphIncidenceMatrix<NodeType extends Serializable> implements Grap
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        NodeType[] allNodes = getNodes();
+        List<NodeType> allNodes = getNodes();
         int edgeCount = matrix.size();
 
-        if (allNodes.length == 0) {
+        if (allNodes.isEmpty()) {
             sb.append("(no nodes)\n");
             return sb.toString();
         }

@@ -1,3 +1,5 @@
+import java.util.List;
+
 /**
  * Supporting class for returning node neighbours.
  *
@@ -5,6 +7,6 @@
  * @param out array of outgoing neighbors
  */
 public record NodeNeighbours<NodeType>(
-        NodeType[] in,
-        NodeType[] out
+        List<NodeType> in,
+        List<NodeType> out
 ) {}
