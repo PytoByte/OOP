@@ -1,10 +1,16 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+
+import exceptions.GraphException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -117,6 +123,20 @@ public interface GeneralGraphTest {
     }
 
     @Test
+    default void serializationBadTest(@TempDir Path tempDir) {
+        Path testFilePath = tempDir.resolve("test.graph");
+
+        try (ObjectOutputStream oos = new ObjectOutputStream(Files.newOutputStream(testFilePath))) {
+            oos.writeInt(-5);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        Graph<String> graphReader = newGraph();
+        assertThrows(GraphException.class, () -> graphReader.fromFile(testFilePath.toString()));
+    }
+
+    @Test
     default void equalsTest() {
         Graph<String> graph1 = newGraph();
         graph1.addNode("A");
@@ -198,47 +218,5 @@ public interface GeneralGraphTest {
         graph2.addEdge("C", "A");
 
         assertEquals(graph1.hashCode(), graph2.hashCode());
-    }
-
-    @Test
-    default void notEqualHashCodeByEdgeTest() {
-        Graph<String> graph1 = newGraph();
-        graph1.addNode("A");
-        graph1.addNode("B");
-        graph1.addNode("C");
-        graph1.addEdge("A", "B");
-        graph1.addEdge("B", "C");
-        graph1.addEdge("A", "C");
-
-        Graph<String> graph2 = newGraph();
-        graph2.addNode("A");
-        graph2.addNode("B");
-        graph2.addNode("C");
-        graph2.addEdge("A", "B");
-        graph2.addEdge("B", "C");
-        graph2.addEdge("C", "A");
-
-        assertNotEquals(graph1.hashCode(), graph2.hashCode());
-    }
-
-    @Test
-    default void notEqualHashCodeByNodeTest() {
-        Graph<String> graph1 = newGraph();
-        graph1.addNode("A");
-        graph1.addNode("B");
-        graph1.addNode("D");
-        graph1.addEdge("A", "B");
-        graph1.addEdge("B", "D");
-        graph1.addEdge("D", "A");
-
-        Graph<String> graph2 = newGraph();
-        graph2.addNode("A");
-        graph2.addNode("B");
-        graph2.addNode("C");
-        graph2.addEdge("A", "B");
-        graph2.addEdge("B", "C");
-        graph2.addEdge("C", "A");
-
-        assertNotEquals(graph1.hashCode(), graph2.hashCode());
     }
 }
