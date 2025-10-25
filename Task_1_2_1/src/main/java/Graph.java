@@ -74,7 +74,11 @@ public interface Graph<T extends Serializable> {
      * @throws GraphException if an I/O error occurs during writing
      */
     default void toFile(String filepath) {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(filepath)))) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(
+                new BufferedOutputStream(
+                        new FileOutputStream(filepath)
+                )
+        )) {
             List<T> nodes = getNodes();
             oos.writeInt(nodes.size());
             // Записываем узлы
@@ -103,7 +107,11 @@ public interface Graph<T extends Serializable> {
      * @throws GraphException if an I/O error occurs during reading or the file format is invalid
      */
     default void fromFile(String filepath) {
-        try (ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(filepath)))) {
+        try (ObjectInputStream ois = new ObjectInputStream(
+                new BufferedInputStream(
+                        new FileInputStream(filepath)
+                )
+        )) {
             int nodeCount = ois.readInt();
             if (nodeCount < 0) {
                 throw new GraphException("Invalid file format: negative node count.");
@@ -126,9 +134,15 @@ public interface Graph<T extends Serializable> {
             }
 
         } catch (IOException e) {
-            throw new GraphException(String.format("Error reading graph from file: %s. Because: %s", filepath, e));
+            throw new GraphException(
+                    String.format("Error reading graph from file: %s. Because: %s", filepath, e)
+            );
         } catch (ClassNotFoundException e) {
-            throw new GraphException(String.format("Class not found during deserialization while reading file: %s. Because: %s", filepath, e));
+            throw new GraphException(
+                    String.format(
+                            "Class not found during reading graph from file: %s. Because: %s",
+                            filepath, e)
+            );
         }
     }
 }

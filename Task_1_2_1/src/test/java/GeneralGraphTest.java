@@ -122,6 +122,12 @@ public interface GeneralGraphTest {
     }
 
     @Test
+    default void deserializationBadPathTest(@TempDir Path tempDir) {
+        Graph<String> graphReader = newGraph();
+        assertThrows(GraphException.class, () -> graphReader.fromFile("bruh.idk"));
+    }
+
+    @Test
     default void deserializationBadCountTest(@TempDir Path tempDir) {
         Path testFilePath = tempDir.resolve("test.graph");
 
