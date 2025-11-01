@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -45,6 +47,11 @@ public class HashTable<K, V> implements Map<K, V> {
 
     ArrayList<LinkedList<Entry<K, V>>> table = new ArrayList<>();
 
+    private int getIndex(Object key) {
+        int hash = key != null ? key.hashCode() : 0;
+        return Math.abs(hash) % table.size();
+    }
+
     @Override
     public int size() {
         return 0;
@@ -81,8 +88,7 @@ public class HashTable<K, V> implements Map<K, V> {
 
     @Override
     public V get(Object key) {
-        int hash = key != null ? key.hashCode() : 0;
-        int index = Math.abs(hash) % table.size();
+        int index = getIndex(key);
 
         LinkedList<Entry<K, V>> bucket = table.get(index);
         if (bucket == null) {
@@ -100,8 +106,7 @@ public class HashTable<K, V> implements Map<K, V> {
 
     @Override
     public V put(K key, V value) {
-        int hash = key != null ? key.hashCode() : 0;
-        int index = Math.abs(hash) % table.size();
+        int index = getIndex(key);
 
         LinkedList<Entry<K, V>> bucket = table.get(index);
 
@@ -124,12 +129,29 @@ public class HashTable<K, V> implements Map<K, V> {
 
     @Override
     public V remove(Object key) {
+        int index = getIndex(key);
+        LinkedList<Entry<K, V>> bucket = table.get(index);
+        if (bucket == null) return null;
+
+        Iterator<Entry<K, V>> it = bucket.iterator();
+        while (it.hasNext()) {
+            Entry<K, V> entry = it.next();
+            if (Objects.equals(entry.key, key)) {
+                it.remove();
+                if (bucket.isEmpty()) {
+                    table.set(index, null);
+                }
+                return entry.value;
+            }
+        }
         return null;
     }
 
     @Override
     public void putAll(Map<? extends K, ? extends V> m) {
-        m.entrySet()
+        for (Map.Entry<? extends K, ? extends V> entry : m.entrySet()) {
+            put(entry.getKey(), entry.getValue());
+        }
     }
 
     @Override
@@ -139,16 +161,38 @@ public class HashTable<K, V> implements Map<K, V> {
 
     @Override
     public Set<K> keySet() {
-        return Set.of();
+        Set<K> keys = new HashSet<>();
+        for (LinkedList<Entry<K, V>> bucket : table) {
+            if (bucket != null) {
+                for (Entry<K, V> entry : bucket) {
+                    keys.add(entry.key);
+                }
+            }
+        }
+        return keys;
     }
 
     @Override
     public Collection<V> values() {
-        return List.of();
+        List<V> values = new ArrayList<>();
+        for (LinkedList<Entry<K, V>> bucket : table) {
+            if (bucket != null) {
+                for (Entry<K, V> entry : bucket) {
+                    values.add(entry.value);
+                }
+            }
+        }
+        return values;
     }
 
     @Override
-    public Set<Entry<K, V>> entrySet() {
-        return Set.of();
+    public Set<Map.Entry<K,V>> entrySet() {
+        Set<Map.Entry<K, V>> entries = new HashSet<>();
+        for (LinkedList<Entry<K, V>> bucket : table) {
+            if (bucket != null) {
+                entries.addAll(bucket);
+            }
+        }
+        return entries;
     }
 }
