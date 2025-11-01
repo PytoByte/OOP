@@ -8,9 +8,21 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ * Hash table realisation with generic keys and values.
+ *
+ * @param <K> key type
+ * @param <V> value type
+ */
 public class HashTable<K, V> implements Map<K, V> {
+    /**
+     * Pair of key and value.
+     *
+     * @param <K> key type
+     * @param <V> value type
+     */
     private static class Entry<K, V> implements Map.Entry<K, V> {
-        private K key;
+        private final K key;
         private V value;
 
         public Entry(K key, V value) {
@@ -18,50 +30,69 @@ public class HashTable<K, V> implements Map<K, V> {
             this.value = value;
         }
 
+        /**
+         * @inheritDoc
+         */
         @Override
         public K getKey() {
             return key;
         }
 
+        /**
+         * @inheritDoc
+         */
         @Override
         public V getValue() {
             return value;
         }
 
+        /**
+         * @inheritDoc
+         */
         @Override
         public V setValue(V value) {
             V old = this.value;
-            return null;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            return false;
-        }
-
-        @Override
-        public int hashCode() {
-            return 0;
+            this.value = value;
+            return old;
         }
     }
 
     ArrayList<LinkedList<Entry<K, V>>> table = new ArrayList<>();
 
+    /**
+     * Get index of bucket list in table.
+     *
+     * @param key key for value
+     * @return index of bucket list in table
+     */
     private int getIndex(Object key) {
         int hash = key != null ? key.hashCode() : 0;
         return Math.abs(hash) % table.size();
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public int size() {
-        return 0;
+        int size = 0;
+        for (LinkedList<Entry<K, V>> bucket : table) {
+            size += bucket.size();
+        }
+        return size;
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public boolean isEmpty() {
         return table.isEmpty();
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public boolean containsKey(Object key) {
         for (LinkedList<Entry<K, V>> list : table) {
@@ -74,6 +105,9 @@ public class HashTable<K, V> implements Map<K, V> {
         return false;
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public boolean containsValue(Object value) {
         for (LinkedList<Entry<K, V>> list : table) {
@@ -86,6 +120,9 @@ public class HashTable<K, V> implements Map<K, V> {
         return false;
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public V get(Object key) {
         int index = getIndex(key);
@@ -104,6 +141,9 @@ public class HashTable<K, V> implements Map<K, V> {
         return null;
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public V put(K key, V value) {
         int index = getIndex(key);
@@ -127,6 +167,9 @@ public class HashTable<K, V> implements Map<K, V> {
         return null;
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public V remove(Object key) {
         int index = getIndex(key);
@@ -147,6 +190,9 @@ public class HashTable<K, V> implements Map<K, V> {
         return null;
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public void putAll(Map<? extends K, ? extends V> m) {
         for (Map.Entry<? extends K, ? extends V> entry : m.entrySet()) {
@@ -154,11 +200,17 @@ public class HashTable<K, V> implements Map<K, V> {
         }
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public void clear() {
         table.clear();
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public Set<K> keySet() {
         Set<K> keys = new HashSet<>();
@@ -172,6 +224,9 @@ public class HashTable<K, V> implements Map<K, V> {
         return keys;
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public Collection<V> values() {
         List<V> values = new ArrayList<>();
@@ -185,6 +240,9 @@ public class HashTable<K, V> implements Map<K, V> {
         return values;
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public Set<Map.Entry<K,V>> entrySet() {
         Set<Map.Entry<K, V>> entries = new HashSet<>();
