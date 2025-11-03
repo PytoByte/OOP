@@ -1,8 +1,10 @@
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
-
 import java.util.*;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class HashTableTest {
 
@@ -66,17 +68,14 @@ class HashTableTest {
         table.put("key1", 100);
         table.put("key2", 200);
 
-        // Удаление существующего ключа
         assertEquals(Integer.valueOf(100), table.remove("key1"));
         assertEquals(1, table.size());
         assertFalse(table.containsKey("key1"));
         assertNull(table.get("key1"));
 
-        // Удаление несуществующего ключа
         assertNull(table.remove("nonexistent"));
         assertEquals(1, table.size());
 
-        // Удаление последнего элемента
         assertEquals(Integer.valueOf(200), table.remove("key2"));
         assertEquals(0, table.size());
         assertTrue(table.isEmpty());
@@ -129,7 +128,6 @@ class HashTableTest {
         assertTrue(keySet.contains("two"));
         assertTrue(keySet.contains("three"));
 
-        // Проверка, что изменения в таблице отражаются в keySet (если реализовано с view)
         table.remove("two");
         assertEquals(2, keySet.size());
         assertFalse(keySet.contains("two"));
@@ -148,10 +146,9 @@ class HashTableTest {
         assertTrue(values.contains("second"));
         assertTrue(values.contains("third"));
 
-        // Проверка, что значения могут дублироваться
         table.put(4, "first");
-        assertEquals(4, values.size()); // Общее количество значений увеличилось
-        assertTrue(values.contains("first")); // "first" встречается дважды
+        assertEquals(4, values.size());
+        assertTrue(values.contains("first"));
     }
 
     @Test
@@ -166,9 +163,16 @@ class HashTableTest {
 
         boolean foundFirst = false, foundSecond = false, foundThird = false;
         for (Map.Entry<String, Integer> entry : entrySet) {
-            if ("first".equals(entry.getKey()) && Integer.valueOf(1).equals(entry.getValue())) foundFirst = true;
-            if ("second".equals(entry.getKey()) && Integer.valueOf(2).equals(entry.getValue())) foundSecond = true;
-            if ("third".equals(entry.getKey()) && Integer.valueOf(3).equals(entry.getValue())) foundThird = true;
+            if ("first".equals(entry.getKey()) && Integer.valueOf(1).equals(entry.getValue())) {
+                foundFirst = true;
+            }
+
+            if ("second".equals(entry.getKey()) && Integer.valueOf(2).equals(entry.getValue())) {
+                foundSecond = true;
+            }
+            if ("third".equals(entry.getKey()) && Integer.valueOf(3).equals(entry.getValue())) {
+                foundThird = true;
+            }
         }
         assertTrue(foundFirst);
         assertTrue(foundSecond);
