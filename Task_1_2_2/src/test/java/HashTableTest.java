@@ -239,7 +239,7 @@ class HashTableTest {
             }
         }
 
-        HashTable<BadHashKey, String> table = new HashTable<>(4, 1.0f); // Высокий load factor, чтобы избежать ресайза
+        HashTable<BadHashKey, String> table = new HashTable<>(4, 1.0f);
         BadHashKey key1 = new BadHashKey("key1");
         BadHashKey key2 = new BadHashKey("key2");
         BadHashKey key3 = new BadHashKey("key3");
