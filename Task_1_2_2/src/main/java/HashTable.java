@@ -34,7 +34,7 @@ public class HashTable<K, V> implements Map<K, V> {
         }
 
         /**
-         * @inheritDoc
+         * {@inheritDoc}
          */
         @Override
         public K getKey() {
@@ -42,7 +42,7 @@ public class HashTable<K, V> implements Map<K, V> {
         }
 
         /**
-         * @inheritDoc
+         * {@inheritDoc}
          */
         @Override
         public V getValue() {
@@ -50,7 +50,7 @@ public class HashTable<K, V> implements Map<K, V> {
         }
 
         /**
-         * @inheritDoc
+         * {@inheritDoc}
          */
         @Override
         public V setValue(V value) {
@@ -155,7 +155,7 @@ public class HashTable<K, V> implements Map<K, V> {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public int size() {
@@ -163,7 +163,7 @@ public class HashTable<K, V> implements Map<K, V> {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public boolean isEmpty() {
@@ -171,7 +171,7 @@ public class HashTable<K, V> implements Map<K, V> {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public boolean containsKey(Object key) {
@@ -186,7 +186,7 @@ public class HashTable<K, V> implements Map<K, V> {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public boolean containsValue(Object value) {
@@ -201,7 +201,7 @@ public class HashTable<K, V> implements Map<K, V> {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public V get(Object key) {
@@ -216,7 +216,7 @@ public class HashTable<K, V> implements Map<K, V> {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public V put(K key, V value) {
@@ -241,7 +241,7 @@ public class HashTable<K, V> implements Map<K, V> {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public V remove(Object key) {
@@ -261,7 +261,7 @@ public class HashTable<K, V> implements Map<K, V> {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void putAll(Map<? extends K, ? extends V> m) {
@@ -271,7 +271,7 @@ public class HashTable<K, V> implements Map<K, V> {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void clear() {
@@ -285,7 +285,7 @@ public class HashTable<K, V> implements Map<K, V> {
     private transient Collection<V> values = null;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public Set<K> keySet() {
@@ -321,7 +321,7 @@ public class HashTable<K, V> implements Map<K, V> {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public Collection<V> values() {
@@ -352,7 +352,7 @@ public class HashTable<K, V> implements Map<K, V> {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public Set<Map.Entry<K, V>> entrySet() {
