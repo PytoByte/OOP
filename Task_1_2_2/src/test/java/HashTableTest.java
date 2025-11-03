@@ -164,7 +164,9 @@ class HashTableTest {
         Set<Map.Entry<String, Integer>> entrySet = table.entrySet();
         assertEquals(3, entrySet.size());
 
-        boolean foundFirst = false, foundSecond = false, foundThird = false;
+        boolean foundFirst = false;
+        boolean foundSecond = false;
+        boolean foundThird = false;
         for (Map.Entry<String, Integer> entry : entrySet) {
             if ("first".equals(entry.getKey()) && Integer.valueOf(1).equals(entry.getValue())) {
                 foundFirst = true;

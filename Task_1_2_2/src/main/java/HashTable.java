@@ -61,8 +61,12 @@ public class HashTable<K, V> implements Map<K, V> {
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
             Entry<?, ?> entry = (Entry<?, ?>) o;
             return Objects.equals(key, entry.key) && Objects.equals(value, entry.value);
         }
@@ -127,7 +131,6 @@ public class HashTable<K, V> implements Map<K, V> {
      */
     private int getIndex(Object key) {
         int hash = key != null ? key.hashCode() : 0;
-        // Use bitwise operation for faster modulo on power-of-two sizes
         return Math.abs(hash) & (table.size() - 1);
     }
 
@@ -146,7 +149,8 @@ public class HashTable<K, V> implements Map<K, V> {
 
         for (LinkedList<Entry<K, V>> bucket : oldTable) {
             for (Entry<K, V> entry : bucket) {
-                int newIndex = Math.abs(entry.key != null ? entry.key.hashCode() : 0) & (newCapacity - 1);
+                int newIndex =
+                        Math.abs(entry.key != null ? entry.key.hashCode() : 0) & (newCapacity - 1);
                 newTable.get(newIndex).add(entry);
             }
         }
