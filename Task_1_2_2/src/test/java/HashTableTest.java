@@ -174,4 +174,4 @@ class HashTableTest {
         assertTrue(foundSecond);
         assertTrue(foundThird);
     }
-}.
+}
