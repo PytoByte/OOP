@@ -131,7 +131,7 @@ public class HashTable<K, V> implements Map<K, V> {
      */
     private int getIndex(Object key) {
         int hash = key != null ? key.hashCode() : 0;
-        return Math.abs(hash) & (table.size() - 1);
+        return Math.abs(hash) % table.size();
     }
 
     /**
@@ -141,7 +141,7 @@ public class HashTable<K, V> implements Map<K, V> {
     private void resize() {
         ArrayList<LinkedList<Entry<K, V>>> oldTable = table;
         int oldCapacity = oldTable.size();
-        int newCapacity = oldCapacity << 1; // Equivalent to oldCapacity * 2
+        int newCapacity = oldCapacity * 2;
         ArrayList<LinkedList<Entry<K, V>>> newTable = new ArrayList<>(newCapacity);
         for (int i = 0; i < newCapacity; i++) {
             newTable.add(new LinkedList<>());
@@ -150,7 +150,7 @@ public class HashTable<K, V> implements Map<K, V> {
         for (LinkedList<Entry<K, V>> bucket : oldTable) {
             for (Entry<K, V> entry : bucket) {
                 int newIndex =
-                        Math.abs(entry.key != null ? entry.key.hashCode() : 0) & (newCapacity - 1);
+                        Math.abs(entry.key != null ? entry.key.hashCode() : 0) % newCapacity;
                 newTable.get(newIndex).add(entry);
             }
         }
@@ -285,43 +285,18 @@ public class HashTable<K, V> implements Map<K, V> {
         size = 0;
     }
 
-    private transient Set<K> keySet = null;
-    private transient Collection<V> values = null;
-
     /**
      * {@inheritDoc}
      */
     @Override
     public Set<K> keySet() {
-        if (keySet == null) {
-            keySet = new AbstractSet<K>() {
-                @Override
-                public Iterator<K> iterator() {
-                    return new KeyIterator();
-                }
-
-                @Override
-                public int size() {
-                    return HashTable.this.size();
-                }
-
-                @Override
-                public boolean contains(Object o) {
-                    return HashTable.this.containsKey(o);
-                }
-
-                @Override
-                public boolean remove(Object o) {
-                    return HashTable.this.remove(o) != null;
-                }
-
-                @Override
-                public void clear() {
-                    HashTable.this.clear();
-                }
-            };
+        Set<K> keys = new HashSet<>();
+        for (LinkedList<Entry<K, V>> bucket : table) {
+            for (Entry<K, V> pair : bucket) {
+                keys.add(pair.getKey());
+            }
         }
-        return keySet;
+        return keys;
     }
 
     /**
@@ -329,28 +304,11 @@ public class HashTable<K, V> implements Map<K, V> {
      */
     @Override
     public Collection<V> values() {
-        if (values == null) {
-            values = new AbstractCollection<V>() {
-                @Override
-                public Iterator<V> iterator() {
-                    return new ValueIterator();
-                }
-
-                @Override
-                public int size() {
-                    return HashTable.this.size();
-                }
-
-                @Override
-                public boolean contains(Object o) {
-                    return HashTable.this.containsValue(o);
-                }
-
-                @Override
-                public void clear() {
-                    HashTable.this.clear();
-                }
-            };
+        Set<V> values = new HashSet<>();
+        for (LinkedList<Entry<K, V>> bucket : table) {
+            for (Entry<K, V> pair : bucket) {
+                values.add(pair.getValue());
+            }
         }
         return values;
     }
@@ -365,116 +323,5 @@ public class HashTable<K, V> implements Map<K, V> {
             entries.addAll(bucket);
         }
         return entries;
-    }
-
-    /**
-     * An iterator over the entries of the hash table.
-     * Supports removal of the last returned element.
-     */
-    private class TableIterator implements Iterator<Entry<K, V>> {
-        private int currentIndex = 0;
-        private Iterator<Entry<K, V>> currentBucketIterator = null;
-        private Entry<K, V> lastReturned = null;
-
-        /**
-         * Advances the iterator to the next available entry.
-         */
-        private void advanceToNext() {
-            if (currentBucketIterator != null && currentBucketIterator.hasNext()) {
-                return;
-            }
-
-            while (currentIndex < table.size()) {
-                currentBucketIterator = table.get(currentIndex).iterator();
-                if (currentBucketIterator.hasNext()) {
-                    break;
-                }
-                currentIndex++;
-            }
-        }
-
-        @Override
-        public boolean hasNext() {
-            advanceToNext();
-            return currentBucketIterator != null && currentBucketIterator.hasNext();
-        }
-
-        @Override
-        public Entry<K, V> next() {
-            if (!hasNext()) {
-                throw new NoSuchElementException();
-            }
-            lastReturned = currentBucketIterator.next();
-            return lastReturned;
-        }
-
-        @Override
-        public void remove() {
-            if (lastReturned == null) {
-                throw new IllegalStateException();
-            }
-
-            int index = getIndex(lastReturned.key);
-            LinkedList<Entry<K, V>> bucket = table.get(index);
-            Iterator<Entry<K, V>> it = bucket.iterator();
-            while (it.hasNext()) {
-                Entry<K, V> e = it.next();
-                if (e == lastReturned) {
-                    it.remove();
-                    size--;
-                    lastReturned = null;
-                    return;
-                }
-            }
-
-            throw new ConcurrentModificationException();
-        }
-    }
-
-
-    /**
-     * An iterator over the keys of the hash table.
-     * Delegates iteration to the internal TableIterator.
-     */
-    private class KeyIterator implements Iterator<K> {
-        private final TableIterator tableIterator = new TableIterator();
-
-        @Override
-        public boolean hasNext() {
-            return tableIterator.hasNext();
-        }
-
-        @Override
-        public K next() {
-            return tableIterator.next().getKey();
-        }
-
-        @Override
-        public void remove() {
-            tableIterator.remove();
-        }
-    }
-
-    /**
-     * An iterator over the values of the hash table.
-     * Delegates iteration to the internal TableIterator.
-     */
-    private class ValueIterator implements Iterator<V> {
-        private final TableIterator tableIterator = new TableIterator();
-
-        @Override
-        public boolean hasNext() {
-            return tableIterator.hasNext();
-        }
-
-        @Override
-        public V next() {
-            return tableIterator.next().getValue();
-        }
-
-        @Override
-        public void remove() {
-            tableIterator.remove();
-        }
     }
 }

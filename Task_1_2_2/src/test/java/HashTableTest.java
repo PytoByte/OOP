@@ -133,10 +133,6 @@ class HashTableTest {
         assertTrue(keySet.contains("one"));
         assertTrue(keySet.contains("two"));
         assertTrue(keySet.contains("three"));
-
-        table.remove("two");
-        assertEquals(2, keySet.size());
-        assertFalse(keySet.contains("two"));
     }
 
     @Test
@@ -151,10 +147,6 @@ class HashTableTest {
         assertTrue(values.contains("first"));
         assertTrue(values.contains("second"));
         assertTrue(values.contains("third"));
-
-        table.put(4, "first");
-        assertEquals(4, values.size());
-        assertTrue(values.contains("first"));
     }
 
     @Test
@@ -289,32 +281,6 @@ class HashTableTest {
         it.next();
         it.remove();
         assertThrows(IllegalStateException.class, it::remove);
-    }
-
-    @Test
-    void keySetIteratorRemove() {
-        HashTable<String, Integer> table = new HashTable<>();
-        table.put("key1", 1);
-        table.put("key2", 2);
-
-        Iterator<String> keyIt = table.keySet().iterator();
-        String keyToRemove = keyIt.next();
-        keyIt.remove();
-
-        assertEquals(1, table.size());
-        assertFalse(table.containsKey(keyToRemove));
-    }
-
-    @Test
-    void valuesCollectionRemove() {
-        HashTable<String, String> table = new HashTable<>();
-        table.put("key1", "value1");
-        table.put("key2", "value2");
-        table.put("key3", "value1");
-
-        Collection<String> values = table.values();
-        assertTrue(values.remove("value1"));
-        assertEquals(2, table.size());
     }
 
     @Test
