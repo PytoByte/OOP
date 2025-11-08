@@ -349,8 +349,12 @@ public class HashTable<K, V> implements Map<K, V> {
         public boolean hasNext() {
             checkForComodification();
 
-            if (!currentBucketIterator.hasNext()) {
+            if (currentBucketIterator == null) {
                 nextBucket();
+            } else if (!currentBucketIterator.hasNext()) {
+                nextBucket();
+            } else {
+                return true;
             }
 
             return currentBucketIterator != null;
@@ -372,5 +376,60 @@ public class HashTable<K, V> implements Map<K, V> {
                 throw new ConcurrentModificationException();
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("{");
+        Iterator<Map.Entry<K, V>> it = entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry<K, V> entry = it.next();
+            sb.append(entry.getKey().toString());
+            sb.append(":");
+            sb.append(entry.getValue().toString());
+
+            if (it.hasNext()) {
+                sb.append(", ");
+            }
+        }
+        sb.append("}");
+
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        HashTable<?, ?> that = (HashTable<?, ?>) o;
+        if (size() != that.size()) {
+            return false;
+        }
+
+        for (Map.Entry<K, V> entry : entrySet()) {
+            K key = entry.getKey();
+            V value = entry.getValue();
+            if (!Objects.equals(value, that.get(key))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 0;
+        for (Map.Entry<K, V> entry : entrySet()) {
+            result += entry.hashCode();
+        }
+        return result;
     }
 }

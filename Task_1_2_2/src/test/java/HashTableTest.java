@@ -1,5 +1,6 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -293,5 +294,71 @@ class HashTableTest {
         table.put("key3", 3);
 
         assertThrows(ConcurrentModificationException.class, it::next);
+    }
+
+    @Test
+    void iteratorConcurrentModificationExceptionWhileIteration() {
+        HashTable<String, Integer> table = new HashTable<>();
+        table.put("key1", 1);
+        table.put("key2", 2);
+        assertThrows(ConcurrentModificationException.class, () -> {
+            for (Map.Entry<String, Integer> entry : table.entrySet()) {
+                table.put("key3", 3);
+            }
+        });
+    }
+
+    @Test
+    void toStringTest() {
+        HashTable<String, Integer> table = new HashTable<>();
+        table.put("key1", 1);
+        table.put("key2", 2);
+
+        assertTrue(
+                "{key1:1, key2:2}".equals(table.toString())
+                || "{key2:2, key1:1}".equals(table.toString())
+        );
+    }
+
+    @Test
+    void equalsTest() {
+        HashTable<String, Integer> table1 = new HashTable<>();
+        HashTable<String, Integer> table2 = new HashTable<>();
+
+        table1.put("key1", 1);
+        table1.put("key2", 2);
+
+        table2.put("key1", 1);
+        table2.put("key2", 2);
+
+        assertEquals(table1, table2);
+    }
+
+    @Test
+    void notEqualsTest() {
+        HashTable<String, Integer> table1 = new HashTable<>();
+        HashTable<String, Integer> table2 = new HashTable<>();
+
+        table1.put("key1", 1);
+        table1.put("key2", 2);
+
+        table2.put("key3", 3);
+        table2.put("key4", 4);
+
+        assertNotEquals(table1, table2);
+    }
+
+    @Test
+    void notEqualHashcode() {
+        HashTable<String, Integer> table1 = new HashTable<>();
+        HashTable<String, Integer> table2 = new HashTable<>();
+
+        table1.put("key1", 1);
+        table1.put("key2", 2);
+
+        table2.put("key3", 3);
+        table2.put("key4", 4);
+
+        assertNotEquals(table1.hashCode(), table2.hashCode());
     }
 }
