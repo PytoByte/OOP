@@ -70,7 +70,7 @@ public class HashTable<K, V> implements Map<K, V> {
             K key = getKey();
             V value = getValue();
             return (key == null ? entry.getKey() == null : key.equals(entry.getKey()))
-                    && (value == null ? entry.getValue()==null : value.equals(entry.getValue()));
+                    && (value == null ? entry.getValue() == null : value.equals(entry.getValue()));
         }
 
         @Override
