@@ -67,13 +67,16 @@ public class HashTable<K, V> implements Map<K, V> {
                 return false;
             }
             Entry<?, ?> entry = (Entry<?, ?>) o;
-            return Objects.equals(getKey(), entry.getKey())
-                    && Objects.equals(getValue(), entry.getValue());
+            K key = getKey();
+            V value = getValue();
+            return (key == null ? entry.getKey() == null : key.equals(entry.getKey()))
+                    && (value == null ? entry.getValue()==null : value.equals(entry.getValue()));
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(key, value);
+            return (getKey() == null ? 0 : getKey().hashCode())
+                    ^ (getValue() == null ? 0 : getValue().hashCode());
         }
     }
 
