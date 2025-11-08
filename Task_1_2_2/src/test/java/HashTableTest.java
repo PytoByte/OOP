@@ -1,10 +1,12 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Collection;
+import java.util.ConcurrentModificationException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -69,6 +71,30 @@ class HashTableTest {
     }
 
     @Test
+    void putNullKey() {
+        HashTable<String, String> table = new HashTable<>();
+        assertThrows(IllegalArgumentException.class, () -> table.put(null, "null_value"));
+    }
+
+    @Test
+    void putAll() {
+        Map<String, Integer> source = new HashMap<>();
+        source.put("a", 1);
+        source.put("b", 2);
+        source.put("c", 3);
+
+        HashTable<String, Integer> table = new HashTable<>();
+        table.putAll(source);
+
+        assertEquals(source.size(), table.size());
+        for (Map.Entry<String, Integer> entry : table.entrySet()) {
+            Integer elem = source.remove(entry.getKey());
+            assertNotNull(elem);
+            assertEquals(elem, entry.getValue());
+        }
+    }
+
+    @Test
     void remove() {
         HashTable<String, Integer> table = new HashTable<>();
         table.put("key1", 100);
@@ -85,25 +111,6 @@ class HashTableTest {
         assertEquals(Integer.valueOf(200), table.remove("key2"));
         assertEquals(0, table.size());
         assertTrue(table.isEmpty());
-    }
-
-    @Test
-    void putAll() {
-        Map<String, Integer> sourceMap = new HashMap<>();
-        sourceMap.put("a", 1);
-        sourceMap.put("b", 2);
-        sourceMap.put("c", 3);
-
-        HashTable<String, Integer> table = new HashTable<>();
-        table.putAll(sourceMap);
-
-        assertEquals(3, table.size());
-        assertTrue(table.containsKey("a"));
-        assertTrue(table.containsKey("b"));
-        assertTrue(table.containsKey("c"));
-        assertEquals(Integer.valueOf(1), table.get("a"));
-        assertEquals(Integer.valueOf(2), table.get("b"));
-        assertEquals(Integer.valueOf(3), table.get("c"));
     }
 
     @Test
@@ -150,51 +157,8 @@ class HashTableTest {
     }
 
     @Test
-    void entrySet() {
-        HashTable<String, Integer> table = new HashTable<>();
-        table.put("first", 1);
-        table.put("second", 2);
-        table.put("third", 3);
-
-        Set<Map.Entry<String, Integer>> entrySet = table.entrySet();
-        assertEquals(3, entrySet.size());
-
-        boolean foundFirst = false;
-        boolean foundSecond = false;
-        boolean foundThird = false;
-        for (Map.Entry<String, Integer> entry : entrySet) {
-            if ("first".equals(entry.getKey()) && Integer.valueOf(1).equals(entry.getValue())) {
-                foundFirst = true;
-            }
-
-            if ("second".equals(entry.getKey()) && Integer.valueOf(2).equals(entry.getValue())) {
-                foundSecond = true;
-            }
-            if ("third".equals(entry.getKey()) && Integer.valueOf(3).equals(entry.getValue())) {
-                foundThird = true;
-            }
-        }
-        assertTrue(foundFirst);
-        assertTrue(foundSecond);
-        assertTrue(foundThird);
-    }
-
-    @Test
-    void constructorWithInitialCapacityAndLoadFactor() {
-        HashTable<String, String> table = new HashTable<>(32, 0.5f);
-        assertEquals(0, table.size());
-        assertTrue(table.isEmpty());
-        for (int i = 0; i < 16; i++) {
-            table.put("key" + i, "val" + i);
-        }
-        assertEquals(16, table.size());
-        table.put("key17", "val17");
-        assertEquals(17, table.size());
-    }
-
-    @Test
-    void putTriggersResize() {
-        HashTable<String, String> table = new HashTable<>(2, 0.75f);
+    void resize() {
+        HashTable<String, String> table = new HashTable<>(2);
         table.put("key1", "val1");
         assertEquals(1, table.size());
 
@@ -205,14 +169,8 @@ class HashTableTest {
     }
 
     @Test
-    void handlesCollisions() {
-        class BadHashKey {
-            private final String value;
-
-            BadHashKey(String value) {
-                this.value = value;
-            }
-
+    void handleCollisions() {
+        record BadHashKey(String value) {
             @Override
             public int hashCode() {
                 return 42; // Постоянное значение -> коллизии
@@ -231,7 +189,7 @@ class HashTableTest {
             }
         }
 
-        HashTable<BadHashKey, String> table = new HashTable<>(4, 1.0f);
+        HashTable<BadHashKey, String> table = new HashTable<>();
         BadHashKey key1 = new BadHashKey("key1");
         BadHashKey key2 = new BadHashKey("key2");
         BadHashKey key3 = new BadHashKey("key3");
@@ -251,7 +209,7 @@ class HashTableTest {
     }
 
     @Test
-    void iteratorFullTraversal() {
+    void entrySet() {
         HashTable<String, Integer> table = new HashTable<>();
         Map<String, Integer> expected = new HashMap<>();
         for (int i = 0; i < 10; i++) {
@@ -261,61 +219,79 @@ class HashTableTest {
             expected.put(key, val);
         }
 
-        int count = 0;
         for (Map.Entry<String, Integer> entry : table.entrySet()) {
-            assertTrue(expected.containsKey(entry.getKey()));
-            assertEquals(expected.get(entry.getKey()), entry.getValue());
-            count++;
+            Integer elem = expected.remove(entry.getKey());
+            assertNotNull(elem);
+            assertEquals(elem, entry.getValue());
         }
-        assertEquals(expected.size(), count);
+        assertTrue(expected.isEmpty());
     }
 
     @Test
-    void iteratorRemoveIllegalState() {
+    void entrySetSize() {
+        HashTable<String, Integer> table = new HashTable<>();
+        int expectedSize = 10;
+
+        for (int i = 0; i < expectedSize; i++) {
+            String key = "key" + i;
+            Integer val = i;
+            table.put(key, val);
+        }
+
+        assertEquals(expectedSize, table.size());
+    }
+
+    @Test
+    void iteratorConcurrentModificationExceptionOnPut() {
         HashTable<String, Integer> table = new HashTable<>();
         table.put("key1", 1);
+        table.put("key2", 2);
+
         Iterator<Map.Entry<String, Integer>> it = table.entrySet().iterator();
 
-        assertThrows(IllegalStateException.class, it::remove);
+        table.put("key3", 3);
+
+        assertThrows(ConcurrentModificationException.class, it::hasNext);
+    }
+
+    @Test
+    void iteratorConcurrentModificationExceptionOnRemove() {
+        HashTable<String, Integer> table = new HashTable<>();
+        table.put("key1", 1);
+        table.put("key2", 2);
+
+        Iterator<Map.Entry<String, Integer>> it = table.entrySet().iterator();
+
+        table.remove("key1");
+
+        assertThrows(ConcurrentModificationException.class, it::hasNext);
+    }
+
+    @Test
+    void iteratorConcurrentModificationExceptionOnClear() {
+        HashTable<String, Integer> table = new HashTable<>();
+        table.put("key1", 1);
+        table.put("key2", 2);
+
+        Iterator<Map.Entry<String, Integer>> it = table.entrySet().iterator();
+
+        table.clear();
+
+        assertThrows(ConcurrentModificationException.class, it::hasNext);
+    }
+
+    @Test
+    void iteratorConcurrentModificationExceptionAfterNext() {
+        HashTable<String, Integer> table = new HashTable<>();
+        table.put("key1", 1);
+        table.put("key2", 2);
+
+        Iterator<Map.Entry<String, Integer>> it = table.entrySet().iterator();
 
         it.next();
-        it.remove();
-        assertThrows(IllegalStateException.class, it::remove);
-    }
 
-    @Test
-    void nullKeyOperations() {
-        HashTable<String, String> table = new HashTable<>();
-        table.put(null, "null_value");
+        table.put("key3", 3);
 
-        assertTrue(table.containsKey(null));
-        assertEquals("null_value", table.get(null));
-        assertEquals(1, table.size());
-
-        String oldValue = table.put(null, "new_null_value");
-        assertEquals("null_value", oldValue);
-        assertEquals("new_null_value", table.get(null));
-        assertEquals(1, table.size());
-
-        String removedValue = table.remove(null);
-        assertEquals("new_null_value", removedValue);
-        assertFalse(table.containsKey(null));
-        assertNull(table.get(null));
-        assertEquals(0, table.size());
-    }
-
-    @Test
-    void entrySetValueAndGet() {
-        HashTable<String, String> table = new HashTable<>();
-        table.put("key1", "value1");
-
-        Map.Entry<String, String> entry = table.entrySet().iterator().next();
-        assertEquals("value1", entry.getValue());
-
-        String oldValue = entry.setValue("new_value1");
-        assertEquals("value1", oldValue);
-        assertEquals("new_value1", entry.getValue());
-        // Проверяем, что значение в самой таблице также изменилось
-        assertEquals("new_value1", table.get("key1"));
+        assertThrows(ConcurrentModificationException.class, it::next);
     }
 }

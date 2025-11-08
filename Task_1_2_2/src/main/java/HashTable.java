@@ -1,4 +1,3 @@
-import java.util.AbstractCollection;
 import java.util.AbstractSet;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -68,7 +67,8 @@ public class HashTable<K, V> implements Map<K, V> {
                 return false;
             }
             Entry<?, ?> entry = (Entry<?, ?>) o;
-            return Objects.equals(key, entry.key) && Objects.equals(value, entry.value);
+            return Objects.equals(getKey(), entry.getKey()) &&
+                    Objects.equals(getValue(), entry.getValue());
         }
 
         @Override
@@ -79,48 +79,33 @@ public class HashTable<K, V> implements Map<K, V> {
 
     private ArrayList<LinkedList<Entry<K, V>>> table;
     private int size;
-    private static final float DEFAULT_LOAD_FACTOR = 0.75f;
-    private final float loadFactor;
+    private final float LOAD_FACTOR = 0.75f;
     private int threshold;
+    private int modCount = 0;
 
     /**
-     * Constructs a new, empty hash table with the default initial capacity (16)
-     * and the default load factor (0.75).
+     * Constructs a new, empty hash table with the default initial capacity (16).
      */
     public HashTable() {
-        this(16, DEFAULT_LOAD_FACTOR);
+        this(16);
     }
 
     /**
-     * Constructs a new, empty hash table with the specified initial capacity
-     * and the default load factor (0.75).
+     * Constructs a new, empty hash table with the specified initial capacity.
      *
      * @param initialCapacity the initial capacity of the hash table
      * @throws IllegalArgumentException if the initial capacity is less than or equal to 0
      */
     public HashTable(int initialCapacity) {
-        this(initialCapacity, DEFAULT_LOAD_FACTOR);
-    }
-
-    /**
-     * Constructs a new, empty hash table with the specified initial capacity
-     * and the specified load factor.
-     *
-     * @param initialCapacity the initial capacity of the hash table
-     * @param loadFactor the load factor threshold for resizing the table
-     * @throws IllegalArgumentException if the initial capacity is less than or equal to 0
-     */
-    public HashTable(int initialCapacity, float loadFactor) {
         if (initialCapacity <= 0) {
             throw new IllegalArgumentException("Initial capacity must be positive.");
         }
-        this.loadFactor = loadFactor;
         this.table = new ArrayList<>(initialCapacity);
         for (int i = 0; i < initialCapacity; i++) {
             table.add(new LinkedList<>());
         }
         this.size = 0;
-        this.threshold = (int) (initialCapacity * loadFactor);
+        this.threshold = (int) (initialCapacity * LOAD_FACTOR);
     }
 
     /**
@@ -155,7 +140,7 @@ public class HashTable<K, V> implements Map<K, V> {
             }
         }
         this.table = newTable;
-        this.threshold = (int) (newCapacity * loadFactor);
+        this.threshold = (int) (newCapacity * LOAD_FACTOR);
     }
 
     /**
@@ -224,6 +209,10 @@ public class HashTable<K, V> implements Map<K, V> {
      */
     @Override
     public V put(K key, V value) {
+        if (key == null) {
+            throw new IllegalArgumentException("null key");
+        }
+
         if (size >= threshold) {
             resize();
         }
@@ -235,12 +224,14 @@ public class HashTable<K, V> implements Map<K, V> {
             if (Objects.equals(entry.key, key)) {
                 V oldValue = entry.value;
                 entry.value = value;
+                modCount++;
                 return oldValue;
             }
         }
 
         bucket.add(new Entry<>(key, value));
         size++;
+        modCount++;
         return null;
     }
 
@@ -257,6 +248,7 @@ public class HashTable<K, V> implements Map<K, V> {
             Entry<K, V> entry = it.next();
             if (Objects.equals(entry.key, key)) {
                 it.remove();
+                modCount++;
                 size--;
                 return entry.value;
             }
@@ -282,6 +274,7 @@ public class HashTable<K, V> implements Map<K, V> {
         for (LinkedList<Entry<K, V>> bucket : table) {
             bucket.clear();
         }
+        modCount++;
         size = 0;
     }
 
@@ -318,10 +311,66 @@ public class HashTable<K, V> implements Map<K, V> {
      */
     @Override
     public Set<Map.Entry<K, V>> entrySet() {
-        Set<Map.Entry<K, V>> entries = new HashSet<>();
-        for (LinkedList<Entry<K, V>> bucket : table) {
-            entries.addAll(bucket);
+        return new EntrySet();
+    }
+
+    private class EntrySet extends AbstractSet<Map.Entry<K, V>> {
+        @Override
+        public Iterator<Map.Entry<K, V>> iterator() {
+            return new HashTableIterator();
         }
-        return entries;
+
+        @Override
+        public int size() {
+            return HashTable.this.size();
+        }
+    }
+
+    private class HashTableIterator implements Iterator<Map.Entry<K, V>> {
+        private final int expectedModCount = modCount;
+        private final Iterator<LinkedList<Entry<K, V>>> bucketIterator = table.iterator();
+        private Iterator<Entry<K, V>> currentBucketIterator = null;
+
+        public HashTableIterator() {
+            nextBucket();
+        }
+
+        private void nextBucket() {
+            while (bucketIterator.hasNext()) {
+                currentBucketIterator = bucketIterator.next().iterator();
+                if (currentBucketIterator.hasNext()) {
+                    return;
+                }
+            }
+            currentBucketIterator = null;
+        }
+
+        @Override
+        public boolean hasNext() {
+            checkForComodification();
+
+            if (!currentBucketIterator.hasNext()) {
+                nextBucket();
+            }
+
+            return currentBucketIterator != null;
+        }
+
+        @Override
+        public Map.Entry<K, V> next() {
+            checkForComodification();
+
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+
+            return currentBucketIterator.next();
+        }
+
+        final void checkForComodification() {
+            if (modCount != expectedModCount) {
+                throw new ConcurrentModificationException();
+            }
+        }
     }
 }
