@@ -67,8 +67,8 @@ public class HashTable<K, V> implements Map<K, V> {
                 return false;
             }
             Entry<?, ?> entry = (Entry<?, ?>) o;
-            return Objects.equals(getKey(), entry.getKey()) &&
-                    Objects.equals(getValue(), entry.getValue());
+            return Objects.equals(getKey(), entry.getKey())
+                    && Objects.equals(getValue(), entry.getValue());
         }
 
         @Override
@@ -79,7 +79,7 @@ public class HashTable<K, V> implements Map<K, V> {
 
     private ArrayList<LinkedList<Entry<K, V>>> table;
     private int size;
-    private final float LOAD_FACTOR = 0.75f;
+    private static final float LOAD_FACTOR = 0.75f;
     private int threshold;
     private int modCount = 0;
 
