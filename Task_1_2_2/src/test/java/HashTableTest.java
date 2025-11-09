@@ -13,6 +13,9 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.Spliterator;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import org.junit.jupiter.api.Test;
 
 class HashTableTest {
@@ -248,7 +251,7 @@ class HashTableTest {
         table.put("key1", 1);
         table.put("key2", 2);
 
-        Iterator<Map.Entry<String, Integer>> it = table.entrySet().iterator();
+        Iterator<Map.Entry<String, Integer>> it = table.iterator();
 
         table.put("key3", 3);
 
@@ -261,7 +264,7 @@ class HashTableTest {
         table.put("key1", 1);
         table.put("key2", 2);
 
-        Iterator<Map.Entry<String, Integer>> it = table.entrySet().iterator();
+        Iterator<Map.Entry<String, Integer>> it = table.iterator();
 
         table.remove("key1");
 
@@ -274,7 +277,7 @@ class HashTableTest {
         table.put("key1", 1);
         table.put("key2", 2);
 
-        Iterator<Map.Entry<String, Integer>> it = table.entrySet().iterator();
+        Iterator<Map.Entry<String, Integer>> it = table.iterator();
 
         table.clear();
 
@@ -287,7 +290,7 @@ class HashTableTest {
         table.put("key1", 1);
         table.put("key2", 2);
 
-        Iterator<Map.Entry<String, Integer>> it = table.entrySet().iterator();
+        Iterator<Map.Entry<String, Integer>> it = table.iterator();
 
         it.next();
 
@@ -302,10 +305,29 @@ class HashTableTest {
         table.put("key1", 1);
         table.put("key2", 2);
         assertThrows(ConcurrentModificationException.class, () -> {
-            for (Map.Entry<String, Integer> entry : table.entrySet()) {
+            for (Map.Entry<String, Integer> entry : table) {
                 table.put("key3", 3);
             }
         });
+    }
+
+    @Test
+    void forEachVisitsAllEntries() {
+        HashTable<Integer, Integer> table = new HashTable<>();
+        table.put(4, 1);
+        table.put(5, 2);
+        table.put(6, 3);
+
+        int keySum = 0;
+        int valuesSum = 0;
+
+        for (Map.Entry<Integer, Integer> entry : table) {
+            keySum += entry.getKey();
+            valuesSum += entry.getValue();
+        }
+
+        assertEquals(15, keySum);
+        assertEquals(6, valuesSum);
     }
 
     @Test

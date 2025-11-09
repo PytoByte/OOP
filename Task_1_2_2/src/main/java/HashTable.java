@@ -9,6 +9,9 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Set;
+import java.util.Spliterator;
+import java.util.Spliterators;
+import java.util.function.Consumer;
 
 /**
  * Hash table realisation with generic keys and values.
@@ -16,7 +19,7 @@ import java.util.Set;
  * @param <K> key type
  * @param <V> value type
  */
-public class HashTable<K, V> implements Map<K, V> {
+public class HashTable<K, V> implements Map<K, V>, Iterable<Map.Entry<K, V>> {
     /**
      * Pair of key and value.
      *
@@ -78,6 +81,68 @@ public class HashTable<K, V> implements Map<K, V> {
             return (getKey() == null ? 0 : getKey().hashCode())
                     ^ (getValue() == null ? 0 : getValue().hashCode());
         }
+    }
+
+    private class HashTableIterator implements Iterator<Map.Entry<K, V>> {
+        private final int expectedModCount = modCount;
+        private final Iterator<LinkedList<Entry<K, V>>> bucketIterator = table.iterator();
+        private Iterator<Entry<K, V>> currentBucketIterator = null;
+
+        public HashTableIterator() {
+            nextBucket();
+        }
+
+        private void nextBucket() {
+            while (bucketIterator.hasNext()) {
+                currentBucketIterator = bucketIterator.next().iterator();
+                if (currentBucketIterator.hasNext()) {
+                    return;
+                }
+            }
+            currentBucketIterator = null;
+        }
+
+        @Override
+        public boolean hasNext() {
+            checkForComodification();
+
+            if (currentBucketIterator == null) {
+                nextBucket();
+            } else if (!currentBucketIterator.hasNext()) {
+                nextBucket();
+            } else {
+                return true;
+            }
+
+            return currentBucketIterator != null;
+        }
+
+        @Override
+        public Map.Entry<K, V> next() {
+            checkForComodification();
+
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+
+            return currentBucketIterator.next();
+        }
+
+        final void checkForComodification() {
+            if (modCount != expectedModCount) {
+                throw new ConcurrentModificationException();
+            }
+        }
+    }
+
+    /**
+     * Returns the fast-fail iterator over entries in hash table.
+     *
+     * @return iterator over entries
+     */
+    @Override
+    public Iterator<Map.Entry<K, V>> iterator() {
+        return new HashTableIterator();
     }
 
     private ArrayList<LinkedList<Entry<K, V>>> table;
@@ -314,71 +379,11 @@ public class HashTable<K, V> implements Map<K, V> {
      */
     @Override
     public Set<Map.Entry<K, V>> entrySet() {
-        return new EntrySet();
-    }
-
-    private class EntrySet extends AbstractSet<Map.Entry<K, V>> {
-        @Override
-        public Iterator<Map.Entry<K, V>> iterator() {
-            return new HashTableIterator();
+        Set<Map.Entry<K, V>> entries = new HashSet<>();
+        for (LinkedList<Entry<K, V>> bucket : table) {
+            entries.addAll(bucket);
         }
-
-        @Override
-        public int size() {
-            return HashTable.this.size();
-        }
-    }
-
-    private class HashTableIterator implements Iterator<Map.Entry<K, V>> {
-        private final int expectedModCount = modCount;
-        private final Iterator<LinkedList<Entry<K, V>>> bucketIterator = table.iterator();
-        private Iterator<Entry<K, V>> currentBucketIterator = null;
-
-        public HashTableIterator() {
-            nextBucket();
-        }
-
-        private void nextBucket() {
-            while (bucketIterator.hasNext()) {
-                currentBucketIterator = bucketIterator.next().iterator();
-                if (currentBucketIterator.hasNext()) {
-                    return;
-                }
-            }
-            currentBucketIterator = null;
-        }
-
-        @Override
-        public boolean hasNext() {
-            checkForComodification();
-
-            if (currentBucketIterator == null) {
-                nextBucket();
-            } else if (!currentBucketIterator.hasNext()) {
-                nextBucket();
-            } else {
-                return true;
-            }
-
-            return currentBucketIterator != null;
-        }
-
-        @Override
-        public Map.Entry<K, V> next() {
-            checkForComodification();
-
-            if (!hasNext()) {
-                throw new NoSuchElementException();
-            }
-
-            return currentBucketIterator.next();
-        }
-
-        final void checkForComodification() {
-            if (modCount != expectedModCount) {
-                throw new ConcurrentModificationException();
-            }
-        }
+        return entries;
     }
 
     @Override
