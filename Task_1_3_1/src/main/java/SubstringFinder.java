@@ -1,10 +1,11 @@
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+
+import java.io.IOException;
 
 /**
  * Class with finding substrings methods.
@@ -28,7 +29,12 @@ public class SubstringFinder {
         int bufferSize = 8192;
         int overlap = substring.length() - 1;
 
-        try (BufferedReader reader = Files.newBufferedReader(Paths.get(filepath), StandardCharsets.UTF_8)) {
+        try (
+                BufferedReader reader = Files.newBufferedReader(
+                        Paths.get(filepath),
+                        StandardCharsets.UTF_8
+                )
+        ) {
             char[] buffer = new char[bufferSize];
             int charsRead;
             long position = 0;
@@ -46,8 +52,8 @@ public class SubstringFinder {
                     offset = found + 1;
                 }
 
-                leftover = text.length() >= overlap ?
-                        text.substring(text.length() - overlap) : text;
+                leftover = text.length() >= overlap
+                        ? text.substring(text.length() - overlap) : text;
 
                 position += chunk.length();
             }
