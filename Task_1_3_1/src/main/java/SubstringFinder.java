@@ -1,11 +1,10 @@
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-
-import java.io.IOException;
 
 /**
  * Class with finding substrings methods.
@@ -18,7 +17,7 @@ public class SubstringFinder {
      * @param filepath path to file
      * @param substring substring that we're searching
      * @return index of each substring
-     * @throws IOException if file not found or can't read ect
+     * @throws IOException if file not found or can't read etc
      */
     public static List<Long> find(String filepath, String substring) throws IOException {
         if (substring.isEmpty()) {
