@@ -78,16 +78,15 @@ public class SubstringFinderTest {
     @Test
     void testOverlapping(@TempDir Path tempDir) throws IOException {
         Path testFile = tempDir.resolve("overlapping_test.txt");
-
         String largeContent = "a".repeat(7);
         Files.write(testFile, largeContent.getBytes());
 
         List<Long> result = SubstringFinder.find(testFile.toString(), "aaa");
-        assertEquals(List.of(0L,1L,2L,3L,4L), result);
+        assertEquals(List.of(0L, 1L, 2L, 3L, 4L), result); // ← пробелы после запятых
     }
 
     @Test
-    void testSingleMatchNotASCII(@TempDir Path tempDir) throws IOException {
+    void testSingleMatchNotAscii(@TempDir Path tempDir) throws IOException { // ← ASCII → Ascii
         Path testFile = tempDir.resolve("test.txt");
         Files.write(testFile, "Привет мир".getBytes());
         assertEquals(List.of(7L), SubstringFinder.find(testFile.toString(), "мир"));
