@@ -62,7 +62,7 @@ public class SubstringFinderTest {
     void testLargeFile(@TempDir Path tempDir) throws IOException {
         Path testFile = tempDir.resolve("large_test.txt");
 
-        String largeContent = ("x".repeat(1024 * 1024));
+        String largeContent = ("x".repeat(1024 * 1024 * 1024));
         for (int i = 0; i < 34; i++) {
             Files.write(testFile, largeContent.getBytes(),
                     StandardOpenOption.CREATE,
