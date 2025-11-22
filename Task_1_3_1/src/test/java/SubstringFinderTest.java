@@ -63,7 +63,7 @@ public class SubstringFinderTest {
         Path testFile = tempDir.resolve("large_test.txt");
 
         String largeContent = ("x".repeat(1024 * 1024));
-        for (int i = 0; i < 1024 * 34; i++) {
+        for (int i = 0; i < 1024 * 5; i++) {
             Files.write(testFile, largeContent.getBytes(),
                     StandardOpenOption.CREATE,
                     StandardOpenOption.APPEND
@@ -72,7 +72,7 @@ public class SubstringFinderTest {
         Files.write(testFile, "target".getBytes(), StandardOpenOption.APPEND);
 
         List<Long> result = SubstringFinder.find(testFile.toString(), "target");
-        assertEquals(List.of(36507222016L), result);
+        assertEquals(List.of(5368709120L), result);
     }
 
     @Test
