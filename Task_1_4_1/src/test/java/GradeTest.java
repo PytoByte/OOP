@@ -1,5 +1,8 @@
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -55,5 +58,29 @@ class GradeTest {
     @Test
     public void initBadGradeCreditHighNumber() {
         assertThrows(IllegalArgumentException.class, () -> new Grade(Assessment.CREDIT, 1, 2));
+    }
+
+    @Test
+    public void getKnownGrade() {
+        Grade grade = new Grade(Assessment.EXAM, 1, 5);
+        assertEquals(5, grade.getGrade());
+    }
+
+    @Test
+    public void getUnknownGrade() {
+        Grade grade = new Grade(Assessment.EXAM, 1);
+        assertThrows(IllegalStateException.class, grade::getGrade);
+    }
+
+    @Test
+    public void checkKnownGrade() {
+        Grade grade = new Grade(Assessment.EXAM, 1, 5);
+        assertTrue(grade.isKnownGrade());
+    }
+
+    @Test
+    public void checkUnknownGrade() {
+        Grade grade = new Grade(Assessment.EXAM, 1);
+        assertFalse(grade.isKnownGrade());
     }
 }
