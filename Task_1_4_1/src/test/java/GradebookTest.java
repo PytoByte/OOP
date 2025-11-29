@@ -37,13 +37,22 @@ public class GradebookTest {
     @Test
     public void testCanTransferToBudget_EmptyGrades() {
         Gradebook gradebook = new Gradebook();
-        assertTrue(gradebook.canTransferToBudget());
+        assertFalse(gradebook.canTransferToBudget());
+    }
+
+    @Test
+    public void testCanTransferToBudget_OnFirstSemester() {
+        Gradebook gradebook = new Gradebook();
+        gradebook.addGrade(new Grade(Assessment.EXAM, 1, 5));
+
+        assertFalse(gradebook.canTransferToBudget());
     }
 
     @Test
     public void testCanTransferToBudget_CurrentSemesterHasBadExam() {
         Gradebook gradebook = new Gradebook();
-        gradebook.addGrade(new Grade(Assessment.EXAM, 1, 3));
+        gradebook.addGrade(new Grade(Assessment.EXAM, 1, 5));
+        gradebook.addGrade(new Grade(Assessment.EXAM, 2, 3));
 
         assertFalse(gradebook.canTransferToBudget());
     }
@@ -51,7 +60,8 @@ public class GradebookTest {
     @Test
     public void testCanTransferToBudget_CurrentSemesterHasBadCredit() {
         Gradebook gradebook = new Gradebook();
-        gradebook.addGrade(new Grade(Assessment.CREDIT, 1, 0));
+        gradebook.addGrade(new Grade(Assessment.CREDIT, 1, 1));
+        gradebook.addGrade(new Grade(Assessment.CREDIT, 2, 0));
 
         assertFalse(gradebook.canTransferToBudget());
     }
@@ -59,7 +69,8 @@ public class GradebookTest {
     @Test
     public void testCanTransferToBudget_CurrentSemesterHasBadDiffCredit() {
         Gradebook gradebook = new Gradebook();
-        gradebook.addGrade(new Grade(Assessment.DIFF_CREDIT, 1, 2));
+        gradebook.addGrade(new Grade(Assessment.CREDIT, 1, 1));
+        gradebook.addGrade(new Grade(Assessment.DIFF_CREDIT, 2, 2));
 
         assertFalse(gradebook.canTransferToBudget());
     }
@@ -67,7 +78,8 @@ public class GradebookTest {
     @Test
     public void testCanTransferToBudget_CurrentSemesterHasBadPracticeReport() {
         Gradebook gradebook = new Gradebook();
-        gradebook.addGrade(new Grade(Assessment.PRAC_REP_PROT, 1, 2));
+        gradebook.addGrade(new Grade(Assessment.CREDIT, 1, 1));
+        gradebook.addGrade(new Grade(Assessment.PRAC_REP_PROT, 2, 2));
 
         assertFalse(gradebook.canTransferToBudget());
     }
@@ -164,6 +176,8 @@ public class GradebookTest {
         Gradebook gradebook = new Gradebook();
         gradebook.addGrade(new Grade(Assessment.EXAM, 1, 5));
         gradebook.addGrade(new Grade(Assessment.EXAM, 1, 5));
+        gradebook.addGrade(new Grade(Assessment.EXAM, 1, 5));
+        gradebook.addGrade(new Grade(Assessment.EXAM, 1, 4));
         gradebook.addGrade(new Grade(Assessment.CREDIT, 1, 1));
 
         assertTrue(gradebook.canGetRedDiploma());

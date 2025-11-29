@@ -24,14 +24,14 @@ public class Gradebook {
      */
     public double getCurrentAverageGrade() {
         return grades.stream()
-                .filter(grade -> grade.assessment() != Assessment.CREDIT)
-                .mapToDouble(Grade::grade)
+                .filter(grade -> grade.assessment != Assessment.CREDIT && grade.isKnownGrade())
+                .mapToDouble(Grade::getGrade)
                 .average()
                 .orElse(0.0);
     }
 
     /**
-     * Checks if student can be transfer to budget.
+     * Checks if student can be potentially transfer to budget.
      *
      * @return true if yes, false overwise
      */
@@ -39,7 +39,11 @@ public class Gradebook {
         List<Integer> availableSemesters = getAvailableSemesters();
 
         if (availableSemesters.isEmpty()) {
-            return true;
+            return false;
+        }
+
+        if (availableSemesters.size() < 2) {
+            return false;
         }
 
         int maxSemester = availableSemesters.stream()
@@ -47,49 +51,29 @@ public class Gradebook {
                 .orElse(0);
 
         List<Grade> currentSemesterGrades = grades.stream()
-                .filter(grade -> grade.semester() == maxSemester)
+                .filter(grade -> grade.semester == maxSemester)
                 .toList();
 
-        if (
-                currentSemesterGrades.stream()
-                        .filter(grade -> grade.assessment() == Assessment.EXAM)
-                        .anyMatch(grade -> grade.grade() < 4)
-                        || currentSemesterGrades.stream()
-                        .filter(grade -> grade.assessment() == Assessment.CREDIT)
-                        .anyMatch(grade -> grade.grade() == 0)
-                        || currentSemesterGrades.stream()
-                        .filter(grade -> grade.assessment() != Assessment.EXAM
-                                && grade.assessment() != Assessment.CREDIT)
-                        .anyMatch(grade -> grade.grade() < 3)
-        ) {
+        if (!gradesAreGoodForBudget(currentSemesterGrades)) {
             return false;
         }
 
+        int prevSemesterNum = maxSemester - 1;
 
-        if (maxSemester != 1) {
-            List<Grade> prevSemesterGrades = grades.stream()
-                    .filter(grade -> grade.semester() == maxSemester - 1)
-                    .toList();
-
-            if (!prevSemesterGrades.isEmpty()) {
-                return prevSemesterGrades.stream()
-                        .filter(grade -> grade.assessment() == Assessment.EXAM)
-                        .allMatch(grade -> grade.grade() >= 4)
-                        && prevSemesterGrades.stream()
-                        .filter(grade -> grade.assessment() == Assessment.CREDIT)
-                        .allMatch(grade -> grade.grade() == 1)
-                        && prevSemesterGrades.stream()
-                        .filter(grade -> grade.assessment() != Assessment.EXAM
-                                && grade.assessment() != Assessment.CREDIT)
-                        .allMatch(grade -> grade.grade() >= 3);
-            }
+        // if no grades for previous semester, we assume that they are all maximal
+        if (!availableSemesters.contains(prevSemesterNum)) {
+            return true;
         }
 
-        return true;
+        List<Grade> prevSemesterGrades = grades.stream()
+                .filter(grade -> grade.semester == prevSemesterNum)
+                .toList();
+
+        return gradesAreGoodForBudget(prevSemesterGrades);
     }
 
     /**
-     * Checks if student can get red diploma.
+     * Checks if student can potentially get red diploma.
      *
      * @return true if yes, false overwise
      */
@@ -98,31 +82,33 @@ public class Gradebook {
             return true;
         }
 
-        if (grades.stream()
-                .filter(grade -> grade.assessment() == Assessment.CREDIT)
-                .anyMatch(grade -> grade.grade() == 0)
-                || grades.stream()
-                .filter(grade -> grade.assessment() == Assessment.FIN_QUAL_WORK_PROT)
-                .anyMatch(grade -> grade.grade() < 5)
-                || grades.stream()
-                .filter(grade -> grade.assessment() != Assessment.CREDIT
-                        && grade.assessment() != Assessment.FIN_QUAL_WORK_PROT)
-                .anyMatch(grade -> grade.grade() < 4)
-        ) {
+        if (!gradesAreGoodForRedDiploma(grades)) {
             return false;
         }
 
-        double aver = grades.stream()
-                .filter(grade -> grade.assessment() != Assessment.CREDIT)
-                .mapToDouble(Grade::grade)
-                .average()
-                .orElse(0.0);
+        List<Integer> knownGrades = grades.stream()
+                .filter(grade -> grade.assessment != Assessment.CREDIT && grade.isKnownGrade())
+                .mapToInt(Grade::getGrade)
+                .boxed()
+                .toList();
 
-        return aver >= 4.75;
+        long unknownGradesCount = grades.stream()
+                .filter(grade -> grade.assessment != Assessment.CREDIT && !grade.isKnownGrade())
+                .count();
+
+        int knownGradesSum = 0;
+        for (int knownGrade : knownGrades) {
+            knownGradesSum += knownGrade;
+        }
+
+        double average = (double) (knownGradesSum + unknownGradesCount * 5)
+                / (knownGrades.size() + unknownGradesCount);
+
+        return average >= 4.75;
     }
 
     /**
-     * Checks if student can get increased scholarship.
+     * Checks if student can potentially get increased scholarship.
      *
      * @return true if yes, false overwise
      */
@@ -138,25 +124,76 @@ public class Gradebook {
                 .orElse(0);
 
         List<Grade> currentSemesterGrades = grades.stream()
-                .filter(grade -> grade.semester() == maxSemester)
+                .filter(grade -> grade.semester == maxSemester)
                 .toList();
 
-        return currentSemesterGrades.stream()
-                .filter(grade -> grade.assessment() != Assessment.CREDIT)
-                .allMatch(grade -> grade.grade() >= 4)
-                && currentSemesterGrades.stream()
-                .filter(grade -> grade.assessment() == Assessment.CREDIT)
-                .allMatch(grade -> grade.grade() == 1);
+        return gradesAreGoodForIncreasedScholarship(currentSemesterGrades);
     }
 
     /**
-     * Get numbers of semesters that are available.
+     * Checks if grades in list are good for budget.
      *
-     * @return numbers of semesters that are available
+     * @param someGrades list of grades
+     * @return true if yes, false overwise
+     */
+    private boolean gradesAreGoodForBudget(List<Grade> someGrades) {
+        return someGrades.stream()
+                .filter(grade -> grade.assessment == Assessment.EXAM && grade.isKnownGrade())
+                .noneMatch(grade -> grade.getGrade() < 4)
+                && someGrades.stream()
+                .filter(grade -> grade.assessment == Assessment.CREDIT && grade.isKnownGrade())
+                .noneMatch(grade -> grade.getGrade() == 0)
+                && someGrades.stream()
+                .filter(grade -> grade.assessment != Assessment.EXAM
+                        && grade.assessment != Assessment.CREDIT && grade.isKnownGrade())
+                .noneMatch(grade -> grade.getGrade() < 3);
+    }
+
+    /**
+     * Checks if grades in list are good for getting red diploma.
+     *
+     * @param someGrades list of grades
+     * @return true if yes, false overwise
+     */
+    private boolean gradesAreGoodForRedDiploma(List<Grade> someGrades) {
+        return someGrades.stream()
+                .filter(grade -> grade.assessment == Assessment.CREDIT && grade.isKnownGrade())
+                .noneMatch(grade -> grade.getGrade() == 0)
+                && someGrades.stream()
+                .filter(grade -> grade.assessment == Assessment.FIN_QUAL_WORK_PROT
+                        && grade.isKnownGrade())
+                .noneMatch(grade -> grade.getGrade() < 5)
+                && someGrades.stream()
+                .filter(grade -> grade.assessment != Assessment.CREDIT
+                        && grade.assessment != Assessment.FIN_QUAL_WORK_PROT
+                        && grade.isKnownGrade())
+                .noneMatch(grade -> grade.getGrade() < 4);
+    }
+
+    /**
+     * Checks if grades in list are good for getting increased scholarship.
+     *
+     * @param someGrades list of grades
+     * @return true if yes, false overwise
+     */
+    private boolean gradesAreGoodForIncreasedScholarship(List<Grade> someGrades) {
+        return someGrades.stream()
+                .filter(grade -> grade.assessment != Assessment.CREDIT && grade.isKnownGrade())
+                .noneMatch(grade -> grade.getGrade() < 4)
+                && someGrades.stream()
+                .filter(grade -> grade.assessment == Assessment.CREDIT && grade.isKnownGrade())
+                .noneMatch(grade -> grade.getGrade() == 0);
+    }
+
+    /**
+     * Get numbers of semesters that has known grades.
+     *
+     * @return numbers of semesters that has known grades
      */
     private List<Integer> getAvailableSemesters() {
         return grades.stream()
-                .map(Grade::semester)
+                .filter(Grade::isKnownGrade)
+                .map(grade -> grade.semester)
                 .distinct()
                 .sorted()
                 .collect(Collectors.toList());
