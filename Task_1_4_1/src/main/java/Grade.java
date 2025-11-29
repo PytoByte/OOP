@@ -3,9 +3,17 @@
  *
  * @param assessment type of assessment
  * @param semester number of semester
- * @param grade mark
+ * @param grade grade
  */
 public record Grade(Assessment assessment, int semester, int grade) {
+
+    /**
+     * Basic grade constructor.
+     *
+     * @param assessment type of assessment
+     * @param semester number of semester
+     * @param grade grade
+     */
     public Grade {
         if (grade < assessment.min || grade > assessment.max) {
             String s = String.format("Grade not in assessment available range (%d-%d)",

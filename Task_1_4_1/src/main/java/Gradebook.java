@@ -10,6 +10,7 @@ public class Gradebook {
 
     /**
      * Add grade into grades list.
+     *
      * @param grade some grade
      */
     public void addGrade(Grade grade) {
@@ -18,6 +19,7 @@ public class Gradebook {
 
     /**
      * Get average grade of all grades.
+     *
      * @return average grade of all grades
      */
     public double getCurrentAverageGrade() {
@@ -30,6 +32,7 @@ public class Gradebook {
 
     /**
      * Checks if student can be transfer to budget.
+     *
      * @return true if yes, false overwise
      */
     public boolean canTransferToBudget() {
@@ -87,6 +90,7 @@ public class Gradebook {
 
     /**
      * Checks if student can get red diploma.
+     *
      * @return true if yes, false overwise
      */
     public boolean canGetRedDiploma() {
@@ -119,6 +123,7 @@ public class Gradebook {
 
     /**
      * Checks if student can get increased scholarship.
+     *
      * @return true if yes, false overwise
      */
     public boolean canGetIncreasedScholarship() {
@@ -146,6 +151,7 @@ public class Gradebook {
 
     /**
      * Get numbers of semesters that are available.
+     *
      * @return numbers of semesters that are available
      */
     private List<Integer> getAvailableSemesters() {
