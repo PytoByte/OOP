@@ -1,3 +1,10 @@
+/**
+ * Student grade.
+ *
+ * @param assessment type of assessment
+ * @param semester number of semester
+ * @param grade mark
+ */
 public record Grade(Assessment assessment, int semester, int grade) {
     public Grade {
         if (grade < assessment.min || grade > assessment.max) {

@@ -1,3 +1,6 @@
+/**
+ * Types of assessment.
+ */
 public enum Assessment {
     EXAM("Экзамен", 2, 5),
     DIFF_CREDIT("Дифференцированный зачёт", 2, 5),

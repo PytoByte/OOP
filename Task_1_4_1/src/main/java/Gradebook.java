@@ -2,13 +2,24 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Student grade book class.
+ */
 public class Gradebook {
     private final List<Grade> grades = new LinkedList<>();
 
+    /**
+     * Add grade into grades list.
+     * @param grade some grade
+     */
     public void addGrade(Grade grade) {
         grades.add(grade);
     }
 
+    /**
+     * Get average grade of all grades.
+     * @return average grade of all grades
+     */
     public double getCurrentAverageGrade() {
         return grades.stream()
                 .filter(grade -> grade.assessment() != Assessment.CREDIT)
@@ -17,6 +28,10 @@ public class Gradebook {
                 .orElse(0.0);
     }
 
+    /**
+     * Checks if student can be transfer to budget.
+     * @return true if yes, false overwise
+     */
     public boolean canTransferToBudget() {
         List<Integer> availableSemesters = getAvailableSemesters();
 
@@ -70,6 +85,10 @@ public class Gradebook {
         return true;
     }
 
+    /**
+     * Checks if student can get red diploma.
+     * @return true if yes, false overwise
+     */
     public boolean canGetRedDiploma() {
         if (grades.isEmpty()) {
             return true;
@@ -98,6 +117,10 @@ public class Gradebook {
         return aver >= 4.75;
     }
 
+    /**
+     * Checks if student can get increased scholarship.
+     * @return true if yes, false overwise
+     */
     public boolean canGetIncreasedScholarship() {
         List<Integer> availableSemesters = getAvailableSemesters();
 
@@ -121,6 +144,10 @@ public class Gradebook {
                 .allMatch(grade -> grade.grade() == 1);
     }
 
+    /**
+     * Get numbers of semesters that are available.
+     * @return numbers of semesters that are available
+     */
     private List<Integer> getAvailableSemesters() {
         return grades.stream()
                 .map(Grade::semester)
