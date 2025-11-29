@@ -132,13 +132,14 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getGrade()" class="member-name-link">getGrade</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Get the grade value.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isKnownGrade()" class="member-name-link">isKnownGrade</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setGrade(int)" class="member-name-link">setGrade</a><wbr>(int&nbsp;grade)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Checks if grade in known.</div>
+</div>
 </div>
 </div>
 </div>
@@ -220,18 +221,24 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="isKnownGrade()">
 <h3>isKnownGrade</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isKnownGrade</span>()</div>
+<div class="block">Checks if grade in known.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>true if yes, false overwise</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="getGrade()">
 <h3>getGrade</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getGrade</span>()</div>
-</section>
-</li>
-<li>
-<section class="detail" id="setGrade(int)">
-<h3>setGrade</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setGrade</span><wbr><span class="parameters">(int&nbsp;grade)</span></div>
+<div class="block">Get the grade value.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>grade value</dd>
+<dt>Throws:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalStateException.html" title="class or interface in java.lang" class="external-link">IllegalStateException</a></code> - if grade in unknown</dd>
+</dl>
 </section>
 </li>
 </ul>
