@@ -24,48 +24,46 @@ public class Gradebook {
             return true;
         }
 
-        int maxSemester = availableSemesters.stream().max(Integer::compareTo).orElse(0);
+        int maxSemester = availableSemesters.stream()
+                .max(Integer::compareTo)
+                .orElse(0);
 
-        // Проверяем текущий (последний) семестр
         List<Grade> currentSemesterGrades = grades.stream()
                 .filter(grade -> grade.semester() == maxSemester)
                 .toList();
 
-        if (!currentSemesterGrades.isEmpty()) {
-            // Если есть оценки в текущем семестре, проверяем отсутствие троек за экзамены
-            boolean hasSatisfactoryInCurrent = currentSemesterGrades.stream()
-                    .filter(grade -> grade.assessment() == Assessment.EXAM)
-                    .anyMatch(grade -> grade.grade() == 3);
-
-            if (hasSatisfactoryInCurrent) {
-                return false;
-            }
+        if (
+                currentSemesterGrades.stream()
+                        .filter(grade -> grade.assessment() == Assessment.EXAM)
+                        .anyMatch(grade -> grade.grade() < 4)
+                        || currentSemesterGrades.stream()
+                        .filter(grade -> grade.assessment() == Assessment.CREDIT)
+                        .anyMatch(grade -> grade.grade() == 0)
+                        || currentSemesterGrades.stream()
+                        .filter(grade -> grade.assessment() != Assessment.EXAM
+                                && grade.assessment() != Assessment.CREDIT)
+                        .anyMatch(grade -> grade.grade() < 3)
+        ) {
+            return false;
         }
 
-        // Проверяем предыдущий семестр (если не восьмой)
-        if (maxSemester != 8) {
+
+        if (maxSemester != 1) {
             List<Grade> prevSemesterGrades = grades.stream()
                     .filter(grade -> grade.semester() == maxSemester - 1)
                     .toList();
 
             if (!prevSemesterGrades.isEmpty()) {
-                // Если есть оценки в предыдущем семестре, проверяем отсутствие троек за экзамены
-                boolean hasSatisfactoryInPrev = prevSemesterGrades.stream()
+                return prevSemesterGrades.stream()
                         .filter(grade -> grade.assessment() == Assessment.EXAM)
-                        .anyMatch(grade -> grade.grade() == 3);
-
-                if (hasSatisfactoryInPrev) {
-                    return false;
-                }
-            } else {
-                // Если нет оценок за предыдущий семестр, проверяем текущий на отсутствие троек
-                if (!currentSemesterGrades.isEmpty()) {
-                    boolean hasSatisfactoryInCurrent = currentSemesterGrades.stream()
-                            .filter(grade -> grade.assessment() == Assessment.EXAM)
-                            .anyMatch(grade -> grade.grade() == 3);
-
-                    return !hasSatisfactoryInCurrent;
-                }
+                        .allMatch(grade -> grade.grade() >= 4)
+                        && prevSemesterGrades.stream()
+                        .filter(grade -> grade.assessment() == Assessment.CREDIT)
+                        .allMatch(grade -> grade.grade() == 1)
+                        && prevSemesterGrades.stream()
+                        .filter(grade -> grade.assessment() != Assessment.EXAM
+                                && grade.assessment() != Assessment.CREDIT)
+                        .allMatch(grade -> grade.grade() >= 3);
             }
         }
 
@@ -77,43 +75,44 @@ public class Gradebook {
             return true;
         }
 
-        boolean hasSatisfactoryGrades = grades.stream()
-                .filter(grade -> grade.assessment() != Assessment.CREDIT) // Исключаем обычные зачеты
-                .anyMatch(grade -> grade.grade() < 4);
-
-        if (hasSatisfactoryGrades) {
-            return false;
-        }
-
-        long excellentCount = grades.stream()
-                .map(Grade::assessment)
-                .filter(assessment -> assessment != Assessment.CREDIT)
-                .distinct()
-                .count();
-
-        long excellentGrades = grades.stream()
-                .filter(grade -> grade.assessment() != Assessment.CREDIT && grade.grade() == 5)
-                .count();
-
-        if (excellentCount > 0 && (double) excellentGrades / excellentCount < 0.75) {
-            return false;
-        }
-
-        return grades.stream()
+        if (grades.stream()
+                .filter(grade -> grade.assessment() == Assessment.CREDIT)
+                .anyMatch(grade -> grade.grade() == 0)
+                || grades.stream()
                 .filter(grade -> grade.assessment() == Assessment.FIN_QUAL_WORK_PROT)
-                .anyMatch(grade -> grade.grade() == 5);
+                .anyMatch(grade -> grade.grade() < 5)
+                || grades.stream()
+                .filter(grade -> grade.assessment() != Assessment.CREDIT
+                        && grade.assessment() != Assessment.FIN_QUAL_WORK_PROT)
+                .anyMatch(grade -> grade.grade() < 4)
+        ) {
+            return false;
+        }
+
+        double aver = grades.stream()
+                .filter(grade -> grade.assessment() != Assessment.CREDIT)
+                .mapToDouble(Grade::grade)
+                .average()
+                .orElse(0.0);
+
+        return aver >= 4.75;
     }
 
-    public boolean canGetIncreasedScholarship(int currentSemester) {
-        List<Grade> currentSemesterGrades = grades.stream()
-                .filter(grade -> grade.semester() == currentSemester)
-                .toList();
+    public boolean canGetIncreasedScholarship() {
+        List<Integer> availableSemesters = getAvailableSemesters();
 
-        if (currentSemesterGrades.isEmpty()) {
-            return true; // Если нет оценок в семестре, считаем что можно
+        if (availableSemesters.isEmpty()) {
+            return true;
         }
 
-        // Проверяем, что все оценки в текущем семестре >= 4 (не "удовлетворительно")
+        int maxSemester = availableSemesters.stream()
+                .max(Integer::compareTo)
+                .orElse(0);
+
+        List<Grade> currentSemesterGrades = grades.stream()
+                .filter(grade -> grade.semester() == maxSemester)
+                .toList();
+
         return currentSemesterGrades.stream()
                 .filter(grade -> grade.assessment() != Assessment.CREDIT)
                 .allMatch(grade -> grade.grade() >= 4)
