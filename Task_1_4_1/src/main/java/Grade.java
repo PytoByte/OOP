@@ -54,20 +54,26 @@ public class Grade {
         }
     }
 
+    /**
+     * Checks if grade in known.
+     *
+     * @return true if yes, false overwise
+     */
     public boolean isKnownGrade() {
         return knownGrade;
     }
 
+    /**
+     * Get the grade value.
+     *
+     * @return grade value
+     * @throws IllegalStateException if grade in unknown
+     */
     public int getGrade() {
         if (!isKnownGrade()) {
             throw new IllegalStateException("Grade is unknown");
         }
 
         return grade;
-    }
-
-    public void setGrade(int grade) {
-        this.grade = grade;
-        knownGrade = true;
     }
 }

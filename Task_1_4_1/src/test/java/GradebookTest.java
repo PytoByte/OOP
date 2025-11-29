@@ -123,8 +123,30 @@ public class GradebookTest {
     }
 
     @Test
+    public void testCanTransferToBudget_HasOnlyCurrentGrades() {
+        Gradebook gradebook = new Gradebook();
+        gradebook.addGrade(new Grade(Assessment.EXAM, 1));
+        gradebook.addGrade(new Grade(Assessment.CREDIT, 1));
+        gradebook.addGrade(new Grade(Assessment.EXAM, 2, 5));
+        gradebook.addGrade(new Grade(Assessment.CREDIT, 2, 1));
+
+        assertTrue(gradebook.canTransferToBudget());
+    }
+
+    @Test
     public void testCanGetRedDiploma_EmptyGrades() {
         Gradebook gradebook = new Gradebook();
+        assertTrue(gradebook.canGetRedDiploma());
+    }
+
+    @Test
+    public void testCanGetRedDiploma_UnknownGrades() {
+        Gradebook gradebook = new Gradebook();
+        gradebook.addGrade(new Grade(Assessment.CREDIT, 1));
+        gradebook.addGrade(new Grade(Assessment.EXAM, 2));
+        gradebook.addGrade(new Grade(Assessment.EXAM, 4));
+        gradebook.addGrade(new Grade(Assessment.FIN_QUAL_WORK_PROT, 8));
+
         assertTrue(gradebook.canGetRedDiploma());
     }
 

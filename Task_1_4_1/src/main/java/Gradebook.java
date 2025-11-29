@@ -36,35 +36,21 @@ public class Gradebook {
      * @return true if yes, false overwise
      */
     public boolean canTransferToBudget() {
-        List<Integer> availableSemesters = getAvailableSemesters();
+        int currentSemesterNum = getCurrentSemester();
 
-        if (availableSemesters.isEmpty()) {
+        if (currentSemesterNum < 2) {
             return false;
         }
-
-        if (availableSemesters.size() < 2) {
-            return false;
-        }
-
-        int maxSemester = availableSemesters.stream()
-                .max(Integer::compareTo)
-                .orElse(0);
 
         List<Grade> currentSemesterGrades = grades.stream()
-                .filter(grade -> grade.semester == maxSemester)
+                .filter(grade -> grade.semester == currentSemesterNum)
                 .toList();
 
         if (!gradesAreGoodForBudget(currentSemesterGrades)) {
             return false;
         }
 
-        int prevSemesterNum = maxSemester - 1;
-
-        // if no grades for previous semester, we assume that they are all maximal
-        if (!availableSemesters.contains(prevSemesterNum)) {
-            return true;
-        }
-
+        int prevSemesterNum = currentSemesterNum - 1;
         List<Grade> prevSemesterGrades = grades.stream()
                 .filter(grade -> grade.semester == prevSemesterNum)
                 .toList();
@@ -113,18 +99,14 @@ public class Gradebook {
      * @return true if yes, false overwise
      */
     public boolean canGetIncreasedScholarship() {
-        List<Integer> availableSemesters = getAvailableSemesters();
-
-        if (availableSemesters.isEmpty()) {
+        if (grades.isEmpty()) {
             return true;
         }
 
-        int maxSemester = availableSemesters.stream()
-                .max(Integer::compareTo)
-                .orElse(0);
+        int currentSemesterNum = getCurrentSemester();
 
         List<Grade> currentSemesterGrades = grades.stream()
-                .filter(grade -> grade.semester == maxSemester)
+                .filter(grade -> grade.semester == currentSemesterNum)
                 .toList();
 
         return gradesAreGoodForIncreasedScholarship(currentSemesterGrades);
@@ -186,16 +168,14 @@ public class Gradebook {
     }
 
     /**
-     * Get numbers of semesters that has known grades.
+     * Get current semester number.
      *
-     * @return numbers of semesters that has known grades
+     * @return numbers of current semester
      */
-    private List<Integer> getAvailableSemesters() {
+    private int getCurrentSemester() {
         return grades.stream()
                 .filter(Grade::isKnownGrade)
                 .map(grade -> grade.semester)
-                .distinct()
-                .sorted()
-                .collect(Collectors.toList());
+                .max(Integer::compareTo).orElse(1);
     }
 }
