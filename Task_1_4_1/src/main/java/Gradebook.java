@@ -114,7 +114,7 @@ public class Gradebook {
     }
 
     /**
-     * Get last grades by subject, no matter known or unknown
+     * Get last grades by subject, no matter known or unknown.
      *
      * @param someGrades list of grades
      * @return list of last subject grades
