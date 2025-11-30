@@ -37,6 +37,22 @@ class GradeTest {
     }
 
     @Test
+    public void initUnknownBadAssessment() {
+        assertThrows(
+                NullPointerException.class,
+                () -> new Grade(null, 1, "Art")
+        );
+    }
+
+    @Test
+    public void initUnknownBadName() {
+        assertThrows(
+                NullPointerException.class,
+                () -> new Grade(Assessment.EXAM, 1, null)
+        );
+    }
+
+    @Test
     public void initBadSemesterLowNumber() {
         assertThrows(
                 IllegalArgumentException.class,
