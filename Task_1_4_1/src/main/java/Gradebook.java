@@ -16,8 +16,13 @@ public class Gradebook {
      * Add grade into grades list.
      *
      * @param grade some grade
+     * @throws NullPointerException if grade is null
      */
     public void addGrade(Grade grade) {
+        if (grade == null) {
+            throw new NullPointerException("grade must be nonnull");
+        }
+
         grades.add(grade);
     }
 

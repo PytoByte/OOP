@@ -16,6 +16,7 @@ public class Grade {
      * @param grade grade
      *
      * @throws IllegalArgumentException if grade or semester not in available range
+     * @throws NullPointerException if assessment or name is null
      */
     public Grade(Assessment assessment, int semester, int grade, String name) {
         this.assessment = assessment;
@@ -23,6 +24,14 @@ public class Grade {
         this.grade = grade;
         knownGrade = true;
         this.name = name;
+
+        if (assessment == null) {
+            throw new NullPointerException("assessment must be nonnull");
+        }
+
+        if (name == null) {
+            throw new NullPointerException("name must be nonnull");
+        }
 
         if (assessment == Assessment.CREDIT) {
             if (grade < 0 || grade > 1) {
@@ -44,6 +53,7 @@ public class Grade {
      * @param semester number of semester
      *
      * @throws IllegalArgumentException if semester not in available range
+     * @throws NullPointerException if assessment or name is null
      */
     public Grade(Assessment assessment, int semester, String name) {
         this.assessment = assessment;
@@ -51,6 +61,14 @@ public class Grade {
         this.grade = -1;
         knownGrade = false;
         this.name = name;
+
+        if (assessment == null) {
+            throw new NullPointerException("assessment must be nonnull");
+        }
+
+        if (name == null) {
+            throw new NullPointerException("name must be nonnull");
+        }
 
         if (semester < 1 || semester > 8) {
             throw new IllegalArgumentException("Semester not in available range (1-8)");

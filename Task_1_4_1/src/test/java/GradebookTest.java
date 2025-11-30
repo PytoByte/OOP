@@ -1,5 +1,7 @@
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -13,6 +15,23 @@ public class GradebookTest {
     public void testGetCurrentAverageGrade_EmptyGrades() {
         Gradebook gradebook = new Gradebook();
         assertEquals(0.0, gradebook.getCurrentAverageGrade(), 0.001);
+    }
+
+    @Test
+    public void testAddGrade() {
+        Gradebook gradebook = new Gradebook();
+        assertDoesNotThrow(
+                () -> gradebook.addGrade(new Grade(Assessment.EXAM, 1, 4, "Mathematics"))
+        );
+    }
+
+    @Test
+    public void testAddNullGrade() {
+        Gradebook gradebook = new Gradebook();
+        assertThrows(
+                NullPointerException.class,
+                () -> gradebook.addGrade(null)
+        );
     }
 
     @Test

@@ -85,6 +85,22 @@ class GradeTest {
     }
 
     @Test
+    public void initBadAssessment() {
+        assertThrows(
+                NullPointerException.class,
+                () -> new Grade(null, 1, 5, "Art")
+        );
+    }
+
+    @Test
+    public void initBadName() {
+        assertThrows(
+                NullPointerException.class,
+                () -> new Grade(Assessment.EXAM, 1, 5, null)
+        );
+    }
+
+    @Test
     public void getKnownGrade() {
         Grade grade = new Grade(Assessment.EXAM, 1, 5, "Algebra");
         assertEquals(5, grade.getGrade());
