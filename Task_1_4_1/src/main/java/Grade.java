@@ -6,6 +6,7 @@ public class Grade {
     public final Assessment assessment;
     public final int semester;
     private int grade;
+    public final String name;
 
     /**
      * Basic grade constructor.
@@ -16,11 +17,12 @@ public class Grade {
      *
      * @throws IllegalArgumentException if grade or semester not in available range
      */
-    public Grade(Assessment assessment, int semester, int grade) {
+    public Grade(Assessment assessment, int semester, int grade, String name) {
         this.assessment = assessment;
         this.semester = semester;
         this.grade = grade;
         knownGrade = true;
+        this.name = name;
 
         if (assessment == Assessment.CREDIT) {
             if (grade < 0 || grade > 1) {
@@ -43,11 +45,12 @@ public class Grade {
      *
      * @throws IllegalArgumentException if semester not in available range
      */
-    public Grade(Assessment assessment, int semester) {
+    public Grade(Assessment assessment, int semester, String name) {
         this.assessment = assessment;
         this.semester = semester;
         this.grade = -1;
         knownGrade = false;
+        this.name = name;
 
         if (semester < 1 || semester > 8) {
             throw new IllegalArgumentException("Semester not in available range (1-8)");

@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -72,23 +76,20 @@ public class Gradebook {
             return false;
         }
 
-        List<Integer> knownGrades = grades.stream()
-                .filter(grade -> grade.assessment != Assessment.CREDIT && grade.isKnownGrade())
-                .mapToInt(Grade::getGrade)
-                .boxed()
+        Collection<Grade> lastGrades = getLastGrades(grades).stream()
+                .filter(grade -> grade.assessment != Assessment.CREDIT)
                 .toList();
 
-        long unknownGradesCount = grades.stream()
-                .filter(grade -> grade.assessment != Assessment.CREDIT && !grade.isKnownGrade())
-                .count();
-
-        int knownGradesSum = 0;
-        for (int knownGrade : knownGrades) {
-            knownGradesSum += knownGrade;
+        int sumLastGrades = 0;
+        for (Grade grade : lastGrades) {
+            if (grade.isKnownGrade()) {
+                sumLastGrades += grade.getGrade();
+            } else {
+                sumLastGrades += 5;
+            }
         }
 
-        double average = (double) (knownGradesSum + unknownGradesCount * 5)
-                / (knownGrades.size() + unknownGradesCount);
+        double average = (double) sumLastGrades / lastGrades.size();
 
         return average >= 4.75;
     }
@@ -110,6 +111,22 @@ public class Gradebook {
                 .toList();
 
         return gradesAreGoodForIncreasedScholarship(currentSemesterGrades);
+    }
+
+    /**
+     * Get last grades by subject, no matter known or unknown
+     *
+     * @param someGrades list of grades
+     * @return list of last subject grades
+     */
+    private Collection<Grade> getLastGrades(List<Grade> someGrades) {
+        return someGrades.stream()
+                .collect(Collectors.toMap(
+                        grade -> grade.name,
+                        grade -> grade,
+                        (existing, replacement) ->
+                                replacement.semester >= existing.semester ? replacement : existing))
+                .values();
     }
 
     /**
