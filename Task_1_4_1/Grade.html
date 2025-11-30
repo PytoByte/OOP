@@ -91,9 +91,12 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color"><code>final <a href="Assessment.html" title="enum class in Unnamed Package">Assessment</a></code></div>
 <div class="col-second even-row-color"><code><a href="#assessment" class="member-name-link">assessment</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>final int</code></div>
-<div class="col-second odd-row-color"><code><a href="#semester" class="member-name-link">semester</a></code></div>
+<div class="col-first odd-row-color"><code>final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#name" class="member-name-link">name</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-first even-row-color"><code>final int</code></div>
+<div class="col-second even-row-color"><code><a href="#semester" class="member-name-link">semester</a></code></div>
+<div class="col-last even-row-color">&nbsp;</div>
 </div>
 </section>
 </li>
@@ -105,16 +108,18 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(Assessment,int)" class="member-name-link">Grade</a><wbr>(<a href="Assessment.html" title="enum class in Unnamed Package">Assessment</a>&nbsp;assessment,
- int&nbsp;semester)</code></div>
-<div class="col-last even-row-color">
-<div class="block">Grade constructor with unknown grade.</div>
-</div>
-<div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(Assessment,int,int)" class="member-name-link">Grade</a><wbr>(<a href="Assessment.html" title="enum class in Unnamed Package">Assessment</a>&nbsp;assessment,
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(Assessment,int,int,java.lang.String)" class="member-name-link">Grade</a><wbr>(<a href="Assessment.html" title="enum class in Unnamed Package">Assessment</a>&nbsp;assessment,
  int&nbsp;semester,
- int&nbsp;grade)</code></div>
-<div class="col-last odd-row-color">
+ int&nbsp;grade,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;name)</code></div>
+<div class="col-last even-row-color">
 <div class="block">Basic grade constructor.</div>
+</div>
+<div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(Assessment,int,java.lang.String)" class="member-name-link">Grade</a><wbr>(<a href="Assessment.html" title="enum class in Unnamed Package">Assessment</a>&nbsp;assessment,
+ int&nbsp;semester,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;name)</code></div>
+<div class="col-last odd-row-color">
+<div class="block">Grade constructor with unknown grade.</div>
 </div>
 </div>
 </section>
@@ -169,6 +174,12 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">semester</span></div>
 </section>
 </li>
+<li>
+<section class="detail" id="name">
+<h3>name</h3>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">name</span></div>
+</section>
+</li>
 </ul>
 </section>
 </li>
@@ -178,11 +189,12 @@ loadScripts(document, 'script');</script>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(Assessment,int,int)">
+<section class="detail" id="&lt;init&gt;(Assessment,int,int,java.lang.String)">
 <h3>Grade</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">Grade</span><wbr><span class="parameters">(<a href="Assessment.html" title="enum class in Unnamed Package">Assessment</a>&nbsp;assessment,
  int&nbsp;semester,
- int&nbsp;grade)</span></div>
+ int&nbsp;grade,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;name)</span></div>
 <div class="block">Basic grade constructor.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -195,10 +207,11 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="&lt;init&gt;(Assessment,int)">
+<section class="detail" id="&lt;init&gt;(Assessment,int,java.lang.String)">
 <h3>Grade</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">Grade</span><wbr><span class="parameters">(<a href="Assessment.html" title="enum class in Unnamed Package">Assessment</a>&nbsp;assessment,
- int&nbsp;semester)</span></div>
+ int&nbsp;semester,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;name)</span></div>
 <div class="block">Grade constructor with unknown grade.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
