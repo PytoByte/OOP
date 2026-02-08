@@ -106,16 +106,24 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static boolean</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#hasCompositeParallel(java.util.List,int)" class="member-name-link">hasCompositeParallel</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&gt;&nbsp;numbers,
  int&nbsp;threadCount)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Checks list for any composite number using multiple threads.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#hasCompositeParallelStream(java.util.List)" class="member-name-link">hasCompositeParallelStream</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&gt;&nbsp;numbers)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Checks list for any composite number using parallel stream.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static boolean</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#hasCompositeSequential(java.util.List)" class="member-name-link">hasCompositeSequential</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&gt;&nbsp;numbers)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Checks list for any composite number sequentially.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#isPrime(long)" class="member-name-link">isPrime</a><wbr>(long&nbsp;n)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Checks if a number is prime.</div>
+</div>
 </div>
 </div>
 </div>
@@ -151,12 +159,26 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="isPrime(long)">
 <h3>isPrime</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isPrime</span><wbr><span class="parameters">(long&nbsp;n)</span></div>
+<div class="block">Checks if a number is prime.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>n</code> - number to check</dd>
+<dt>Returns:</dt>
+<dd>true if prime, false otherwise</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="hasCompositeSequential(java.util.List)">
 <h3>hasCompositeSequential</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">hasCompositeSequential</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&gt;&nbsp;numbers)</span></div>
+<div class="block">Checks list for any composite number sequentially.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>numbers</code> - list of numbers</dd>
+<dt>Returns:</dt>
+<dd>true if at least one composite found</dd>
+</dl>
 </section>
 </li>
 <li>
@@ -165,9 +187,15 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">hasCompositeParallel</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&gt;&nbsp;numbers,
  int&nbsp;threadCount)</span>
                                     throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/InterruptedException.html" title="class or interface in java.lang" class="external-link">InterruptedException</a></span></div>
+<div class="block">Checks list for any composite number using multiple threads.</div>
 <dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>numbers</code> - list of numbers</dd>
+<dd><code>threadCount</code> - number of threads to use</dd>
+<dt>Returns:</dt>
+<dd>true if at least one composite found</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/InterruptedException.html" title="class or interface in java.lang" class="external-link">InterruptedException</a></code></dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/InterruptedException.html" title="class or interface in java.lang" class="external-link">InterruptedException</a></code> - if thread execution is interrupted</dd>
 </dl>
 </section>
 </li>
@@ -175,6 +203,13 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="hasCompositeParallelStream(java.util.List)">
 <h3>hasCompositeParallelStream</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">hasCompositeParallelStream</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&gt;&nbsp;numbers)</span></div>
+<div class="block">Checks list for any composite number using parallel stream.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>numbers</code> - list of numbers</dd>
+<dt>Returns:</dt>
+<dd>true if at least one composite found</dd>
+</dl>
 </section>
 </li>
 </ul>
