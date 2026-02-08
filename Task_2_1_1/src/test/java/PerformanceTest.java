@@ -11,15 +11,15 @@ import org.junit.jupiter.api.Test;
  * Performance test for PrimeChecker.
  */
 public class PerformanceTest {
-    final int ITERATIONS = 2;
-    static List<Long> DATA;
+    final int iterations = 2;
+    static List<Long> data;
 
     @BeforeAll
     static void initData() throws IOException {
         try (Stream<String> lines = Files.lines(
                 Paths.get("src/test/resources/performance_test_data.txt"))
         ) {
-            DATA = lines
+            data = lines
                     .map(Long::parseLong)
                     .collect(Collectors.toList());
         }
@@ -28,30 +28,30 @@ public class PerformanceTest {
     @Test
     void performanceTest() throws InterruptedException {
         long timeSum = 0;
-        for (int i = 0; i < ITERATIONS; i++) {
+        for (int i = 0; i < iterations; i++) {
             long start = System.nanoTime();
-            PrimeChecker.hasCompositeSequential(DATA);
+            PrimeChecker.hasCompositeSequential(data);
             timeSum += System.nanoTime() - start;
         }
-        System.out.printf("Sequential: %7.2f мс\n", (timeSum / ITERATIONS) / 1e6);
+        System.out.printf("Sequential: %7.2f мс\n", (timeSum / iterations) / 1e6);
 
         timeSum = 0;
         System.out.println("Parallel:");
         for (int threads = 2; threads <= 8; threads++) {
-            for (int i = 0; i < ITERATIONS; i++) {
+            for (int i = 0; i < iterations; i++) {
                 long start = System.nanoTime();
-                PrimeChecker.hasCompositeParallel(DATA, threads);
+                PrimeChecker.hasCompositeParallel(data, threads);
                 timeSum += System.nanoTime() - start;
             }
-            System.out.printf("  %2d threads: %7.2f мс\n", threads, (timeSum / ITERATIONS) / 1e6);
+            System.out.printf("  %2d threads: %7.2f мс\n", threads, (timeSum / iterations) / 1e6);
         }
 
         timeSum = 0;
-        for (int i = 0; i < ITERATIONS; i++) {
+        for (int i = 0; i < iterations; i++) {
             long start = System.nanoTime();
-            PrimeChecker.hasCompositeParallelStream(DATA);
+            PrimeChecker.hasCompositeParallelStream(data);
             timeSum += System.nanoTime() - start;
         }
-        System.out.printf("ParallelStream: %7.2f мс\n", (timeSum / ITERATIONS) / 1e6);
+        System.out.printf("ParallelStream: %7.2f мс\n", (timeSum / iterations) / 1e6);
     }
 }
