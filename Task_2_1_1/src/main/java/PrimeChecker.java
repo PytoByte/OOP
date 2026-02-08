@@ -8,6 +8,7 @@ public class PrimeChecker {
 
     /**
      * Checks if a number is prime.
+     *
      * @param n number to check
      * @return true if prime, false otherwise
      */
@@ -28,6 +29,7 @@ public class PrimeChecker {
 
     /**
      * Checks list for any composite number sequentially.
+     *
      * @param numbers list of numbers
      * @return true if at least one composite found
      */
@@ -42,6 +44,7 @@ public class PrimeChecker {
 
     /**
      * Checks list for any composite number using multiple threads.
+     *
      * @param numbers list of numbers
      * @param threadCount number of threads to use
      * @return true if at least one composite found
@@ -85,6 +88,7 @@ public class PrimeChecker {
 
     /**
      * Checks list for any composite number using parallel stream.
+     *
      * @param numbers list of numbers
      * @return true if at least one composite found
      */
