@@ -1,5 +1,5 @@
-import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.List;
 
 /**
  * Prime number utilities with sequential and parallel composite checks.
@@ -30,7 +30,8 @@ public class PrimeChecker {
         return false;
     }
 
-    public static boolean hasCompositeParallel(List<Long> numbers, int threadCount) throws InterruptedException {
+    public static boolean hasCompositeParallel(List<Long> numbers, int threadCount)
+            throws InterruptedException {
         int n = numbers.size();
         if (n == 0) {
             return false;

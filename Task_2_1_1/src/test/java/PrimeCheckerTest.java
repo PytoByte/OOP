@@ -10,6 +10,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+/**
+ * Tests for PrimeChecker.
+ */
 class PrimeCheckerTest {
     @ParameterizedTest
     @ValueSource(longs = {-10, -1, 0, 1})
@@ -55,7 +58,8 @@ class PrimeCheckerTest {
     }
 
     @Test
-    void hasCompositeParallel_threadCountExceedsListSize_worksCorrectly() throws InterruptedException {
+    void hasCompositeParallel_threadCountExceedsListSize_worksCorrectly()
+            throws InterruptedException {
         List<Long> data = List.of(2L, 4L);
         assertTrue(PrimeChecker.hasCompositeParallel(data, 10));
     }
