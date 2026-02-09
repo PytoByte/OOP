@@ -53,21 +53,21 @@ class PrimeCheckerTest {
     }
 
     @Test
-    void hasCompositeParallel_emptyList_returnsFalse() throws InterruptedException {
-        assertFalse(PrimeChecker.hasCompositeParallel(List.of(), 4));
+    void hasCompositeThreads_emptyList_returnsFalse() throws InterruptedException {
+        assertFalse(PrimeChecker.hasCompositeThreads(List.of(), 4));
     }
 
     @Test
-    void hasCompositeParallel_threadCountExceedsListSize_worksCorrectly()
+    void hasCompositeThreads_threadCountExceedsListSize_worksCorrectly()
             throws InterruptedException {
         List<Long> data = List.of(2L, 4L);
-        assertTrue(PrimeChecker.hasCompositeParallel(data, 10));
+        assertTrue(PrimeChecker.hasCompositeThreads(data, 10));
     }
 
     @Test
-    void hasCompositeParallel_zeroThreadCount_throwsArithmeticException() {
+    void hasCompositeThreads_zeroThreadCount_throwsArithmeticException() {
         assertThrows(ArithmeticException.class, () ->
-                PrimeChecker.hasCompositeParallel(List.of(2L, 4L), 0));
+                PrimeChecker.hasCompositeThreads(List.of(2L, 4L), 0));
     }
 
     @Test
@@ -95,7 +95,7 @@ class PrimeCheckerTest {
                 .collect(Collectors.toList());
 
         boolean seq = PrimeChecker.hasCompositeSequential(list);
-        boolean parallel = PrimeChecker.hasCompositeParallel(list, Math.max(1, list.size() / 2));
+        boolean parallel = PrimeChecker.hasCompositeThreads(list, Math.max(1, list.size() / 2));
         boolean stream = PrimeChecker.hasCompositeParallelStream(list);
 
         assertEquals(seq, parallel);

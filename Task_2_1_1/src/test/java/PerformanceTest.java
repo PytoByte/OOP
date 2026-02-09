@@ -40,7 +40,7 @@ public class PerformanceTest {
         for (int threads = 2; threads <= 8; threads++) {
             for (int i = 0; i < iterations; i++) {
                 long start = System.nanoTime();
-                PrimeChecker.hasCompositeParallel(data, threads);
+                PrimeChecker.hasCompositeThreads(data, threads);
                 timeSum += System.nanoTime() - start;
             }
             System.out.printf("  %2d threads: %7.2f мс\n", threads, (timeSum / iterations) / 1e6);

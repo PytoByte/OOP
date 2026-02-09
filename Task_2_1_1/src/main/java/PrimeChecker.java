@@ -50,7 +50,7 @@ public class PrimeChecker {
      * @return true if at least one composite found
      * @throws InterruptedException if thread execution is interrupted
      */
-    public static boolean hasCompositeParallel(List<Long> numbers, int threadCount)
+    public static boolean hasCompositeThreads(List<Long> numbers, int threadCount)
             throws InterruptedException {
         int n = numbers.size();
         if (n == 0) {
