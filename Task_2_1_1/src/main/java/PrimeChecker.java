@@ -60,7 +60,8 @@ public class PrimeChecker {
             threadCount = n;
         }
 
-        int chunkSize = n / threadCount;
+        int chunkSize = n / threadCount == 0 ? 1 : n / threadCount;
+
         AtomicBoolean foundComposite = new AtomicBoolean(false);
         Thread[] threads = new Thread[threadCount];
 

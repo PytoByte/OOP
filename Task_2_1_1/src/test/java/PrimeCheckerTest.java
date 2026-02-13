@@ -58,6 +58,12 @@ class PrimeCheckerTest {
     }
 
     @Test
+    void hasCompositeThreads_splitListCorrectly() throws InterruptedException {
+        List<Long> data = List.of(3L, 5L, 7L, 11L, 4L);
+        assertTrue(PrimeChecker.hasCompositeThreads(data, 4));
+    }
+
+    @Test
     void hasCompositeThreads_threadCountExceedsListSize_worksCorrectly()
             throws InterruptedException {
         List<Long> data = List.of(2L, 4L);
