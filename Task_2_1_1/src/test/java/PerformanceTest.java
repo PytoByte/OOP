@@ -1,9 +1,10 @@
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -16,10 +17,15 @@ public class PerformanceTest {
 
     @BeforeAll
     static void initData() throws IOException {
-        try (Stream<String> lines = Files.lines(
-                Paths.get("src/test/resources/performance_test_data.txt"))
-        ) {
-            data = lines
+        try (InputStream is = PerformanceTest.class
+                .getResourceAsStream("/performance_test_data.txt")) {
+
+            if (is == null) {
+                throw new FileNotFoundException("Resource not found: performance_test_data.txt");
+            }
+
+            data = new BufferedReader(new InputStreamReader(is))
+                    .lines()
                     .map(Long::parseLong)
                     .collect(Collectors.toList());
         }
