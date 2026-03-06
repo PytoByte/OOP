@@ -1,0 +1,8 @@
+{
+  "bakers": 3,
+  "couriers": 2,
+  "warehouseCapacity": 10,
+  "workDurationSec": 30,
+  "bakersSpeed": [2000, 3000, 2500],
+  "couriersCapacity": [3, 5]
+}
