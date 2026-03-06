@@ -1,8 +1,9 @@
 record Config(
+        long workDurationSec,
+        long orderDelayMillis,
         int bakers,
         int couriers,
         int warehouseCapacity,
-        long workDurationSec,
         int[] bakersSpeed,
         int[] couriersCapacity
 ) {}
