@@ -32,14 +32,14 @@ public class Baker implements Runnable {
                 }
                 batch = null;
             }
-        } catch (InterruptedException _) {
+        } catch (InterruptedException e) {
             if (batch != null) {
                 try {
                     for (int orderId : batch) {
                         System.out.printf("[%d] (baker %d) RETURN_TO_QUEUE\n", orderId, id);
                         queue.put(orderId);
                     }
-                } catch (InterruptedException _) {}
+                } catch (InterruptedException e1) {}
             }
         }
     }

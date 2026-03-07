@@ -29,14 +29,14 @@ public class Courier implements Runnable {
                 }
                 batch = null;
             }
-        } catch (InterruptedException _) {
+        } catch (InterruptedException e) {
             if (batch != null) {
                 try {
                     for (int orderId : batch) {
                         System.out.printf("[%d] (courier %d) RETURN_TO_WAREHOUSE\n", orderId, id);
                         warehouse.put(orderId);
                     }
-                } catch (InterruptedException _) {}
+                } catch (InterruptedException e1) {}
             }
         }
     }
