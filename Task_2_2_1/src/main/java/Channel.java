@@ -4,17 +4,23 @@ import java.util.List;
 import java.util.Queue;
 
 public class Channel {
+    private final String channelName;
     private final int capacity;
     private boolean closed = false;
     private final Queue<Integer> queue = new LinkedList<>();
 
-    public Channel(int capacity) {
+    public Channel(String channelName, int capacity) {
+        this.channelName = channelName;
         this.capacity = capacity;
     }
 
     public synchronized void close() {
         closed = true;
         notifyAll();
+    }
+
+    public synchronized boolean isClosed() {
+        return closed;
     }
 
     public synchronized void put(int id) throws InterruptedException {
@@ -28,7 +34,7 @@ public class Channel {
         queue.add(id);
 
         notifyAll();
-        System.out.printf("[%d] ON_CHANNEL\n", id);
+        System.out.printf("[%d] ON_%s\n", id, channelName);
     }
 
     public synchronized List<Integer> get(int maxCount) throws InterruptedException {

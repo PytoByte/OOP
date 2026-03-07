@@ -1,36 +1,44 @@
+import java.util.List;
+
 public class Baker implements Runnable {
     private final int id;
     private final long speed;
-    private final OrderQueue queue;
-    private final Warehouse warehouse;
+    private final Channel queue;
+    private final Channel warehouse;
 
-    public Baker(int id, long speed, OrderQueue q, Warehouse w) {
+    public Baker(int id, long speed, Channel queue, Channel warehouse) {
         this.id = id;
         this.speed = speed;
-        this.queue = q;
-        this.warehouse = w;
+        this.queue = queue;
+        this.warehouse = warehouse;
     }
 
     @Override
     public void run() {
-        Integer orderId = null;
+        List<Integer> batch = null;
         try {
             while (true) {
-                orderId = queue.takeOrder();
-                if (orderId == null) {
+                batch = queue.get(1);
+
+                if (batch.isEmpty()) {
                     break;
                 }
-                System.out.printf("[%d] (baker %d) BAKING\n", orderId, id);
-                Thread.sleep(speed);
-                System.out.printf("[%d] (baker %d) BAKED\n", orderId, id);
-                warehouse.putPizza(orderId);
-                orderId = null;
+
+                for (int i = 0; i < batch.size(); i++) {
+                    System.out.printf("[%d] (baker %d) BAKING\n", batch.get(0), id);
+                    Thread.sleep(speed);
+                    System.out.printf("[%d] (baker %d) BAKED\n", batch.get(0), id);
+                    warehouse.put(batch.remove(0));
+                }
+                batch = null;
             }
         } catch (InterruptedException _) {
-            if (orderId != null) {
+            if (batch != null) {
                 try {
-                    System.out.printf("[%d] (baker %d) RETURN_TO_QUEUE\n", orderId, id);
-                    queue.addOrder(orderId);
+                    for (int orderId : batch) {
+                        System.out.printf("[%d] (baker %d) RETURN_TO_QUEUE\n", orderId, id);
+                        queue.put(orderId);
+                    }
                 } catch (InterruptedException _) {}
             }
         }

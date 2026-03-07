@@ -7,8 +7,8 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) throws Exception {
         Config cfg = new Gson().fromJson(new FileReader("config.json"), Config.class);
-        OrderQueue queue = new OrderQueue();
-        Warehouse warehouse = new Warehouse(cfg.warehouseCapacity());
+        Channel queue = new Channel("ORDER_QUEUE", 0);
+        Channel warehouse = new Channel("WAREHOUSE", cfg.warehouseCapacity());
 
         List<Thread> bakerThreads = new ArrayList<>();
         List<Thread> courierThreads = new ArrayList<>();
@@ -32,8 +32,8 @@ public class Main {
         Thread generator = new Thread(() -> {
             try {
                 int i = 0;
-                while (!queue.isClosing()) {
-                    queue.addOrder(i);
+                while (!queue.isClosed()) {
+                    queue.put(i);
                     i++;
                     Thread.sleep(cfg.orderDelayMillis());
                 }
