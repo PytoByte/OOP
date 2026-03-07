@@ -37,7 +37,7 @@ public class Main {
                     i++;
                     Thread.sleep(cfg.orderDelayMillis());
                 }
-            } catch (InterruptedException _) {}
+            } catch (InterruptedException e) {}
         });
         generator.start();
 
