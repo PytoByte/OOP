@@ -8,9 +8,16 @@ public class Courier implements Runnable {
     private final int capacity;
     private final Channel warehouse;
 
-    public Courier(int id, int cap, Channel warehouse) {
+    /**
+     * Стандартный конструктор курьера.
+     *
+     * @param id id курьера
+     * @param capacity сколько курьер может забрать пицц со склада
+     * @param warehouse склад
+     */
+    public Courier(int id, int capacity, Channel warehouse) {
         this.id = id;
-        this.capacity = cap;
+        this.capacity = capacity;
         this.warehouse = warehouse;
     }
 

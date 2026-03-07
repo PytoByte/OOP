@@ -9,6 +9,14 @@ public class Baker implements Runnable {
     private final Channel queue;
     private final Channel warehouse;
 
+    /**
+     * Стандартный конструктор пекаря.
+     *
+     * @param id id пекаря
+     * @param speed время готовки
+     * @param queue очередь заказов
+     * @param warehouse склад
+     */
     public Baker(int id, long speed, Channel queue, Channel warehouse) {
         this.id = id;
         this.speed = speed;
