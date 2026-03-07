@@ -45,8 +45,12 @@ public class Baker implements Runnable {
                         System.out.printf("[%d] (baker %d) RETURN_TO_QUEUE\n", orderId, id);
                         queue.put(orderId);
                     }
-                } catch (InterruptedException e1) {}
+                } catch (InterruptedException e1) {
+                    Thread.currentThread().interrupt();
+                    return;
+                }
             }
+            Thread.currentThread().interrupt();
         }
     }
 }

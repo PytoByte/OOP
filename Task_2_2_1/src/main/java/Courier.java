@@ -42,8 +42,12 @@ public class Courier implements Runnable {
                         System.out.printf("[%d] (courier %d) RETURN_TO_WAREHOUSE\n", orderId, id);
                         warehouse.put(orderId);
                     }
-                } catch (InterruptedException e1) {}
+                } catch (InterruptedException e1) {
+                    Thread.currentThread().interrupt();
+                    return;
+                }
             }
+            Thread.currentThread().interrupt();
         }
     }
 }
