@@ -15,6 +15,6 @@ record Config(
         int bakers,
         int couriers,
         int warehouseCapacity,
-        int[] bakersSpeed,
-        int[] couriersCapacity
+        long[] bakersSpeed,
+        long[] couriersCapacity
 ) {}
