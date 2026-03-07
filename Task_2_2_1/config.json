@@ -1,5 +1,5 @@
 {
-  "workDurationSec": 30,
+  "workDurationSec": 10,
   "orderDelayMillis": 1000,
   "bakers": 3,
   "couriers": 2,

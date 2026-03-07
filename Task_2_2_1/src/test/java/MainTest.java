@@ -1,9 +1,10 @@
+import java.io.FileNotFoundException;
 import org.junit.jupiter.api.Test;
 
 class MainTest {
 
     @Test
-    void main() {
-        //Main.main(new String[] {});
+    void mainTest() throws FileNotFoundException, InterruptedException {
+        Main.main(new String[] {});
     }
 }
