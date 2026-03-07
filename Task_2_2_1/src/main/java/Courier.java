@@ -1,5 +1,8 @@
 import java.util.List;
 
+/**
+ * Класс курьера.
+ */
 public class Courier implements Runnable {
     private final int id;
     private final int capacity;
@@ -11,6 +14,9 @@ public class Courier implements Runnable {
         this.warehouse = warehouse;
     }
 
+    /**
+     * Запуск курьера.
+     */
     @Override
     public void run() {
         List<Integer> batch = null;

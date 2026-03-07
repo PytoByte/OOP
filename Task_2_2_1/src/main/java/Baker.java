@@ -1,5 +1,8 @@
 import java.util.List;
 
+/**
+ * Класс пекаря.
+ */
 public class Baker implements Runnable {
     private final int id;
     private final long speed;
@@ -13,6 +16,9 @@ public class Baker implements Runnable {
         this.warehouse = warehouse;
     }
 
+    /**
+     * Запуск пекаря.
+     */
     @Override
     public void run() {
         List<Integer> batch = null;

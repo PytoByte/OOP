@@ -1,11 +1,23 @@
 import com.google.gson.Gson;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Основной класс.
+ */
 public class Main {
-    public static void main(String[] args) throws Exception {
+
+    /**
+     * Запуск пиццерии.
+     *
+     * @param args аргументы
+     * @throws InterruptedException если поток был прерван
+     * @throws FileNotFoundException если файл config.json не найден
+     */
+    public static void main(String[] args) throws InterruptedException, FileNotFoundException {
         Config cfg = new Gson().fromJson(new FileReader("config.json"), Config.class);
         Channel queue = new Channel("ORDER_QUEUE", 0);
         Channel warehouse = new Channel("WAREHOUSE", cfg.warehouseCapacity());
@@ -37,7 +49,7 @@ public class Main {
                     i++;
                     Thread.sleep(cfg.orderDelayMillis());
                 }
-            } catch (InterruptedException e) {}
+            } catch (InterruptedException e) { }
         });
         generator.start();
 
