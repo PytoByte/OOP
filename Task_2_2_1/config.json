@@ -4,6 +4,7 @@
   "bakers": 3,
   "couriers": 2,
   "warehouseCapacity": 10,
-  "bakersSpeed": [2000, 3000, 2500],
-  "couriersCapacity": [3, 5]
+  "bakersSpeedMillis": [2000, 3000, 2500],
+  "couriersCapacity": [3, 5],
+  "couriersSpeedMillis": [1000, 1000]
 }

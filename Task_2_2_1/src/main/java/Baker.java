@@ -38,7 +38,8 @@ public class Baker implements Runnable {
                     break;
                 }
 
-                for (int i = 0; i < batch.size(); i++) {
+                int batchSize = batch.size();
+                for (int i = 0; i < batchSize; i++) {
                     System.out.printf("[%d] (baker %d) BAKING\n", batch.get(0), id);
                     Thread.sleep(speed);
                     System.out.printf("[%d] (baker %d) BAKED\n", batch.get(0), id);

@@ -6,8 +6,9 @@
  * @param bakers количество пекарей
  * @param couriers количество курьеров
  * @param warehouseCapacity вместимость склада
- * @param bakersSpeed список сколько времени уходит на готовку пиццы у каждого пекаря
- * @param couriersCapacity список сколько времени уходит на доставку пиццы у каждого курьера
+ * @param bakersSpeedMillis список сколько времени уходит на готовку пиццы у каждого пекаря
+ * @param couriersCapacity список вместимостей пицц у каждого курьера
+ * @param couriersSpeedMillis список сколько времени уходит на доставку пиццы у каждого курьера
  */
 record Config(
         long workDurationSec,
@@ -15,6 +16,7 @@ record Config(
         int bakers,
         int couriers,
         int warehouseCapacity,
-        long[] bakersSpeed,
-        long[] couriersCapacity
+        long[] bakersSpeedMillis,
+        int[] couriersCapacity,
+        long[] couriersSpeedMillis
 ) {}

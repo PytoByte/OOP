@@ -9,7 +9,7 @@ class CourierTest {
     @Test
     void run() throws InterruptedException {
         Channel warehouse = new Channel("TEST_WAREHOUSE", 0);
-        Courier courier = new Courier(0, 2, warehouse);
+        Courier courier = new Courier(0, 2, 0, warehouse);
         Thread courierThread = new Thread(courier);
 
         courierThread.start();
@@ -21,9 +21,8 @@ class CourierTest {
 
         List<Integer> warehouse_result = warehouse.get(2);
 
-        assertTrue(warehouse_result.isEmpty());
-
         courierThread.join(1000);
         assertFalse(courierThread.isAlive());
+        assertTrue(warehouse_result.isEmpty());
     }
 }

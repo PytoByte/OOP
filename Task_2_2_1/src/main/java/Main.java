@@ -25,14 +25,18 @@ public class Main {
         List<Thread> courierThreads = new ArrayList<>();
 
         for (int i = 0; i < cfg.bakers(); i++) {
-            Baker b = new Baker(i, cfg.bakersSpeed()[i], queue, warehouse);
+            Baker b = new Baker(i, cfg.bakersSpeedMillis()[i], queue, warehouse);
             Thread t = new Thread(b);
             bakerThreads.add(t);
             t.start();
         }
 
         for (int i = 0; i < cfg.couriers(); i++) {
-            Courier c = new Courier(i, cfg.couriersCapacity()[i], warehouse);
+            Courier c = new Courier(
+                    i, cfg.couriersCapacity()[i],
+                    cfg.couriersSpeedMillis()[i],
+                    warehouse
+            );
             Thread t = new Thread(c);
             courierThreads.add(t);
             t.start();

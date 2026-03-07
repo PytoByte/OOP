@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -66,8 +65,10 @@ public class Channel {
             wait();
         }
 
-        List<Integer> batch = new ArrayList<>();
-        for (int i = 0; i < Math.min(maxCount, queue.size()); i++) {
+        int dequeueCount = Math.min(maxCount, queue.size());
+
+        List<Integer> batch = new LinkedList<>();
+        for (int i = 0; i < dequeueCount; i++) {
             batch.add(queue.poll());
         }
 

@@ -6,6 +6,7 @@ import java.util.List;
 public class Courier implements Runnable {
     private final int id;
     private final int capacity;
+    private final long speed;
     private final Channel warehouse;
 
     /**
@@ -15,9 +16,10 @@ public class Courier implements Runnable {
      * @param capacity сколько курьер может забрать пицц со склада
      * @param warehouse склад
      */
-    public Courier(int id, int capacity, Channel warehouse) {
+    public Courier(int id, int capacity, long speed, Channel warehouse) {
         this.id = id;
         this.capacity = capacity;
+        this.speed = speed;
         this.warehouse = warehouse;
     }
 
@@ -35,9 +37,10 @@ public class Courier implements Runnable {
                     break;
                 }
 
-                for (int i = 0; i < batch.size(); i++) {
+                int batchSize = batch.size();
+                for (int i = 0; i < batchSize; i++) {
                     System.out.printf("[%d] (courier %d) DELIVERING\n", batch.get(0), id);
-                    Thread.sleep(1000);
+                    Thread.sleep(speed);
                     System.out.printf("[%d] (courier %d) DELIVERED\n", batch.remove(0), id);
                 }
                 batch = null;
