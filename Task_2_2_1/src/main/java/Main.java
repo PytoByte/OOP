@@ -27,7 +27,7 @@ public class Main {
             t.start();
         }
 
-        System.out.println("=== RUNNING GENERATOR ===");
+        System.out.println("=== PIZZERIA OPENED ===");
 
         Thread generator = new Thread(() -> {
             try {
@@ -43,7 +43,7 @@ public class Main {
 
         Thread.sleep(cfg.workDurationSec() * 1000);
 
-        System.out.println("=== SHUTDOWN STARTED ===");
+        System.out.println("=== PIZZERIA CLOSING ===");
 
         queue.close();
         generator.join();
