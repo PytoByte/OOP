@@ -1,8 +1,7 @@
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.Test;
 import java.util.List;
+import org.junit.jupiter.api.Test;
 
 class BakerTest {
 
@@ -12,8 +11,8 @@ class BakerTest {
         Channel warehouse = new Channel("TEST_WAREHOUSE", 0);
         Baker baker = new Baker(0, 1, queue, warehouse);
 
-        List<Integer> queue_result = queue.get(2);
-        List<Integer> warehouse_result = warehouse.get(2);
+        List<Integer> queueResult = queue.get(2);
+        List<Integer> warehouseResult = warehouse.get(2);
 
         queue.put(0);
         queue.put(1);
@@ -24,8 +23,8 @@ class BakerTest {
 
         warehouse.close();
 
-        assertTrue(queue_result.isEmpty());
-        assertTrue(warehouse_result.contains(0));
-        assertTrue(warehouse_result.contains(1));
+        assertTrue(queueResult.isEmpty());
+        assertTrue(warehouseResult.contains(0));
+        assertTrue(warehouseResult.contains(1));
     }
 }

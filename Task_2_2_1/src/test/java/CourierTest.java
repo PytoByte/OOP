@@ -1,8 +1,8 @@
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.Test;
 import java.util.List;
+import org.junit.jupiter.api.Test;
 
 class CourierTest {
 
@@ -19,10 +19,10 @@ class CourierTest {
 
         warehouse.close();
 
-        List<Integer> warehouse_result = warehouse.get(2);
+        List<Integer> warehouseResult = warehouse.get(2);
 
         courierThread.join(1000);
         assertFalse(courierThread.isAlive());
-        assertTrue(warehouse_result.isEmpty());
+        assertTrue(warehouseResult.isEmpty());
     }
 }
