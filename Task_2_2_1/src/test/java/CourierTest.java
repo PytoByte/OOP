@@ -1,6 +1,9 @@
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 class CourierTest {
 
@@ -35,5 +38,22 @@ class CourierTest {
         t.join();
 
         assertTrue(warehouse.get(1).isEmpty());
+    }
+
+    @Test
+    void testInterruptedException_returnsOrderToWarehouse() throws Exception {
+        Channel warehouse = new Channel("W", 10);
+        Courier courier = new Courier(1, 1, 10_000, warehouse);
+
+        Thread t = new Thread(courier);
+        t.start();
+
+        warehouse.put(99);
+        t.interrupt();
+        t.join(2000);
+        assertFalse(t.isAlive());
+
+        List<Integer> result = warehouse.get(1);
+        assertTrue(result.contains(99));
     }
 }

@@ -1,3 +1,4 @@
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
@@ -39,5 +40,23 @@ class BakerTest {
 
         List<Integer> res = warehouse.get(2);
         assertTrue(res.contains(1) && res.contains(2));
+    }
+
+    @Test
+    void testInterruptedException_returnsOrderToQueue() throws Exception {
+        Channel queue = new Channel("Q", 10);
+        Channel warehouse = new Channel("W", 10);
+        Baker baker = new Baker(1, 10_000, queue, warehouse);
+
+        Thread t = new Thread(baker);
+        t.start();
+
+        queue.put(42);
+        t.interrupt();
+        t.join(2000);
+        assertFalse(t.isAlive());
+
+        List<Integer> result = queue.get(1);
+        assertTrue(result.contains(42));
     }
 }
