@@ -11,7 +11,17 @@ public class Channel {
     private boolean closed = false;
     private final Queue<Integer> queue = new LinkedList<>();
 
+    /**
+     * Конструктор канала.
+     *
+     * @param channelName имя канала, отображаемое в логах
+     * @param capacity вместимость канала. 0 = бесконечность
+     * @throws IllegalArgumentException если capacity < 0
+     */
     public Channel(String channelName, int capacity) {
+        if (capacity < 0) {
+            throw new IllegalArgumentException("capacity must be >= 0");
+        }
         this.channelName = channelName;
         this.capacity = capacity;
     }

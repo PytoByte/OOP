@@ -1,6 +1,7 @@
 import com.google.gson.Gson;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,16 +9,19 @@ import java.util.List;
  * Основной класс.
  */
 public class Main {
-
     /**
      * Запуск пиццерии.
      *
-     * @param args аргументы
+     * @param args принимает только 1 аргумент: путь к файлу конфигурации (по умолчанию config.json)
      * @throws InterruptedException если поток был прерван
      * @throws FileNotFoundException если файл config.json не найден
      */
-    public static void main(String[] args) throws InterruptedException, FileNotFoundException {
-        Config cfg = new Gson().fromJson(new FileReader("config.json"), Config.class);
+    public static void main(String[] args) throws InterruptedException, IOException {
+        String path = args.length > 0 ? args[0] : "config.json";
+        Config cfg;
+        try (FileReader reader = new FileReader(path)) {
+            cfg = new Gson().fromJson(reader, Config.class);
+        }
         Channel queue = new Channel("ORDER_QUEUE", 0);
         Channel warehouse = new Channel("WAREHOUSE", cfg.warehouseCapacity());
 

@@ -4,6 +4,7 @@ import java.util.List;
  * Класс пекаря.
  */
 public class Baker implements Runnable {
+    private static final int capacity = 1;
     private final int id;
     private final long speed;
     private final Channel queue;
@@ -32,7 +33,7 @@ public class Baker implements Runnable {
         List<Integer> batch = null;
         try {
             while (true) {
-                batch = queue.get(1);
+                batch = queue.get(capacity);
 
                 if (batch.isEmpty()) {
                     break;

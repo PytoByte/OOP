@@ -70,7 +70,6 @@ class ConfigTest {
     void couriersSpeedMillis() {
         Config cfg = initConfig();
 
-        assertArrayEquals(new long[] {10, 11
-        }, cfg.couriersSpeedMillis());
+        assertArrayEquals(new long[] {10, 11}, cfg.couriersSpeedMillis());
     }
 }
