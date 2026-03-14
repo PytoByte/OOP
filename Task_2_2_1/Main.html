@@ -144,14 +144,15 @@ loadScripts(document, 'script');</script>
 <h3>main</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">main</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]&nbsp;args)</span>
                  throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/InterruptedException.html" title="class or interface in java.lang" class="external-link">InterruptedException</a>,
-<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/FileNotFoundException.html" title="class or interface in java.io" class="external-link">FileNotFoundException</a></span></div>
+<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></span></div>
 <div class="block">Запуск пиццерии.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>args</code> - аргументы</dd>
+<dd><code>args</code> - принимает только 1 аргумент: путь к файлу конфигурации (по умолчанию config.json)</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/InterruptedException.html" title="class or interface in java.lang" class="external-link">InterruptedException</a></code> - если поток был прерван</dd>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/FileNotFoundException.html" title="class or interface in java.io" class="external-link">FileNotFoundException</a></code> - если файл config.json не найден</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></code></dd>
 </dl>
 </section>
 </li>
