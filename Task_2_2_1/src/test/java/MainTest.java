@@ -16,17 +16,17 @@ class MainTest {
         Path config = tempDir.resolve("test-config.json");
         try (FileWriter fw = new FileWriter(config.toFile())) {
             fw.write("""
-            {
-              "bakers": 1,
-              "couriers": 1,
-              "warehouseCapacity": 5,
-              "bakersSpeedMillis": [30],
-              "couriersCapacity": [2],
-              "couriersSpeedMillis": [30],
-              "orderDelayMillis": 20,
-              "workDurationSec": 1
-            }
-            """);
+                            {
+                            "bakers": 1,
+                            "couriers": 1,
+                            "warehouseCapacity": 5,
+                            "bakersSpeedMillis": [30],
+                            "couriersCapacity": [2],
+                            "couriersSpeedMillis": [30],
+                            "orderDelayMillis": 20,
+                            "workDurationSec": 1
+                            }
+                            """);
         }
         return config.toString();
     }
