@@ -14,7 +14,7 @@ public class Baker implements Runnable {
      * Стандартный конструктор пекаря.
      *
      * @param id id пекаря
-     * @param speed время готовки
+     * @param speed время готовки в миллисекундах
      * @param queue очередь заказов
      * @param warehouse склад
      */

@@ -14,9 +14,14 @@ public class Courier implements Runnable {
      *
      * @param id id курьера
      * @param capacity сколько курьер может забрать пицц со склада
+     * @param speed время доставки в миллисекундах
      * @param warehouse склад
+     * @throws IllegalArgumentException если capacity меньше 0
      */
     public Courier(int id, int capacity, long speed, Channel warehouse) {
+        if (capacity < 0) {
+            throw new IllegalArgumentException("capacity must be >= 0");
+        }
         this.id = id;
         this.capacity = capacity;
         this.speed = speed;

@@ -16,7 +16,7 @@ public class Channel {
      *
      * @param channelName имя канала, отображаемое в логах
      * @param capacity вместимость канала. 0 = бесконечность
-     * @throws IllegalArgumentException если capacity < 0
+     * @throws IllegalArgumentException если capacity меньше 0
      */
     public Channel(String channelName, int capacity) {
         if (capacity < 0) {
