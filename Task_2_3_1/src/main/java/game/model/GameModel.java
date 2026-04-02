@@ -1,4 +1,4 @@
-package game;
+package game.model;
 
 public class GameModel {
     private int tileSize = 30;

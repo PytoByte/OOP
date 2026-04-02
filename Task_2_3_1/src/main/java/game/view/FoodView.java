@@ -1,7 +1,6 @@
 package game.view;
 
-import game.GameModel;
-import game.GameView;
+import game.model.GameModel;
 import game.model.Food;
 import game.model.Point;
 import javafx.scene.paint.Color;

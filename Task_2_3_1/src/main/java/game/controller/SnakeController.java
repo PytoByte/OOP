@@ -1,6 +1,7 @@
 package game.controller;
 
-import game.GameModel;
+import game.model.Collider;
+import game.model.GameModel;
 import game.model.Direction;
 import game.model.Food;
 import game.model.Point;
@@ -71,13 +72,13 @@ public class SnakeController implements Controller, ColliderControl {
     }
 
     @Override
-    public void collide(Object model, Point p) {
-        System.out.println("COLLISION SNAKE");
+    public void collide(Collider model, Point p) {
         if (model instanceof Food) {
-            System.out.println("COLLISION SNAKE-FOOD");
             List<Point> points = snake.getPoints();
             Point head = points.get(0);
-            points.add(new Point(-1, -1));
+            if (p.equals(head)) {
+                points.add(new Point(-1, -1));
+            }
         } else if (model instanceof Walls) {
 
         }

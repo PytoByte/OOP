@@ -1,6 +1,7 @@
 package game.controller;
 
-import game.GameModel;
+import game.model.Collider;
+import game.model.GameModel;
 import game.model.Point;
 import game.model.Walls;
 
@@ -14,7 +15,7 @@ public class WallsController implements Controller, ColliderControl {
     }
 
     @Override
-    public void collide(Object model, Point p) {
+    public void collide(Collider model, Point p) {
 
     }
 

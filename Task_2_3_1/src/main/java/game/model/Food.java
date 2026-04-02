@@ -22,7 +22,7 @@ public class Food implements GameObject, Collider {
     }
 
     @Override
-    public Iterable<Point> getCollider() {
+    public List<Point> getCollider() {
         return new LinkedList<>(points);
     }
 }

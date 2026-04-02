@@ -1,5 +1,7 @@
 package game.model;
 
+import java.util.List;
+
 public interface Collider {
-    Iterable<Point> getCollider();
+    List<Point> getCollider();
 }

@@ -33,3 +33,6 @@ javafx {
     modules = [ 'javafx.controls', 'javafx.graphics' ]
 }
 
+application {
+    mainClass = 'Main'
+}

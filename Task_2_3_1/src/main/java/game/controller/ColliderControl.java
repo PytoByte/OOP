@@ -1,7 +1,8 @@
 package game.controller;
 
+import game.model.Collider;
 import game.model.Point;
 
 public interface ColliderControl {
-    void collide(Object model, Point p);
+    void collide(Collider model, Point p);
 }

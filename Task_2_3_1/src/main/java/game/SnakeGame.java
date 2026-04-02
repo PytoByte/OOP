@@ -1,11 +1,14 @@
 package game;
 
 import game.controller.FoodController;
+import game.controller.GameController;
 import game.controller.SnakeController;
 import game.model.Direction;
 import game.model.Food;
+import game.model.GameModel;
 import game.model.Snake;
 import game.view.FoodView;
+import game.view.GameView;
 import game.view.SnakeView;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -16,7 +19,7 @@ import javafx.stage.Stage;
 public class SnakeGame extends Application {
     @Override
     public void start(Stage primaryStage) {
-        GameModel gameModel = new GameModel(20, 20, 20*20);
+        GameModel gameModel = new GameModel(8, 8, 8*8);
 
         Canvas canvas = new Canvas(
                 gameModel.getWidth() * gameModel.getTileSize(),
@@ -31,7 +34,7 @@ public class SnakeGame extends Application {
         primaryStage.setResizable(false);
         primaryStage.show();
 
-        Snake snake = new Snake(5, 5, 1, Direction.RIGHT);
+        Snake snake = new Snake(5, 5, 2, Direction.RIGHT);
         SnakeController snakeController = new SnakeController(gameModel, snake);
         SnakeView snakeView = new SnakeView(gameModel, snake);
         gameController.addController(snakeController);

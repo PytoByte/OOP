@@ -1,27 +1,50 @@
 package game.controller;
 
-import game.GameModel;
+import game.model.Collider;
 import game.model.Food;
+import game.model.GameModel;
 import game.model.Point;
 import game.model.Snake;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.List;
 import java.util.Random;
 
-public class FoodController implements Controller, ColliderControl{
+public class FoodController implements Controller, ColliderControl {
     GameModel gameModel;
     Food food;
     Random random = new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
+
     public FoodController(GameModel gameModel, Food food) {
         this.gameModel = gameModel;
         this.food = food;
         for (int i = 0; i < food.getMaxCount(); i++) {
-            spawnFood();
+            spawnFood(food.getPoints());
         }
     }
 
-    private void spawnFood() {
+    private void spawnFood(List<Point> redZone) {
+        Point p = new Point(
+                random.nextInt(gameModel.getWidth()),
+                random.nextInt(gameModel.getHeight())
+        );
+
+        if (redZone.contains(p)) {
+            for (int x = 0; x < gameModel.getWidth(); x++) {
+                for (int y = 0; y < gameModel.getHeight(); y++) {
+                    int finalX = x;
+                    int finalY = y;
+                    if (redZone.stream()
+                            .anyMatch(redP -> redP.getX() == finalX &&
+                                    redP.getY() == finalY)
+                    ) {
+                        break;
+                    }
+                }
+            }
+        }
+
         food.getPoints().add(
                 new Point(
                         random.nextInt(gameModel.getWidth()),
@@ -31,10 +54,12 @@ public class FoodController implements Controller, ColliderControl{
     }
 
     @Override
-    public void collide(Object model, Point p) {
+    public void collide(Collider model, Point p) {
         if (model instanceof Snake) {
             food.getPoints().remove(p);
-            spawnFood();
+            List<Point> collider = model.getCollider();
+            collider.addAll(food.getCollider());
+            spawnFood(collider);
         }
     }
 

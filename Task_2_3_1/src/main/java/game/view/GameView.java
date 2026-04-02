@@ -1,7 +1,7 @@
-package game;
+package game.view;
 
+import game.model.GameModel;
 import game.model.Point;
-import game.view.View;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.util.Pair;

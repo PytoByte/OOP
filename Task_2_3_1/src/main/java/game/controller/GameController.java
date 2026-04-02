@@ -1,7 +1,7 @@
-package game;
+package game.controller;
 
-import game.controller.ColliderControl;
-import game.controller.Controller;
+import game.model.GameModel;
+import game.view.GameView;
 import game.model.Collider;
 import game.model.Point;
 import javafx.animation.Animation;
@@ -35,23 +35,23 @@ public class GameController {
             for (int j = i+1; j < controllers.size(); j++) {
                 Controller controller1 = controllers.get(i);
                 Controller controller2 = controllers.get(j);
-                if (!(controller1 instanceof ColliderControl &&
-                        controller2 instanceof ColliderControl)) {
+                if (!(controller1 instanceof ColliderControl colliderControl1 &&
+                        controller2 instanceof ColliderControl colliderControl2)) {
                     continue;
                 }
 
                 Object model1 = controller1.getModel();
                 Object model2 = controller2.getModel();
-                if (!(model1 instanceof Collider &&
-                        model2 instanceof Collider)) {
+                if (!(model1 instanceof Collider collider1 &&
+                        model2 instanceof Collider collider2)) {
                     continue;
                 }
 
-                for (Point p1 : ((Collider) model1).getCollider()) {
-                    for (Point p2 : ((Collider) model2).getCollider()) {
+                for (Point p1 : collider1.getCollider()) {
+                    for (Point p2 : collider2.getCollider()) {
                         if (p1.equals(p2)) {
-                            ((ColliderControl) controller1).collide(model2, p1);
-                            ((ColliderControl) controller2).collide(model1, p2);
+                            colliderControl1.collide(collider2, p1);
+                            colliderControl2.collide(collider1, p2);
                         }
                     }
                 }
@@ -60,15 +60,16 @@ public class GameController {
     }
 
     private void tick() {
+        for (Controller controller : controllers) {
+            controller.update();
+        }
+        checkCollisions();
+
         if (model.getGameOver()) {
             stop();
             return;
         }
 
-        for (Controller controller : controllers) {
-            controller.update();
-        }
-        checkCollisions();
         view.render();
     }
 
