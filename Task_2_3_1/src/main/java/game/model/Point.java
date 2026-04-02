@@ -1,5 +1,7 @@
 package game.model;
 
+import com.sun.javafx.binding.StringFormatter;
+
 public class Point {
     int x, y;
 
@@ -35,5 +37,10 @@ public class Point {
         }
 
         return x == p.x && y == p.y;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("(%d, %d)", x, y);
     }
 }

@@ -1,5 +1,6 @@
 package game.view;
 
+import game.GameModel;
 import game.model.Point;
 import game.model.Snake;
 import javafx.scene.paint.Color;
@@ -8,12 +9,14 @@ import javafx.util.Pair;
 import java.util.LinkedList;
 
 public class SnakeView implements View {
+    GameModel gameModel;
     Snake snake;
     Color headColor = new Color(0, 1, 0, 1);
     Color bodyColor = new Color(0, 0.5, 0, 1);
 
-    public SnakeView(Snake snake) {
+    public SnakeView(GameModel gameModel, Snake snake) {
         this.snake = snake;
+        this.gameModel = gameModel;
     }
 
     @Override

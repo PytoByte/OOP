@@ -25,13 +25,17 @@ public class GameView {
     public void render() {
         // Фон
         gc.setFill(Color.BLACK);
-        gc.fillRect(0, 0, gameModel.WIDTH * gameModel.TILE_SIZE, gameModel.HEIGHT * gameModel.TILE_SIZE);
+        gc.fillRect(0, 0, gameModel.getWidth() * gameModel.getTileSize(), gameModel.getHeight() * gameModel.getTileSize());
 
         for (View view : views) {
             for (Pair<Point, Color> pixel : view.getView()) {
                 Point p = pixel.getKey();
+                if (p.getX() < 0 || p.getY() < 0) {
+                    continue;
+                }
+
                 gc.setFill(pixel.getValue());
-                gc.fillRect(p.getX() * gameModel.TILE_SIZE, p.getY() * gameModel.TILE_SIZE, gameModel.TILE_SIZE - 1, gameModel.TILE_SIZE - 1);
+                gc.fillRect(p.getX() * gameModel.getTileSize(), p.getY() * gameModel.getTileSize(), gameModel.getTileSize() - 1, gameModel.getTileSize() - 1);
             }
         }
 
@@ -39,12 +43,12 @@ public class GameView {
 //        if (model.isGameOver()) {
 //            gc.setFill(Color.WHITE);
 //            gc.setFont(new Font(40));
-//            gc.fillText("GAME OVER", (legacy.WIDTH * TILE_SIZE) / 4.0,
+//            gc.fillText("GAME OVER", (legacy..getWidth() * TILE_SIZE) / 4.0,
 //                    (legacy.HEIGHT * TILE_SIZE) / 2.0);
 //        } else if (model.isGameWin()) {
 //            gc.setFill(Color.YELLOW);
 //            gc.setFont(new Font(40));
-//            gc.fillText("YOU WIN!", (legacy.WIDTH * TILE_SIZE) / 3.0,
+//            gc.fillText("YOU WIN!", (legacy..getWidth() * TILE_SIZE) / 3.0,
 //                    (legacy.HEIGHT * TILE_SIZE) / 2.0);
 //        }
     }

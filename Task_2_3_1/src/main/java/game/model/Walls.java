@@ -13,6 +13,6 @@ public class Walls implements GameObject, Collider {
 
     @Override
     public Iterable<Point> getCollider() {
-        return points;
+        return new LinkedList<>(points);
     }
 }

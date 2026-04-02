@@ -1,8 +1,11 @@
 package game.controller;
 
+import game.GameModel;
 import game.model.Direction;
+import game.model.Food;
 import game.model.Point;
 import game.model.Snake;
+import game.model.Walls;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 
@@ -10,60 +13,42 @@ import java.util.List;
 
 public class SnakeController implements Controller, ColliderControl {
     Snake snake;
+    GameModel gameModel;
+    Direction directionBuffer;
 
-    public SnakeController(Snake model) {
-        this.snake = model;
-    }
-
-    public void init() {
-        snake.clear();
-        snake.add(new Point(WIDTH / 2, HEIGHT / 2));
-
-        obstacles.clear();
-        obstacles.addAll(List.of(
-                new Point(5, 5), new Point(5, 6), new Point(14, 10)
-        ));
-
-        food.clear();
-        for (int i = 0; i < T; i++) spawnFood();
+    public SnakeController(GameModel gameModel, Snake snake) {
+        this.snake = snake;
+        this.gameModel = gameModel;
+        this.directionBuffer = snake.getDirection();
     }
 
     public void update() {
-        if (model.isGameOver() || model.isGameWin()) {
-            return;
+        snake.setDirection(directionBuffer);
+
+        List<Point> points = snake.getPoints();
+        Point head = points.get(0);
+        Point nextPos = new Point(head.getX(), head.getY());
+        switch (snake.getDirection()) {
+            case UP -> nextPos.setY((head.getY() - 1 + gameModel.getHeight()) % gameModel.getHeight());
+            case DOWN -> nextPos.setY((head.getY() + 1) % gameModel.getHeight());
+            case LEFT -> nextPos.setX((head.getX() - 1 + gameModel.getWidth()) % gameModel.getWidth());
+            case RIGHT -> nextPos.setX((head.getX() + 1) % gameModel.getWidth());
         }
 
-        Point head = model.getSnake().getFirst();
-        Point newHead = switch (direction) {
-            case UP -> new Point(head.x, head.y - 1);
-            case DOWN -> new Point(head.x, head.y + 1);
-            case LEFT -> new Point(head.x - 1, head.y);
-            case RIGHT -> new Point(head.x + 1, head.y);
-        };
+        for (Point body : points) {
+            int oldX = body.getX();
+            body.setX(nextPos.getX());
 
-        // Столкновения
-        if (newHead.x < 0 || newHead.x >= WIDTH || newHead.y < 0 || newHead.y >= HEIGHT ||
-                obstacles.stream().anyMatch(o -> o.equals(newHead)) ||
-                snake.stream().anyMatch(s -> s.equals(newHead))) {
-            gameOver = true;
-            return;
-        }
+            int oldY = body.getY();
+            body.setY((nextPos.getY()));
 
-        // Еда
-        boolean ate = false;
-        for (int i = 0; i < food.size(); i++) {
-            if (food.get(i).equals(newHead)) {
-                food.remove(i);
-                spawnFood();
-                ate = true;
-                break;
+            nextPos.setX(oldX);
+            nextPos.setY(oldY);
+
+            if (body != head && body.equals(head)) {
+                gameModel.setGameOver(true);
             }
         }
-
-        snake.addFirst(newHead);
-        if (!ate) snake.removeLast();
-
-        if (snake.size() >= L) gameWin = true;
     }
 
     @Override
@@ -76,26 +61,25 @@ public class SnakeController implements Controller, ColliderControl {
         scene.setOnKeyPressed(event -> {
             KeyCode code = event.getCode();
 
-            if (code == KeyCode.UP) {
-                snake.setDirection(Direction.UP);
-            }
-
-            if (code == KeyCode.DOWN) {
-                snake.setDirection(Direction.DOWN);
-            }
-
-            if (code == KeyCode.LEFT) {
-                snake.setDirection(Direction.LEFT);
-            }
-
-            if (code == KeyCode.RIGHT) {
-                snake.setDirection(Direction.RIGHT);
+            switch (code) {
+                case KeyCode.UP -> directionBuffer = Direction.UP;
+                case KeyCode.DOWN -> directionBuffer = Direction.DOWN;
+                case KeyCode.LEFT -> directionBuffer = Direction.LEFT;
+                case KeyCode.RIGHT -> directionBuffer = Direction.RIGHT;
             }
         });
     }
 
     @Override
-    public void collide(Object model) {
+    public void collide(Object model, Point p) {
+        System.out.println("COLLISION SNAKE");
+        if (model instanceof Food) {
+            System.out.println("COLLISION SNAKE-FOOD");
+            List<Point> points = snake.getPoints();
+            Point head = points.get(0);
+            points.add(new Point(-1, -1));
+        } else if (model instanceof Walls) {
 
+        }
     }
 }

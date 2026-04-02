@@ -14,12 +14,14 @@ import java.util.ArrayList;
 
 public class GameController {
     private final ArrayList<Controller> controllers = new ArrayList<>();
+    private final GameModel model;
     private final GameView view;
     private final Timeline timeline = new Timeline(
             new KeyFrame(Duration.millis(200), e -> tick())
     );
 
-    public GameController(GameView view) {
+    public GameController(GameModel model, GameView view) {
+        this.model = model;
         this.view = view;
         timeline.setCycleCount(Animation.INDEFINITE);
     }
@@ -47,9 +49,9 @@ public class GameController {
 
                 for (Point p1 : ((Collider) model1).getCollider()) {
                     for (Point p2 : ((Collider) model2).getCollider()) {
-                        if (p1 == p2) {
-                            ((ColliderControl) controller1).collide(model2);
-                            ((ColliderControl) controller2).collide(model1);
+                        if (p1.equals(p2)) {
+                            ((ColliderControl) controller1).collide(model2, p1);
+                            ((ColliderControl) controller2).collide(model1, p2);
                         }
                     }
                 }
@@ -58,6 +60,11 @@ public class GameController {
     }
 
     private void tick() {
+        if (model.getGameOver()) {
+            stop();
+            return;
+        }
+
         for (Controller controller : controllers) {
             controller.update();
         }
@@ -70,5 +77,9 @@ public class GameController {
             controller.setupEvents(scene);
         }
         timeline.play();
+    }
+
+    public void stop() {
+        timeline.stop();
     }
 }

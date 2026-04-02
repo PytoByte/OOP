@@ -7,9 +7,11 @@ public class Snake implements GameObject, Collider {
     private final List<Point> points = new LinkedList<>();
     Direction direction;
 
-    public Snake() {
-        //snake.clear();
-        //snake.add(new Point(WIDTH / 2, HEIGHT / 2));
+    public Snake(int x, int y, int startSize, Direction startDirection) {
+        this.direction = startDirection;
+        for (int i = 0; i < startSize; i++) {
+            points.add(new Point(x, y));
+        }
     }
 
     public Direction getDirection() {
@@ -17,7 +19,6 @@ public class Snake implements GameObject, Collider {
     }
 
     public void setDirection(Direction dir) {
-        // Запрет разворота на 180°
         if (dir == Direction.UP && direction != Direction.DOWN) {
             direction = dir;
         }
@@ -41,6 +42,6 @@ public class Snake implements GameObject, Collider {
 
     @Override
     public Iterable<Point> getCollider() {
-        return points;
+        return new LinkedList<>(points);
     }
 }
