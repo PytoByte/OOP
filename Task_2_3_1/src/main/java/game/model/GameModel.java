@@ -43,6 +43,10 @@ public class GameModel {
         return score;
     }
 
+    public void increaseScore(int inc) {
+        this.score += inc;
+    }
+
     public void setScore(int score) {
         this.score = score;
     }

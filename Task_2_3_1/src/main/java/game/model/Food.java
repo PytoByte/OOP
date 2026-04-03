@@ -5,15 +5,34 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Food implements GameObject, Collider {
-    private final int maxCount;
-    private final List<Point> points = new ArrayList<>();
+    private int maxCount;
+    private final ArrayList<Point> points;
 
     public Food(int maxCount) {
+        this.maxCount = maxCount;
+        this.points = new ArrayList<>(maxCount);
+    }
+
+    public void setMaxCount(int maxCount) {
         this.maxCount = maxCount;
     }
 
     public int getMaxCount() {
         return maxCount;
+    }
+
+    public int getCount() {
+        return points.size();
+    }
+
+    public void addFood(Point p) {
+        if (points.size() < maxCount) {
+            points.add(p);
+        }
+    }
+
+    public void removeFood(Point p) {
+        points.remove(p);
     }
 
     @Override
@@ -23,6 +42,6 @@ public class Food implements GameObject, Collider {
 
     @Override
     public List<Point> getCollider() {
-        return new LinkedList<>(points);
+        return new ArrayList<>(points);
     }
 }

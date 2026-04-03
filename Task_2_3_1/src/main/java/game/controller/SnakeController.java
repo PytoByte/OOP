@@ -21,13 +21,14 @@ public class SnakeController implements Controller, ColliderControl {
         this.snake = snake;
         this.gameModel = gameModel;
         this.directionBuffer = snake.getDirection();
+        restart();
     }
 
     public void update() {
         snake.setDirection(directionBuffer);
 
         List<Point> points = snake.getPoints();
-        Point head = points.get(0);
+        Point head = snake.getHead();
         Point nextPos = new Point(head.getX(), head.getY());
         switch (snake.getDirection()) {
             case UP -> nextPos.setY((head.getY() - 1 + gameModel.getHeight()) % gameModel.getHeight());
@@ -53,6 +54,15 @@ public class SnakeController implements Controller, ColliderControl {
     }
 
     @Override
+    public void restart() {
+        snake.getPoints().clear();
+        snake.increaseBody(new Point(snake.getStartX(), snake.getStartY()));
+        for (int i = 0; i < snake.getStartSize() - 1; i++) {
+            snake.increaseBody(new Point(-1, -1));
+        }
+    }
+
+    @Override
     public Object getModel() {
         return snake;
     }
@@ -74,10 +84,9 @@ public class SnakeController implements Controller, ColliderControl {
     @Override
     public void collide(Collider model, Point p) {
         if (model instanceof Food) {
-            List<Point> points = snake.getPoints();
-            Point head = points.get(0);
+            Point head = snake.getHead();
             if (p.equals(head)) {
-                points.add(new Point(-1, -1));
+                snake.increaseBody(new Point(-1, -1));
             }
         } else if (model instanceof Walls) {
 

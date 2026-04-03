@@ -19,10 +19,12 @@ public class GameController {
     private final Timeline timeline = new Timeline(
             new KeyFrame(Duration.millis(200), e -> tick())
     );
+    private final SceneController sceneController;
 
-    public GameController(GameModel model, GameView view) {
+    public GameController(GameModel model, GameView view, SceneController sceneController) {
         this.model = model;
         this.view = view;
+        this.sceneController = sceneController;
         timeline.setCycleCount(Animation.INDEFINITE);
     }
 
@@ -59,18 +61,33 @@ public class GameController {
         }
     }
 
+    public void restart() {
+        model.setScore(0);
+        for (Controller controller : controllers) {
+            controller.restart();
+        }
+        timeline.play();
+    }
+
     private void tick() {
         for (Controller controller : controllers) {
             controller.update();
         }
         checkCollisions();
+        sceneController.updateScore(model.getScore());
 
         if (model.getGameOver()) {
             stop();
+            sceneController.showGameOver(false);
             return;
         }
 
         view.render();
+
+        if (model.getScore() >= model.getScoreToWin()) {
+            stop();
+            sceneController.showGameOver(true);
+        }
     }
 
     public void start(Scene scene) {

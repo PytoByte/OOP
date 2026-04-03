@@ -12,6 +12,7 @@ public class WallsController implements Controller, ColliderControl {
     public WallsController(GameModel gameModel, Walls walls) {
         this.gameModel = gameModel;
         this.walls = walls;
+        restart();
     }
 
     @Override
@@ -22,5 +23,10 @@ public class WallsController implements Controller, ColliderControl {
     @Override
     public Object getModel() {
         return walls;
+    }
+
+    @Override
+    public void restart() {
+
     }
 }

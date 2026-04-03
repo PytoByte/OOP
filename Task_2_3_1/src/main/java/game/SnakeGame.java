@@ -2,6 +2,7 @@ package game;
 
 import game.controller.FoodController;
 import game.controller.GameController;
+import game.controller.SceneController;
 import game.controller.SnakeController;
 import game.model.Direction;
 import game.model.Food;
@@ -11,6 +12,8 @@ import game.view.FoodView;
 import game.view.GameView;
 import game.view.SnakeView;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.StackPane;
@@ -18,34 +21,54 @@ import javafx.stage.Stage;
 
 public class SnakeGame extends Application {
     @Override
-    public void start(Stage primaryStage) {
-        GameModel gameModel = new GameModel(8, 8, 8*8);
+    public void start(Stage primaryStage) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/layout.fxml"));
 
-        Canvas canvas = new Canvas(
-                gameModel.getWidth() * gameModel.getTileSize(),
-                gameModel.getHeight() * gameModel.getTileSize());
-        Scene scene = new Scene(new StackPane(canvas));
-        GameView gameView = new GameView(gameModel, canvas.getGraphicsContext2D());
+        Parent root = loader.load();
 
-        GameController gameController = new GameController(gameModel, gameView);
+        SceneController sceneController = loader.getController();
 
-        primaryStage.setTitle("SnakeGame");
-        primaryStage.setScene(scene);
-        primaryStage.setResizable(false);
-        primaryStage.show();
+        GameModel gameModel = new GameModel(8, 8, 10);
 
-        Snake snake = new Snake(5, 5, 2, Direction.RIGHT);
+        StackPane holder = sceneController.getCanvasHolder();
+        Canvas canvas = sceneController.getCanvas();
+
+        GameView gameView = new GameView(gameModel, canvas);
+        GameController gameController = new GameController(gameModel, gameView, sceneController);
+        sceneController.setOnRestart(gameController::restart);
+
+        holder.widthProperty().addListener((obs, oldVal, newVal) -> {
+            canvas.setWidth(newVal.doubleValue());
+            gameView.render();
+        });
+
+        holder.heightProperty().addListener((obs, oldVal, newVal) -> {
+            canvas.setHeight(newVal.doubleValue());
+            gameView.render();
+        });
+
+        Snake snake = new Snake(gameModel.getWidth() / 2 - 1, gameModel.getHeight() / 2 - 1, 2, Direction.RIGHT);
         SnakeController snakeController = new SnakeController(gameModel, snake);
         SnakeView snakeView = new SnakeView(gameModel, snake);
         gameController.addController(snakeController);
         gameView.addView(snakeView);
 
         Food food = new Food(3);
+        // Передаем sceneController в FoodController, чтобы обновлять счет в UI
         FoodController foodController = new FoodController(gameModel, food);
         FoodView foodView = new FoodView(gameModel, food);
         gameController.addController(foodController);
         gameView.addView(foodView);
 
+        // 8. Создаем сцену на основе загруженного root из FXML
+        Scene scene = new Scene(root);
+
+        primaryStage.setTitle("Snake Game");
+        primaryStage.setScene(scene);
+        primaryStage.setResizable(true);
+        primaryStage.show();
+
+        // Запускаем игру
         gameController.start(scene);
     }
 }

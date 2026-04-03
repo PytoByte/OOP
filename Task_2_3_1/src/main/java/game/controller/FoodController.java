@@ -19,44 +19,52 @@ public class FoodController implements Controller, ColliderControl {
     public FoodController(GameModel gameModel, Food food) {
         this.gameModel = gameModel;
         this.food = food;
-        for (int i = 0; i < food.getMaxCount(); i++) {
-            spawnFood(food.getPoints());
-        }
+        restart();
     }
 
     private void spawnFood(List<Point> redZone) {
-        Point p = new Point(
-                random.nextInt(gameModel.getWidth()),
-                random.nextInt(gameModel.getHeight())
-        );
+        int spawnFoodCount = food.getMaxCount() - food.getCount();
+        for (int i = 0; i < spawnFoodCount; i++) {
+            boolean found = true;
+            Point p = new Point(
+                    random.nextInt(gameModel.getWidth()),
+                    random.nextInt(gameModel.getHeight())
+            );
 
-        if (redZone.contains(p)) {
-            for (int x = 0; x < gameModel.getWidth(); x++) {
-                for (int y = 0; y < gameModel.getHeight(); y++) {
-                    int finalX = x;
-                    int finalY = y;
-                    if (redZone.stream()
-                            .anyMatch(redP -> redP.getX() == finalX &&
-                                    redP.getY() == finalY)
-                    ) {
-                        break;
+            if (redZone.contains(p)) {
+                found = false;
+                for (int x = 0; x < gameModel.getWidth() && !found; x++) {
+                    for (int y = 0; y < gameModel.getHeight(); y++) {
+                        int finalX = x;
+                        int finalY = y;
+                        if (redZone.stream()
+                                .noneMatch(redP -> redP.getX() == finalX &&
+                                        redP.getY() == finalY)
+                        ) {
+                            p.setX(x);
+                            p.setY(y);
+                            found = true;
+                            break;
+                        }
                     }
                 }
             }
-        }
 
-        food.getPoints().add(
-                new Point(
-                        random.nextInt(gameModel.getWidth()),
-                        random.nextInt(gameModel.getHeight())
-                )
-        );
+            if (!found) {
+                food.setMaxCount(food.getCount());
+                break;
+            }
+
+            food.addFood(p);
+            redZone.add(p);
+        }
     }
 
     @Override
     public void collide(Collider model, Point p) {
         if (model instanceof Snake) {
-            food.getPoints().remove(p);
+            food.removeFood(p);
+            gameModel.increaseScore(1);
             List<Point> collider = model.getCollider();
             collider.addAll(food.getCollider());
             spawnFood(collider);
@@ -66,5 +74,11 @@ public class FoodController implements Controller, ColliderControl {
     @Override
     public Object getModel() {
         return food;
+    }
+
+    @Override
+    public void restart() {
+        food.getPoints().clear();
+        spawnFood(food.getCollider());
     }
 }

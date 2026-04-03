@@ -11,8 +11,8 @@ import java.util.LinkedList;
 public class SnakeView implements View {
     GameModel gameModel;
     Snake snake;
-    Color headColor = new Color(0, 1, 0, 1);
-    Color bodyColor = new Color(0, 0.5, 0, 1);
+    Color headColor = Color.AQUAMARINE;
+    Color bodyColor = Color.MEDIUMAQUAMARINE;
 
     public SnakeView(GameModel gameModel, Snake snake) {
         this.snake = snake;

@@ -5,13 +5,49 @@ import java.util.List;
 
 public class Snake implements GameObject, Collider {
     private final List<Point> points = new LinkedList<>();
+    private int startX;
+    private int startY;
+
+    public int getStartX() {
+        return startX;
+    }
+
+    public void setStartX(int startX) {
+        this.startX = startX;
+    }
+
+    public int getStartY() {
+        return startY;
+    }
+
+    public void setStartY(int startY) {
+        this.startY = startY;
+    }
+
+    public int getStartSize() {
+        return startSize;
+    }
+
+    public void setStartSize(int startSize) {
+        this.startSize = startSize;
+    }
+
+    private int startSize;
     Direction direction;
 
-    public Snake(int x, int y, int startSize, Direction startDirection) {
+    public Snake(int startX, int startY, int startSize, Direction startDirection) {
         this.direction = startDirection;
-        for (int i = 0; i < startSize; i++) {
-            points.add(new Point(x, y));
-        }
+        this.startSize = startSize;
+        this.startX = startX;
+        this.startY = startY;
+    }
+
+    public Point getHead() {
+        return points.get(0);
+    }
+
+    public void increaseBody(Point p) {
+        points.add(p);
     }
 
     public Direction getDirection() {
