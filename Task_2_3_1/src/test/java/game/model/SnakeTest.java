@@ -1,10 +1,11 @@
 package game.model;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class SnakeTest {
     private Snake snake;

@@ -1,7 +1,5 @@
 package game.model;
 
-import com.sun.javafx.binding.StringFormatter;
-
 public class Point {
     int x, y;
 

@@ -4,7 +4,6 @@ import game.model.Collider;
 import game.model.GameModel;
 import game.model.Point;
 import game.model.Walls;
-
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Random;

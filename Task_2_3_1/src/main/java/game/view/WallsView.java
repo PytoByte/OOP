@@ -5,7 +5,6 @@ import game.model.Point;
 import game.model.Walls;
 import javafx.scene.paint.Color;
 import javafx.util.Pair;
-
 import java.util.LinkedList;
 
 public class WallsView implements View {

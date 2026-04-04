@@ -5,7 +5,6 @@ import game.model.Food;
 import game.model.GameModel;
 import game.model.Point;
 import game.model.Snake;
-
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.List;

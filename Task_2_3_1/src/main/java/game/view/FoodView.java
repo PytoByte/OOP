@@ -5,7 +5,6 @@ import game.model.Food;
 import game.model.Point;
 import javafx.scene.paint.Color;
 import javafx.util.Pair;
-
 import java.util.LinkedList;
 
 public class FoodView implements View {

@@ -6,7 +6,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
-
 public class SceneController {
     @FXML private Label scoreLabel;
     @FXML private Label statusLabel;
