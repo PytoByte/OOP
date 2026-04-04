@@ -1,7 +1,7 @@
 package game.view;
 
-import game.model.GameModel;
 import game.model.Food;
+import game.model.GameModel;
 import game.model.Point;
 import java.util.LinkedList;
 import javafx.scene.paint.Color;
@@ -33,7 +33,7 @@ public class FoodView implements View {
      * Проходит по всем точкам еды и связывает их с заданным цветом (по умолчанию красным).
      *
      * @return {@link Iterable} набор объектов {@link Pair},
-     * содержащих {@link Point} и {@link Color}.
+     *     содержащих {@link Point} и {@link Color}.
      */
     @Override
     public Iterable<Pair<Point, Color>> getView() {

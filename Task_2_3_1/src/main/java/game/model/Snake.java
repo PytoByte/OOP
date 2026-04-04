@@ -90,8 +90,19 @@ public class Snake implements GameObject, Collider {
     }
 
     // Геттеры параметров инициализации оставлены без комментариев
-    public int getStartX() { return startX; }
-    public int getStartY() { return startY; }
-    public int getStartSize() { return startSize; }
-    public Direction getDirection() { return direction; }
+    public int getStartX() {
+        return startX;
+    }
+
+    public int getStartY() {
+        return startY;
+    }
+
+    public int getStartSize() {
+        return startSize;
+    }
+
+    public Direction getDirection() {
+        return direction;
+    }
 }

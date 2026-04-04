@@ -33,7 +33,7 @@ public class WallsView implements View {
      * Проходит по всем точкам, составляющим стены, и назначает им серый цвет.
      *
      * @return {@link Iterable} набор объектов {@link Pair}, содержащих {@link Point}
-     * и {@link Color}.
+     *     и {@link Color}.
      */
     @Override
     public Iterable<Pair<Point, Color>> getView() {

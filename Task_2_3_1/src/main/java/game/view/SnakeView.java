@@ -31,10 +31,10 @@ public class SnakeView implements View {
 
     /**
      * Формирует итерируемый набор пар из координат сегментов змейки и их цветов.
-     *
      * Использует флаг для переключения цвета после обработки первого элемента (головы).
+     *
      * @return {@link Iterable} набор объектов {@link Pair}, содержащих {@link Point}
-     * и {@link Color}.
+     *     и {@link Color}.
      */
     @Override
     public Iterable<Pair<Point, Color>> getView() {

@@ -2,11 +2,11 @@ package game.view;
 
 import game.model.GameModel;
 import game.model.Point;
+import java.util.LinkedList;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.util.Pair;
-import java.util.LinkedList;
 
 /**
  * Главный класс отрисовки игрового мира.
