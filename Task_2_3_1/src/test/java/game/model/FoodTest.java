@@ -5,17 +5,17 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.util.List;
 
 class FoodTest {
     private Food food;
-    private final int INITIAL_MAX_COUNT = 5;
+    private final int initialMaxCount = 5;
 
     @BeforeEach
     void setUp() {
-        food = new Food(INITIAL_MAX_COUNT);
+        food = new Food(initialMaxCount);
     }
 
     @Test
@@ -26,7 +26,7 @@ class FoodTest {
 
     @Test
     void getMaxCount() {
-        assertEquals(INITIAL_MAX_COUNT, food.getMaxCount());
+        assertEquals(initialMaxCount, food.getMaxCount());
     }
 
     @Test
@@ -38,13 +38,13 @@ class FoodTest {
 
     @Test
     void addFood_shouldNotExceedMaxCount() {
-        for (int i = 0; i < INITIAL_MAX_COUNT; i++) {
+        for (int i = 0; i < initialMaxCount; i++) {
             food.addFood(new Point(i, i));
         }
-        assertEquals(INITIAL_MAX_COUNT, food.getCount());
+        assertEquals(initialMaxCount, food.getCount());
 
         food.addFood(new Point(10, 10));
-        assertEquals(INITIAL_MAX_COUNT, food.getCount());
+        assertEquals(initialMaxCount, food.getCount());
     }
 
     @Test

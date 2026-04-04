@@ -3,26 +3,26 @@ package game.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.util.List;
 
 class SnakeTest {
     private Snake snake;
-    private final int START_X = 10;
-    private final int START_Y = 10;
-    private final int START_SIZE = 3;
+    private final int startX = 10;
+    private final int startY = 10;
+    private final int startSize = 3;
 
     @BeforeEach
     void setUp() {
-        snake = new Snake(START_X, START_Y, START_SIZE, Direction.RIGHT);
+        snake = new Snake(startX, startY, startSize, Direction.RIGHT);
     }
 
     @Test
     void testInitialState() {
-        assertEquals(START_X, snake.getStartX());
-        assertEquals(START_Y, snake.getStartY());
-        assertEquals(START_SIZE, snake.getStartSize());
+        assertEquals(startX, snake.getStartX());
+        assertEquals(startY, snake.getStartY());
+        assertEquals(startSize, snake.getStartSize());
         assertEquals(Direction.RIGHT, snake.getDirection());
     }
 

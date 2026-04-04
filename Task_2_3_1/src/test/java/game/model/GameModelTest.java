@@ -9,23 +9,23 @@ import org.junit.jupiter.api.Test;
 
 class GameModelTest {
     private GameModel model;
-    private final int WIDTH = 30;
-    private final int HEIGHT = 20;
-    private final int WIN_SCORE = 10;
+    private final int width = 30;
+    private final int height = 20;
+    private final int winScore = 10;
 
     @BeforeEach
     void setUp() {
-        model = new GameModel(WIDTH, HEIGHT, WIN_SCORE);
+        model = new GameModel(width, height, winScore);
     }
 
     @Test
     void getWidth() {
-        assertEquals(WIDTH, model.getWidth());
+        assertEquals(width, model.getWidth());
     }
 
     @Test
     void getHeight() {
-        assertEquals(HEIGHT, model.getHeight());
+        assertEquals(height, model.getHeight());
     }
 
     @Test
@@ -49,7 +49,7 @@ class GameModelTest {
 
     @Test
     void getScoreToWin() {
-        assertEquals(WIN_SCORE, model.getScoreToWin());
+        assertEquals(winScore, model.getScoreToWin());
     }
 
     @Test

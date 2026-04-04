@@ -11,7 +11,7 @@ public interface Controller {
     /**
      * Возвращает объект модели, которым управляет данный контроллер.
      *
-     * @return объект данных (например, {@link Snake} или {@link Food}).
+     * @return объект данных.
      */
     Object getModel();
 
@@ -19,7 +19,7 @@ public interface Controller {
      * Настраивает обработку событий (ввод с клавиатуры, мыши) для текущей сцены.
      * По умолчанию метод пуст.
      *
-     * @param scene объект {@link Scene} JavaFX, к которому привязываются слушатели.
+     * @param scene объект, к которому привязываются слушатели.
      */
     default void setupEvents(Scene scene) {
     }

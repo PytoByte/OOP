@@ -38,7 +38,7 @@ class PointTest {
         Point p1 = new Point(5, 5);
         Point p2 = new Point(5, 5);
         Point p3 = new Point(10, 5);
-        String notAPoint = "5, 5";
+        String notPoint = "5, 5";
 
         assertEquals(p1, p1);
 
@@ -48,7 +48,7 @@ class PointTest {
         assertNotEquals(p1, p3);
 
         assertNotEquals(null, p1);
-        assertNotEquals(p1, notAPoint);
+        assertNotEquals(p1, notPoint);
     }
 
     @Test
