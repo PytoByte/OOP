@@ -77,6 +77,9 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">GameView</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
+<div class="block">Главный класс отрисовки игрового мира.
+ Рассчитывает масштаб игровых ячеек относительно размеров холста, рисует фоновую
+ сетку ("шахматку") и последовательно отображает все зарегистрированные виды (views).</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -90,7 +93,9 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(game.model.GameModel,javafx.scene.canvas.Canvas)" class="member-name-link">GameView</a><wbr>(<a href="../model/GameModel.html" title="class in game.model">GameModel</a>&nbsp;gameModel,
  javafx.scene.canvas.Canvas&nbsp;canvas)</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Создает объект отрисовки, привязанный к конкретной модели и холсту JavaFX.</div>
+</div>
 </div>
 </section>
 </li>
@@ -107,10 +112,14 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#addView(game.view.View)" class="member-name-link">addView</a><wbr>(<a href="View.html" title="interface in game.view">View</a>&nbsp;view)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Добавляет визуальный слой (например, вид змейки или еды) в список отрисовки.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#render()" class="member-name-link">render</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Основной метод рендеринга кадра.</div>
+</div>
 </div>
 </div>
 </div>
@@ -133,6 +142,12 @@ loadScripts(document, 'script');</script>
 <h3>GameView</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">GameView</span><wbr><span class="parameters">(<a href="../model/GameModel.html" title="class in game.model">GameModel</a>&nbsp;gameModel,
  javafx.scene.canvas.Canvas&nbsp;canvas)</span></div>
+<div class="block">Создает объект отрисовки, привязанный к конкретной модели и холсту JavaFX.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>gameModel</code> - модель игры для получения логических размеров поля.</dd>
+<dd><code>canvas</code> - графический холст, на котором будет происходить отрисовка.</dd>
+</dl>
 </section>
 </li>
 </ul>
@@ -147,12 +162,23 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="addView(game.view.View)">
 <h3>addView</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">addView</span><wbr><span class="parameters">(<a href="View.html" title="interface in game.view">View</a>&nbsp;view)</span></div>
+<div class="block">Добавляет визуальный слой (например, вид змейки или еды) в список отрисовки.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>view</code> - объект, реализующий интерфейс <a href="View.html" title="interface in game.view"><code>View</code></a>.</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="render()">
 <h3>render</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">render</span>()</div>
+<div class="block">Основной метод рендеринга кадра.
+ Выполняет следующие действия:
+ 1. Рассчитывает оптимальный размер ячейки (tileSize).
+ 2. Вычисляет отступы (offset) для центрирования поля на холсте.
+ 3. Очищает холст и рисует шахматный фон.
+ 4. Отрисовывает все объекты из зарегистрированных видов, игнорируя точки вне поля.</div>
 </section>
 </li>
 </ul>

@@ -77,6 +77,9 @@ loadScripts(document, 'script');</script>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">View</span></div>
+<div class="block">Интерфейс, определяющий контракт для визуального представления игровых объектов.
+ Позволяет любому объекту (змейке, еде, стенам) предоставлять данные
+ для отрисовки в унифицированном формате.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -93,7 +96,9 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a>&lt;javafx.util.Pair&lt;<a href="../model/Point.html" title="class in game.model">Point</a>,<wbr>javafx.scene.paint.Color&gt;&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#getView()" class="member-name-link">getView</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Возвращает наборы данных для отрисовки объекта.</div>
+</div>
 </div>
 </div>
 </div>
@@ -112,6 +117,12 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getView()">
 <h3>getView</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a>&lt;javafx.util.Pair&lt;<a href="../model/Point.html" title="class in game.model">Point</a>,<wbr>javafx.scene.paint.Color&gt;&gt;</span>&nbsp;<span class="element-name">getView</span>()</div>
+<div class="block">Возвращает наборы данных для отрисовки объекта.
+ Каждая пара содержит координаты точки на поле и соответствующий ей цвет.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>итерируемый набор объектов <code>Pair</code>, связывающих <a href="../model/Point.html" title="class in game.model"><code>Point</code></a> и <code>Color</code>.</dd>
+</dl>
 </section>
 </li>
 </ul>

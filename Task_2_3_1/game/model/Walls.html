@@ -82,6 +82,8 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">Walls</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="GameObject.html" title="interface in game.model">GameObject</a>, <a href="Collider.html" title="interface in game.model">Collider</a></span></div>
+<div class="block">Класс, представляющий препятствия (стены) в игровом мире.
+ Хранит координаты сегментов стен и предоставляет их для отрисовки и обработки столкновений.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -111,13 +113,19 @@ implements <a href="GameObject.html" title="interface in game.model">GameObject<
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#add(game.model.Point)" class="member-name-link">add</a><wbr>(<a href="Point.html" title="class in game.model">Point</a>&nbsp;p)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Добавляет новую точку (сегмент) в состав стен.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="Point.html" title="class in game.model">Point</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getCollider()" class="member-name-link">getCollider</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Создает копию списка точек стен для использования в системе коллизий.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="Point.html" title="class in game.model">Point</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPoints()" class="member-name-link">getPoints</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Возвращает список всех точек (координат), занимаемых объектом.</div>
+</div>
 </div>
 </div>
 </div>
@@ -153,15 +161,24 @@ implements <a href="GameObject.html" title="interface in game.model">GameObject<
 <section class="detail" id="add(game.model.Point)">
 <h3>add</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">add</span><wbr><span class="parameters">(<a href="Point.html" title="class in game.model">Point</a>&nbsp;p)</span></div>
+<div class="block">Добавляет новую точку (сегмент) в состав стен.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>p</code> - объект <a href="Point.html" title="class in game.model"><code>Point</code></a> с координатами сегмента.</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="getPoints()">
 <h3>getPoints</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="Point.html" title="class in game.model">Point</a>&gt;</span>&nbsp;<span class="element-name">getPoints</span>()</div>
+<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="GameObject.html#getPoints()">GameObject</a></code></span></div>
+<div class="block">Возвращает список всех точек (координат), занимаемых объектом.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="GameObject.html#getPoints()">getPoints</a></code>&nbsp;in interface&nbsp;<code><a href="GameObject.html" title="interface in game.model">GameObject</a></code></dd>
+<dt>Returns:</dt>
+<dd>список объектов <a href="Point.html" title="class in game.model"><code>Point</code></a>, представляющих текущую форму или позицию объекта.</dd>
 </dl>
 </section>
 </li>
@@ -169,9 +186,12 @@ implements <a href="GameObject.html" title="interface in game.model">GameObject<
 <section class="detail" id="getCollider()">
 <h3>getCollider</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="Point.html" title="class in game.model">Point</a>&gt;</span>&nbsp;<span class="element-name">getCollider</span>()</div>
+<div class="block">Создает копию списка точек стен для использования в системе коллизий.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="Collider.html#getCollider()">getCollider</a></code>&nbsp;in interface&nbsp;<code><a href="Collider.html" title="interface in game.model">Collider</a></code></dd>
+<dt>Returns:</dt>
+<dd>новый <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/LinkedList.html" title="class or interface in java.util" class="external-link"><code>LinkedList</code></a>, содержащий все точки стен.</dd>
 </dl>
 </section>
 </li>

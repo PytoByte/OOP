@@ -77,6 +77,9 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">SceneController</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
+<div class="block">Контроллер графического интерфейса (UI).
+ Управляет визуальными элементами сцены, такими как надписи счета,
+ сообщения о состоянии игры и холст для отрисовки.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -112,13 +115,19 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setOnRestart(java.lang.Runnable)" class="member-name-link">setOnRestart</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Runnable.html" title="class or interface in java.lang" class="external-link">Runnable</a>&nbsp;handler)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Устанавливает обработчик для события перезапуска игры.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#showGameOver(boolean)" class="member-name-link">showGameOver</a><wbr>(boolean&nbsp;win)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Отображает сообщение об окончании игры.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateScore(int)" class="member-name-link">updateScore</a><wbr>(int&nbsp;score)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Обновляет текстовое поле со счетом игрока.</div>
+</div>
 </div>
 </div>
 </div>
@@ -154,18 +163,33 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="setOnRestart(java.lang.Runnable)">
 <h3>setOnRestart</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setOnRestart</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Runnable.html" title="class or interface in java.lang" class="external-link">Runnable</a>&nbsp;handler)</span></div>
+<div class="block">Устанавливает обработчик для события перезапуска игры.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>handler</code> - объект <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Runnable.html" title="class or interface in java.lang" class="external-link"><code>Runnable</code></a>, который будет выполнен при нажатии кнопки рестарта.</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="showGameOver(boolean)">
 <h3>showGameOver</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">showGameOver</span><wbr><span class="parameters">(boolean&nbsp;win)</span></div>
+<div class="block">Отображает сообщение об окончании игры.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>win</code> - флаг, определяющий текст сообщения: "YOU WIN!" при true или "GAME OVER" при false.</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="updateScore(int)">
 <h3>updateScore</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">updateScore</span><wbr><span class="parameters">(int&nbsp;score)</span></div>
+<div class="block">Обновляет текстовое поле со счетом игрока.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>score</code> - текущее количество набранных очков.</dd>
+</dl>
 </section>
 </li>
 <li>

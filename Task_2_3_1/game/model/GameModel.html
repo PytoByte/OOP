@@ -77,6 +77,8 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">GameModel</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
+<div class="block">Модель состояния игры. Хранит данные о размерах поля, текущем счете
+ и статусе завершения игрового процесса (победа или поражение).</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -91,7 +93,9 @@ loadScripts(document, 'script');</script>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(int,int,int)" class="member-name-link">GameModel</a><wbr>(int&nbsp;width,
  int&nbsp;height,
  int&nbsp;scoreToWin)</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Создает новую модель игры с заданными параметрами поля и условием победы.</div>
+</div>
 </div>
 </section>
 </li>
@@ -126,7 +130,9 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#increaseScore(int)" class="member-name-link">increaseScore</a><wbr>(int&nbsp;inc)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Увеличивает текущий счет игрока на указанное значение.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setGameOver(boolean)" class="member-name-link">setGameOver</a><wbr>(boolean&nbsp;gameOver)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
@@ -159,6 +165,13 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">GameModel</span><wbr><span class="parameters">(int&nbsp;width,
  int&nbsp;height,
  int&nbsp;scoreToWin)</span></div>
+<div class="block">Создает новую модель игры с заданными параметрами поля и условием победы.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>width</code> - ширина игрового поля в ячейках.</dd>
+<dd><code>height</code> - высота игрового поля в ячейках.</dd>
+<dd><code>scoreToWin</code> - количество очков, которое необходимо набрать для победы.</dd>
+</dl>
 </section>
 </li>
 </ul>
@@ -169,6 +182,17 @@ loadScripts(document, 'script');</script>
 <section class="method-details" id="method-detail">
 <h2>Method Details</h2>
 <ul class="member-list">
+<li>
+<section class="detail" id="increaseScore(int)">
+<h3>increaseScore</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">increaseScore</span><wbr><span class="parameters">(int&nbsp;inc)</span></div>
+<div class="block">Увеличивает текущий счет игрока на указанное значение.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>inc</code> - количество добавляемых очков.</dd>
+</dl>
+</section>
+</li>
 <li>
 <section class="detail" id="getWidth()">
 <h3>getWidth</h3>
@@ -185,12 +209,6 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getScore()">
 <h3>getScore</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getScore</span>()</div>
-</section>
-</li>
-<li>
-<section class="detail" id="increaseScore(int)">
-<h3>increaseScore</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">increaseScore</span><wbr><span class="parameters">(int&nbsp;inc)</span></div>
 </section>
 </li>
 <li>

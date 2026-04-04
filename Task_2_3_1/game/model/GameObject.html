@@ -77,6 +77,9 @@ loadScripts(document, 'script');</script>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">GameObject</span></div>
+<div class="block">Общий интерфейс для всех игровых объектов, которые имеют визуальное
+ представление на игровом поле.
+ Гарантирует, что объект может предоставить набор своих координат для отрисовки.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -93,7 +96,9 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="Point.html" title="class in game.model">Point</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#getPoints()" class="member-name-link">getPoints</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Возвращает список всех точек (координат), занимаемых объектом.</div>
+</div>
 </div>
 </div>
 </div>
@@ -112,6 +117,11 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getPoints()">
 <h3>getPoints</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="Point.html" title="class in game.model">Point</a>&gt;</span>&nbsp;<span class="element-name">getPoints</span>()</div>
+<div class="block">Возвращает список всех точек (координат), занимаемых объектом.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>список объектов <a href="Point.html" title="class in game.model"><code>Point</code></a>, представляющих текущую форму или позицию объекта.</dd>
+</dl>
 </section>
 </li>
 </ul>

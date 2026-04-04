@@ -77,6 +77,9 @@ loadScripts(document, 'script');</script>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">Controller</span></div>
+<div class="block">Базовый интерфейс для всех игровых контроллеров.
+ Определяет жизненный цикл компонента управления, включая инициализацию,
+ обновление состояния и обработку событий пользовательского интерфейса.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -93,16 +96,24 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#getModel()" class="member-name-link">getModel</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Возвращает объект модели, которым управляет данный контроллер.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#restart()" class="member-name-link">restart</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Сбрасывает состояние контроллера и управляемой им модели к начальным значениям.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#setupEvents(javafx.scene.Scene)" class="member-name-link">setupEvents</a><wbr>(javafx.scene.Scene&nbsp;scene)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
+<div class="block">Настраивает обработку событий (ввод с клавиатуры, мыши) для текущей сцены.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#update()" class="member-name-link">update</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
+<div class="block">Вызывается на каждом "тике" игрового таймера для обновления логики объекта.</div>
+</div>
 </div>
 </div>
 </div>
@@ -121,24 +132,39 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getModel()">
 <h3>getModel</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span>&nbsp;<span class="element-name">getModel</span>()</div>
+<div class="block">Возвращает объект модели, которым управляет данный контроллер.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>объект данных.</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="setupEvents(javafx.scene.Scene)">
 <h3>setupEvents</h3>
 <div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setupEvents</span><wbr><span class="parameters">(javafx.scene.Scene&nbsp;scene)</span></div>
+<div class="block">Настраивает обработку событий (ввод с клавиатуры, мыши) для текущей сцены.
+ По умолчанию метод пуст.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>scene</code> - объект, к которому привязываются слушатели.</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="update()">
 <h3>update</h3>
 <div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">update</span>()</div>
+<div class="block">Вызывается на каждом "тике" игрового таймера для обновления логики объекта.
+ По умолчанию метод пуст.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="restart()">
 <h3>restart</h3>
 <div class="member-signature"><span class="return-type">void</span>&nbsp;<span class="element-name">restart</span>()</div>
+<div class="block">Сбрасывает состояние контроллера и управляемой им модели к начальным значениям.
+ Используется при старте новой игры или после поражения.</div>
 </section>
 </li>
 </ul>

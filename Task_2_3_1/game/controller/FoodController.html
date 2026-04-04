@@ -82,6 +82,9 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">FoodController</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="Controller.html" title="interface in game.controller">Controller</a>, <a href="ColliderControl.html" title="interface in game.controller">ColliderControl</a></span></div>
+<div class="block">Контроллер для управления объектами еды.
+ Отвечает за генерацию (спавн) еды в свободных ячейках игрового поля,
+ обработку поедания еды змейкой и обновление игрового счета.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -95,7 +98,9 @@ implements <a href="Controller.html" title="interface in game.controller">Contro
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(game.model.GameModel,game.model.Food)" class="member-name-link">FoodController</a><wbr>(<a href="../model/GameModel.html" title="class in game.model">GameModel</a>&nbsp;gameModel,
  <a href="../model/Food.html" title="class in game.model">Food</a>&nbsp;food)</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Создает контроллер еды и инициализирует начальное состояние объектов еды на поле.</div>
+</div>
 </div>
 </section>
 </li>
@@ -113,13 +118,19 @@ implements <a href="Controller.html" title="interface in game.controller">Contro
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#collide(game.model.Collider,game.model.Point)" class="member-name-link">collide</a><wbr>(<a href="../model/Collider.html" title="interface in game.model">Collider</a>&nbsp;model,
  <a href="../model/Point.html" title="class in game.model">Point</a>&nbsp;p)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Обрабатывает столкновение еды с другим объектом (обычно змейкой).</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getModel()" class="member-name-link">getModel</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Возвращает управляемую модель еды.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#restart()" class="member-name-link">restart</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Сбрасывает состояние еды: очищает поле и создает начальный набор объектов еды.</div>
+</div>
 </div>
 </div>
 </div>
@@ -145,6 +156,12 @@ implements <a href="Controller.html" title="interface in game.controller">Contro
 <h3>FoodController</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">FoodController</span><wbr><span class="parameters">(<a href="../model/GameModel.html" title="class in game.model">GameModel</a>&nbsp;gameModel,
  <a href="../model/Food.html" title="class in game.model">Food</a>&nbsp;food)</span></div>
+<div class="block">Создает контроллер еды и инициализирует начальное состояние объектов еды на поле.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>gameModel</code> - общая модель игры для доступа к размерам поля.</dd>
+<dd><code>food</code> - объект управления едой, которым будет оперировать контроллер.</dd>
+</dl>
 </section>
 </li>
 </ul>
@@ -160,9 +177,15 @@ implements <a href="Controller.html" title="interface in game.controller">Contro
 <h3>collide</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">collide</span><wbr><span class="parameters">(<a href="../model/Collider.html" title="interface in game.model">Collider</a>&nbsp;model,
  <a href="../model/Point.html" title="class in game.model">Point</a>&nbsp;p)</span></div>
+<div class="block">Обрабатывает столкновение еды с другим объектом (обычно змейкой).
+ При столкновении удаляет съеденную еду, инициирует появление новой
+ и увеличивает счет в модели игры, если инициатор — змейка.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="ColliderControl.html#collide(game.model.Collider,game.model.Point)">collide</a></code>&nbsp;in interface&nbsp;<code><a href="ColliderControl.html" title="interface in game.controller">ColliderControl</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>model</code> - объект, столкнувшийся с едой.</dd>
+<dd><code>p</code> - точка, в которой произошло столкновение.</dd>
 </dl>
 </section>
 </li>
@@ -170,9 +193,12 @@ implements <a href="Controller.html" title="interface in game.controller">Contro
 <section class="detail" id="getModel()">
 <h3>getModel</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span>&nbsp;<span class="element-name">getModel</span>()</div>
+<div class="block">Возвращает управляемую модель еды.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="Controller.html#getModel()">getModel</a></code>&nbsp;in interface&nbsp;<code><a href="Controller.html" title="interface in game.controller">Controller</a></code></dd>
+<dt>Returns:</dt>
+<dd>объект <a href="../model/Food.html" title="class in game.model"><code>Food</code></a>.</dd>
 </dl>
 </section>
 </li>
@@ -180,6 +206,7 @@ implements <a href="Controller.html" title="interface in game.controller">Contro
 <section class="detail" id="restart()">
 <h3>restart</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">restart</span>()</div>
+<div class="block">Сбрасывает состояние еды: очищает поле и создает начальный набор объектов еды.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="Controller.html#restart()">restart</a></code>&nbsp;in interface&nbsp;<code><a href="Controller.html" title="interface in game.controller">Controller</a></code></dd>

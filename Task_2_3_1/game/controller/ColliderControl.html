@@ -77,6 +77,8 @@ loadScripts(document, 'script');</script>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">ColliderControl</span></div>
+<div class="block">Интерфейс для контроллеров, поддерживающих логику обработки столкновений.
+ Определяет поведение объекта в момент физического контакта с другой сущностью.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -94,7 +96,9 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#collide(game.model.Collider,game.model.Point)" class="member-name-link">collide</a><wbr>(<a href="../model/Collider.html" title="interface in game.model">Collider</a>&nbsp;model,
  <a href="../model/Point.html" title="class in game.model">Point</a>&nbsp;p)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Вызывается при обнаружении столкновения текущего объекта с другим коллайдером.</div>
+</div>
 </div>
 </div>
 </div>
@@ -114,6 +118,12 @@ loadScripts(document, 'script');</script>
 <h3>collide</h3>
 <div class="member-signature"><span class="return-type">void</span>&nbsp;<span class="element-name">collide</span><wbr><span class="parameters">(<a href="../model/Collider.html" title="interface in game.model">Collider</a>&nbsp;model,
  <a href="../model/Point.html" title="class in game.model">Point</a>&nbsp;p)</span></div>
+<div class="block">Вызывается при обнаружении столкновения текущего объекта с другим коллайдером.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>model</code> - объект-коллайдер, с которым произошло взаимодействие.</dd>
+<dd><code>p</code> - точка на игровом поле, в которой зафиксировано касание.</dd>
+</dl>
 </section>
 </li>
 </ul>

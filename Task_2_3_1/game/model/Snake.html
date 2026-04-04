@@ -82,6 +82,9 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">Snake</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="GameObject.html" title="interface in game.model">GameObject</a>, <a href="Collider.html" title="interface in game.model">Collider</a></span></div>
+<div class="block">Класс, представляющий змейку как управляемый игровой объект.
+ Реализует логику движения, хранения сегментов тела и смены направления
+ с проверкой на допустимость поворота.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -97,7 +100,9 @@ implements <a href="GameObject.html" title="interface in game.model">GameObject<
  int&nbsp;startY,
  int&nbsp;startSize,
  <a href="Direction.html" title="enum class in game.model">Direction</a>&nbsp;startDirection)</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Создает новую змейку с начальными параметрами позиции, размера и направления.</div>
+</div>
 </div>
 </section>
 </li>
@@ -114,16 +119,23 @@ implements <a href="GameObject.html" title="interface in game.model">GameObject<
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="Point.html" title="class in game.model">Point</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getCollider()" class="member-name-link">getCollider</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Возвращает список всех сегментов змейки для проверки столкновений с собой
+ или другими объектами.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Direction.html" title="enum class in game.model">Direction</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getDirection()" class="member-name-link">getDirection</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Point.html" title="class in game.model">Point</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getHead()" class="member-name-link">getHead</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Возвращает текущую позицию головы змейки.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="Point.html" title="class in game.model">Point</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPoints()" class="member-name-link">getPoints</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Возвращает список всех точек (координат), занимаемых объектом.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getStartSize()" class="member-name-link">getStartSize</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
@@ -135,10 +147,14 @@ implements <a href="GameObject.html" title="interface in game.model">GameObject<
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#increaseBody(game.model.Point)" class="member-name-link">increaseBody</a><wbr>(<a href="Point.html" title="class in game.model">Point</a>&nbsp;p)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Добавляет новый сегмент к телу змейки (рост змейки).</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setDirection(game.model.Direction)" class="member-name-link">setDirection</a><wbr>(<a href="Direction.html" title="enum class in game.model">Direction</a>&nbsp;dir)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Устанавливает новое направление движения змейки.</div>
+</div>
 </div>
 </div>
 </div>
@@ -163,6 +179,14 @@ implements <a href="GameObject.html" title="interface in game.model">GameObject<
  int&nbsp;startY,
  int&nbsp;startSize,
  <a href="Direction.html" title="enum class in game.model">Direction</a>&nbsp;startDirection)</span></div>
+<div class="block">Создает новую змейку с начальными параметрами позиции, размера и направления.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>startX</code> - начальная координата X головы.</dd>
+<dd><code>startY</code> - начальная координата Y головы.</dd>
+<dd><code>startSize</code> - начальное количество сегментов.</dd>
+<dd><code>startDirection</code> - исходное направление движения.</dd>
+</dl>
 </section>
 </li>
 </ul>
@@ -173,6 +197,69 @@ implements <a href="GameObject.html" title="interface in game.model">GameObject<
 <section class="method-details" id="method-detail">
 <h2>Method Details</h2>
 <ul class="member-list">
+<li>
+<section class="detail" id="getHead()">
+<h3>getHead</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Point.html" title="class in game.model">Point</a></span>&nbsp;<span class="element-name">getHead</span>()</div>
+<div class="block">Возвращает текущую позицию головы змейки.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd><a href="Point.html" title="class in game.model"><code>Point</code></a> головы (первый элемент в списке сегментов).</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="increaseBody(game.model.Point)">
+<h3>increaseBody</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">increaseBody</span><wbr><span class="parameters">(<a href="Point.html" title="class in game.model">Point</a>&nbsp;p)</span></div>
+<div class="block">Добавляет новый сегмент к телу змейки (рост змейки).</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>p</code> - точка, в которой появляется новый сегмент.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="setDirection(game.model.Direction)">
+<h3>setDirection</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setDirection</span><wbr><span class="parameters">(<a href="Direction.html" title="enum class in game.model">Direction</a>&nbsp;dir)</span></div>
+<div class="block">Устанавливает новое направление движения змейки.
+ Поворот игнорируется, если он является противоположным текущему направлению
+ (например, нельзя повернуть вверх, если змейка движется вниз).</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>dir</code> - желаемое направление <a href="Direction.html" title="enum class in game.model"><code>Direction</code></a>.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getPoints()">
+<h3>getPoints</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="Point.html" title="class in game.model">Point</a>&gt;</span>&nbsp;<span class="element-name">getPoints</span>()</div>
+<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="GameObject.html#getPoints()">GameObject</a></code></span></div>
+<div class="block">Возвращает список всех точек (координат), занимаемых объектом.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="GameObject.html#getPoints()">getPoints</a></code>&nbsp;in interface&nbsp;<code><a href="GameObject.html" title="interface in game.model">GameObject</a></code></dd>
+<dt>Returns:</dt>
+<dd>список объектов <a href="Point.html" title="class in game.model"><code>Point</code></a>, представляющих текущую форму или позицию объекта.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getCollider()">
+<h3>getCollider</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="Point.html" title="class in game.model">Point</a>&gt;</span>&nbsp;<span class="element-name">getCollider</span>()</div>
+<div class="block">Возвращает список всех сегментов змейки для проверки столкновений с собой
+ или другими объектами.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="Collider.html#getCollider()">getCollider</a></code>&nbsp;in interface&nbsp;<code><a href="Collider.html" title="interface in game.model">Collider</a></code></dd>
+<dt>Returns:</dt>
+<dd>копия списка <a href="Point.html" title="class in game.model"><code>Point</code></a> всех частей тела змейки.</dd>
+</dl>
+</section>
+</li>
 <li>
 <section class="detail" id="getStartX()">
 <h3>getStartX</h3>
@@ -192,47 +279,9 @@ implements <a href="GameObject.html" title="interface in game.model">GameObject<
 </section>
 </li>
 <li>
-<section class="detail" id="getHead()">
-<h3>getHead</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Point.html" title="class in game.model">Point</a></span>&nbsp;<span class="element-name">getHead</span>()</div>
-</section>
-</li>
-<li>
-<section class="detail" id="increaseBody(game.model.Point)">
-<h3>increaseBody</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">increaseBody</span><wbr><span class="parameters">(<a href="Point.html" title="class in game.model">Point</a>&nbsp;p)</span></div>
-</section>
-</li>
-<li>
 <section class="detail" id="getDirection()">
 <h3>getDirection</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Direction.html" title="enum class in game.model">Direction</a></span>&nbsp;<span class="element-name">getDirection</span>()</div>
-</section>
-</li>
-<li>
-<section class="detail" id="setDirection(game.model.Direction)">
-<h3>setDirection</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setDirection</span><wbr><span class="parameters">(<a href="Direction.html" title="enum class in game.model">Direction</a>&nbsp;dir)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="getPoints()">
-<h3>getPoints</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="Point.html" title="class in game.model">Point</a>&gt;</span>&nbsp;<span class="element-name">getPoints</span>()</div>
-<dl class="notes">
-<dt>Specified by:</dt>
-<dd><code><a href="GameObject.html#getPoints()">getPoints</a></code>&nbsp;in interface&nbsp;<code><a href="GameObject.html" title="interface in game.model">GameObject</a></code></dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="getCollider()">
-<h3>getCollider</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="Point.html" title="class in game.model">Point</a>&gt;</span>&nbsp;<span class="element-name">getCollider</span>()</div>
-<dl class="notes">
-<dt>Specified by:</dt>
-<dd><code><a href="Collider.html#getCollider()">getCollider</a></code>&nbsp;in interface&nbsp;<code><a href="Collider.html" title="interface in game.model">Collider</a></code></dd>
-</dl>
 </section>
 </li>
 </ul>

@@ -77,6 +77,8 @@ loadScripts(document, 'script');</script>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">Collider</span></div>
+<div class="block">Интерфейс для объектов, способных участвовать в системе обнаружения столкновений.
+ Позволяет получить физические границы или область поражения объекта.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -93,7 +95,9 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="Point.html" title="class in game.model">Point</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#getCollider()" class="member-name-link">getCollider</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Возвращает список точек, представляющих физическую область объекта (хитбокс).</div>
+</div>
 </div>
 </div>
 </div>
@@ -112,6 +116,11 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getCollider()">
 <h3>getCollider</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="Point.html" title="class in game.model">Point</a>&gt;</span>&nbsp;<span class="element-name">getCollider</span>()</div>
+<div class="block">Возвращает список точек, представляющих физическую область объекта (хитбокс).</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>список объектов <a href="Point.html" title="class in game.model"><code>Point</code></a>, с которыми могут сталкиваться другие сущности.</dd>
+</dl>
 </section>
 </li>
 </ul>

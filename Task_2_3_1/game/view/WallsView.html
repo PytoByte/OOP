@@ -82,6 +82,9 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">WallsView</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="View.html" title="interface in game.view">View</a></span></div>
+<div class="block">Класс, отвечающий за визуальное отображение стен (препятствий) на игровом поле.
+ Реализует интерфейс <a href="View.html" title="interface in game.view"><code>View</code></a>, преобразуя координаты блоков стен
+ в цветные графические элементы для рендеринга.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -95,7 +98,9 @@ implements <a href="View.html" title="interface in game.view">View</a></span></d
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(game.model.GameModel,game.model.Walls)" class="member-name-link">WallsView</a><wbr>(<a href="../model/GameModel.html" title="class in game.model">GameModel</a>&nbsp;gameModel,
  <a href="../model/Walls.html" title="class in game.model">Walls</a>&nbsp;walls)</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Создает объект отображения стен.</div>
+</div>
 </div>
 </section>
 </li>
@@ -112,7 +117,9 @@ implements <a href="View.html" title="interface in game.view">View</a></span></d
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a>&lt;javafx.util.Pair&lt;<a href="../model/Point.html" title="class in game.model">Point</a>,<wbr>javafx.scene.paint.Color&gt;&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getView()" class="member-name-link">getView</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Формирует и возвращает итерируемый набор пар из координат стен и их цвета.</div>
+</div>
 </div>
 </div>
 </div>
@@ -135,6 +142,12 @@ implements <a href="View.html" title="interface in game.view">View</a></span></d
 <h3>WallsView</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">WallsView</span><wbr><span class="parameters">(<a href="../model/GameModel.html" title="class in game.model">GameModel</a>&nbsp;gameModel,
  <a href="../model/Walls.html" title="class in game.model">Walls</a>&nbsp;walls)</span></div>
+<div class="block">Создает объект отображения стен.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>gameModel</code> - модель игры для получения параметров поля.</dd>
+<dd><code>walls</code> - объект стен, данные которого необходимо визуализировать.</dd>
+</dl>
 </section>
 </li>
 </ul>
@@ -149,9 +162,14 @@ implements <a href="View.html" title="interface in game.view">View</a></span></d
 <section class="detail" id="getView()">
 <h3>getView</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a>&lt;javafx.util.Pair&lt;<a href="../model/Point.html" title="class in game.model">Point</a>,<wbr>javafx.scene.paint.Color&gt;&gt;</span>&nbsp;<span class="element-name">getView</span>()</div>
+<div class="block">Формирует и возвращает итерируемый набор пар из координат стен и их цвета.
+ Проходит по всем точкам, составляющим стены, и назначает им серый цвет.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="View.html#getView()">getView</a></code>&nbsp;in interface&nbsp;<code><a href="View.html" title="interface in game.view">View</a></code></dd>
+<dt>Returns:</dt>
+<dd><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link"><code>Iterable</code></a> набор объектов <code>Pair</code>, содержащих <a href="../model/Point.html" title="class in game.model"><code>Point</code></a>
+ и <code>Color</code>.</dd>
 </dl>
 </section>
 </li>
