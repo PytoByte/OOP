@@ -47,11 +47,15 @@ public class SnakeController implements Controller, ColliderControl {
         // Расчет координат следующего шага с учетом бесконечного поля (wrap-around)
         switch (snake.getDirection()) {
             case UP ->
-                    nextPos.setCoordY((head.getCoordY() - 1 + gameModel.getHeight()) % gameModel.getHeight());
+                    nextPos.setCoordY(
+                            (head.getCoordY() - 1 + gameModel.getHeight()) % gameModel.getHeight()
+                    );
             case DOWN ->
                     nextPos.setCoordY((head.getCoordY() + 1) % gameModel.getHeight());
             case LEFT ->
-                    nextPos.setCoordX((head.getCoordX() - 1 + gameModel.getWidth()) % gameModel.getWidth());
+                    nextPos.setCoordX(
+                            (head.getCoordX() - 1 + gameModel.getWidth()) % gameModel.getWidth()
+                    );
             case RIGHT ->
                     nextPos.setCoordX((head.getCoordX() + 1) % gameModel.getWidth());
             default ->

@@ -96,7 +96,8 @@ public class GameView {
 
                 // Пропуск точек с некорректными координатами (например, -1, -1 при росте хвоста)
                 if (p.getCoordX() < 0 || p.getCoordY() < 0
-                        || p.getCoordX() >= gameModel.getWidth() || p.getCoordY() >= gameModel.getHeight()) {
+                        || p.getCoordX() >= gameModel.getWidth()
+                        || p.getCoordY() >= gameModel.getHeight()) {
                     continue;
                 }
 
