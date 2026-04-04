@@ -75,10 +75,10 @@ public class SnakeController implements Controller, ColliderControl {
             KeyCode code = event.getCode();
 
             switch (code) {
-                case KeyCode.UP -> directionBuffer = Direction.UP;
-                case KeyCode.DOWN -> directionBuffer = Direction.DOWN;
-                case KeyCode.LEFT -> directionBuffer = Direction.LEFT;
-                case KeyCode.RIGHT -> directionBuffer = Direction.RIGHT;
+                case UP -> directionBuffer = Direction.UP;
+                case DOWN -> directionBuffer = Direction.DOWN;
+                case LEFT -> directionBuffer = Direction.LEFT;
+                case RIGHT -> directionBuffer = Direction.RIGHT;
             }
         });
     }
