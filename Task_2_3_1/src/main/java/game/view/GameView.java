@@ -81,7 +81,11 @@ public class GameView {
                     gc.setFill(color2);
                 }
 
-                gc.fillRect(offsetX + x * tileSize, offsetY + y * tileSize, tileSize, tileSize);
+                gc.fillRect(offsetX + x * tileSize,
+                        offsetY + y * tileSize,
+                        tileSize,
+                        tileSize
+                );
             }
         }
 
@@ -91,8 +95,8 @@ public class GameView {
                 Point p = pixel.getKey();
 
                 // Пропуск точек с некорректными координатами (например, -1, -1 при росте хвоста)
-                if (p.getX() < 0 || p.getY() < 0 ||
-                        p.getX() >= gameModel.getWidth() || p.getY() >= gameModel.getHeight()) {
+                if (p.getX() < 0 || p.getY() < 0
+                        || p.getX() >= gameModel.getWidth() || p.getY() >= gameModel.getHeight()) {
                     continue;
                 }
 

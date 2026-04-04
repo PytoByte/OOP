@@ -36,18 +36,18 @@ class PointTest {
     @Test
     void testEquals() {
         Point p1 = new Point(5, 5);
-        Point p2 = new Point(5, 5);
-        Point p3 = new Point(10, 5);
-        String notPoint = "5, 5";
-
         assertEquals(p1, p1);
 
+        Point p2 = new Point(5, 5);
         assertEquals(p1, p2);
         assertEquals(p2, p1);
 
+        Point p3 = new Point(10, 5);
         assertNotEquals(p1, p3);
 
         assertNotEquals(null, p1);
+
+        String notPoint = "5, 5";
         assertNotEquals(p1, notPoint);
     }
 

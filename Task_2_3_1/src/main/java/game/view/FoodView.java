@@ -3,9 +3,9 @@ package game.view;
 import game.model.GameModel;
 import game.model.Food;
 import game.model.Point;
+import java.util.LinkedList;
 import javafx.scene.paint.Color;
 import javafx.util.Pair;
-import java.util.LinkedList;
 
 /**
  * Класс, отвечающий за визуальное отображение еды на игровом поле.
