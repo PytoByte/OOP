@@ -97,6 +97,7 @@ public class GameController {
             if (model.getScore() >= model.getScoreToWin() || model.getGameWin()) {
                 stop();
                 sceneController.showGameOver(true);
+                view.render();
                 return;
             }
         }

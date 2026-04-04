@@ -29,7 +29,7 @@ jacocoTestReport {
 }
 
 javafx {
-    version = "26"
+    version = "17"
     modules = [ 'javafx.controls', 'javafx.graphics', 'javafx.fxml' ]
 }
 
