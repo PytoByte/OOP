@@ -10,8 +10,6 @@ import game.model.Walls;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 
-import java.util.List;
-
 public class SnakeController implements Controller, ColliderControl {
     Snake snake;
     GameModel gameModel;
@@ -27,17 +25,20 @@ public class SnakeController implements Controller, ColliderControl {
     public void update() {
         snake.setDirection(directionBuffer);
 
-        List<Point> points = snake.getPoints();
         Point head = snake.getHead();
         Point nextPos = new Point(head.getX(), head.getY());
         switch (snake.getDirection()) {
-            case UP -> nextPos.setY((head.getY() - 1 + gameModel.getHeight()) % gameModel.getHeight());
-            case DOWN -> nextPos.setY((head.getY() + 1) % gameModel.getHeight());
-            case LEFT -> nextPos.setX((head.getX() - 1 + gameModel.getWidth()) % gameModel.getWidth());
-            case RIGHT -> nextPos.setX((head.getX() + 1) % gameModel.getWidth());
+            case UP ->
+                    nextPos.setY((head.getY() - 1 + gameModel.getHeight()) % gameModel.getHeight());
+            case DOWN ->
+                    nextPos.setY((head.getY() + 1) % gameModel.getHeight());
+            case LEFT ->
+                    nextPos.setX((head.getX() - 1 + gameModel.getWidth()) % gameModel.getWidth());
+            case RIGHT ->
+                    nextPos.setX((head.getX() + 1) % gameModel.getWidth());
         }
 
-        for (Point body : points) {
+        for (Point body : snake.getPoints()) {
             int oldX = body.getX();
             body.setX(nextPos.getX());
 
@@ -48,6 +49,7 @@ public class SnakeController implements Controller, ColliderControl {
             nextPos.setY(oldY);
 
             if (body != head && body.equals(head)) {
+                System.out.println("Suicide");
                 gameModel.setGameOver(true);
             }
         }
@@ -89,7 +91,7 @@ public class SnakeController implements Controller, ColliderControl {
                 snake.increaseBody(new Point(-1, -1));
             }
         } else if (model instanceof Walls) {
-
+            gameModel.setGameOver(true);
         }
     }
 }

@@ -9,7 +9,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
 import javafx.util.Duration;
-
 import java.util.ArrayList;
 
 public class GameController {
@@ -32,7 +31,8 @@ public class GameController {
         controllers.add(controller);
     }
 
-    private void checkCollisions() {
+    private boolean checkCollisions() {
+        boolean detectedCollisions = false;
         for (int i = 0; i < controllers.size() - 1; i++) {
             for (int j = i+1; j < controllers.size(); j++) {
                 Controller controller1 = controllers.get(i);
@@ -54,15 +54,20 @@ public class GameController {
                         if (p1.equals(p2)) {
                             colliderControl1.collide(collider2, p1);
                             colliderControl2.collide(collider1, p2);
+                            detectedCollisions = true;
                         }
                     }
                 }
             }
         }
+
+        return detectedCollisions;
     }
 
     public void restart() {
         model.setScore(0);
+        model.setGameOver(false);
+        model.setGameWin(false);
         for (Controller controller : controllers) {
             controller.restart();
         }
@@ -73,8 +78,6 @@ public class GameController {
         for (Controller controller : controllers) {
             controller.update();
         }
-        checkCollisions();
-        sceneController.updateScore(model.getScore());
 
         if (model.getGameOver()) {
             stop();
@@ -82,9 +85,25 @@ public class GameController {
             return;
         }
 
+        while (checkCollisions()) {
+            sceneController.updateScore(model.getScore());
+
+            if (model.getGameOver()) {
+                stop();
+                sceneController.showGameOver(false);
+                return;
+            }
+
+            if (model.getScore() >= model.getScoreToWin() || model.getGameWin()) {
+                stop();
+                sceneController.showGameOver(true);
+                return;
+            }
+        }
+
         view.render();
 
-        if (model.getScore() >= model.getScoreToWin()) {
+        if (model.getScore() >= model.getScoreToWin() || model.getGameWin()) {
             stop();
             sceneController.showGameOver(true);
         }

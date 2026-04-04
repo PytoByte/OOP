@@ -40,34 +40,28 @@ public class GameView {
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        // 1. Неигровое пространство (сплошной темный цвет)
-        gc.setFill(Color.GREEN); // Глубокий серый/черный
+        gc.setFill(Color.GREEN);
         gc.fillRect(0, 0, canvasWidth, canvasHeight);
 
-        // 2. Рисуем шахматное игровое поле
-        Color color1 = Color.DARKGREEN; // Темная клетка
-        Color color2 = Color.GREEN; // Светлая клетка
+        Color color1 = Color.DARKGREEN;
+        Color color2 = Color.GREEN;
 
         for (int x = 0; x < gameModel.getWidth(); x++) {
             for (int y = 0; y < gameModel.getHeight(); y++) {
-                // Математика шахмат: если сумма координат четная — один цвет, иначе другой
                 if ((x + y) % 2 == 0) {
                     gc.setFill(color1);
                 } else {
                     gc.setFill(color2);
                 }
 
-                // Рисуем клетку с учетом смещения (offset)
                 gc.fillRect(offsetX + x * tileSize, offsetY + y * tileSize, tileSize, tileSize);
             }
         }
 
-        // 4. Отрисовка объектов
         for (View view : views) {
             for (Pair<Point, Color> pixel : view.getView()) {
                 Point p = pixel.getKey();
 
-                // Проверка границ (на всякий случай)
                 if (p.getX() < 0 || p.getY() < 0 ||
                         p.getX() >= gameModel.getWidth() || p.getY() >= gameModel.getHeight()) {
                     continue;
@@ -75,26 +69,11 @@ public class GameView {
 
                 gc.setFill(pixel.getValue());
 
-                // Вычисляем финальные координаты с учетом смещения
                 double x = offsetX + p.getX() * tileSize;
                 double y = offsetY + p.getY() * tileSize;
 
-                // Рисуем тайл (tileSize - 1 создает эффект сетки)
                 gc.fillRect(x, y, tileSize - 1, tileSize - 1);
             }
         }
     }
-
-    // Сообщения
-//        if (model.isGameOver()) {
-//            gc.setFill(Color.WHITE);
-//            gc.setFont(new Font(40));
-//            gc.fillText("GAME OVER", (legacy..getWidth() * TILE_SIZE) / 4.0,
-//                    (legacy.HEIGHT * TILE_SIZE) / 2.0);
-//        } else if (model.isGameWin()) {
-//            gc.setFill(Color.YELLOW);
-//            gc.setFont(new Font(40));
-//            gc.fillText("YOU WIN!", (legacy..getWidth() * TILE_SIZE) / 3.0,
-//                    (legacy.HEIGHT * TILE_SIZE) / 2.0);
-//        }
 }

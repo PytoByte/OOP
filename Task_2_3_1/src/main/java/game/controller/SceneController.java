@@ -2,7 +2,6 @@ package game.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -13,9 +12,8 @@ public class SceneController {
     @FXML private Label statusLabel;
     @FXML private StackPane canvasHolder;
     @FXML private Canvas gameCanvas;
-    @FXML private Button restartButton;
 
-    private Runnable restartHandler; // Колбэк для логики перезапуска
+    private Runnable restartHandler;
 
     public void setOnRestart(Runnable handler) {
         this.restartHandler = handler;
@@ -39,7 +37,11 @@ public class SceneController {
         scoreLabel.setText("Score: " + score);
     }
 
-    // Геттеры для Canvas и Holder (как были раньше)
-    public Canvas getCanvas() { return gameCanvas; }
-    public StackPane getCanvasHolder() { return canvasHolder; }
+    public Canvas getCanvas() {
+        return gameCanvas;
+    }
+
+    public StackPane getCanvasHolder() {
+        return canvasHolder;
+    }
 }

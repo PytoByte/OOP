@@ -12,24 +12,12 @@ public class Snake implements GameObject, Collider {
         return startX;
     }
 
-    public void setStartX(int startX) {
-        this.startX = startX;
-    }
-
     public int getStartY() {
         return startY;
     }
 
-    public void setStartY(int startY) {
-        this.startY = startY;
-    }
-
     public int getStartSize() {
         return startSize;
-    }
-
-    public void setStartSize(int startSize) {
-        this.startSize = startSize;
     }
 
     private int startSize;

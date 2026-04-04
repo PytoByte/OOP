@@ -62,12 +62,13 @@ public class FoodController implements Controller, ColliderControl {
 
     @Override
     public void collide(Collider model, Point p) {
+        food.removeFood(p);
+        List<Point> collider = model.getCollider();
+        collider.addAll(food.getCollider());
+        spawnFood(collider);
+
         if (model instanceof Snake) {
-            food.removeFood(p);
             gameModel.increaseScore(1);
-            List<Point> collider = model.getCollider();
-            collider.addAll(food.getCollider());
-            spawnFood(collider);
         }
     }
 

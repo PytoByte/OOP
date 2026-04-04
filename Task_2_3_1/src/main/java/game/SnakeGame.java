@@ -4,13 +4,16 @@ import game.controller.FoodController;
 import game.controller.GameController;
 import game.controller.SceneController;
 import game.controller.SnakeController;
+import game.controller.WallsController;
 import game.model.Direction;
 import game.model.Food;
 import game.model.GameModel;
 import game.model.Snake;
+import game.model.Walls;
 import game.view.FoodView;
 import game.view.GameView;
 import game.view.SnakeView;
+import game.view.WallsView;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -47,20 +50,29 @@ public class SnakeGame extends Application {
             gameView.render();
         });
 
-        Snake snake = new Snake(gameModel.getWidth() / 2 - 1, gameModel.getHeight() / 2 - 1, 2, Direction.RIGHT);
+        Snake snake = new Snake(
+                gameModel.getWidth() / 2 - 1,
+                gameModel.getHeight() / 2 - 1,
+                2,
+                Direction.RIGHT
+        );
         SnakeController snakeController = new SnakeController(gameModel, snake);
         SnakeView snakeView = new SnakeView(gameModel, snake);
         gameController.addController(snakeController);
         gameView.addView(snakeView);
 
         Food food = new Food(3);
-        // Передаем sceneController в FoodController, чтобы обновлять счет в UI
         FoodController foodController = new FoodController(gameModel, food);
         FoodView foodView = new FoodView(gameModel, food);
         gameController.addController(foodController);
         gameView.addView(foodView);
 
-        // 8. Создаем сцену на основе загруженного root из FXML
+//        Walls walls = new Walls();
+//        WallsController wallsController = new WallsController(gameModel, walls);
+//        WallsView wallsView = new WallsView(gameModel, walls);
+//        gameController.addController(wallsController);
+//        gameView.addView(wallsView);
+
         Scene scene = new Scene(root);
 
         primaryStage.setTitle("Snake Game");
