@@ -10,6 +10,7 @@ import java.util.List;
 public interface GameObject {
     /**
      * Возвращает список всех точек (координат), занимаемых объектом.
+     *
      * @return список объектов {@link Point}, представляющих текущую форму или позицию объекта.
      */
     List<Point> getPoints();

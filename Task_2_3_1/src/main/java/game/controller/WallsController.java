@@ -21,6 +21,7 @@ public class WallsController implements Controller, ColliderControl {
     /**
      * Создает контроллер стен и связывает его с моделью игры и объектом стен.
      * При создании автоматически вызывает метод {@link #restart()}.
+     *
      * @param gameModel общая модель игры для получения размеров поля.
      * @param walls объект стен, которым будет управлять данный контроллер.
      */
@@ -33,6 +34,7 @@ public class WallsController implements Controller, ColliderControl {
     /**
      * Обрабатывает столкновение стены с другим объектом.
      * На данный момент метод пуст, так как стены статичны и не меняются при коллизиях.
+     *
      * @param model объект, с которым произошло столкновение.
      * @param p точка, в которой зафиксировано столкновение.
      */
@@ -43,6 +45,7 @@ public class WallsController implements Controller, ColliderControl {
 
     /**
      * Возвращает управляемый объект стен.
+     *
      * @return объект {@link Walls}, привязанный к контроллеру.
      */
     @Override

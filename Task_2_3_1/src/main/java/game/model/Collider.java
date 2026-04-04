@@ -9,6 +9,7 @@ import java.util.List;
 public interface Collider {
     /**
      * Возвращает список точек, представляющих физическую область объекта (хитбокс).
+     *
      * @return список объектов {@link Point}, с которыми могут сталкиваться другие сущности.
      */
     List<Point> getCollider();

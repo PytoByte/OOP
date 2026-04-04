@@ -17,6 +17,7 @@ public class Snake implements GameObject, Collider {
 
     /**
      * Создает новую змейку с начальными параметрами позиции, размера и направления.
+     *
      * @param startX начальная координата X головы.
      * @param startY начальная координата Y головы.
      * @param startSize начальное количество сегментов.
@@ -31,6 +32,7 @@ public class Snake implements GameObject, Collider {
 
     /**
      * Возвращает текущую позицию головы змейки.
+     *
      * @return {@link Point} головы (первый элемент в списке сегментов).
      */
     public Point getHead() {
@@ -39,6 +41,7 @@ public class Snake implements GameObject, Collider {
 
     /**
      * Добавляет новый сегмент к телу змейки (рост змейки).
+     *
      * @param p точка, в которой появляется новый сегмент.
      */
     public void increaseBody(Point p) {
@@ -49,6 +52,7 @@ public class Snake implements GameObject, Collider {
      * Устанавливает новое направление движения змейки.
      * Поворот игнорируется, если он является противоположным текущему направлению
      * (например, нельзя повернуть вверх, если змейка движется вниз).
+     *
      * @param dir желаемое направление {@link Direction}.
      */
     public void setDirection(Direction dir) {
@@ -75,7 +79,9 @@ public class Snake implements GameObject, Collider {
     }
 
     /**
-     * Возвращает список всех сегментов змейки для проверки столкновений с собой или другими объектами.
+     * Возвращает список всех сегментов змейки для проверки столкновений с собой
+     * или другими объектами.
+     *
      * @return копия списка {@link Point} всех частей тела змейки.
      */
     @Override

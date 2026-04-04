@@ -21,6 +21,7 @@ public class SceneController {
 
     /**
      * Устанавливает обработчик для события перезапуска игры.
+     *
      * @param handler объект {@link Runnable}, который будет выполнен при нажатии кнопки рестарта.
      */
     public void setOnRestart(Runnable handler) {
@@ -41,6 +42,7 @@ public class SceneController {
 
     /**
      * Отображает сообщение об окончании игры.
+     *
      * @param win флаг, определяющий текст сообщения: "YOU WIN!" при true или "GAME OVER" при false.
      */
     public void showGameOver(boolean win) {
@@ -51,6 +53,7 @@ public class SceneController {
 
     /**
      * Обновляет текстовое поле со счетом игрока.
+     *
      * @param score текущее количество набранных очков.
      */
     public void updateScore(int score) {

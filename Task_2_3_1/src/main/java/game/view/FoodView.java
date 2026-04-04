@@ -19,6 +19,7 @@ public class FoodView implements View {
 
     /**
      * Создает объект отображения еды.
+     *
      * @param gameModel модель игры, содержащая общие параметры поля.
      * @param food объект еды, данные которого необходимо визуализировать.
      */
@@ -30,7 +31,9 @@ public class FoodView implements View {
     /**
      * Формирует и возвращает итерируемый набор пар из координат и цвета.
      * Проходит по всем точкам еды и связывает их с заданным цветом (по умолчанию красным).
-     * @return {@link Iterable} набор объектов {@link Pair}, содержащих {@link Point} и {@link Color}.
+     *
+     * @return {@link Iterable} набор объектов {@link Pair},
+     * содержащих {@link Point} и {@link Color}.
      */
     @Override
     public Iterable<Pair<Point, Color>> getView() {

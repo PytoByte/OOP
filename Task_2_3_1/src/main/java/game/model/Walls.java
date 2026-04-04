@@ -12,6 +12,7 @@ public class Walls implements GameObject, Collider {
 
     /**
      * Добавляет новую точку (сегмент) в состав стен.
+     *
      * @param p объект {@link Point} с координатами сегмента.
      */
     public void add(Point p) {
@@ -25,6 +26,7 @@ public class Walls implements GameObject, Collider {
 
     /**
      * Создает копию списка точек стен для использования в системе коллизий.
+     *
      * @return новый {@link LinkedList}, содержащий все точки стен.
      */
     @Override

@@ -13,6 +13,7 @@ public interface View {
     /**
      * Возвращает наборы данных для отрисовки объекта.
      * Каждая пара содержит координаты точки на поле и соответствующий ей цвет.
+     *
      * @return итерируемый набор объектов {@link Pair}, связывающих {@link Point} и {@link Color}.
      */
     Iterable<Pair<Point, Color>> getView();

@@ -9,6 +9,7 @@ public class Main {
     /**
      * Запускает жизненный цикл JavaFX приложения.
      * Передает управление классу {@link SnakeGame}, который отвечает за настройку сцены.
+     *
      * @param args аргументы командной строки.
      */
     public static void main(String[] args) {

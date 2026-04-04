@@ -20,6 +20,7 @@ public class SnakeView implements View {
 
     /**
      * Создает объект отображения змейки.
+     *
      * @param gameModel модель игры для доступа к общим параметрам.
      * @param snake объект змейки, чьи координаты будут визуализированы.
      */
@@ -30,8 +31,10 @@ public class SnakeView implements View {
 
     /**
      * Формирует итерируемый набор пар из координат сегментов змейки и их цветов.
+     *
      * Использует флаг для переключения цвета после обработки первого элемента (головы).
-     * @return {@link Iterable} набор объектов {@link Pair}, содержащих {@link Point} и {@link Color}.
+     * @return {@link Iterable} набор объектов {@link Pair}, содержащих {@link Point}
+     * и {@link Color}.
      */
     @Override
     public Iterable<Pair<Point, Color>> getView() {

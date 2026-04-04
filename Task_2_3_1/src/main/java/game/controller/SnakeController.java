@@ -22,6 +22,7 @@ public class SnakeController implements Controller, ColliderControl {
 
     /**
      * Создает контроллер змейки и инициализирует начальное состояние.
+     *
      * @param gameModel общая модель игры для доступа к параметрам поля и состоянию игры.
      * @param snake объект змейки, которым управляет данный контроллер.
      */
@@ -94,6 +95,7 @@ public class SnakeController implements Controller, ColliderControl {
 
     /**
      * Настраивает обработку событий клавиатуры для изменения направления движения.
+     *
      * @param scene объект {@link Scene}, к которому привязывается слушатель нажатий.
      */
     @Override
@@ -113,6 +115,7 @@ public class SnakeController implements Controller, ColliderControl {
     /**
      * Обрабатывает столкновение змейки с другими объектами.
      * При столкновении с едой змейка растет. При столкновении со стеной — конец игры.
+     *
      * @param model объект, с которым произошло столкновение.
      * @param p точка столкновения.
      */

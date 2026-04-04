@@ -13,6 +13,7 @@ public class Food implements GameObject, Collider {
 
     /**
      * Создает объект управления едой с ограничением по количеству.
+     *
      * @param maxCount максимально допустимое количество еды на поле одновременно.
      */
     public Food(int maxCount) {
@@ -22,6 +23,7 @@ public class Food implements GameObject, Collider {
 
     /**
      * Добавляет новую единицу еды в указанную точку, если лимит не превышен.
+     *
      * @param p координаты новой еды.
      */
     public void addFood(Point p) {
@@ -32,6 +34,7 @@ public class Food implements GameObject, Collider {
 
     /**
      * Удаляет еду из указанной точки (например, когда змейка её съедает).
+     *
      * @param p координаты еды, которую нужно удалить.
      */
     public void removeFood(Point p) {
@@ -45,6 +48,7 @@ public class Food implements GameObject, Collider {
 
     /**
      * Создает копию списка точек еды для обработки столкновений.
+     *
      * @return новый {@link ArrayList}, содержащий текущие координаты всей еды.
      */
     @Override
