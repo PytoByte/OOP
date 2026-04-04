@@ -19,24 +19,41 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+/**
+ * Главный класс приложения JavaFX, отвечающий за инициализацию и запуск игры.
+ * Выполняет загрузку UI из FXML, создает основные компоненты игры (модели, контроллеры, виды)
+ * и связывает их между собой.
+ */
 public class SnakeGame extends Application {
+
+    /**
+     * Точка входа в JavaFX приложение.
+     * Настраивает сцену, холст с автоматическим изменением размера и инициализирует
+     * игровые объекты (Змейку, Еду и закомментированные Стены).
+     * @param primaryStage основное окно приложения.
+     * @throws Exception если возникли ошибки при загрузке FXML-файла.
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
+        // Загрузка интерфейса из файла ресурсов
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/layout.fxml"));
-
         Parent root = loader.load();
 
+        // Инициализация контроллера сцены и базовой модели игры
         SceneController sceneController = loader.getController();
-
         GameModel gameModel = new GameModel(8, 8, 10);
 
         StackPane holder = sceneController.getCanvasHolder();
         Canvas canvas = sceneController.getCanvas();
 
+        // Создание главных управляющих компонентов
         GameView gameView = new GameView(gameModel, canvas);
         GameController gameController = new GameController(gameModel, gameView, sceneController);
+
+        // Передача метода перезапуска в UI-контроллер
         sceneController.setOnRestart(gameController::restart);
 
+        // Настройка слушателей для адаптивного изменения размера холста
         holder.widthProperty().addListener((obs, oldVal, newVal) -> {
             canvas.setWidth(newVal.doubleValue());
             gameView.render();
@@ -47,6 +64,7 @@ public class SnakeGame extends Application {
             gameView.render();
         });
 
+        // Сборка модуля "Змейка"
         Snake snake = new Snake(
                 gameModel.getWidth() / 2 - 1,
                 gameModel.getHeight() / 2 - 1,
@@ -55,29 +73,26 @@ public class SnakeGame extends Application {
         );
         SnakeController snakeController = new SnakeController(gameModel, snake);
         SnakeView snakeView = new SnakeView(gameModel, snake);
+
         gameController.addController(snakeController);
         gameView.addView(snakeView);
 
+        // Сборка модуля "Еда"
         Food food = new Food(3);
         FoodController foodController = new FoodController(gameModel, food);
         FoodView foodView = new FoodView(gameModel, food);
+
         gameController.addController(foodController);
         gameView.addView(foodView);
 
-//        Walls walls = new Walls();
-//        WallsController wallsController = new WallsController(gameModel, walls);
-//        WallsView wallsView = new WallsView(gameModel, walls);
-//        gameController.addController(wallsController);
-//        gameView.addView(wallsView);
-
+        // Инициализация графического окна
         Scene scene = new Scene(root);
-
         primaryStage.setTitle("Snake Game");
         primaryStage.setScene(scene);
         primaryStage.setResizable(true);
         primaryStage.show();
 
-        // Запускаем игру
+        // Запуск игрового цикла
         gameController.start(scene);
     }
 }

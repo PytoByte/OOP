@@ -10,11 +10,21 @@ import game.model.Walls;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 
+/**
+ * Контроллер управления змейкой.
+ * Реализует логику перемещения, обработки ввода с клавиатуры,
+ * проверки столкновения с самим собой и реакции на игровые события (еда, стены).
+ */
 public class SnakeController implements Controller, ColliderControl {
     Snake snake;
     GameModel gameModel;
     Direction directionBuffer;
 
+    /**
+     * Создает контроллер змейки и инициализирует начальное состояние.
+     * @param gameModel общая модель игры для доступа к параметрам поля и состоянию игры.
+     * @param snake объект змейки, которым управляет данный контроллер.
+     */
     public SnakeController(GameModel gameModel, Snake snake) {
         this.snake = snake;
         this.gameModel = gameModel;
@@ -22,11 +32,18 @@ public class SnakeController implements Controller, ColliderControl {
         restart();
     }
 
+    /**
+     * Основной цикл обновления состояния змейки.
+     * Рассчитывает новую позицию головы с учетом циклического переноса через границы поля,
+     * перемещает все сегменты тела и проверяет столкновение головы с хвостом ("самоубийство").
+     */
     public void update() {
         snake.setDirection(directionBuffer);
 
         Point head = snake.getHead();
         Point nextPos = new Point(head.getX(), head.getY());
+
+        // Расчет координат следующего шага с учетом бесконечного поля (wrap-around)
         switch (snake.getDirection()) {
             case UP ->
                     nextPos.setY((head.getY() - 1 + gameModel.getHeight()) % gameModel.getHeight());
@@ -38,6 +55,7 @@ public class SnakeController implements Controller, ColliderControl {
                     nextPos.setX((head.getX() + 1) % gameModel.getWidth());
         }
 
+        // Логика перемещения сегментов тела (каждый сегмент встает на место предыдущего)
         for (Point body : snake.getPoints()) {
             int oldX = body.getX();
             body.setX(nextPos.getX());
@@ -48,6 +66,7 @@ public class SnakeController implements Controller, ColliderControl {
             nextPos.setX(oldX);
             nextPos.setY(oldY);
 
+            // Проверка на столкновение головы с телом
             if (body != head && body.equals(head)) {
                 System.out.println("Suicide");
                 gameModel.setGameOver(true);
@@ -55,6 +74,10 @@ public class SnakeController implements Controller, ColliderControl {
         }
     }
 
+    /**
+     * Сбрасывает состояние змейки к начальному.
+     * Очищает список точек и создает змейку стартового размера в начальных координатах.
+     */
     @Override
     public void restart() {
         snake.getPoints().clear();
@@ -69,6 +92,10 @@ public class SnakeController implements Controller, ColliderControl {
         return snake;
     }
 
+    /**
+     * Настраивает обработку событий клавиатуры для изменения направления движения.
+     * @param scene объект {@link Scene}, к которому привязывается слушатель нажатий.
+     */
     @Override
     public void setupEvents(Scene scene) {
         scene.setOnKeyPressed(event -> {
@@ -83,6 +110,12 @@ public class SnakeController implements Controller, ColliderControl {
         });
     }
 
+    /**
+     * Обрабатывает столкновение змейки с другими объектами.
+     * При столкновении с едой змейка растет. При столкновении со стеной — конец игры.
+     * @param model объект, с которым произошло столкновение.
+     * @param p точка столкновения.
+     */
     @Override
     public void collide(Collider model, Point p) {
         if (model instanceof Food) {

@@ -10,17 +10,33 @@ import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Контроллер для управления объектами еды.
+ * Отвечает за генерацию (спавн) еды в свободных ячейках игрового поля,
+ * обработку поедания еды змейкой и обновление игрового счета.
+ */
 public class FoodController implements Controller, ColliderControl {
     GameModel gameModel;
     Food food;
     Random random = new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
 
+    /**
+     * Создает контроллер еды и инициализирует начальное состояние объектов еды на поле.
+     * @param gameModel общая модель игры для доступа к размерам поля.
+     * @param food объект управления едой, которым будет оперировать контроллер.
+     */
     public FoodController(GameModel gameModel, Food food) {
         this.gameModel = gameModel;
         this.food = food;
         restart();
     }
 
+    /**
+     * Пытается создать недостающее количество еды на поле, избегая занятых точек.
+     * Если случайная координата занята, метод ищет первую свободную ячейку перебором.
+     * Если свободных ячеек не осталось, максимальное количество еды ограничивается текущим.
+     * @param redZone список координат, в которых нельзя создавать еду (змея, стены и т.д.).
+     */
     private void spawnFood(List<Point> redZone) {
         int spawnFoodCount = food.getMaxCount() - food.getCount();
         for (int i = 0; i < spawnFoodCount; i++) {
@@ -59,6 +75,13 @@ public class FoodController implements Controller, ColliderControl {
         }
     }
 
+    /**
+     * Обрабатывает столкновение еды с другим объектом (обычно змейкой).
+     * При столкновении удаляет съеденную еду, инициирует появление новой
+     * и увеличивает счет в модели игры, если инициатор — змейка.
+     * @param model объект, столкнувшийся с едой.
+     * @param p точка, в которой произошло столкновение.
+     */
     @Override
     public void collide(Collider model, Point p) {
         food.removeFood(p);
@@ -71,11 +94,18 @@ public class FoodController implements Controller, ColliderControl {
         }
     }
 
+    /**
+     * Возвращает управляемую модель еды.
+     * @return объект {@link Food}.
+     */
     @Override
     public Object getModel() {
         return food;
     }
 
+    /**
+     * Сбрасывает состояние еды: очищает поле и создает начальный набор объектов еды.
+     */
     @Override
     public void restart() {
         food.getPoints().clear();
