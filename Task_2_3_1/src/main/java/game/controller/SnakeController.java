@@ -1,9 +1,9 @@
 package game.controller;
 
 import game.model.Collider;
-import game.model.GameModel;
 import game.model.Direction;
 import game.model.Food;
+import game.model.GameModel;
 import game.model.Point;
 import game.model.Snake;
 import game.model.Walls;
@@ -54,6 +54,8 @@ public class SnakeController implements Controller, ColliderControl {
                     nextPos.setX((head.getX() - 1 + gameModel.getWidth()) % gameModel.getWidth());
             case RIGHT ->
                     nextPos.setX((head.getX() + 1) % gameModel.getWidth());
+            default ->
+                System.err.printf("Unexpected snake direction %s\n", snake.getDirection());
         }
 
         // Логика перемещения сегментов тела (каждый сегмент встает на место предыдущего)
@@ -108,6 +110,7 @@ public class SnakeController implements Controller, ColliderControl {
                 case DOWN -> directionBuffer = Direction.DOWN;
                 case LEFT -> directionBuffer = Direction.LEFT;
                 case RIGHT -> directionBuffer = Direction.RIGHT;
+                default -> System.err.println("Skip unused button");
             }
         });
     }

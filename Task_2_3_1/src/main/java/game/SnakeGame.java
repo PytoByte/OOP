@@ -38,7 +38,6 @@ public class SnakeGame extends Application {
     public void start(Stage primaryStage) throws Exception {
         // Загрузка интерфейса из файла ресурсов
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/layout.fxml"));
-        Parent root = loader.load();
 
         // Инициализация контроллера сцены и базовой модели игры
         SceneController sceneController = loader.getController();
@@ -87,6 +86,7 @@ public class SnakeGame extends Application {
         gameView.addView(foodView);
 
         // Инициализация графического окна
+        Parent root = loader.load();
         Scene scene = new Scene(root);
         primaryStage.setTitle("Snake Game");
         primaryStage.setScene(scene);

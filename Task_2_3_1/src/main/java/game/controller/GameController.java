@@ -1,15 +1,15 @@
 package game.controller;
 
-import game.model.GameModel;
-import game.view.GameView;
 import game.model.Collider;
+import game.model.GameModel;
 import game.model.Point;
+import game.view.GameView;
+import java.util.ArrayList;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
 import javafx.util.Duration;
-import java.util.ArrayList;
 
 /**
  * Главный контроллер игры, координирующий работу всех подсистем.
@@ -62,16 +62,16 @@ public class GameController {
                 Controller controller1 = controllers.get(i);
                 Controller controller2 = controllers.get(j);
 
-                if (!(controller1 instanceof ColliderControl colliderControl1 &&
-                        controller2 instanceof ColliderControl colliderControl2)) {
+                if (!(controller1 instanceof ColliderControl colliderControl1
+                        && controller2 instanceof ColliderControl colliderControl2)) {
                     continue;
                 }
 
                 Object model1 = controller1.getModel();
                 Object model2 = controller2.getModel();
 
-                if (!(model1 instanceof Collider collider1 &&
-                        model2 instanceof Collider collider2)) {
+                if (!(model1 instanceof Collider collider1
+                        && model2 instanceof Collider collider2)) {
                     continue;
                 }
 
