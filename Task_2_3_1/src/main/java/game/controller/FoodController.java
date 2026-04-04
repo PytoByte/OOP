@@ -55,11 +55,11 @@ public class FoodController implements Controller, ColliderControl {
                         int finalX = x;
                         int finalY = y;
                         if (redZone.stream()
-                                .noneMatch(redP -> redP.getX() == finalX
-                                        && redP.getY() == finalY)
+                                .noneMatch(redP -> redP.getCoordX() == finalX
+                                        && redP.getCoordY() == finalY)
                         ) {
-                            p.setX(x);
-                            p.setY(y);
+                            p.setCoordX(x);
+                            p.setCoordY(y);
                             found = true;
                             break;
                         }

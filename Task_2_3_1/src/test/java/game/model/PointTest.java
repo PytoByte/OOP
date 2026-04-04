@@ -10,27 +10,27 @@ class PointTest {
     @Test
     void getX() {
         Point p = new Point(10, 20);
-        assertEquals(10, p.getX());
+        assertEquals(10, p.getCoordX());
     }
 
     @Test
     void setX() {
         Point p = new Point(0, 0);
-        p.setX(50);
-        assertEquals(50, p.getX());
+        p.setCoordX(50);
+        assertEquals(50, p.getCoordX());
     }
 
     @Test
     void getY() {
         Point p = new Point(10, 20);
-        assertEquals(20, p.getY());
+        assertEquals(20, p.getCoordY());
     }
 
     @Test
     void setY() {
         Point p = new Point(0, 0);
-        p.setY(100);
-        assertEquals(100, p.getY());
+        p.setCoordY(100);
+        assertEquals(100, p.getCoordY());
     }
 
     @Test

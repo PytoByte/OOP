@@ -5,8 +5,8 @@ package game.model;
  * Используется для хранения координат сегментов змейки, еды и препятствий.
  */
 public class Point {
-    int x;
-    int y;
+    int coordX;
+    int coordY;
 
     /**
      * Создает новую точку с заданными координатами.
@@ -15,8 +15,8 @@ public class Point {
      * @param y координата по вертикали.
      */
     public Point(int x, int y) {
-        this.x = x;
-        this.y = y;
+        this.coordX = x;
+        this.coordY = y;
     }
 
     /**
@@ -37,7 +37,7 @@ public class Point {
             return false;
         }
 
-        return x == p.x && y == p.y;
+        return coordX == p.coordX && coordY == p.coordY;
     }
 
     /**
@@ -47,7 +47,7 @@ public class Point {
      */
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(x, y);
+        return java.util.Objects.hash(coordX, coordY);
     }
 
     /**
@@ -57,22 +57,22 @@ public class Point {
      */
     @Override
     public String toString() {
-        return String.format("(%d, %d)", x, y);
+        return String.format("(%d, %d)", coordX, coordY);
     }
 
-    public int getX() {
-        return x;
+    public int getCoordX() {
+        return coordX;
     }
 
-    public void setX(int x) {
-        this.x = x;
+    public void setCoordX(int coordX) {
+        this.coordX = coordX;
     }
 
-    public int getY() {
-        return y;
+    public int getCoordY() {
+        return coordY;
     }
 
-    public void setY(int y) {
-        this.y = y;
+    public void setCoordY(int coordY) {
+        this.coordY = coordY;
     }
 }

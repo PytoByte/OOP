@@ -42,32 +42,32 @@ public class SnakeController implements Controller, ColliderControl {
         snake.setDirection(directionBuffer);
 
         Point head = snake.getHead();
-        Point nextPos = new Point(head.getX(), head.getY());
+        Point nextPos = new Point(head.getCoordX(), head.getCoordY());
 
         // Расчет координат следующего шага с учетом бесконечного поля (wrap-around)
         switch (snake.getDirection()) {
             case UP ->
-                    nextPos.setY((head.getY() - 1 + gameModel.getHeight()) % gameModel.getHeight());
+                    nextPos.setCoordY((head.getCoordY() - 1 + gameModel.getHeight()) % gameModel.getHeight());
             case DOWN ->
-                    nextPos.setY((head.getY() + 1) % gameModel.getHeight());
+                    nextPos.setCoordY((head.getCoordY() + 1) % gameModel.getHeight());
             case LEFT ->
-                    nextPos.setX((head.getX() - 1 + gameModel.getWidth()) % gameModel.getWidth());
+                    nextPos.setCoordX((head.getCoordX() - 1 + gameModel.getWidth()) % gameModel.getWidth());
             case RIGHT ->
-                    nextPos.setX((head.getX() + 1) % gameModel.getWidth());
+                    nextPos.setCoordX((head.getCoordX() + 1) % gameModel.getWidth());
             default ->
                 System.err.printf("Unexpected snake direction %s\n", snake.getDirection());
         }
 
         // Логика перемещения сегментов тела (каждый сегмент встает на место предыдущего)
         for (Point body : snake.getPoints()) {
-            int oldX = body.getX();
-            body.setX(nextPos.getX());
+            int oldX = body.getCoordX();
+            body.setCoordX(nextPos.getCoordX());
 
-            int oldY = body.getY();
-            body.setY((nextPos.getY()));
+            int oldY = body.getCoordY();
+            body.setCoordY((nextPos.getCoordY()));
 
-            nextPos.setX(oldX);
-            nextPos.setY(oldY);
+            nextPos.setCoordX(oldX);
+            nextPos.setCoordY(oldY);
 
             // Проверка на столкновение головы с телом
             if (body != head && body.equals(head)) {

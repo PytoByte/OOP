@@ -95,15 +95,15 @@ public class GameView {
                 Point p = pixel.getKey();
 
                 // Пропуск точек с некорректными координатами (например, -1, -1 при росте хвоста)
-                if (p.getX() < 0 || p.getY() < 0
-                        || p.getX() >= gameModel.getWidth() || p.getY() >= gameModel.getHeight()) {
+                if (p.getCoordX() < 0 || p.getCoordY() < 0
+                        || p.getCoordX() >= gameModel.getWidth() || p.getCoordY() >= gameModel.getHeight()) {
                     continue;
                 }
 
                 gc.setFill(pixel.getValue());
 
-                double x = offsetX + p.getX() * tileSize;
-                double y = offsetY + p.getY() * tileSize;
+                double x = offsetX + p.getCoordX() * tileSize;
+                double y = offsetY + p.getCoordY() * tileSize;
 
                 // Отрисовка ячейки с небольшим зазором (tileSize - 1) для визуального разделения
                 gc.fillRect(x, y, tileSize - 1, tileSize - 1);
