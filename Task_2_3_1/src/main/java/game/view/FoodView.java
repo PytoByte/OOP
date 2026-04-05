@@ -1,7 +1,7 @@
 package game.view;
 
 import game.model.Food;
-import game.model.GameModel;
+import game.model.GameWorld;
 import game.model.Point;
 import java.util.LinkedList;
 import javafx.scene.paint.Color;
@@ -13,18 +13,18 @@ import javafx.util.Pair;
  * и цвете каждой единицы еды для последующей отрисовки.
  */
 public class FoodView implements View {
-    GameModel gameModel;
+    GameWorld gameWorld;
     Food food;
     Color foodColor = new Color(1, 0, 0, 1);
 
     /**
      * Создает объект отображения еды.
      *
-     * @param gameModel модель игры, содержащая общие параметры поля.
+     * @param gameWorld модель игры, содержащая общие параметры поля.
      * @param food объект еды, данные которого необходимо визуализировать.
      */
-    public FoodView(GameModel gameModel, Food food) {
-        this.gameModel = gameModel;
+    public FoodView(GameWorld gameWorld, Food food) {
+        this.gameWorld = gameWorld;
         this.food = food;
     }
 

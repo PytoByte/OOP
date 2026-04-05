@@ -2,7 +2,7 @@ package game.controller;
 
 import game.model.Collider;
 import game.model.Food;
-import game.model.GameModel;
+import game.model.GameWorld;
 import game.model.Point;
 import game.model.Snake;
 import java.time.LocalDateTime;
@@ -16,18 +16,18 @@ import java.util.Random;
  * обработку поедания еды змейкой и обновление игрового счета.
  */
 public class FoodController implements Controller, ColliderControl {
-    GameModel gameModel;
+    GameWorld gameWorld;
     Food food;
     Random random = new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
 
     /**
      * Создает контроллер еды и инициализирует начальное состояние объектов еды на поле.
      *
-     * @param gameModel общая модель игры для доступа к размерам поля.
+     * @param gameWorld общая модель игры для доступа к размерам поля.
      * @param food объект управления едой, которым будет оперировать контроллер.
      */
-    public FoodController(GameModel gameModel, Food food) {
-        this.gameModel = gameModel;
+    public FoodController(GameWorld gameWorld, Food food) {
+        this.gameWorld = gameWorld;
         this.food = food;
         restart();
     }
@@ -44,14 +44,14 @@ public class FoodController implements Controller, ColliderControl {
         for (int i = 0; i < spawnFoodCount; i++) {
             boolean found = true;
             Point p = new Point(
-                    random.nextInt(gameModel.getWidth()),
-                    random.nextInt(gameModel.getHeight())
+                    random.nextInt(gameWorld.getWidth()),
+                    random.nextInt(gameWorld.getHeight())
             );
 
             if (redZone.contains(p)) {
                 found = false;
-                for (int x = 0; x < gameModel.getWidth() && !found; x++) {
-                    for (int y = 0; y < gameModel.getHeight(); y++) {
+                for (int x = 0; x < gameWorld.getWidth() && !found; x++) {
+                    for (int y = 0; y < gameWorld.getHeight(); y++) {
                         int finalX = x;
                         int finalY = y;
                         if (redZone.stream()
@@ -93,7 +93,7 @@ public class FoodController implements Controller, ColliderControl {
         spawnFood(collider);
 
         if (model instanceof Snake) {
-            gameModel.increaseScore(1);
+            gameWorld.increaseScore(1);
         }
     }
 

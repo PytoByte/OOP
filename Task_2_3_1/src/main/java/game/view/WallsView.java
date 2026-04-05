@@ -1,6 +1,6 @@
 package game.view;
 
-import game.model.GameModel;
+import game.model.GameWorld;
 import game.model.Point;
 import game.model.Walls;
 import java.util.LinkedList;
@@ -13,18 +13,18 @@ import javafx.util.Pair;
  * в цветные графические элементы для рендеринга.
  */
 public class WallsView implements View {
-    GameModel gameModel;
+    GameWorld gameWorld;
     Walls walls;
     Color wallColor = new Color(0.5, 0.5, 0.5, 1);
 
     /**
      * Создает объект отображения стен.
      *
-     * @param gameModel модель игры для получения параметров поля.
+     * @param gameWorld модель игры для получения параметров поля.
      * @param walls объект стен, данные которого необходимо визуализировать.
      */
-    public WallsView(GameModel gameModel, Walls walls) {
-        this.gameModel = gameModel;
+    public WallsView(GameWorld gameWorld, Walls walls) {
+        this.gameWorld = gameWorld;
         this.walls = walls;
     }
 

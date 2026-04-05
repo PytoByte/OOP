@@ -1,6 +1,6 @@
 package game.view;
 
-import game.model.GameModel;
+import game.model.GameWorld;
 import game.model.Point;
 import game.model.Snake;
 import java.util.LinkedList;
@@ -13,7 +13,7 @@ import javafx.util.Pair;
  * окрашивается в отличительный цвет для удобства ориентации игрока.
  */
 public class SnakeView implements View {
-    GameModel gameModel;
+    GameWorld gameWorld;
     Snake snake;
     Color headColor = Color.AQUAMARINE;
     Color bodyColor = Color.MEDIUMAQUAMARINE;
@@ -21,12 +21,12 @@ public class SnakeView implements View {
     /**
      * Создает объект отображения змейки.
      *
-     * @param gameModel модель игры для доступа к общим параметрам.
+     * @param gameWorld модель игры для доступа к общим параметрам.
      * @param snake объект змейки, чьи координаты будут визуализированы.
      */
-    public SnakeView(GameModel gameModel, Snake snake) {
+    public SnakeView(GameWorld gameWorld, Snake snake) {
         this.snake = snake;
-        this.gameModel = gameModel;
+        this.gameWorld = gameWorld;
     }
 
     /**

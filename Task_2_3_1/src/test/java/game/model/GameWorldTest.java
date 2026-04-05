@@ -7,15 +7,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class GameModelTest {
-    private GameModel model;
+class GameWorldTest {
+    private GameWorld model;
     private final int width = 30;
     private final int height = 20;
     private final int winScore = 10;
 
     @BeforeEach
     void setUp() {
-        model = new GameModel(width, height, winScore);
+        model = new GameWorld(width, height, winScore);
     }
 
     @Test

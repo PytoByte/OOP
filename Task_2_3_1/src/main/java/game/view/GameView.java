@@ -1,6 +1,6 @@
 package game.view;
 
-import game.model.GameModel;
+import game.model.GameWorld;
 import game.model.Point;
 import java.util.LinkedList;
 import javafx.scene.canvas.Canvas;
@@ -16,16 +16,16 @@ import javafx.util.Pair;
 public class GameView {
     private final LinkedList<View> views = new LinkedList<>();
     private final Canvas canvas;
-    private final GameModel gameModel;
+    private final GameWorld gameWorld;
 
     /**
      * Создает объект отрисовки, привязанный к конкретной модели и холсту JavaFX.
      *
-     * @param gameModel модель игры для получения логических размеров поля.
+     * @param gameWorld модель игры для получения логических размеров поля.
      * @param canvas графический холст, на котором будет происходить отрисовка.
      */
-    public GameView(GameModel gameModel, Canvas canvas) {
-        this.gameModel = gameModel;
+    public GameView(GameWorld gameWorld, Canvas canvas) {
+        this.gameWorld = gameWorld;
         this.canvas = canvas;
     }
 
@@ -52,12 +52,12 @@ public class GameView {
 
         // Определение размера плитки по минимальной стороне, чтобы поле вписалось в холст
         double tileSize = Math.min(
-                canvasWidth / gameModel.getWidth(),
-                canvasHeight / gameModel.getHeight()
+                canvasWidth / gameWorld.getWidth(),
+                canvasHeight / gameWorld.getHeight()
         );
 
-        double actualFieldWidth = gameModel.getWidth() * tileSize;
-        double actualFieldHeight = gameModel.getHeight() * tileSize;
+        double actualFieldWidth = gameWorld.getWidth() * tileSize;
+        double actualFieldHeight = gameWorld.getHeight() * tileSize;
 
         // Расчет смещения для центрирования игрового поля
         double offsetX = (canvasWidth - actualFieldWidth) / 2;
@@ -73,8 +73,8 @@ public class GameView {
         Color color2 = Color.GREEN;
 
         // Отрисовка шахматной сетки игрового поля
-        for (int x = 0; x < gameModel.getWidth(); x++) {
-            for (int y = 0; y < gameModel.getHeight(); y++) {
+        for (int x = 0; x < gameWorld.getWidth(); x++) {
+            for (int y = 0; y < gameWorld.getHeight(); y++) {
                 if ((x + y) % 2 == 0) {
                     gc.setFill(color1);
                 } else {
@@ -96,8 +96,8 @@ public class GameView {
 
                 // Пропуск точек с некорректными координатами (например, -1, -1 при росте хвоста)
                 if (p.getCoordX() < 0 || p.getCoordY() < 0
-                        || p.getCoordX() >= gameModel.getWidth()
-                        || p.getCoordY() >= gameModel.getHeight()) {
+                        || p.getCoordX() >= gameWorld.getWidth()
+                        || p.getCoordY() >= gameWorld.getHeight()) {
                     continue;
                 }
 

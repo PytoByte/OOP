@@ -1,7 +1,7 @@
 package game.controller;
 
 import game.model.Collider;
-import game.model.GameModel;
+import game.model.GameWorld;
 import game.model.Point;
 import game.model.Walls;
 import java.time.LocalDateTime;
@@ -14,7 +14,7 @@ import java.util.Random;
  * а также за их размещение на игровом поле.
  */
 public class WallsController implements Controller, ColliderControl {
-    GameModel gameModel;
+    GameWorld gameWorld;
     Walls walls;
     Random random = new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
 
@@ -22,11 +22,11 @@ public class WallsController implements Controller, ColliderControl {
      * Создает контроллер стен и связывает его с моделью игры и объектом стен.
      * При создании автоматически вызывает метод {@link #restart()}.
      *
-     * @param gameModel общая модель игры для получения размеров поля.
+     * @param gameWorld общая модель игры для получения размеров поля.
      * @param walls объект стен, которым будет управлять данный контроллер.
      */
-    public WallsController(GameModel gameModel, Walls walls) {
-        this.gameModel = gameModel;
+    public WallsController(GameWorld gameWorld, Walls walls) {
+        this.gameWorld = gameWorld;
         this.walls = walls;
         restart();
     }
@@ -60,8 +60,8 @@ public class WallsController implements Controller, ColliderControl {
     @Override
     public void restart() {
         Point p = new Point(
-                random.nextInt(gameModel.getWidth()),
-                random.nextInt(gameModel.getHeight())
+                random.nextInt(gameWorld.getWidth()),
+                random.nextInt(gameWorld.getHeight())
         );
         walls.getPoints().clear();
         walls.getPoints().add(p);

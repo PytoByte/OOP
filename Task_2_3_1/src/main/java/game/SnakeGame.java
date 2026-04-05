@@ -6,7 +6,7 @@ import game.controller.SceneController;
 import game.controller.SnakeController;
 import game.model.Direction;
 import game.model.Food;
-import game.model.GameModel;
+import game.model.GameWorld;
 import game.model.Snake;
 import game.view.FoodView;
 import game.view.GameView;
@@ -41,14 +41,14 @@ public class SnakeGame extends Application {
 
         // Инициализация контроллера сцены и базовой модели игры
         SceneController sceneController = loader.getController();
-        GameModel gameModel = new GameModel(8, 8, 10);
+        GameWorld gameWorld = new GameWorld(8, 8, 10);
 
         StackPane holder = sceneController.getCanvasHolder();
         Canvas canvas = sceneController.getCanvas();
 
         // Создание главных управляющих компонентов
-        GameView gameView = new GameView(gameModel, canvas);
-        GameController gameController = new GameController(gameModel, gameView, sceneController);
+        GameView gameView = new GameView(gameWorld, canvas);
+        GameController gameController = new GameController(gameWorld, gameView, sceneController);
 
         // Передача метода перезапуска в UI-контроллер
         sceneController.setOnRestart(gameController::restart);
@@ -66,21 +66,21 @@ public class SnakeGame extends Application {
 
         // Сборка модуля "Змейка"
         Snake snake = new Snake(
-                gameModel.getWidth() / 2 - 1,
-                gameModel.getHeight() / 2 - 1,
+                gameWorld.getWidth() / 2 - 1,
+                gameWorld.getHeight() / 2 - 1,
                 2,
                 Direction.RIGHT
         );
-        SnakeController snakeController = new SnakeController(gameModel, snake);
-        SnakeView snakeView = new SnakeView(gameModel, snake);
+        SnakeController snakeController = new SnakeController(gameWorld, snake);
+        SnakeView snakeView = new SnakeView(gameWorld, snake);
 
         gameController.addController(snakeController);
         gameView.addView(snakeView);
 
         // Сборка модуля "Еда"
         Food food = new Food(3);
-        FoodController foodController = new FoodController(gameModel, food);
-        FoodView foodView = new FoodView(gameModel, food);
+        FoodController foodController = new FoodController(gameWorld, food);
+        FoodView foodView = new FoodView(gameWorld, food);
 
         gameController.addController(foodController);
         gameView.addView(foodView);

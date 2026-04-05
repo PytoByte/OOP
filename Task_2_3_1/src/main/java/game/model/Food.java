@@ -7,7 +7,7 @@ import java.util.List;
  * Класс, отвечающий за управление объектами еды на игровом поле.
  * Хранит текущие позиции еды и ограничивает их максимальное количество.
  */
-public class Food implements GameObject, Collider {
+public class Food implements Renderable, Collider {
     private int maxCount;
     private final ArrayList<Point> points;
 

@@ -7,7 +7,7 @@ import java.util.List;
  * Класс, представляющий препятствия (стены) в игровом мире.
  * Хранит координаты сегментов стен и предоставляет их для отрисовки и обработки столкновений.
  */
-public class Walls implements GameObject, Collider {
+public class Walls implements Renderable, Collider {
     private final List<Point> points = new LinkedList<>();
 
     /**
