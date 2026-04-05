@@ -17,6 +17,7 @@ public interface Collider {
      * Обработчик коллизии.
      *
      * @param other Модель игрового объекта с которым произошла коллизия
+     * @param p Точка в которой произошла коллизия
      */
-    void onCollision(Collider other);
+    void onCollision(Collider other, Point p);
 }

@@ -7,10 +7,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Класс, представляющий змейку как управляемый игровой объект.
- * Реализует логику движения, хранения сегментов тела и смены направления.
+ * Модель змейки.
  */
-public class Snake implements Renderable<SnakePart>, Collider, Updatable {
+public class Snake implements Renderable<SnakePart>, Collider, Updatable, Restartable {
     private final List<Point> points = new LinkedList<>();
     private final int startX;
     private final int startY;
@@ -85,9 +84,11 @@ public class Snake implements Renderable<SnakePart>, Collider, Updatable {
     }
 
     @Override
-    public void onCollision(Collider other) {
+    public void onCollision(Collider other, Point p) {
         if (other instanceof Food) {
-            points.add(new Point(-1, -1));
+            if (getHead().equals(p)) {
+                points.add(new Point(-1, -1));
+            }
         }
     }
 

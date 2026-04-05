@@ -5,10 +5,18 @@ import game.model.Snake;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 
+/**
+ * Контроллер змейки.
+ */
 public class SnakeController implements Controller {
     private final Snake snake;
     private Direction directionBuffer;
 
+    /**
+     * Базовый конструктор класса.
+     *
+     * @param snake модель змейки
+     */
     public SnakeController(Snake snake) {
         this.snake = snake;
         this.directionBuffer = snake.getDirection();
@@ -42,10 +50,5 @@ public class SnakeController implements Controller {
                 }
             }
         });
-    }
-
-    @Override
-    public void restart() {
-        directionBuffer = snake.getDirection();
     }
 }

@@ -20,9 +20,4 @@ public interface Controller {
      * По умолчанию метод пуст.
      */
     default void tick() {}
-
-    /**
-     * Сбрасывает состояние контроллера.
-     */
-    void restart();
 }
