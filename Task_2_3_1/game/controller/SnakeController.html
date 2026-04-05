@@ -76,15 +76,13 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>All Implemented Interfaces:</dt>
-<dd><code><a href="ColliderControl.html" title="interface in game.controller">ColliderControl</a></code>, <code><a href="Controller.html" title="interface in game.controller">Controller</a></code></dd>
+<dd><code><a href="Controller.html" title="interface in game.controller">Controller</a></code></dd>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">SnakeController</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
-implements <a href="Controller.html" title="interface in game.controller">Controller</a>, <a href="ColliderControl.html" title="interface in game.controller">ColliderControl</a></span></div>
-<div class="block">Контроллер управления змейкой.
- Реализует логику перемещения, обработки ввода с клавиатуры,
- проверки столкновения с самим собой и реакции на игровые события (еда, стены).</div>
+implements <a href="Controller.html" title="interface in game.controller">Controller</a></span></div>
+<div class="block">Контроллер змейки.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -96,10 +94,9 @@ implements <a href="Controller.html" title="interface in game.controller">Contro
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(game.model.GameModel,game.model.Snake)" class="member-name-link">SnakeController</a><wbr>(<a href="../model/GameModel.html" title="class in game.model">GameModel</a>&nbsp;gameModel,
- <a href="../model/Snake.html" title="class in game.model">Snake</a>&nbsp;snake)</code></div>
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(game.model.Snake)" class="member-name-link">SnakeController</a><wbr>(<a href="../model/Snake.html" title="class in game.model">Snake</a>&nbsp;snake)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Создает контроллер змейки и инициализирует начальное состояние.</div>
+<div class="block">Базовый конструктор класса.</div>
 </div>
 </div>
 </section>
@@ -116,30 +113,20 @@ implements <a href="Controller.html" title="interface in game.controller">Contro
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#collide(game.model.Collider,game.model.Point)" class="member-name-link">collide</a><wbr>(<a href="../model/Collider.html" title="interface in game.model">Collider</a>&nbsp;model,
- <a href="../model/Point.html" title="class in game.model">Point</a>&nbsp;p)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Обрабатывает столкновение змейки с другими объектами.</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getModel()" class="member-name-link">getModel</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Возвращает объект модели, которым управляет данный контроллер.</div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#restart()" class="member-name-link">restart</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Сбрасывает состояние змейки к начальному.</div>
+<div class="block">Сбрасывает состояние контроллера.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setupEvents(javafx.scene.Scene)" class="member-name-link">setupEvents</a><wbr>(javafx.scene.Scene&nbsp;scene)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Настраивает обработку событий клавиатуры для изменения направления движения.</div>
+<div class="block">Настраивает обработку событий (ввод с клавиатуры, мыши) для текущей сцены.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#update()" class="member-name-link">update</a>()</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#tick()" class="member-name-link">tick</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Основной цикл обновления состояния змейки.</div>
+<div class="block">Вызывается на каждом "тике" игрового таймера для обновления
+ состояния самого контроллера (например, применение буфера направления).</div>
 </div>
 </div>
 </div>
@@ -159,15 +146,13 @@ implements <a href="Controller.html" title="interface in game.controller">Contro
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(game.model.GameModel,game.model.Snake)">
+<section class="detail" id="&lt;init&gt;(game.model.Snake)">
 <h3>SnakeController</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">SnakeController</span><wbr><span class="parameters">(<a href="../model/GameModel.html" title="class in game.model">GameModel</a>&nbsp;gameModel,
- <a href="../model/Snake.html" title="class in game.model">Snake</a>&nbsp;snake)</span></div>
-<div class="block">Создает контроллер змейки и инициализирует начальное состояние.</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">SnakeController</span><wbr><span class="parameters">(<a href="../model/Snake.html" title="class in game.model">Snake</a>&nbsp;snake)</span></div>
+<div class="block">Базовый конструктор класса.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>gameModel</code> - общая модель игры для доступа к параметрам поля и состоянию игры.</dd>
-<dd><code>snake</code> - объект змейки, которым управляет данный контроллер.</dd>
+<dd><code>snake</code> - модель змейки</dd>
 </dl>
 </section>
 </li>
@@ -180,15 +165,15 @@ implements <a href="Controller.html" title="interface in game.controller">Contro
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="update()">
-<h3>update</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">update</span>()</div>
-<div class="block">Основной цикл обновления состояния змейки.
- Рассчитывает новую позицию головы с учетом циклического переноса через границы поля,
- перемещает все сегменты тела и проверяет столкновение головы с хвостом ("самоубийство").</div>
+<section class="detail" id="tick()">
+<h3>tick</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">tick</span>()</div>
+<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="Controller.html#tick()">Controller</a></code></span></div>
+<div class="block">Вызывается на каждом "тике" игрового таймера для обновления
+ состояния самого контроллера (например, применение буфера направления).</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="Controller.html#update()">update</a></code>&nbsp;in interface&nbsp;<code><a href="Controller.html" title="interface in game.controller">Controller</a></code></dd>
+<dd><code><a href="Controller.html#tick()">tick</a></code>&nbsp;in interface&nbsp;<code><a href="Controller.html" title="interface in game.controller">Controller</a></code></dd>
 </dl>
 </section>
 </li>
@@ -196,8 +181,8 @@ implements <a href="Controller.html" title="interface in game.controller">Contro
 <section class="detail" id="restart()">
 <h3>restart</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">restart</span>()</div>
-<div class="block">Сбрасывает состояние змейки к начальному.
- Очищает список точек и создает змейку стартового размера в начальных координатах.</div>
+<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="Controller.html#restart()">Controller</a></code></span></div>
+<div class="block">Сбрасывает состояние контроллера.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="Controller.html#restart()">restart</a></code>&nbsp;in interface&nbsp;<code><a href="Controller.html" title="interface in game.controller">Controller</a></code></dd>
@@ -205,45 +190,17 @@ implements <a href="Controller.html" title="interface in game.controller">Contro
 </section>
 </li>
 <li>
-<section class="detail" id="getModel()">
-<h3>getModel</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span>&nbsp;<span class="element-name">getModel</span>()</div>
-<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="Controller.html#getModel()">Controller</a></code></span></div>
-<div class="block">Возвращает объект модели, которым управляет данный контроллер.</div>
-<dl class="notes">
-<dt>Specified by:</dt>
-<dd><code><a href="Controller.html#getModel()">getModel</a></code>&nbsp;in interface&nbsp;<code><a href="Controller.html" title="interface in game.controller">Controller</a></code></dd>
-<dt>Returns:</dt>
-<dd>объект данных.</dd>
-</dl>
-</section>
-</li>
-<li>
 <section class="detail" id="setupEvents(javafx.scene.Scene)">
 <h3>setupEvents</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setupEvents</span><wbr><span class="parameters">(javafx.scene.Scene&nbsp;scene)</span></div>
-<div class="block">Настраивает обработку событий клавиатуры для изменения направления движения.</div>
+<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="Controller.html#setupEvents(javafx.scene.Scene)">Controller</a></code></span></div>
+<div class="block">Настраивает обработку событий (ввод с клавиатуры, мыши) для текущей сцены.
+ По умолчанию метод пуст.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="Controller.html#setupEvents(javafx.scene.Scene)">setupEvents</a></code>&nbsp;in interface&nbsp;<code><a href="Controller.html" title="interface in game.controller">Controller</a></code></dd>
 <dt>Parameters:</dt>
-<dd><code>scene</code> - объект <code>Scene</code>, к которому привязывается слушатель нажатий.</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="collide(game.model.Collider,game.model.Point)">
-<h3>collide</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">collide</span><wbr><span class="parameters">(<a href="../model/Collider.html" title="interface in game.model">Collider</a>&nbsp;model,
- <a href="../model/Point.html" title="class in game.model">Point</a>&nbsp;p)</span></div>
-<div class="block">Обрабатывает столкновение змейки с другими объектами.
- При столкновении с едой змейка растет. При столкновении со стеной — конец игры.</div>
-<dl class="notes">
-<dt>Specified by:</dt>
-<dd><code><a href="ColliderControl.html#collide(game.model.Collider,game.model.Point)">collide</a></code>&nbsp;in interface&nbsp;<code><a href="ColliderControl.html" title="interface in game.controller">ColliderControl</a></code></dd>
-<dt>Parameters:</dt>
-<dd><code>model</code> - объект, с которым произошло столкновение.</dd>
-<dd><code>p</code> - точка столкновения.</dd>
+<dd><code>scene</code> - объект сцены из JavaFX.</dd>
 </dl>
 </section>
 </li>

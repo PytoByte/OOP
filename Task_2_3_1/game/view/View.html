@@ -44,13 +44,13 @@ loadScripts(document, 'script');</script>
 <ul class="sub-nav-list">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field-summary">Field</a>&nbsp;|&nbsp;</li>
 <li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method-summary">Method</a></li>
 </ul>
 <ul class="sub-nav-list">
 <li>Detail:&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field-detail">Field</a>&nbsp;|&nbsp;</li>
 <li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method-detail">Method</a></li>
 </ul>
@@ -73,16 +73,29 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>All Known Implementing Classes:</dt>
-<dd><code><a href="FoodView.html" title="class in game.view">FoodView</a></code>, <code><a href="SnakeView.html" title="class in game.view">SnakeView</a></code>, <code><a href="WallsView.html" title="class in game.view">WallsView</a></code></dd>
+<dd><code><a href="FoodView.html" title="class in game.view">FoodView</a></code>, <code><a href="SnakeView.html" title="class in game.view">SnakeView</a></code></dd>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">View</span></div>
-<div class="block">Интерфейс, определяющий контракт для визуального представления игровых объектов.
- Позволяет любому объекту (змейке, еде, стенам) предоставлять данные
- для отрисовки в унифицированном формате.</div>
+<div class="block">Интерфейс для визуального представления игровых объектов.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
+<!-- =========== FIELD SUMMARY =========== -->
+<li>
+<section class="field-summary" id="field-summary">
+<h2>Field Summary</h2>
+<div class="caption"><span>Fields</span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier and Type</div>
+<div class="table-header col-second">Field</div>
+<div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><code>static final javafx.scene.paint.Color</code></div>
+<div class="col-second even-row-color"><code><a href="#errorColor" class="member-name-link">errorColor</a></code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+</div>
+</section>
+</li>
 <!-- ========== METHOD SUMMARY =========== -->
 <li>
 <section class="method-summary" id="method-summary">
@@ -97,7 +110,7 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a>&lt;javafx.util.Pair&lt;<a href="../model/Point.html" title="class in game.model">Point</a>,<wbr>javafx.scene.paint.Color&gt;&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#getView()" class="member-name-link">getView</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">Возвращает наборы данных для отрисовки объекта.</div>
+<div class="block">Формирует и возвращает итерируемый набор пар из координат и цвета.</div>
 </div>
 </div>
 </div>
@@ -108,6 +121,20 @@ loadScripts(document, 'script');</script>
 </section>
 <section class="details">
 <ul class="details-list">
+<!-- ============ FIELD DETAIL =========== -->
+<li>
+<section class="field-details" id="field-detail">
+<h2>Field Details</h2>
+<ul class="member-list">
+<li>
+<section class="detail" id="errorColor">
+<h3>errorColor</h3>
+<div class="member-signature"><span class="modifiers">static final</span>&nbsp;<span class="return-type">javafx.scene.paint.Color</span>&nbsp;<span class="element-name">errorColor</span></div>
+</section>
+</li>
+</ul>
+</section>
+</li>
 <!-- ============ METHOD DETAIL ========== -->
 <li>
 <section class="method-details" id="method-detail">
@@ -117,11 +144,10 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getView()">
 <h3>getView</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a>&lt;javafx.util.Pair&lt;<a href="../model/Point.html" title="class in game.model">Point</a>,<wbr>javafx.scene.paint.Color&gt;&gt;</span>&nbsp;<span class="element-name">getView</span>()</div>
-<div class="block">Возвращает наборы данных для отрисовки объекта.
- Каждая пара содержит координаты точки на поле и соответствующий ей цвет.</div>
+<div class="block">Формирует и возвращает итерируемый набор пар из координат и цвета.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>итерируемый набор объектов <code>Pair</code>, связывающих <a href="../model/Point.html" title="class in game.model"><code>Point</code></a> и <code>Color</code>.</dd>
+<dd>Набор пар <a href="../model/Point.html" title="class in game.model"><code>Point</code></a> и <code>Color</code>.</dd>
 </dl>
 </section>
 </li>

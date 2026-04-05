@@ -61,48 +61,39 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="game/model/Collider.html" title="interface in game.model">Collider</a></div>
 <div class="col-last even-row-color all-classes-table all-classes-table-tab1">
-<div class="block">Интерфейс для объектов, способных участвовать в системе обнаружения столкновений.</div>
+<div class="block">Интерфейс модели игрового объекта, имеющего коллизию.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="game/controller/ColliderControl.html" title="interface in game.controller">ColliderControl</a></div>
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="game/controller/Controller.html" title="interface in game.controller">Controller</a></div>
 <div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
-<div class="block">Интерфейс для контроллеров, поддерживающих логику обработки столкновений.</div>
+<div class="block">Базовый интерфейс для вспомогательных игровых контроллеров.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="game/controller/Controller.html" title="interface in game.controller">Controller</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
-<div class="block">Базовый интерфейс для всех игровых контроллеров.</div>
-</div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab3"><a href="game/model/Direction.html" title="enum class in game.model">Direction</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab3">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab3"><a href="game/model/Direction.html" title="enum class in game.model">Direction</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab3">
 <div class="block">Перечисление возможных направлений движения игровых объектов.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="game/model/Food.html" title="class in game.model">Food</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
-<div class="block">Класс, отвечающий за управление объектами еды на игровом поле.</div>
-</div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="game/controller/FoodController.html" title="class in game.controller">FoodController</a></div>
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="game/model/Food.html" title="class in game.model">Food</a></div>
 <div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
-<div class="block">Контроллер для управления объектами еды.</div>
+<div class="block">Модель еды.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="game/view/FoodView.html" title="class in game.view">FoodView</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
-<div class="block">Класс, отвечающий за визуальное отображение еды на игровом поле.</div>
+<div class="col-first even-row-color all-classes-table all-classes-table-tab3"><a href="game/model/FoodType.html" title="enum class in game.model">FoodType</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab3">
+<div class="block">Тип еды.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="game/controller/GameController.html" title="class in game.controller">GameController</a></div>
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="game/view/FoodView.html" title="class in game.view">FoodView</a></div>
 <div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
-<div class="block">Главный контроллер игры, координирующий работу всех подсистем.</div>
+<div class="block">Визуальное отображение еды.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="game/model/GameModel.html" title="class in game.model">GameModel</a></div>
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="game/controller/GameController.html" title="class in game.controller">GameController</a></div>
 <div class="col-last even-row-color all-classes-table all-classes-table-tab2">
-<div class="block">Модель состояния игры.</div>
+<div class="block">Основной контроллер игры, управляющий другими контроллерами, моделью игры и её сценой.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="game/model/GameObject.html" title="interface in game.model">GameObject</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
-<div class="block">Общий интерфейс для всех игровых объектов, которые имеют визуальное
- представление на игровом поле.</div>
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="game/view/GameView.html" title="class in game.view">GameView</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="block">Класс отрисовки игрового мира.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="game/view/GameView.html" title="class in game.view">GameView</a></div>
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="game/model/GameWorld.html" title="class in game.model">GameWorld</a></div>
 <div class="col-last even-row-color all-classes-table all-classes-table-tab2">
-<div class="block">Главный класс отрисовки игрового мира.</div>
+<div class="block">Модель игрового мира.</div>
 </div>
 <div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="Main.html" title="class in Unnamed Package">Main</a></div>
 <div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
@@ -112,41 +103,45 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Базовый класс, представляющий точку в двумерном пространстве игрового поля.</div>
 </div>
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="game/model/Renderable.html" title="interface in game.model">Renderable</a>&lt;<a href="game/model/Renderable.html" title="type parameter in Renderable">T</a>&gt;</div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
+<div class="block">Интерфейс для объектов, которые имеют визуальное представление.</div>
+</div>
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="game/model/Restartable.html" title="interface in game.model">Restartable</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="block">Интерфейс игровых объектов требующих событие перезапуска игры.</div>
+</div>
 <div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="game/controller/SceneController.html" title="class in game.controller">SceneController</a></div>
 <div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
-<div class="block">Контроллер графического интерфейса (UI).</div>
+<div class="block">Контроллер графического интерфейса.</div>
 </div>
 <div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="game/model/Snake.html" title="class in game.model">Snake</a></div>
 <div class="col-last even-row-color all-classes-table all-classes-table-tab2">
-<div class="block">Класс, представляющий змейку как управляемый игровой объект.</div>
+<div class="block">Модель змейки.</div>
 </div>
 <div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="game/controller/SnakeController.html" title="class in game.controller">SnakeController</a></div>
 <div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
-<div class="block">Контроллер управления змейкой.</div>
+<div class="block">Контроллер змейки.</div>
 </div>
 <div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="game/SnakeGame.html" title="class in game">SnakeGame</a></div>
 <div class="col-last even-row-color all-classes-table all-classes-table-tab2">
-<div class="block">Главный класс приложения JavaFX, отвечающий за инициализацию и запуск игры.</div>
+<div class="block">Главный класс приложения, отвечающий за инициализацию и запуск игры.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="game/view/SnakeView.html" title="class in game.view">SnakeView</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
-<div class="block">Класс, отвечающий за визуальное представление змейки.</div>
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab3"><a href="game/model/SnakePart.html" title="enum class in game.model">SnakePart</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab3">
+<div class="block">Часть змейки.</div>
+</div>
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="game/view/SnakeView.html" title="class in game.view">SnakeView</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="block">Визуальное отображение змейки.</div>
+</div>
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="game/model/Updatable.html" title="interface in game.model">Updatable</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
+<div class="block">Интерфейс игровых моделей, требующих обновление на каждый тик.</div>
 </div>
 <div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="game/view/View.html" title="interface in game.view">View</a></div>
 <div class="col-last even-row-color all-classes-table all-classes-table-tab1">
-<div class="block">Интерфейс, определяющий контракт для визуального представления игровых объектов.</div>
-</div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="game/model/Walls.html" title="class in game.model">Walls</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
-<div class="block">Класс, представляющий препятствия (стены) в игровом мире.</div>
-</div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="game/controller/WallsController.html" title="class in game.controller">WallsController</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
-<div class="block">Контроллер для управления игровыми стенами (препятствиями).</div>
-</div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="game/view/WallsView.html" title="class in game.view">WallsView</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
-<div class="block">Класс, отвечающий за визуальное отображение стен (препятствий) на игровом поле.</div>
+<div class="block">Интерфейс для визуального представления игровых объектов.</div>
 </div>
 </div>
 </div>

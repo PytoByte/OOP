@@ -66,21 +66,17 @@ loadScripts(document, 'script');</script>
 <li class="circle">game.<a href="game/SnakeGame.html" class="type-name-link" title="class in game">SnakeGame</a></li>
 </ul>
 </li>
-<li class="circle">game.model.<a href="game/model/Food.html" class="type-name-link" title="class in game.model">Food</a> (implements game.model.<a href="game/model/Collider.html" title="interface in game.model">Collider</a>, game.model.<a href="game/model/GameObject.html" title="interface in game.model">GameObject</a>)</li>
-<li class="circle">game.controller.<a href="game/controller/FoodController.html" class="type-name-link" title="class in game.controller">FoodController</a> (implements game.controller.<a href="game/controller/ColliderControl.html" title="interface in game.controller">ColliderControl</a>, game.controller.<a href="game/controller/Controller.html" title="interface in game.controller">Controller</a>)</li>
+<li class="circle">game.model.<a href="game/model/Food.html" class="type-name-link" title="class in game.model">Food</a> (implements game.model.<a href="game/model/Collider.html" title="interface in game.model">Collider</a>, game.model.<a href="game/model/Renderable.html" title="interface in game.model">Renderable</a>&lt;T&gt;, game.model.<a href="game/model/Restartable.html" title="interface in game.model">Restartable</a>)</li>
 <li class="circle">game.view.<a href="game/view/FoodView.html" class="type-name-link" title="class in game.view">FoodView</a> (implements game.view.<a href="game/view/View.html" title="interface in game.view">View</a>)</li>
 <li class="circle">game.controller.<a href="game/controller/GameController.html" class="type-name-link" title="class in game.controller">GameController</a></li>
-<li class="circle">game.model.<a href="game/model/GameModel.html" class="type-name-link" title="class in game.model">GameModel</a></li>
 <li class="circle">game.view.<a href="game/view/GameView.html" class="type-name-link" title="class in game.view">GameView</a></li>
+<li class="circle">game.model.<a href="game/model/GameWorld.html" class="type-name-link" title="class in game.model">GameWorld</a></li>
 <li class="circle"><a href="Main.html" class="type-name-link" title="class in Unnamed Package">Main</a></li>
 <li class="circle">game.model.<a href="game/model/Point.html" class="type-name-link" title="class in game.model">Point</a></li>
 <li class="circle">game.controller.<a href="game/controller/SceneController.html" class="type-name-link" title="class in game.controller">SceneController</a></li>
-<li class="circle">game.model.<a href="game/model/Snake.html" class="type-name-link" title="class in game.model">Snake</a> (implements game.model.<a href="game/model/Collider.html" title="interface in game.model">Collider</a>, game.model.<a href="game/model/GameObject.html" title="interface in game.model">GameObject</a>)</li>
-<li class="circle">game.controller.<a href="game/controller/SnakeController.html" class="type-name-link" title="class in game.controller">SnakeController</a> (implements game.controller.<a href="game/controller/ColliderControl.html" title="interface in game.controller">ColliderControl</a>, game.controller.<a href="game/controller/Controller.html" title="interface in game.controller">Controller</a>)</li>
+<li class="circle">game.model.<a href="game/model/Snake.html" class="type-name-link" title="class in game.model">Snake</a> (implements game.model.<a href="game/model/Collider.html" title="interface in game.model">Collider</a>, game.model.<a href="game/model/Renderable.html" title="interface in game.model">Renderable</a>&lt;T&gt;, game.model.<a href="game/model/Restartable.html" title="interface in game.model">Restartable</a>, game.model.<a href="game/model/Updatable.html" title="interface in game.model">Updatable</a>)</li>
+<li class="circle">game.controller.<a href="game/controller/SnakeController.html" class="type-name-link" title="class in game.controller">SnakeController</a> (implements game.controller.<a href="game/controller/Controller.html" title="interface in game.controller">Controller</a>)</li>
 <li class="circle">game.view.<a href="game/view/SnakeView.html" class="type-name-link" title="class in game.view">SnakeView</a> (implements game.view.<a href="game/view/View.html" title="interface in game.view">View</a>)</li>
-<li class="circle">game.model.<a href="game/model/Walls.html" class="type-name-link" title="class in game.model">Walls</a> (implements game.model.<a href="game/model/Collider.html" title="interface in game.model">Collider</a>, game.model.<a href="game/model/GameObject.html" title="interface in game.model">GameObject</a>)</li>
-<li class="circle">game.controller.<a href="game/controller/WallsController.html" class="type-name-link" title="class in game.controller">WallsController</a> (implements game.controller.<a href="game/controller/ColliderControl.html" title="interface in game.controller">ColliderControl</a>, game.controller.<a href="game/controller/Controller.html" title="interface in game.controller">Controller</a>)</li>
-<li class="circle">game.view.<a href="game/view/WallsView.html" class="type-name-link" title="class in game.view">WallsView</a> (implements game.view.<a href="game/view/View.html" title="interface in game.view">View</a>)</li>
 </ul>
 </li>
 </ul>
@@ -89,9 +85,10 @@ loadScripts(document, 'script');</script>
 <h2 title="Interface Hierarchy">Interface Hierarchy</h2>
 <ul>
 <li class="circle">game.model.<a href="game/model/Collider.html" class="type-name-link" title="interface in game.model">Collider</a></li>
-<li class="circle">game.controller.<a href="game/controller/ColliderControl.html" class="type-name-link" title="interface in game.controller">ColliderControl</a></li>
 <li class="circle">game.controller.<a href="game/controller/Controller.html" class="type-name-link" title="interface in game.controller">Controller</a></li>
-<li class="circle">game.model.<a href="game/model/GameObject.html" class="type-name-link" title="interface in game.model">GameObject</a></li>
+<li class="circle">game.model.<a href="game/model/Renderable.html" class="type-name-link" title="interface in game.model">Renderable</a>&lt;T&gt;</li>
+<li class="circle">game.model.<a href="game/model/Restartable.html" class="type-name-link" title="interface in game.model">Restartable</a></li>
+<li class="circle">game.model.<a href="game/model/Updatable.html" class="type-name-link" title="interface in game.model">Updatable</a></li>
 <li class="circle">game.view.<a href="game/view/View.html" class="type-name-link" title="interface in game.view">View</a></li>
 </ul>
 </section>
@@ -103,6 +100,8 @@ loadScripts(document, 'script');</script>
 <li class="circle">java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Enum.html" class="type-name-link external-link" title="class or interface in java.lang">Enum</a>&lt;E&gt; (implements java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Comparable.html" title="class or interface in java.lang" class="external-link">Comparable</a>&lt;T&gt;, java.lang.constant.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/constant/Constable.html" title="class or interface in java.lang.constant" class="external-link">Constable</a>, java.io.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a>)
 <ul>
 <li class="circle">game.model.<a href="game/model/Direction.html" class="type-name-link" title="enum class in game.model">Direction</a></li>
+<li class="circle">game.model.<a href="game/model/FoodType.html" class="type-name-link" title="enum class in game.model">FoodType</a></li>
+<li class="circle">game.model.<a href="game/model/SnakePart.html" class="type-name-link" title="enum class in game.model">SnakePart</a></li>
 </ul>
 </li>
 </ul>

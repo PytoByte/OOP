@@ -77,9 +77,7 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">GameView</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
-<div class="block">Главный класс отрисовки игрового мира.
- Рассчитывает масштаб игровых ячеек относительно размеров холста, рисует фоновую
- сетку ("шахматку") и последовательно отображает все зарегистрированные виды (views).</div>
+<div class="block">Класс отрисовки игрового мира.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -91,10 +89,10 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(game.model.GameModel,javafx.scene.canvas.Canvas)" class="member-name-link">GameView</a><wbr>(<a href="../model/GameModel.html" title="class in game.model">GameModel</a>&nbsp;gameModel,
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(game.model.GameWorld,javafx.scene.canvas.Canvas)" class="member-name-link">GameView</a><wbr>(<a href="../model/GameWorld.html" title="class in game.model">GameWorld</a>&nbsp;gameWorld,
  javafx.scene.canvas.Canvas&nbsp;canvas)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Создает объект отрисовки, привязанный к конкретной модели и холсту JavaFX.</div>
+<div class="block">Базовый конструктор класса.</div>
 </div>
 </div>
 </section>
@@ -113,12 +111,12 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#addView(game.view.View)" class="member-name-link">addView</a><wbr>(<a href="View.html" title="interface in game.view">View</a>&nbsp;view)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Добавляет визуальный слой (например, вид змейки или еды) в список отрисовки.</div>
+<div class="block">Добавляет визуальный слой в список отрисовки.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#render()" class="member-name-link">render</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Основной метод рендеринга кадра.</div>
+<div class="block">Отрисовка кадра.</div>
 </div>
 </div>
 </div>
@@ -138,15 +136,15 @@ loadScripts(document, 'script');</script>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(game.model.GameModel,javafx.scene.canvas.Canvas)">
+<section class="detail" id="&lt;init&gt;(game.model.GameWorld,javafx.scene.canvas.Canvas)">
 <h3>GameView</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">GameView</span><wbr><span class="parameters">(<a href="../model/GameModel.html" title="class in game.model">GameModel</a>&nbsp;gameModel,
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">GameView</span><wbr><span class="parameters">(<a href="../model/GameWorld.html" title="class in game.model">GameWorld</a>&nbsp;gameWorld,
  javafx.scene.canvas.Canvas&nbsp;canvas)</span></div>
-<div class="block">Создает объект отрисовки, привязанный к конкретной модели и холсту JavaFX.</div>
+<div class="block">Базовый конструктор класса.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>gameModel</code> - модель игры для получения логических размеров поля.</dd>
-<dd><code>canvas</code> - графический холст, на котором будет происходить отрисовка.</dd>
+<dd><code>gameWorld</code> - модель игры для получения логических размеров поля.</dd>
+<dd><code>canvas</code> - холст, на котором будет происходить отрисовка.</dd>
 </dl>
 </section>
 </li>
@@ -162,10 +160,10 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="addView(game.view.View)">
 <h3>addView</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">addView</span><wbr><span class="parameters">(<a href="View.html" title="interface in game.view">View</a>&nbsp;view)</span></div>
-<div class="block">Добавляет визуальный слой (например, вид змейки или еды) в список отрисовки.</div>
+<div class="block">Добавляет визуальный слой в список отрисовки.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>view</code> - объект, реализующий интерфейс <a href="View.html" title="interface in game.view"><code>View</code></a>.</dd>
+<dd><code>view</code> - визуальное представление объекта.</dd>
 </dl>
 </section>
 </li>
@@ -173,12 +171,7 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="render()">
 <h3>render</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">render</span>()</div>
-<div class="block">Основной метод рендеринга кадра.
- Выполняет следующие действия:
- 1. Рассчитывает оптимальный размер ячейки (tileSize).
- 2. Вычисляет отступы (offset) для центрирования поля на холсте.
- 3. Очищает холст и рисует шахматный фон.
- 4. Отрисовывает все объекты из зарегистрированных видов, игнорируя точки вне поля.</div>
+<div class="block">Отрисовка кадра.</div>
 </section>
 </li>
 </ul>

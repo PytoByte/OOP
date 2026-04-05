@@ -73,12 +73,11 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>All Known Implementing Classes:</dt>
-<dd><code><a href="Food.html" title="class in game.model">Food</a></code>, <code><a href="Snake.html" title="class in game.model">Snake</a></code>, <code><a href="Walls.html" title="class in game.model">Walls</a></code></dd>
+<dd><code><a href="Food.html" title="class in game.model">Food</a></code>, <code><a href="Snake.html" title="class in game.model">Snake</a></code></dd>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">Collider</span></div>
-<div class="block">Интерфейс для объектов, способных участвовать в системе обнаружения столкновений.
- Позволяет получить физические границы или область поражения объекта.</div>
+<div class="block">Интерфейс модели игрового объекта, имеющего коллизию.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -96,7 +95,13 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="Point.html" title="class in game.model">Point</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#getCollider()" class="member-name-link">getCollider</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">Возвращает список точек, представляющих физическую область объекта (хитбокс).</div>
+<div class="block">Возвращает хитбокс объекта.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#onCollision(game.model.Collider,game.model.Point)" class="member-name-link">onCollision</a><wbr>(<a href="Collider.html" title="interface in game.model">Collider</a>&nbsp;other,
+ <a href="Point.html" title="class in game.model">Point</a>&nbsp;p)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Обработчик коллизии.</div>
 </div>
 </div>
 </div>
@@ -116,10 +121,23 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getCollider()">
 <h3>getCollider</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="Point.html" title="class in game.model">Point</a>&gt;</span>&nbsp;<span class="element-name">getCollider</span>()</div>
-<div class="block">Возвращает список точек, представляющих физическую область объекта (хитбокс).</div>
+<div class="block">Возвращает хитбокс объекта.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>список объектов <a href="Point.html" title="class in game.model"><code>Point</code></a>, с которыми могут сталкиваться другие сущности.</dd>
+<dd>список точек, представляющих хитбокс объекта</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="onCollision(game.model.Collider,game.model.Point)">
+<h3>onCollision</h3>
+<div class="member-signature"><span class="return-type">void</span>&nbsp;<span class="element-name">onCollision</span><wbr><span class="parameters">(<a href="Collider.html" title="interface in game.model">Collider</a>&nbsp;other,
+ <a href="Point.html" title="class in game.model">Point</a>&nbsp;p)</span></div>
+<div class="block">Обработчик коллизии.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>other</code> - Модель игрового объекта с которым произошла коллизия</dd>
+<dd><code>p</code> - Точка в которой произошла коллизия</dd>
 </dl>
 </section>
 </li>

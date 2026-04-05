@@ -44,7 +44,7 @@ loadScripts(document, 'script');</script>
 <ul class="sub-nav-list">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field-summary">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor-summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method-summary">Method</a></li>
 </ul>
@@ -82,12 +82,19 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">FoodView</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="View.html" title="interface in game.view">View</a></span></div>
-<div class="block">Класс, отвечающий за визуальное отображение еды на игровом поле.
- Реализует интерфейс <a href="View.html" title="interface in game.view"><code>View</code></a>, предоставляя данные о координатах
- и цвете каждой единицы еды для последующей отрисовки.</div>
+<div class="block">Визуальное отображение еды.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
+<!-- =========== FIELD SUMMARY =========== -->
+<li>
+<section class="field-summary" id="field-summary">
+<h2>Field Summary</h2>
+<div class="inherited-list">
+<h3 id="fields-inherited-from-class-game.view.View">Fields inherited from interface&nbsp;game.view.<a href="View.html" title="interface in game.view">View</a></h3>
+<code><a href="View.html#errorColor">errorColor</a></code></div>
+</section>
+</li>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 <li>
 <section class="constructor-summary" id="constructor-summary">
@@ -96,10 +103,9 @@ implements <a href="View.html" title="interface in game.view">View</a></span></d
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(game.model.GameModel,game.model.Food)" class="member-name-link">FoodView</a><wbr>(<a href="../model/GameModel.html" title="class in game.model">GameModel</a>&nbsp;gameModel,
- <a href="../model/Food.html" title="class in game.model">Food</a>&nbsp;food)</code></div>
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(game.model.Renderable)" class="member-name-link">FoodView</a><wbr>(<a href="../model/Renderable.html" title="interface in game.model">Renderable</a>&lt;<a href="../model/FoodType.html" title="enum class in game.model">FoodType</a>&gt;&nbsp;food)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Создает объект отображения еды.</div>
+<div class="block">Базовый конструктор класса.</div>
 </div>
 </div>
 </section>
@@ -138,15 +144,13 @@ implements <a href="View.html" title="interface in game.view">View</a></span></d
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(game.model.GameModel,game.model.Food)">
+<section class="detail" id="&lt;init&gt;(game.model.Renderable)">
 <h3>FoodView</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">FoodView</span><wbr><span class="parameters">(<a href="../model/GameModel.html" title="class in game.model">GameModel</a>&nbsp;gameModel,
- <a href="../model/Food.html" title="class in game.model">Food</a>&nbsp;food)</span></div>
-<div class="block">Создает объект отображения еды.</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">FoodView</span><wbr><span class="parameters">(<a href="../model/Renderable.html" title="interface in game.model">Renderable</a>&lt;<a href="../model/FoodType.html" title="enum class in game.model">FoodType</a>&gt;&nbsp;food)</span></div>
+<div class="block">Базовый конструктор класса.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>gameModel</code> - модель игры, содержащая общие параметры поля.</dd>
-<dd><code>food</code> - объект еды, данные которого необходимо визуализировать.</dd>
+<dd><code>food</code> - модель еды.</dd>
 </dl>
 </section>
 </li>
@@ -162,14 +166,13 @@ implements <a href="View.html" title="interface in game.view">View</a></span></d
 <section class="detail" id="getView()">
 <h3>getView</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a>&lt;javafx.util.Pair&lt;<a href="../model/Point.html" title="class in game.model">Point</a>,<wbr>javafx.scene.paint.Color&gt;&gt;</span>&nbsp;<span class="element-name">getView</span>()</div>
-<div class="block">Формирует и возвращает итерируемый набор пар из координат и цвета.
- Проходит по всем точкам еды и связывает их с заданным цветом (по умолчанию красным).</div>
+<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="View.html#getView()">View</a></code></span></div>
+<div class="block">Формирует и возвращает итерируемый набор пар из координат и цвета.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="View.html#getView()">getView</a></code>&nbsp;in interface&nbsp;<code><a href="View.html" title="interface in game.view">View</a></code></dd>
 <dt>Returns:</dt>
-<dd><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link"><code>Iterable</code></a> набор объектов <code>Pair</code>,
-     содержащих <a href="../model/Point.html" title="class in game.model"><code>Point</code></a> и <code>Color</code>.</dd>
+<dd>Набор пар <a href="../model/Point.html" title="class in game.model"><code>Point</code></a> и <code>Color</code>.</dd>
 </dl>
 </section>
 </li>
