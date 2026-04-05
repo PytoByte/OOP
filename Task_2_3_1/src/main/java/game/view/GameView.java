@@ -9,9 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.util.Pair;
 
 /**
- * Главный класс отрисовки игрового мира.
- * Рассчитывает масштаб игровых ячеек относительно размеров холста, рисует фоновую
- * сетку ("шахматку") и последовательно отображает все зарегистрированные виды (views).
+ * Класс отрисовки игрового мира.
  */
 public class GameView {
     private final LinkedList<View> views = new LinkedList<>();
@@ -19,10 +17,10 @@ public class GameView {
     private final GameWorld gameWorld;
 
     /**
-     * Создает объект отрисовки, привязанный к конкретной модели и холсту JavaFX.
+     * Базовый конструктор класса.
      *
      * @param gameWorld модель игры для получения логических размеров поля.
-     * @param canvas графический холст, на котором будет происходить отрисовка.
+     * @param canvas холст, на котором будет происходить отрисовка.
      */
     public GameView(GameWorld gameWorld, Canvas canvas) {
         this.gameWorld = gameWorld;
@@ -30,27 +28,21 @@ public class GameView {
     }
 
     /**
-     * Добавляет визуальный слой (например, вид змейки или еды) в список отрисовки.
+     * Добавляет визуальный слой в список отрисовки.
      *
-     * @param view объект, реализующий интерфейс {@link View}.
+     * @param view визуальное представление объекта.
      */
     public void addView(View view) {
         views.add(view);
     }
 
     /**
-     * Основной метод рендеринга кадра.
-     * Выполняет следующие действия:
-     * 1. Рассчитывает оптимальный размер ячейки (tileSize).
-     * 2. Вычисляет отступы (offset) для центрирования поля на холсте.
-     * 3. Очищает холст и рисует шахматный фон.
-     * 4. Отрисовывает все объекты из зарегистрированных видов, игнорируя точки вне поля.
+     * Отрисовка кадра.
      */
     public void render() {
         double canvasWidth = canvas.getWidth();
         double canvasHeight = canvas.getHeight();
 
-        // Определение размера плитки по минимальной стороне, чтобы поле вписалось в холст
         double tileSize = Math.min(
                 canvasWidth / gameWorld.getWidth(),
                 canvasHeight / gameWorld.getHeight()
@@ -59,20 +51,17 @@ public class GameView {
         double actualFieldWidth = gameWorld.getWidth() * tileSize;
         double actualFieldHeight = gameWorld.getHeight() * tileSize;
 
-        // Расчет смещения для центрирования игрового поля
         double offsetX = (canvasWidth - actualFieldWidth) / 2;
         double offsetY = (canvasHeight - actualFieldHeight) / 2;
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        // Заполнение общего фона
         gc.setFill(Color.GREEN);
         gc.fillRect(0, 0, canvasWidth, canvasHeight);
 
         Color color1 = Color.DARKGREEN;
         Color color2 = Color.GREEN;
 
-        // Отрисовка шахматной сетки игрового поля
         for (int x = 0; x < gameWorld.getWidth(); x++) {
             for (int y = 0; y < gameWorld.getHeight(); y++) {
                 if ((x + y) % 2 == 0) {
@@ -89,12 +78,10 @@ public class GameView {
             }
         }
 
-        // Отрисовка всех слоев объектов (Змейка, Еда, Стены)
         for (View view : views) {
             for (Pair<Point, Color> pixel : view.getView()) {
                 Point p = pixel.getKey();
 
-                // Пропуск точек с некорректными координатами (например, -1, -1 при росте хвоста)
                 if (p.getCoordX() < 0 || p.getCoordY() < 0
                         || p.getCoordX() >= gameWorld.getWidth()
                         || p.getCoordY() >= gameWorld.getHeight()) {
@@ -106,7 +93,6 @@ public class GameView {
                 double x = offsetX + p.getCoordX() * tileSize;
                 double y = offsetY + p.getCoordY() * tileSize;
 
-                // Отрисовка ячейки с небольшим зазором (tileSize - 1) для визуального разделения
                 gc.fillRect(x, y, tileSize - 1, tileSize - 1);
             }
         }

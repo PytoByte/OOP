@@ -10,18 +10,21 @@ import java.util.List;
  * Класс, представляющий змейку как управляемый игровой объект.
  * Реализует логику движения, хранения сегментов тела и смены направления.
  */
-public class Snake implements Renderable, Collider, Updatable {
+public class Snake implements Renderable<SnakePart>, Collider, Updatable {
     private final List<Point> points = new LinkedList<>();
     private final int startX;
     private final int startY;
     private final int startSize;
     private Direction direction;
-    private boolean isDead = false;
-
-    // Ссылка на мир нужна, чтобы змейка могла начислить очки или завершить игру
     private final GameWorld gameWorld;
 
-    public Snake(int startX, int startY, int startSize, Direction startDirection, GameWorld gameWorld) {
+    public Snake(
+            int startX,
+            int startY,
+            int startSize,
+            Direction startDirection,
+            GameWorld gameWorld
+    ) {
         this.direction = startDirection;
         this.startSize = startSize;
         this.startX = startX;
@@ -30,15 +33,8 @@ public class Snake implements Renderable, Collider, Updatable {
         restart();
     }
 
-    /**
-     * Логика перемещения змейки. Переехала сюда из контроллера.
-     */
     @Override
     public void update() {
-        if (isDead) {
-            return;
-        }
-
         Point head = getHead();
         Point nextPos = new Point(head.getCoordX(), head.getCoordY());
 
@@ -63,7 +59,6 @@ public class Snake implements Renderable, Collider, Updatable {
             }
         }
 
-        // Логика перемещения сегментов тела
         for (Point body : points) {
             int oldX = body.getCoordX();
             body.setCoordX(nextPos.getCoordX());
@@ -74,10 +69,7 @@ public class Snake implements Renderable, Collider, Updatable {
             nextPos.setCoordX(oldX);
             nextPos.setCoordY(oldY);
 
-            // Проверка на столкновение головы с телом
             if (body != head && body.equals(head)) {
-                System.out.println("Suicide");
-                isDead = true;
                 gameWorld.setGameOver(true);
             }
         }
@@ -86,25 +78,16 @@ public class Snake implements Renderable, Collider, Updatable {
     @Override
     public void restart() {
         points.clear();
-        isDead = false;
         points.add(new Point(startX, startY));
         for (int i = 0; i < startSize - 1; i++) {
             points.add(new Point(-1, -1));
         }
     }
 
-    /**
-     * Реакция змейки на столкновения.
-     */
     @Override
     public void onCollision(Collider other) {
         if (other instanceof Food) {
-            // Если столкнулись с едой — растем
             points.add(new Point(-1, -1));
-        } else if (other instanceof Walls) {
-            // Если со стеной — умираем
-            isDead = true;
-            gameWorld.setGameOver(true);
         }
     }
 
@@ -128,12 +111,12 @@ public class Snake implements Renderable, Collider, Updatable {
     }
 
     @Override
-    public List<Pair<Point, String>> getRenderData() {
-        List<Pair<Point, String>> renderData = new ArrayList<>();
+    public List<Pair<Point, SnakePart>> getRenderData() {
+        List<Pair<Point, SnakePart>> renderData = new ArrayList<>();
         boolean isHead = true;
 
         for (Point p : points) {
-            String type = isHead ? "SNAKE_HEAD" : "SNAKE_BODY";
+            SnakePart type = isHead ? SnakePart.HEAD : SnakePart.BODY;
             renderData.add(new Pair<>(p, type));
             isHead = false;
         }
@@ -146,8 +129,7 @@ public class Snake implements Renderable, Collider, Updatable {
         return new LinkedList<>(points);
     }
 
-    public int getStartX() { return startX; }
-    public int getStartY() { return startY; }
-    public int getStartSize() { return startSize; }
-    public Direction getDirection() { return direction; }
+    public Direction getDirection() {
+        return direction;
+    }
 }

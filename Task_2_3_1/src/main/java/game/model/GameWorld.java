@@ -16,8 +16,7 @@ public class GameWorld {
     private boolean gameOver = false;
     private boolean gameWin = false;
 
-    // Списки для управления сущностями
-    private final List<Updatable> updatables = new ArrayList<>();
+    private final List<Updatable> updatable = new ArrayList<>();
     private final List<Collider> colliders = new ArrayList<>();
 
     public GameWorld(int width, int height, int scoreToWin) {
@@ -26,12 +25,14 @@ public class GameWorld {
         this.scoreToWin = scoreToWin;
     }
 
-    public void addUpdatable(Updatable obj) {
-        updatables.add(obj);
-    }
+    public void addModel(Object model) {
+        if (model instanceof Updatable) {
+            updatable.add((Updatable) model);
+        }
 
-    public void addCollider(Collider obj) {
-        colliders.add(obj);
+        if (model instanceof Collider) {
+            colliders.add((Collider) model);
+        }
     }
 
     /**
@@ -43,7 +44,7 @@ public class GameWorld {
             return;
         }
 
-        for (Updatable obj : updatables) {
+        for (Updatable obj : updatable) {
             obj.update();
         }
 
@@ -81,9 +82,28 @@ public class GameWorld {
         score = 0;
         gameOver = false;
         gameWin = false;
-        for (Updatable obj : updatables) {
+        for (Updatable obj : updatable) {
             obj.restart();
         }
+    }
+
+    /**
+     * Собирает координаты всех существующих коллайдеров в мире.
+     * Используется для определения "красной зоны" при генерации новых объектов.
+     *
+     * @return список объектов {@link Point}, занятых другими сущностями.
+     */
+    public List<Point> getAllCollidersPoints() {
+        List<Point> allPoints = new ArrayList<>();
+
+        for (Collider collider : colliders) {
+            List<Point> colliderPoints = collider.getCollider();
+            if (colliderPoints != null) {
+                allPoints.addAll(colliderPoints);
+            }
+        }
+
+        return allPoints;
     }
 
     public void increaseScore(int inc) {

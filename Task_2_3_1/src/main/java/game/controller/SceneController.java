@@ -7,9 +7,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
 /**
- * Контроллер графического интерфейса (UI).
- * Управляет визуальными элементами сцены, такими как надписи счета,
- * сообщения о состоянии игры и холст для отрисовки.
+ * Контроллер графического интерфейса.
  */
 public class SceneController {
     @FXML private Label scoreLabel;

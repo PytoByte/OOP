@@ -15,7 +15,7 @@ public class SnakeController implements Controller {
     }
 
     @Override
-    public void update() {
+    public void tick() {
         snake.setDirection(directionBuffer);
     }
 

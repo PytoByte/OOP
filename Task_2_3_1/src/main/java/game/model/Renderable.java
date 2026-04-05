@@ -5,11 +5,13 @@ import javafx.util.Pair;
 
 /**
  * Интерфейс для объектов, которые имеют визуальное представление.
- * Позволяет получить список координат и цветов для отрисовки.
+ * @param <T> Тип точек объекта (enum вариантов)
  */
-public interface Renderable {
+public interface Renderable<T> {
     /**
-     * Возвращает список пар: точка на поле и её цвет.
+     * Возвращает объект для отрисовки.
+     *
+     * @return список пар: точка и тип
      */
-    List<Pair<Point, String>> getRenderData();
+    List<Pair<Point, T>> getRenderData();
 }
