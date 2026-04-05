@@ -32,8 +32,8 @@ public class SnakeView implements View {
         for (Pair<Point, SnakePart> pointRender : snake.getRenderData()) {
             Color color;
             switch (pointRender.getValue()) {
-                case SnakePart.HEAD -> color = headColor;
-                case SnakePart.BODY -> color = bodyColor;
+                case HEAD -> color = headColor;
+                case BODY -> color = bodyColor;
                 default -> {
                     System.err.printf("Unexpected snake part %s\n", pointRender.getValue());
                     color = errorColor;

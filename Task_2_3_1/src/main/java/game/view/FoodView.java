@@ -29,7 +29,7 @@ public class FoodView implements View {
         for (Pair<Point, FoodType> pointRender : food.getRenderData()) {
             Color color;
             switch (pointRender.getValue()) {
-                case FoodType.DEFAULT -> color = defaultColor;
+                case DEFAULT -> color = defaultColor;
                 default -> {
                     System.err.printf("Unexpected food type %s\n", pointRender.getValue());
                     color = errorColor;
