@@ -5,6 +5,7 @@ import javafx.util.Pair;
 
 /**
  * Интерфейс для объектов, которые имеют визуальное представление.
+ *
  * @param <T> Тип точек объекта (enum вариантов)
  */
 public interface Renderable<T> {

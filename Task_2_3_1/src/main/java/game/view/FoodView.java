@@ -1,11 +1,9 @@
 package game.view;
 
-import game.model.Food;
 import game.model.FoodType;
 import game.model.Point;
-import java.util.LinkedList;
-
 import game.model.Renderable;
+import java.util.LinkedList;
 import javafx.scene.paint.Color;
 import javafx.util.Pair;
 

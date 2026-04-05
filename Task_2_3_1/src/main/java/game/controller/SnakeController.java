@@ -19,12 +19,17 @@ public class SnakeController implements Controller {
      */
     public SnakeController(Snake snake) {
         this.snake = snake;
-        this.directionBuffer = snake.getDirection();
+        restart();
     }
 
     @Override
     public void tick() {
         snake.setDirection(directionBuffer);
+    }
+
+    @Override
+    public void restart() {
+        directionBuffer = snake.getStartDirection();
     }
 
     @Override

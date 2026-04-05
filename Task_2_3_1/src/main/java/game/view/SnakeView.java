@@ -3,9 +3,8 @@ package game.view;
 import game.model.Point;
 import game.model.Renderable;
 import game.model.Snake;
-import java.util.LinkedList;
-
 import game.model.SnakePart;
+import java.util.LinkedList;
 import javafx.scene.paint.Color;
 import javafx.util.Pair;
 

@@ -12,12 +12,16 @@ public interface Controller {
      *
      * @param scene объект сцены из JavaFX.
      */
-    default void setupEvents(Scene scene) {}
+    void setupEvents(Scene scene);
 
     /**
      * Вызывается на каждом "тике" игрового таймера для обновления
      * состояния самого контроллера (например, применение буфера направления).
-     * По умолчанию метод пуст.
      */
-    default void tick() {}
+    void tick();
+
+    /**
+     * Сбрасывает состояние контроллера.
+     */
+    void restart();
 }

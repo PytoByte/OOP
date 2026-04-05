@@ -1,10 +1,9 @@
 package game.model;
 
-import javafx.util.Pair;
-
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
+import java.util.LinkedList;
+import javafx.util.Pair;
 
 /**
  * Модель змейки.
@@ -14,9 +13,19 @@ public class Snake implements Renderable<SnakePart>, Collider, Updatable, Restar
     private final int startX;
     private final int startY;
     private final int startSize;
+    private final Direction startDirection;
     private Direction direction;
     private final GameWorld gameWorld;
 
+    /**
+     * Базовый конструктор класса.
+     *
+     * @param startX начальный X
+     * @param startY начальный Y
+     * @param startSize начальный размер
+     * @param startDirection начальное направление
+     * @param gameWorld мир игры
+     */
     public Snake(
             int startX,
             int startY,
@@ -24,6 +33,7 @@ public class Snake implements Renderable<SnakePart>, Collider, Updatable, Restar
             Direction startDirection,
             GameWorld gameWorld
     ) {
+        this.startDirection = startDirection;
         this.direction = startDirection;
         this.startSize = startSize;
         this.startX = startX;
@@ -81,6 +91,7 @@ public class Snake implements Renderable<SnakePart>, Collider, Updatable, Restar
         for (int i = 0; i < startSize - 1; i++) {
             points.add(new Point(-1, -1));
         }
+        direction = startDirection;
     }
 
     @Override
@@ -132,5 +143,9 @@ public class Snake implements Renderable<SnakePart>, Collider, Updatable, Restar
 
     public Direction getDirection() {
         return direction;
+    }
+
+    public Direction getStartDirection() {
+        return startDirection;
     }
 }

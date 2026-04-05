@@ -88,6 +88,9 @@ public class GameController {
      * Перезапуск игры.
      */
     public void restart() {
+        for (Controller controller : controllers) {
+            controller.restart();
+        }
         world.restart();
         timeline.play();
     }
