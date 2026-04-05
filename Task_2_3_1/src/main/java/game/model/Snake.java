@@ -1,8 +1,8 @@
 package game.model;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.LinkedList;
+import java.util.List;
 import javafx.util.Pair;
 
 /**
@@ -107,6 +107,12 @@ public class Snake implements Renderable<SnakePart>, Collider, Updatable, Restar
         return points.get(0);
     }
 
+    /**
+     * Устанавливает направление движения змейки.
+     * Игнорирует изменение направления на противоположное.
+     *
+     * @param dir новое направление движения
+     */
     public void setDirection(Direction dir) {
         if (dir == Direction.UP && direction != Direction.DOWN) {
             direction = dir;

@@ -33,6 +33,10 @@ public class SnakeGame extends Application {
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/layout.fxml"));
         Parent root = loader.load();
+        Scene scene = new Scene(root);
+        primaryStage.setTitle("Snake Game");
+        primaryStage.setScene(scene);
+        primaryStage.setResizable(true);
 
         SceneController sceneController = loader.getController();
         Canvas canvas = sceneController.getCanvas();
@@ -70,12 +74,7 @@ public class SnakeGame extends Application {
         gameWorld.addModel(food);
         gameView.addView(foodView);
 
-        Scene scene = new Scene(root);
-        primaryStage.setTitle("Snake Game");
-        primaryStage.setScene(scene);
-        primaryStage.setResizable(true);
         primaryStage.show();
-
         gameController.start(scene);
     }
 }
