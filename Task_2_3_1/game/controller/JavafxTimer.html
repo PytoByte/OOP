@@ -82,6 +82,7 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">JavafxTimer</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="GameTimer.html" title="interface in game.controller">GameTimer</a></span></div>
+<div class="block">Неблокирующий таймер реализуемый javafx.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -94,7 +95,9 @@ implements <a href="GameTimer.html" title="interface in game.controller">GameTim
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(javafx.util.Duration)" class="member-name-link">JavafxTimer</a><wbr>(javafx.util.Duration&nbsp;duration)</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Базовый конструктор класса.</div>
+</div>
 </div>
 </section>
 </li>
@@ -111,13 +114,19 @@ implements <a href="GameTimer.html" title="interface in game.controller">GameTim
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#play()" class="member-name-link">play</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Запуск таймера.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setOnTick(java.lang.Runnable)" class="member-name-link">setOnTick</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Runnable.html" title="class or interface in java.lang" class="external-link">Runnable</a>&nbsp;action)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Установка обработчика таймера.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#stop()" class="member-name-link">stop</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Остановка таймера.</div>
+</div>
 </div>
 </div>
 </div>
@@ -139,6 +148,11 @@ implements <a href="GameTimer.html" title="interface in game.controller">GameTim
 <section class="detail" id="&lt;init&gt;(javafx.util.Duration)">
 <h3>JavafxTimer</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">JavafxTimer</span><wbr><span class="parameters">(javafx.util.Duration&nbsp;duration)</span></div>
+<div class="block">Базовый конструктор класса.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>duration</code> - интервал вызова обработчика</dd>
+</dl>
 </section>
 </li>
 </ul>
@@ -153,9 +167,13 @@ implements <a href="GameTimer.html" title="interface in game.controller">GameTim
 <section class="detail" id="setOnTick(java.lang.Runnable)">
 <h3>setOnTick</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setOnTick</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Runnable.html" title="class or interface in java.lang" class="external-link">Runnable</a>&nbsp;action)</span></div>
+<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="GameTimer.html#setOnTick(java.lang.Runnable)">GameTimer</a></code></span></div>
+<div class="block">Установка обработчика таймера.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="GameTimer.html#setOnTick(java.lang.Runnable)">setOnTick</a></code>&nbsp;in interface&nbsp;<code><a href="GameTimer.html" title="interface in game.controller">GameTimer</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>action</code> - обработчик таймера</dd>
 </dl>
 </section>
 </li>
@@ -163,6 +181,8 @@ implements <a href="GameTimer.html" title="interface in game.controller">GameTim
 <section class="detail" id="play()">
 <h3>play</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">play</span>()</div>
+<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="GameTimer.html#play()">GameTimer</a></code></span></div>
+<div class="block">Запуск таймера.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="GameTimer.html#play()">play</a></code>&nbsp;in interface&nbsp;<code><a href="GameTimer.html" title="interface in game.controller">GameTimer</a></code></dd>
@@ -173,6 +193,8 @@ implements <a href="GameTimer.html" title="interface in game.controller">GameTim
 <section class="detail" id="stop()">
 <h3>stop</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">stop</span>()</div>
+<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="GameTimer.html#stop()">GameTimer</a></code></span></div>
+<div class="block">Остановка таймера.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="GameTimer.html#stop()">stop</a></code>&nbsp;in interface&nbsp;<code><a href="GameTimer.html" title="interface in game.controller">GameTimer</a></code></dd>

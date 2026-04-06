@@ -77,6 +77,7 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">GameController</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
+<div class="block">Основной контроллер игры, управляющий другими контроллерами, моделью игры и её сценой.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -92,7 +93,9 @@ loadScripts(document, 'script');</script>
  <a href="../view/GameView.html" title="class in game.view">GameView</a>&nbsp;view,
  <a href="SceneController.html" title="class in game.controller">SceneController</a>&nbsp;sceneController,
  <a href="GameTimer.html" title="interface in game.controller">GameTimer</a>&nbsp;timer)</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Базовый конструктор класса.</div>
+</div>
 </div>
 </section>
 </li>
@@ -109,19 +112,29 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#addController(game.controller.Controller)" class="member-name-link">addController</a><wbr>(<a href="Controller.html" title="interface in game.controller">Controller</a>&nbsp;controller)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Добавить контроллер.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#restart()" class="member-name-link">restart</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Перезапуск игры.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#start(javafx.scene.Scene)" class="member-name-link">start</a><wbr>(javafx.scene.Scene&nbsp;scene)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Запуск игры.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#stop()" class="member-name-link">stop</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Остановка игры.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#tick()" class="member-name-link">tick</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Воспроизведение такта игры.</div>
+</div>
 </div>
 </div>
 </div>
@@ -146,6 +159,14 @@ loadScripts(document, 'script');</script>
  <a href="../view/GameView.html" title="class in game.view">GameView</a>&nbsp;view,
  <a href="SceneController.html" title="class in game.controller">SceneController</a>&nbsp;sceneController,
  <a href="GameTimer.html" title="interface in game.controller">GameTimer</a>&nbsp;timer)</span></div>
+<div class="block">Базовый конструктор класса.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>world</code> - модель игрового мира.</dd>
+<dd><code>view</code> - отрисовка игрового мира.</dd>
+<dd><code>sceneController</code> - сцена игры.</dd>
+<dd><code>timer</code> - абстракция таймера для управления игровыми тактами.</dd>
+</dl>
 </section>
 </li>
 </ul>
@@ -160,30 +181,46 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="addController(game.controller.Controller)">
 <h3>addController</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">addController</span><wbr><span class="parameters">(<a href="Controller.html" title="interface in game.controller">Controller</a>&nbsp;controller)</span></div>
+<div class="block">Добавить контроллер.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>controller</code> - новый контроллер.</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="start(javafx.scene.Scene)">
 <h3>start</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">start</span><wbr><span class="parameters">(javafx.scene.Scene&nbsp;scene)</span></div>
+<div class="block">Запуск игры.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>scene</code> - сцена, которая будет реагировать на события, поставленные игровыми контроллерами.</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="tick()">
 <h3>tick</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">tick</span>()</div>
+<div class="block">Воспроизведение такта игры.
+ Обновляет состояние всех контроллеров, модели, проверяет условия конца игры и перерисовывает экран.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="restart()">
 <h3>restart</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">restart</span>()</div>
+<div class="block">Перезапуск игры.
+ Сбрасывает состояние контроллеров и модели, после чего запускает таймер.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="stop()">
 <h3>stop</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">stop</span>()</div>
+<div class="block">Остановка игры.
+ Останавливает игровой таймер.</div>
 </section>
 </li>
 </ul>
