@@ -1,7 +1,7 @@
 package game.controller;
 
 /**
- * Абстракция игрового таймера
+ * Абстракция игрового таймера.
  */
 public interface GameTimer {
     /**
