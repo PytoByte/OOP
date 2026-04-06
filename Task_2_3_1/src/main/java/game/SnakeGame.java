@@ -1,6 +1,7 @@
 package game;
 
 import game.controller.GameController;
+import game.controller.JavafxTimer;
 import game.controller.SceneController;
 import game.controller.SnakeController;
 import game.model.Direction;
@@ -17,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * Главный класс приложения, отвечающий за инициализацию и запуск игры.
@@ -42,7 +44,12 @@ public class SnakeGame extends Application {
         Canvas canvas = sceneController.getCanvas();
         GameWorld gameWorld = new GameWorld(8, 8, 10);
         GameView gameView = new GameView(gameWorld, canvas);
-        GameController gameController = new GameController(gameWorld, gameView, sceneController);
+        GameController gameController = new GameController(
+                gameWorld,
+                gameView,
+                sceneController,
+                new JavafxTimer(Duration.millis(200))
+        );
 
         sceneController.setOnRestart(gameController::restart);
 
