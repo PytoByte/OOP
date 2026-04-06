@@ -7,8 +7,8 @@ import game.model.GameWorld;
 import game.model.Point;
 import game.model.Snake;
 import javafx.scene.paint.Color;
-import javafx.util.Pair;
 import java.util.Iterator;
+import javafx.util.Pair;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

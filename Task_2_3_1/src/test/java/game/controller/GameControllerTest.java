@@ -21,10 +21,12 @@ class GameControllerTest {
     private MockController mockController;
 
     @BeforeAll
-    static void initJavaFX() {
+    static void initJavafx() {
         try {
             Platform.startup(() -> {});
-        } catch (IllegalStateException e) {}
+        } catch (IllegalStateException e) {
+            System.err.println("Ignoring illegal javafx startup");
+        }
     }
 
     @BeforeEach

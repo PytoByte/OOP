@@ -3,13 +3,12 @@ package game.view;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import game.model.Direction;
 import game.model.Food;
 import game.model.GameWorld;
 import game.model.Point;
 import javafx.scene.paint.Color;
-import javafx.util.Pair;
 import java.util.Iterator;
+import javafx.util.Pair;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
