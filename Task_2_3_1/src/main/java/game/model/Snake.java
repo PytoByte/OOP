@@ -147,10 +147,6 @@ public class Snake implements Renderable<SnakePart>, Collider, Updatable, Restar
         return new LinkedList<>(points);
     }
 
-    public Direction getDirection() {
-        return direction;
-    }
-
     public Direction getStartDirection() {
         return startDirection;
     }
