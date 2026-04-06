@@ -7,7 +7,6 @@ import game.model.Point;
 
 import java.util.Collections;
 import java.util.List;
-
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
 import javafx.util.Pair;
