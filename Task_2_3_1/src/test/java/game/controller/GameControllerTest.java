@@ -88,7 +88,11 @@ class GameControllerTest {
         mockTimer = new MockTimer();
         mockSubController = new MockController();
 
-        gameController = new GameController(world, new MockGameView(world), new MockSceneController(), mockTimer);
+        gameController = new GameController(
+                world,
+                new MockGameView(world),
+                new MockSceneController(), mockTimer
+        );
         gameController.addController(mockSubController);
     }
 

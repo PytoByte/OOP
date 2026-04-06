@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.Scene;
 
+/**
+ * Основной контроллер игры, управляющий другими контроллерами, моделью игры и её сценой.
+ */
 public class GameController {
     private final GameWorld world;
     private final GameView view;
@@ -13,6 +16,14 @@ public class GameController {
     private final List<Controller> controllers = new ArrayList<>();
     private final GameTimer timer;
 
+    /**
+     * Базовый конструктор класса.
+     *
+     * @param world модель игрового мира.
+     * @param view отрисовка игрового мира.
+     * @param sceneController сцена игры.
+     * @param timer абстракция таймера для управления игровыми тактами.
+     */
     public GameController(
             GameWorld world,
             GameView view,
@@ -27,10 +38,20 @@ public class GameController {
         this.timer.setOnTick(this::tick);
     }
 
+    /**
+     * Добавить контроллер.
+     *
+     * @param controller новый контроллер.
+     */
     public void addController(Controller controller) {
         controllers.add(controller);
     }
 
+    /**
+     * Запуск игры.
+     *
+     * @param scene сцена, которая будет реагировать на события, поставленные игровыми контроллерами.
+     */
     public void start(Scene scene) {
         for (Controller controller : controllers) {
             controller.setupEvents(scene);
@@ -38,6 +59,10 @@ public class GameController {
         timer.play();
     }
 
+    /**
+     * Воспроизведение такта игры.
+     * Обновляет состояние всех контроллеров, модели, проверяет условия конца игры и перерисовывает экран.
+     */
     public void tick() {
         for (Controller controller : controllers) {
             controller.tick();
@@ -56,6 +81,10 @@ public class GameController {
         view.render();
     }
 
+    /**
+     * Перезапуск игры.
+     * Сбрасывает состояние контроллеров и модели, после чего запускает таймер.
+     */
     public void restart() {
         for (Controller controller : controllers) {
             controller.restart();
@@ -64,6 +93,10 @@ public class GameController {
         timer.play();
     }
 
+    /**
+     * Остановка игры.
+     * Останавливает игровой таймер.
+     */
     public void stop() {
         timer.stop();
     }

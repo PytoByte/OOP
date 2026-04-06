@@ -5,10 +5,18 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 
+/**
+ * Неблокирующий таймер реализуемый javafx.
+ */
 public class JavafxTimer implements GameTimer {
     private final Timeline timeline;
     private final Duration duration;
 
+    /**
+     * Базовый конструктор класса.
+     *
+     * @param duration интервал вызова обработчика
+     */
     public JavafxTimer(Duration duration) {
         this.timeline = new Timeline();
         this.timeline.setCycleCount(Animation.INDEFINITE);
