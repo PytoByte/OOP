@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import game.model.GameWorld;
 import game.model.Point;
-
 import java.util.Collections;
 import java.util.List;
 import javafx.scene.canvas.Canvas;
