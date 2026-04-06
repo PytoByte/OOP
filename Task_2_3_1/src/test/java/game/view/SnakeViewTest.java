@@ -13,14 +13,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class SnakeViewTest {
-    private GameWorld world;
-    private Snake snake;
-    private SnakeView snakeView;
+    private View snakeView;
 
     @BeforeEach
     void setUp() {
-        world = new GameWorld(10, 10, 100);
-        snake = new Snake(5, 5, 2, Direction.RIGHT, world);
+        GameWorld world = new GameWorld(10, 10, 100);
+        Snake snake = new Snake(5, 5, 2, Direction.RIGHT, world);
         snakeView = new SnakeView(snake);
     }
 

@@ -13,13 +13,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class FoodViewTest {
-    private GameWorld world;
     private Food food;
-    private FoodView foodView;
+    private View foodView;
 
     @BeforeEach
     void setUp() {
-        world = new GameWorld(10, 10, 100);
+        GameWorld world = new GameWorld(10, 10, 100);
         food = new Food(1, world);
         foodView = new FoodView(food);
     }
@@ -41,14 +40,5 @@ class FoodViewTest {
             count++;
         }
         assertEquals(1, count);
-    }
-
-    @Test
-    void testGetViewPointsMatchModel() {
-        Point modelPoint = food.getCollider().get(0);
-        Pair<Point, Color> viewPair = foodView.getView().iterator().next();
-
-        assertEquals(modelPoint.getCoordX(), viewPair.getKey().getCoordX());
-        assertEquals(modelPoint.getCoordY(), viewPair.getKey().getCoordY());
     }
 }

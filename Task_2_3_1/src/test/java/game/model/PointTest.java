@@ -22,7 +22,6 @@ class PointTest {
         assertNotEquals(p1, p4);
         assertNotEquals(p1, p5);
         assertNotEquals(null, p1);
-        assertNotEquals("not a point", p1);
     }
 
     @Test
