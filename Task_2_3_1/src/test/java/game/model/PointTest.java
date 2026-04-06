@@ -12,9 +12,17 @@ class PointTest {
         Point p1 = new Point(5, 10);
         Point p2 = new Point(5, 10);
         Point p3 = new Point(10, 5);
+        Point p4 = new Point(5, 11);
+        Point p5 = new Point(6, 10);
 
+        assertEquals(p1, p1);
         assertEquals(p1, p2);
+
         assertNotEquals(p1, p3);
+        assertNotEquals(p1, p4);
+        assertNotEquals(p1, p5);
+        assertNotEquals(null, p1);
+        assertNotEquals("not a point", p1);
     }
 
     @Test
@@ -34,27 +42,17 @@ class PointTest {
     }
 
     @Test
-    void getCoordX() {
+    void testGetAndSetCoordX() {
         Point p = new Point(8, 15);
         assertEquals(8, p.getCoordX());
-    }
-
-    @Test
-    void setCoordX() {
-        Point p = new Point(0, 0);
         p.setCoordX(42);
         assertEquals(42, p.getCoordX());
     }
 
     @Test
-    void getCoordY() {
+    void testGetAndSetCoordY() {
         Point p = new Point(8, 15);
         assertEquals(15, p.getCoordY());
-    }
-
-    @Test
-    void setCoordY() {
-        Point p = new Point(0, 0);
         p.setCoordY(99);
         assertEquals(99, p.getCoordY());
     }
