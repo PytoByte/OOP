@@ -13,13 +13,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class FoodViewTest {
-    private Food food;
     private View foodView;
 
     @BeforeEach
     void setUp() {
         GameWorld world = new GameWorld(10, 10, 100);
-        food = new Food(1, world);
+        Food food = new Food(1, world);
         foodView = new FoodView(food);
     }
 

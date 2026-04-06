@@ -12,14 +12,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class GameViewTest {
-    private GameWorld world;
-    private Canvas canvas;
     private GameView gameView;
 
     @BeforeEach
     void setUp() {
-        world = new GameWorld(10, 10, 100);
-        canvas = new Canvas(400, 400);
+        GameWorld world = new GameWorld(10, 10, 100);
+        Canvas canvas = new Canvas(400, 400);
         gameView = new GameView(world, canvas);
     }
 
