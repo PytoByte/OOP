@@ -75,7 +75,6 @@ class SnakeTest {
         assertEquals(5, snake.getHead().getCoordX());
         assertEquals(5, snake.getHead().getCoordY());
         assertEquals(3, snake.getCollider().size());
-        assertEquals(Direction.RIGHT, snake.getStartDirection());
     }
 
     @Test

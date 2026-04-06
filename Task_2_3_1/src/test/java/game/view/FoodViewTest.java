@@ -6,7 +6,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import game.model.Food;
 import game.model.GameWorld;
 import game.model.Point;
+
 import java.util.Iterator;
+import java.util.List;
+
 import javafx.scene.paint.Color;
 import javafx.util.Pair;
 import org.junit.jupiter.api.BeforeEach;

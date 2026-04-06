@@ -1,5 +1,6 @@
 package game.model;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -12,6 +13,39 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class GameWorldTest {
+    private static class MockEntity implements Updatable, Collider, Restartable {
+        Point position;
+        boolean updated = false;
+        boolean restarted = false;
+        boolean collided = false;
+        Collider lastHit;
+
+        MockEntity(Point p) {
+            this.position = p;
+        }
+
+        @Override
+        public void update() {
+            updated = true;
+        }
+
+        @Override
+        public void restart() {
+            restarted = true;
+        }
+
+        @Override
+        public List<Point> getCollider() {
+            return Collections.singletonList(position);
+        }
+
+        @Override
+        public void onCollision(Collider other, Point p) {
+            collided = true;
+            lastHit = other;
+        }
+    }
+
     private GameWorld world;
 
     @BeforeEach
@@ -41,6 +75,8 @@ class GameWorldTest {
     void testSetGameOver() {
         world.setGameOver(true);
         assertTrue(world.isGameOver());
+        world.setGameOver(false);
+        assertFalse(world.isGameOver());
     }
 
     @Test
@@ -75,7 +111,7 @@ class GameWorldTest {
     }
 
     @Test
-    void testCollisionDetection() {
+    void testCollision() {
         MockEntity e1 = new MockEntity(new Point(1, 1));
         MockEntity e2 = new MockEntity(new Point(1, 1));
 
@@ -90,22 +126,29 @@ class GameWorldTest {
 
     @Test
     void testGetAllCollidersPoints() {
-        MockEntity entity = new MockEntity(new Point(5, 5));
-        world.addModel(entity);
+        Point p1 = new Point(5, 5);
+        Point p2 = new Point(1, 1);
+        world.addModel(new MockEntity(p1));
+        world.addModel(new MockEntity(p2));
 
         List<Point> points = world.getAllCollidersPoints();
-        assertEquals(1, points.size());
-        assertEquals(5, points.get(0).coordX);
+        assertEquals(2, points.size());
+        assertTrue(
+                (points.get(0).equals(p1) && points.get(1).equals(p2))
+                        || (points.get(1).equals(p1) && points.get(0).equals(p2))
+        );
     }
 
     @Test
     void testAddModelWithNonFunctionalObject() {
         world.addModel(new Object());
-        world.tick();
+        assertDoesNotThrow(world::tick);
+        assertDoesNotThrow(world::restart);
+        assertDoesNotThrow(world::getAllCollidersPoints);
     }
 
     @Test
-    void testIntersectionReturnsNullForDifferentPoints() {
+    void testNoIntersectionForDifferentPoints() {
         MockEntity e1 = new MockEntity(new Point(1, 1));
         MockEntity e2 = new MockEntity(new Point(2, 2));
 
@@ -114,38 +157,6 @@ class GameWorldTest {
         world.tick();
 
         assertFalse(e1.collided);
-    }
-
-    private static class MockEntity implements Updatable, Collider, Restartable {
-        Point position;
-        boolean updated = false;
-        boolean restarted = false;
-        boolean collided = false;
-        Collider lastHit;
-
-        MockEntity(Point p) {
-            this.position = p;
-        }
-
-        @Override
-        public void update() {
-            updated = true;
-        }
-
-        @Override
-        public void restart() {
-            restarted = true;
-        }
-
-        @Override
-        public List<Point> getCollider() {
-            return Collections.singletonList(position);
-        }
-
-        @Override
-        public void onCollision(Collider other, Point p) {
-            collided = true;
-            lastHit = other;
-        }
+        assertFalse(e2.collided);
     }
 }

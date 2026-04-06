@@ -1,6 +1,7 @@
 package game.view;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import game.model.Direction;
 import game.model.GameWorld;
@@ -19,6 +20,7 @@ class SnakeViewTest {
     void setUp() {
         GameWorld world = new GameWorld(10, 10, 100);
         Snake snake = new Snake(5, 5, 2, Direction.RIGHT, world);
+        snake.update();
         snakeView = new SnakeView(snake);
     }
 
@@ -41,9 +43,10 @@ class SnakeViewTest {
         Iterable<Pair<Point, Color>> viewData = snakeView.getView();
         Iterator<Pair<Point, Color>> iterator = viewData.iterator();
 
-        Pair<Point, Color> head = iterator.next();
-        assertEquals(5, head.getKey().getCoordX());
-        assertEquals(5, head.getKey().getCoordY());
+        Point head = iterator.next().getKey();
+        assertEquals(new Point(6, 5), head);
+        Point body = iterator.next().getKey();
+        assertEquals(new Point(5, 5), body);
     }
 
     @Test
@@ -53,11 +56,5 @@ class SnakeViewTest {
             count++;
         }
         assertEquals(2, count);
-    }
-
-    private void assertTrue(boolean condition) {
-        if (!condition) {
-            throw new AssertionError();
-        }
     }
 }

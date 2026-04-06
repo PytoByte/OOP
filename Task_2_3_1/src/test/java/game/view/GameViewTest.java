@@ -4,7 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import game.model.GameWorld;
 import game.model.Point;
+
 import java.util.Collections;
+import java.util.List;
+
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
 import javafx.util.Pair;
@@ -37,16 +40,8 @@ class GameViewTest {
 
     @Test
     void testRenderWithInvalidPoints() {
-        View mockView = () -> Collections.singletonList(
-                new Pair<>(new Point(-1, -1), Color.BLUE)
-        );
-        gameView.addView(mockView);
-        assertDoesNotThrow(() -> gameView.render());
-    }
-
-    @Test
-    void testRenderWithPointsOutsideBounds() {
-        View mockView = () -> Collections.singletonList(
+        View mockView = () -> List.of(
+                new Pair<>(new Point(-1, -1), Color.BLUE),
                 new Pair<>(new Point(11, 11), Color.YELLOW)
         );
         gameView.addView(mockView);

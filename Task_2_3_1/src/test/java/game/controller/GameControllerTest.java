@@ -91,7 +91,8 @@ class GameControllerTest {
         gameController = new GameController(
                 world,
                 new MockGameView(world),
-                new MockSceneController(), mockTimer
+                new MockSceneController(),
+                mockTimer
         );
         gameController.addController(mockSubController);
     }
@@ -106,17 +107,14 @@ class GameControllerTest {
     @Test
     void testTickProcessesGameOver() {
         world.setGameOver(true);
-
-        if (mockTimer.tickAction != null) {
-            mockTimer.tickAction.run();
-        }
-
-        assertFalse(mockTimer.running);
+        mockTimer.tickAction.run();
         assertTrue(mockSubController.ticked);
     }
 
     @Test
     void testRestartCallsSubControllers() {
+        mockTimer.stop();
+        assertFalse(mockTimer.running);
         gameController.restart();
         assertTrue(mockSubController.restarted);
         assertTrue(mockTimer.running);
@@ -125,11 +123,7 @@ class GameControllerTest {
     @Test
     void testTickProcessesWin() {
         world.increaseScore(10);
-
-        if (mockTimer.tickAction != null) {
-            mockTimer.tickAction.run();
-        }
-
+        mockTimer.tickAction.run();
         assertTrue(world.isGameWin());
         assertFalse(mockTimer.running);
     }

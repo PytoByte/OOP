@@ -6,10 +6,24 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Collections;
 import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class FoodTest {
+    private static class MockCollider implements Collider {
+        List<Point> points = Collections.emptyList();
+
+        @Override
+        public List<Point> getCollider() {
+            return points;
+        }
+
+        @Override
+        public void onCollision(Collider other, Point p) {
+        }
+    }
+
     private GameWorld world;
     private Food food;
 
@@ -44,8 +58,8 @@ class FoodTest {
 
     @Test
     void testOnCollisionWithSnakeBodyDoesNotIncreaseScore() {
-        Snake snake = new Snake(5, 5, 2, Direction.RIGHT, world);
-        Point bodyPoint = new Point(4, 5);
+        Snake snake = new Snake(-1, -1, 2, Direction.RIGHT, world);
+        Point bodyPoint = food.getCollider().get(0);
 
         food.onCollision(snake, bodyPoint);
         assertEquals(0, world.getScore());
@@ -69,7 +83,7 @@ class FoodTest {
         Food foodInTinyWorld = new Food(1, tinyWorld);
 
         assertEquals(1, foodInTinyWorld.getCollider().size());
-        assertEquals(1, foodInTinyWorld.getCollider().get(0).coordX);
+        assertEquals(1, foodInTinyWorld.getCollider().get(0).getCoordX());
     }
 
     @Test
@@ -90,11 +104,5 @@ class FoodTest {
         var data = food.getRenderData();
         assertFalse(data.isEmpty());
         assertEquals(FoodType.DEFAULT, data.get(0).getValue());
-    }
-
-    private static class MockCollider implements Collider {
-        List<Point> points = Collections.emptyList();
-        @Override public List<Point> getCollider() { return points; }
-        @Override public void onCollision(Collider other, Point p) {}
     }
 }

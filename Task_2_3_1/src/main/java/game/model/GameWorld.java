@@ -104,7 +104,7 @@ public class GameWorld {
         for (Point p1 : c1.getCollider()) {
             for (Point p2 : c2.getCollider()) {
                 if (p1.equals(p2)) {
-                    return new Point(p1.coordX, p2.coordY);
+                    return new Point(p1.getCoordX(), p2.getCoordY());
                 }
             }
         }

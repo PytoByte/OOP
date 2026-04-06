@@ -5,8 +5,8 @@ package game.model;
  * Используется для хранения координат сегментов змейки, еды и препятствий.
  */
 public class Point {
-    int coordX;
-    int coordY;
+    private int coordX;
+    private int coordY;
 
     /**
      * Создает новую точку с заданными координатами.

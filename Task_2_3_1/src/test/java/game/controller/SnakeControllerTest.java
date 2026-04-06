@@ -25,18 +25,4 @@ class SnakeControllerTest {
         snakeController.tick();
         assertEquals(Direction.RIGHT, snake.getStartDirection());
     }
-
-    @Test
-    void testTickUpdatesSnakeDirection() {
-        snakeController.restart();
-        snakeController.tick();
-        assertEquals(Direction.RIGHT, Direction.RIGHT);
-    }
-
-    @Test
-    void testDirectionBufferDoesNotUpdateSnakeImmediately() {
-        snakeController.restart();
-        snakeController.tick();
-        assertEquals(Direction.RIGHT, Direction.RIGHT);
-    }
 }
