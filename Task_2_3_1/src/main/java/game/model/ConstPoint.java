@@ -5,5 +5,6 @@ package game.model;
  */
 public interface ConstPoint {
     int getX();
+
     int getY();
 }
