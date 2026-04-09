@@ -34,12 +34,12 @@ class GameWorldTest {
         }
 
         @Override
-        public List<Point> getCollider() {
+        public List<ConstPoint> getCollider() {
             return Collections.singletonList(position);
         }
 
         @Override
-        public void onCollision(Collider other, Point p) {
+        public void onCollision(Collider other, ConstPoint p) {
             collided = true;
             lastHit = other;
         }
@@ -130,7 +130,7 @@ class GameWorldTest {
         world.addModel(new MockEntity(p1));
         world.addModel(new MockEntity(p2));
 
-        List<Point> points = world.getAllCollidersPoints();
+        List<ConstPoint> points = world.getAllCollidersPoints();
         assertEquals(2, points.size());
         assertTrue(
                 (points.get(0).equals(p1) && points.get(1).equals(p2))

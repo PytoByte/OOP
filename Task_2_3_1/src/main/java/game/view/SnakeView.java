@@ -1,12 +1,12 @@
 package game.view;
 
-import game.model.Point;
+import game.model.ConstPoint;
+import game.model.Pair;
 import game.model.Renderable;
 import game.model.Snake;
 import game.model.SnakePart;
 import java.util.LinkedList;
 import javafx.scene.paint.Color;
-import javafx.util.Pair;
 
 /**
  * Визуальное отображение змейки.
@@ -26,21 +26,21 @@ public class SnakeView implements View {
     }
 
     @Override
-    public Iterable<Pair<Point, Color>> getView() {
-        LinkedList<Pair<Point, Color>> view = new LinkedList<>();
+    public Iterable<Pair<ConstPoint, Color>> getView() {
+        LinkedList<Pair<ConstPoint, Color>> view = new LinkedList<>();
 
-        for (Pair<Point, SnakePart> pointRender : snake.getRenderData()) {
+        for (Pair<ConstPoint, SnakePart> pointRender : snake.getRenderData()) {
             Color color;
-            switch (pointRender.getValue()) {
+            switch (pointRender.value()) {
                 case HEAD -> color = headColor;
                 case BODY -> color = bodyColor;
                 default -> {
-                    System.err.printf("Unexpected snake part %s\n", pointRender.getValue());
+                    System.err.printf("Unexpected snake part %s\n", pointRender.value());
                     color = errorColor;
                 }
             }
 
-            view.add(new Pair<>(pointRender.getKey(), color));
+            view.add(new Pair<>(pointRender.key(), color));
         }
 
         return view;

@@ -4,9 +4,9 @@ package game.model;
  * Базовый класс, представляющий точку в двумерном пространстве игрового поля.
  * Используется для хранения координат сегментов змейки, еды и препятствий.
  */
-public class Point {
-    private int coordX;
-    private int coordY;
+public class Point implements ConstPoint {
+    private int x;
+    private int y;
 
     /**
      * Создает новую точку с заданными координатами.
@@ -15,8 +15,8 @@ public class Point {
      * @param y координата по вертикали.
      */
     public Point(int x, int y) {
-        this.coordX = x;
-        this.coordY = y;
+        this.x = x;
+        this.y = y;
     }
 
     /**
@@ -37,7 +37,7 @@ public class Point {
             return false;
         }
 
-        return coordX == p.coordX && coordY == p.coordY;
+        return x == p.getX() && y == p.getY();
     }
 
     /**
@@ -47,7 +47,7 @@ public class Point {
      */
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(coordX, coordY);
+        return java.util.Objects.hash(x, y);
     }
 
     /**
@@ -57,22 +57,22 @@ public class Point {
      */
     @Override
     public String toString() {
-        return String.format("(%d, %d)", coordX, coordY);
+        return String.format("(%d, %d)", x, y);
     }
 
-    public int getCoordX() {
-        return coordX;
+    public int getX() {
+        return x;
     }
 
-    public void setCoordX(int coordX) {
-        this.coordX = coordX;
+    public void setX(int x) {
+        this.x = x;
     }
 
-    public int getCoordY() {
-        return coordY;
+    public int getY() {
+        return y;
     }
 
-    public void setCoordY(int coordY) {
-        this.coordY = coordY;
+    public void setY(int y) {
+        this.y = y;
     }
 }

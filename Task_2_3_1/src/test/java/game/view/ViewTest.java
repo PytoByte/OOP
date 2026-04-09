@@ -3,10 +3,11 @@ package game.view;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import game.model.ConstPoint;
+import game.model.Pair;
 import game.model.Point;
 import java.util.Collections;
 import javafx.scene.paint.Color;
-import javafx.util.Pair;
 import org.junit.jupiter.api.Test;
 
 class ViewTest {
@@ -24,9 +25,9 @@ class ViewTest {
         );
 
         assertNotNull(mockView.getView());
-        Pair<Point, Color> firstElement = mockView.getView().iterator().next();
+        Pair<ConstPoint, Color> firstElement = mockView.getView().iterator().next();
 
-        assertEquals(new Point(1, 1), firstElement.getKey());
-        assertEquals(Color.RED, firstElement.getValue());
+        assertEquals(new Point(1, 1), firstElement.key());
+        assertEquals(Color.RED, firstElement.value());
     }
 }

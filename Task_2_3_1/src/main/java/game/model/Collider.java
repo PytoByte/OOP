@@ -11,7 +11,7 @@ public interface Collider {
      *
      * @return список точек, представляющих хитбокс объекта
      */
-    List<Point> getCollider();
+    List<ConstPoint> getCollider();
 
     /**
      * Обработчик коллизии.
@@ -19,5 +19,5 @@ public interface Collider {
      * @param other Модель игрового объекта с которым произошла коллизия
      * @param p Точка в которой произошла коллизия
      */
-    void onCollision(Collider other, Point p);
+    void onCollision(Collider other, ConstPoint p);
 }

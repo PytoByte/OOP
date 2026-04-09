@@ -1,8 +1,9 @@
 package game.view;
 
+import game.model.ConstPoint;
+import game.model.Pair;
 import game.model.Point;
 import javafx.scene.paint.Color;
-import javafx.util.Pair;
 
 /**
  * Интерфейс для визуального представления игровых объектов.
@@ -15,5 +16,5 @@ public interface View {
      *
      * @return Набор пар {@link Point} и {@link Color}.
      */
-    Iterable<Pair<Point, Color>> getView();
+    Iterable<Pair<ConstPoint, Color>> getView();
 }

@@ -43,18 +43,18 @@ class PointTest {
     }
 
     @Test
-    void testGetAndSetCoordX() {
+    void testGetAndSetX() {
         Point p = new Point(8, 15);
-        assertEquals(8, p.getCoordX());
-        p.setCoordX(42);
-        assertEquals(42, p.getCoordX());
+        assertEquals(8, p.getX());
+        p.setX(42);
+        assertEquals(42, p.getX());
     }
 
     @Test
-    void testGetAndSetCoordY() {
+    void testGetAndSetY() {
         Point p = new Point(8, 15);
-        assertEquals(15, p.getCoordY());
-        p.setCoordY(99);
-        assertEquals(99, p.getCoordY());
+        assertEquals(15, p.getY());
+        p.setY(99);
+        assertEquals(99, p.getY());
     }
 }

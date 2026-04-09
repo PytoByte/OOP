@@ -11,15 +11,15 @@ import org.junit.jupiter.api.Test;
 
 class FoodTest {
     private static class MockCollider implements Collider {
-        List<Point> points = Collections.emptyList();
+        List<ConstPoint> points = Collections.emptyList();
 
         @Override
-        public List<Point> getCollider() {
+        public List<ConstPoint> getCollider() {
             return points;
         }
 
         @Override
-        public void onCollision(Collider other, Point p) {
+        public void onCollision(Collider other, ConstPoint p) {
         }
     }
 
@@ -39,7 +39,7 @@ class FoodTest {
 
     @Test
     void testOnCollisionRemovesAndRespawnsFood() {
-        Point p = food.getCollider().get(0);
+        ConstPoint p = food.getCollider().get(0);
         food.onCollision(new MockCollider(), p);
 
         assertEquals(3, food.getCollider().size());
@@ -58,7 +58,7 @@ class FoodTest {
     @Test
     void testOnCollisionWithSnakeBodyDoesNotIncreaseScore() {
         Snake snake = new Snake(-1, -1, 2, Direction.RIGHT, world);
-        Point bodyPoint = food.getCollider().get(0);
+        ConstPoint bodyPoint = food.getCollider().get(0);
 
         food.onCollision(snake, bodyPoint);
         assertEquals(0, world.getScore());
@@ -82,7 +82,7 @@ class FoodTest {
         Food foodInTinyWorld = new Food(1, tinyWorld);
 
         assertEquals(1, foodInTinyWorld.getCollider().size());
-        assertEquals(1, foodInTinyWorld.getCollider().get(0).getCoordX());
+        assertEquals(1, foodInTinyWorld.getCollider().get(0).getX());
     }
 
     @Test
@@ -102,6 +102,6 @@ class FoodTest {
     void testGetRenderData() {
         var data = food.getRenderData();
         assertFalse(data.isEmpty());
-        assertEquals(FoodType.DEFAULT, data.get(0).getValue());
+        assertEquals(FoodType.DEFAULT, data.get(0).value());
     }
 }

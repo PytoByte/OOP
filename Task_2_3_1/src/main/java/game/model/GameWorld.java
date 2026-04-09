@@ -27,13 +27,17 @@ public class GameWorld {
      * @param height высота игрового поля
      * @param scoreToWin счёт для победы
      */
-    public GameWorld(int width, int height, int scoreToWin) {
-        this.width = width;
-        this.height = height;
-
+    public GameWorld(
+            int width,
+            int height,
+            int scoreToWin
+    ) {
         if (scoreToWin > width * height) {
             throw new IllegalArgumentException("Too high scoreToWin. Limit is width*height");
         }
+
+        this.width = width;
+        this.height = height;
         this.scoreToWin = scoreToWin;
     }
 
@@ -84,7 +88,7 @@ public class GameWorld {
                 Collider c1 = colliders.get(i);
                 Collider c2 = colliders.get(j);
 
-                Point intersectionPoint = intersection(c1, c2);
+                ConstPoint intersectionPoint = intersection(c1, c2);
                 if (intersectionPoint != null) {
                     c1.onCollision(c2, intersectionPoint);
                     c2.onCollision(c1, intersectionPoint);
@@ -100,11 +104,11 @@ public class GameWorld {
      * @param c2 второй объект
      * @return true если есть пересечение, иначе false
      */
-    private Point intersection(Collider c1, Collider c2) {
-        for (Point p1 : c1.getCollider()) {
-            for (Point p2 : c2.getCollider()) {
+    private ConstPoint intersection(Collider c1, Collider c2) {
+        for (ConstPoint p1 : c1.getCollider()) {
+            for (ConstPoint p2 : c2.getCollider()) {
                 if (p1.equals(p2)) {
-                    return new Point(p1.getCoordX(), p2.getCoordY());
+                    return new Point(p1.getX(), p2.getY());
                 }
             }
         }
@@ -128,11 +132,11 @@ public class GameWorld {
      *
      * @return список точек, занятых другими сущностями.
      */
-    public List<Point> getAllCollidersPoints() {
-        List<Point> allPoints = new ArrayList<>();
+    public List<ConstPoint> getAllCollidersPoints() {
+        List<ConstPoint> allPoints = new ArrayList<>();
 
         for (Collider collider : colliders) {
-            List<Point> colliderPoints = collider.getCollider();
+            List<ConstPoint> colliderPoints = collider.getCollider();
             if (colliderPoints != null) {
                 allPoints.addAll(colliderPoints);
             }

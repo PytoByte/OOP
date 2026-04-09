@@ -3,7 +3,6 @@ package game.model;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import javafx.util.Pair;
 
 /**
  * Модель змейки.
@@ -45,23 +44,23 @@ public class Snake implements Renderable<SnakePart>, Collider, Updatable, Restar
     @Override
     public void update() {
         Point head = getHead();
-        Point nextPos = new Point(head.getCoordX(), head.getCoordY());
+        Point nextPos = new Point(head.getX(), head.getY());
 
         int fieldWidth = gameWorld.getWidth();
         int fieldHeight = gameWorld.getHeight();
 
         switch (direction) {
             case UP -> {
-                nextPos.setCoordY((head.getCoordY() - 1 + fieldHeight) % fieldHeight);
+                nextPos.setY((head.getY() - 1 + fieldHeight) % fieldHeight);
             }
             case DOWN -> {
-                nextPos.setCoordY((head.getCoordY() + 1) % fieldHeight);
+                nextPos.setY((head.getY() + 1) % fieldHeight);
             }
             case LEFT -> {
-                nextPos.setCoordX((head.getCoordX() - 1 + fieldWidth) % fieldWidth);
+                nextPos.setX((head.getX() - 1 + fieldWidth) % fieldWidth);
             }
             case RIGHT -> {
-                nextPos.setCoordX((head.getCoordX() + 1) % fieldWidth);
+                nextPos.setX((head.getX() + 1) % fieldWidth);
             }
             default -> {
                 System.err.printf("Unexpected snake direction %s\n", direction);
@@ -69,14 +68,14 @@ public class Snake implements Renderable<SnakePart>, Collider, Updatable, Restar
         }
 
         for (Point body : points) {
-            int oldX = body.getCoordX();
-            body.setCoordX(nextPos.getCoordX());
+            int oldX = body.getX();
+            body.setX(nextPos.getX());
 
-            int oldY = body.getCoordY();
-            body.setCoordY(nextPos.getCoordY());
+            int oldY = body.getY();
+            body.setY(nextPos.getY());
 
-            nextPos.setCoordX(oldX);
-            nextPos.setCoordY(oldY);
+            nextPos.setX(oldX);
+            nextPos.setY(oldY);
 
             if (body != head && body.equals(head)) {
                 gameWorld.setGameOver(true);
@@ -95,7 +94,7 @@ public class Snake implements Renderable<SnakePart>, Collider, Updatable, Restar
     }
 
     @Override
-    public void onCollision(Collider other, Point p) {
+    public void onCollision(Collider other, ConstPoint p) {
         if (other instanceof Food) {
             if (getHead().equals(p)) {
                 points.add(new Point(-1, -1));
@@ -129,8 +128,8 @@ public class Snake implements Renderable<SnakePart>, Collider, Updatable, Restar
     }
 
     @Override
-    public List<Pair<Point, SnakePart>> getRenderData() {
-        List<Pair<Point, SnakePart>> renderData = new ArrayList<>();
+    public List<Pair<ConstPoint, SnakePart>> getRenderData() {
+        List<Pair<ConstPoint, SnakePart>> renderData = new ArrayList<>();
         boolean isHead = true;
 
         for (Point p : points) {
@@ -143,7 +142,7 @@ public class Snake implements Renderable<SnakePart>, Collider, Updatable, Restar
     }
 
     @Override
-    public List<Point> getCollider() {
+    public List<ConstPoint> getCollider() {
         return new LinkedList<>(points);
     }
 

@@ -3,12 +3,12 @@ package game.view;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import game.model.ConstPoint;
 import game.model.Food;
 import game.model.GameWorld;
-import game.model.Point;
+import game.model.Pair;
 import java.util.Iterator;
 import javafx.scene.paint.Color;
-import javafx.util.Pair;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -24,18 +24,18 @@ class FoodViewTest {
 
     @Test
     void testGetViewColor() {
-        Iterable<Pair<Point, Color>> viewData = foodView.getView();
-        Iterator<Pair<Point, Color>> iterator = viewData.iterator();
+        Iterable<Pair<ConstPoint, Color>> viewData = foodView.getView();
+        Iterator<Pair<ConstPoint, Color>> iterator = viewData.iterator();
 
         assertTrue(iterator.hasNext());
-        Pair<Point, Color> pair = iterator.next();
-        assertEquals(new Color(1, 0, 0, 1), pair.getValue());
+        Pair<ConstPoint, Color> pair = iterator.next();
+        assertEquals(new Color(1, 0, 0, 1), pair.value());
     }
 
     @Test
     void testGetViewSize() {
         int count = 0;
-        for (Pair<Point, Color> pair : foodView.getView()) {
+        for (Pair<ConstPoint, Color> pair : foodView.getView()) {
             count++;
         }
         assertEquals(1, count);

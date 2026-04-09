@@ -19,51 +19,51 @@ class SnakeTest {
     @Test
     void testGetHead() {
         Point head = snake.getHead();
-        assertEquals(5, head.getCoordX());
-        assertEquals(5, head.getCoordY());
+        assertEquals(5, head.getX());
+        assertEquals(5, head.getY());
     }
 
     @Test
     void testUpdateMovesHead() {
         snake.update();
         Point head = snake.getHead();
-        assertEquals(6, head.getCoordX());
-        assertEquals(5, head.getCoordY());
+        assertEquals(6, head.getX());
+        assertEquals(5, head.getY());
     }
 
     @Test
     void testUpdateTeleportsAcrossWidth() {
         Snake edgeSnake = new Snake(9, 5, 1, Direction.RIGHT, world);
         edgeSnake.update();
-        assertEquals(0, edgeSnake.getHead().getCoordX());
+        assertEquals(0, edgeSnake.getHead().getX());
     }
 
     @Test
     void testUpdateTeleportsAcrossHeight() {
         Snake edgeSnake = new Snake(5, 0, 1, Direction.UP, world);
         edgeSnake.update();
-        assertEquals(9, edgeSnake.getHead().getCoordY());
+        assertEquals(9, edgeSnake.getHead().getY());
     }
 
     @Test
     void testSetDirectionValid() {
         snake.setDirection(Direction.UP);
         snake.update();
-        assertEquals(4, snake.getHead().getCoordY());
+        assertEquals(4, snake.getHead().getY());
     }
 
     @Test
     void testSetDirectionInvalid() {
         snake.setDirection(Direction.LEFT);
         snake.update();
-        assertEquals(6, snake.getHead().getCoordX());
+        assertEquals(6, snake.getHead().getX());
     }
 
     @Test
     void testOnCollisionWithFood() {
         Food food = new Food(1, world);
         Point headPos = snake.getHead();
-        snake.onCollision(food, new Point(headPos.getCoordX(), headPos.getCoordY()));
+        snake.onCollision(food, new Point(headPos.getX(), headPos.getY()));
         assertEquals(4, snake.getCollider().size());
     }
 
@@ -72,16 +72,16 @@ class SnakeTest {
         snake.update();
         snake.setDirection(Direction.UP);
         snake.restart();
-        assertEquals(5, snake.getHead().getCoordX());
-        assertEquals(5, snake.getHead().getCoordY());
+        assertEquals(5, snake.getHead().getX());
+        assertEquals(5, snake.getHead().getY());
         assertEquals(3, snake.getCollider().size());
     }
 
     @Test
     void testGetRenderData() {
         assertEquals(3, snake.getRenderData().size());
-        assertEquals(SnakePart.HEAD, snake.getRenderData().get(0).getValue());
-        assertEquals(SnakePart.BODY, snake.getRenderData().get(1).getValue());
+        assertEquals(SnakePart.HEAD, snake.getRenderData().get(0).value());
+        assertEquals(SnakePart.BODY, snake.getRenderData().get(1).value());
     }
 
     @Test

@@ -2,16 +2,15 @@ package game.model;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-import javafx.util.Pair;
 
 /**
  * Модель еды.
  */
 public class Food implements Renderable<FoodType>, Collider, Restartable {
-    private final ArrayList<Point> points;
+    private final LinkedList<Point> points = new LinkedList<>();
     private final GameWorld gameWorld;
     private final Random random = new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
     private int maxCount;
@@ -25,7 +24,6 @@ public class Food implements Renderable<FoodType>, Collider, Restartable {
     public Food(int maxCount, GameWorld gameWorld) {
         this.maxCount = maxCount;
         this.gameWorld = gameWorld;
-        this.points = new ArrayList<>(maxCount);
         restart();
     }
 
@@ -39,7 +37,7 @@ public class Food implements Renderable<FoodType>, Collider, Restartable {
      * Генерация еды.
      */
     private void spawnFood() {
-        List<Point> redZone;
+        List<ConstPoint> redZone;
         int spawnCount = maxCount - points.size();
         if (spawnCount == 0) {
             return;
@@ -79,7 +77,7 @@ public class Food implements Renderable<FoodType>, Collider, Restartable {
     }
 
     @Override
-    public void onCollision(Collider other, Point p) {
+    public void onCollision(Collider other, ConstPoint p) {
         points.remove(p);
         spawnFood();
         if (other instanceof Snake snake) {
@@ -90,13 +88,13 @@ public class Food implements Renderable<FoodType>, Collider, Restartable {
     }
 
     @Override
-    public List<Point> getCollider() {
-        return new ArrayList<>(points);
+    public List<ConstPoint> getCollider() {
+        return new LinkedList<>(points);
     }
 
     @Override
-    public List<Pair<Point, FoodType>> getRenderData() {
-        List<Pair<Point, FoodType>> renderData = new ArrayList<>();
+    public List<Pair<ConstPoint, FoodType>> getRenderData() {
+        List<Pair<ConstPoint, FoodType>> renderData = new LinkedList<>();
         for (Point p : points) {
             renderData.add(new Pair<>(p, FoodType.DEFAULT));
         }

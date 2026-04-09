@@ -3,13 +3,14 @@ package game.view;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import game.model.ConstPoint;
 import game.model.Direction;
 import game.model.GameWorld;
+import game.model.Pair;
 import game.model.Point;
 import game.model.Snake;
 import java.util.Iterator;
 import javafx.scene.paint.Color;
-import javafx.util.Pair;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,33 +27,33 @@ class SnakeViewTest {
 
     @Test
     void testGetViewColors() {
-        Iterable<Pair<Point, Color>> viewData = snakeView.getView();
-        Iterator<Pair<Point, Color>> iterator = viewData.iterator();
+        Iterable<Pair<ConstPoint, Color>> viewData = snakeView.getView();
+        Iterator<Pair<ConstPoint, Color>> iterator = viewData.iterator();
 
         assertTrue(iterator.hasNext());
-        Pair<Point, Color> head = iterator.next();
-        assertEquals(Color.AQUAMARINE, head.getValue());
+        Pair<ConstPoint, Color> head = iterator.next();
+        assertEquals(Color.AQUAMARINE, head.value());
 
         assertTrue(iterator.hasNext());
-        Pair<Point, Color> body = iterator.next();
-        assertEquals(Color.MEDIUMAQUAMARINE, body.getValue());
+        Pair<ConstPoint, Color> body = iterator.next();
+        assertEquals(Color.MEDIUMAQUAMARINE, body.value());
     }
 
     @Test
     void testGetViewPoints() {
-        Iterable<Pair<Point, Color>> viewData = snakeView.getView();
-        Iterator<Pair<Point, Color>> iterator = viewData.iterator();
+        Iterable<Pair<ConstPoint, Color>> viewData = snakeView.getView();
+        Iterator<Pair<ConstPoint, Color>> iterator = viewData.iterator();
 
-        Point head = iterator.next().getKey();
+        ConstPoint head = iterator.next().key();
         assertEquals(new Point(6, 5), head);
-        Point body = iterator.next().getKey();
+        ConstPoint body = iterator.next().key();
         assertEquals(new Point(5, 5), body);
     }
 
     @Test
     void testGetViewSize() {
         int count = 0;
-        for (Pair<Point, Color> pair : snakeView.getView()) {
+        for (Pair<ConstPoint, Color> pair : snakeView.getView()) {
             count++;
         }
         assertEquals(2, count);
