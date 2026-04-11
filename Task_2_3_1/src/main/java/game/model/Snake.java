@@ -8,13 +8,14 @@ import java.util.List;
  * Модель змейки.
  */
 public class Snake implements Renderable<SnakePart>, Collider, Updatable, Restartable {
+    private final GameWorld gameWorld;
     private final List<Point> points = new LinkedList<>();
     private final int startX;
     private final int startY;
     private final int startSize;
     private final Direction startDirection;
     private Direction direction;
-    private final GameWorld gameWorld;
+    private int size;
 
     /**
      * Базовый конструктор класса.
@@ -38,12 +39,13 @@ public class Snake implements Renderable<SnakePart>, Collider, Updatable, Restar
         this.startX = startX;
         this.startY = startY;
         this.gameWorld = gameWorld;
+        this.size = startSize;
         restart();
     }
 
     @Override
     public void update() {
-        Point head = getHead();
+        ConstPoint head = getHead();
         Point nextPos = new Point(head.getX(), head.getY());
 
         int fieldWidth = gameWorld.getWidth();
@@ -81,15 +83,25 @@ public class Snake implements Renderable<SnakePart>, Collider, Updatable, Restar
                 gameWorld.setGameOver(true);
             }
         }
+
+        Point newBody = new Point(nextPos.getX(), nextPos.getY());
+        if (points.size() < size) {
+            points.add(newBody);
+        }
+        if (newBody.equals(head)) {
+            gameWorld.setGameOver(true);
+        }
+    }
+
+    public int getSize() {
+        return size;
     }
 
     @Override
     public void restart() {
         points.clear();
         points.add(new Point(startX, startY));
-        for (int i = 0; i < startSize - 1; i++) {
-            points.add(new Point(-1, -1));
-        }
+        size = startSize;
         direction = startDirection;
     }
 
@@ -107,11 +119,11 @@ public class Snake implements Renderable<SnakePart>, Collider, Updatable, Restar
      */
     private void foodCollision(ConstPoint p) {
         if (getHead().equals(p)) {
-            points.add(new Point(-1, -1));
+            size++;
         }
     }
 
-    public Point getHead() {
+    public ConstPoint getHead() {
         return points.get(0);
     }
 

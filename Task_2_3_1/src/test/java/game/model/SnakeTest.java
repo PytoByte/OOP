@@ -18,7 +18,7 @@ class SnakeTest {
 
     @Test
     void testGetHead() {
-        Point head = snake.getHead();
+        ConstPoint head = snake.getHead();
         assertEquals(5, head.getX());
         assertEquals(5, head.getY());
     }
@@ -26,7 +26,7 @@ class SnakeTest {
     @Test
     void testUpdateMovesHead() {
         snake.update();
-        Point head = snake.getHead();
+        ConstPoint head = snake.getHead();
         assertEquals(6, head.getX());
         assertEquals(5, head.getY());
     }
@@ -62,9 +62,9 @@ class SnakeTest {
     @Test
     void testOnCollisionWithFood() {
         FoodManager foodManager = new FoodManager(1, world);
-        Point headPos = snake.getHead();
+        ConstPoint headPos = snake.getHead();
         snake.onCollision(foodManager, new Point(headPos.getX(), headPos.getY()));
-        assertEquals(4, snake.getCollider().size());
+        assertEquals(4, snake.getSize());
     }
 
     @Test
@@ -74,14 +74,23 @@ class SnakeTest {
         snake.restart();
         assertEquals(5, snake.getHead().getX());
         assertEquals(5, snake.getHead().getY());
-        assertEquals(3, snake.getCollider().size());
+        assertEquals(3, snake.getSize());
+        assertEquals(1, snake.getCollider().size());
     }
 
     @Test
     void testGetRenderData() {
+        assertEquals(1, snake.getRenderData().size());
+        assertEquals(SnakePart.HEAD, snake.getRenderData().get(0).value());
+        snake.update();
+        assertEquals(2, snake.getRenderData().size());
+        assertEquals(SnakePart.HEAD, snake.getRenderData().get(0).value());
+        assertEquals(SnakePart.BODY, snake.getRenderData().get(1).value());
+        snake.update();
         assertEquals(3, snake.getRenderData().size());
         assertEquals(SnakePart.HEAD, snake.getRenderData().get(0).value());
         assertEquals(SnakePart.BODY, snake.getRenderData().get(1).value());
+        assertEquals(SnakePart.BODY, snake.getRenderData().get(2).value());
     }
 
     @Test
