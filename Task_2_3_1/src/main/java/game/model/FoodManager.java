@@ -77,6 +77,16 @@ public class FoodManager implements Renderable<FoodType>, Collider, Restartable 
     }
 
     /**
+     * Обработчик коллизии с любым объектом.
+     *
+     * @param p Точка в которой произошла коллизия
+     */
+    private void generalCollision(ConstPoint p) {
+        points.remove(p);
+        spawnFood();
+    }
+
+    /**
      * Обработчик коллизии со змейкой.
      *
      * @param snake Змейка
@@ -90,8 +100,7 @@ public class FoodManager implements Renderable<FoodType>, Collider, Restartable 
 
     @Override
     public void onCollision(Collider other, ConstPoint p) {
-        points.remove(p);
-        spawnFood();
+        generalCollision(p);
         if (other instanceof Snake snake) {
             snakeCollision(snake, p);
         }
