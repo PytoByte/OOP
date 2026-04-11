@@ -96,9 +96,18 @@ public class Snake implements Renderable<SnakePart>, Collider, Updatable, Restar
     @Override
     public void onCollision(Collider other, ConstPoint p) {
         if (other instanceof FoodManager) {
-            if (getHead().equals(p)) {
-                points.add(new Point(-1, -1));
-            }
+            foodCollision(p);
+        }
+    }
+
+    /**
+     * Обработчик коллизии с едой.
+     *
+     * @param p Точка в которой произошла коллизия
+     */
+    private void foodCollision(ConstPoint p) {
+        if (getHead().equals(p)) {
+            points.add(new Point(-1, -1));
         }
     }
 
