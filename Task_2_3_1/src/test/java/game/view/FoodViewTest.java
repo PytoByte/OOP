@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import game.model.ConstPoint;
-import game.model.Food;
+import game.model.FoodManager;
 import game.model.GameWorld;
 import game.model.Pair;
 import java.util.Iterator;
@@ -18,8 +18,8 @@ class FoodViewTest {
     @BeforeEach
     void setUp() {
         GameWorld world = new GameWorld(10, 10, 100);
-        Food food = new Food(1, world);
-        foodView = new FoodView(food);
+        FoodManager foodManager = new FoodManager(1, world);
+        foodView = new FoodView(foodManager);
     }
 
     @Test

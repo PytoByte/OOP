@@ -9,7 +9,7 @@ import java.util.Random;
 /**
  * Модель еды.
  */
-public class Food implements Renderable<FoodType>, Collider, Restartable {
+public class FoodManager implements Renderable<FoodType>, Collider, Restartable {
     private final LinkedList<Point> points = new LinkedList<>();
     private final GameWorld gameWorld;
     private final Random random = new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
@@ -21,7 +21,7 @@ public class Food implements Renderable<FoodType>, Collider, Restartable {
      * @param maxCount максимальное количество еды на поле
      * @param gameWorld мир игры
      */
-    public Food(int maxCount, GameWorld gameWorld) {
+    public FoodManager(int maxCount, GameWorld gameWorld) {
         this.maxCount = maxCount;
         this.gameWorld = gameWorld;
         restart();

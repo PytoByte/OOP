@@ -5,7 +5,7 @@ import game.controller.JavafxTimer;
 import game.controller.SceneController;
 import game.controller.SnakeController;
 import game.model.Direction;
-import game.model.Food;
+import game.model.FoodManager;
 import game.model.GameWorld;
 import game.model.Snake;
 import game.view.FoodView;
@@ -76,9 +76,9 @@ public class SnakeGame extends Application {
         gameController.addController(snakeController);
         gameView.addView(snakeView);
 
-        Food food = new Food(3, gameWorld);
-        FoodView foodView = new FoodView(food);
-        gameWorld.addModel(food);
+        FoodManager foodManager = new FoodManager(3, gameWorld);
+        FoodView foodView = new FoodView(foodManager);
+        gameWorld.addModel(foodManager);
         gameView.addView(foodView);
 
         primaryStage.show();

@@ -61,9 +61,9 @@ class SnakeTest {
 
     @Test
     void testOnCollisionWithFood() {
-        Food food = new Food(1, world);
+        FoodManager foodManager = new FoodManager(1, world);
         Point headPos = snake.getHead();
-        snake.onCollision(food, new Point(headPos.getX(), headPos.getY()));
+        snake.onCollision(foodManager, new Point(headPos.getX(), headPos.getY()));
         assertEquals(4, snake.getCollider().size());
     }
 

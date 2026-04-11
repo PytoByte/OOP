@@ -9,7 +9,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class FoodTest {
+class FoodManagerTest {
     private static class MockCollider implements Collider {
         List<ConstPoint> points = Collections.emptyList();
 
@@ -24,25 +24,25 @@ class FoodTest {
     }
 
     private GameWorld world;
-    private Food food;
+    private FoodManager foodManager;
 
     @BeforeEach
     void setUp() {
         world = new GameWorld(10, 10, 100);
-        food = new Food(3, world);
+        foodManager = new FoodManager(3, world);
     }
 
     @Test
     void testGetColliderSize() {
-        assertEquals(3, food.getCollider().size());
+        assertEquals(3, foodManager.getCollider().size());
     }
 
     @Test
-    void testOnCollisionRemovesAndRespawnsFood() {
-        ConstPoint p = food.getCollider().get(0);
-        food.onCollision(new MockCollider(), p);
+    void testOnCollisionRemovesAndRespawnsFoodManager() {
+        ConstPoint p = foodManager.getCollider().get(0);
+        foodManager.onCollision(new MockCollider(), p);
 
-        assertEquals(3, food.getCollider().size());
+        assertEquals(3, foodManager.getCollider().size());
         assertEquals(0, world.getScore());
     }
 
@@ -51,38 +51,38 @@ class FoodTest {
         Snake snake = new Snake(5, 5, 1, Direction.RIGHT, world);
         Point p = new Point(5, 5);
 
-        food.onCollision(snake, p);
+        foodManager.onCollision(snake, p);
         assertEquals(1, world.getScore());
     }
 
     @Test
     void testOnCollisionWithSnakeBodyDoesNotIncreaseScore() {
         Snake snake = new Snake(-1, -1, 2, Direction.RIGHT, world);
-        ConstPoint bodyPoint = food.getCollider().get(0);
+        ConstPoint bodyPoint = foodManager.getCollider().get(0);
 
-        food.onCollision(snake, bodyPoint);
+        foodManager.onCollision(snake, bodyPoint);
         assertEquals(0, world.getScore());
     }
 
     @Test
     void testRestart() {
-        int initialSize = food.getCollider().size();
-        food.restart();
-        assertEquals(initialSize, food.getCollider().size());
+        int initialSize = foodManager.getCollider().size();
+        foodManager.restart();
+        assertEquals(initialSize, foodManager.getCollider().size());
     }
 
     @Test
-    void testSpawnFoodWhenRandomPointIsOccupied() {
+    void testSpawnFoodManagerWhenRandomPointIsOccupied() {
         GameWorld tinyWorld = new GameWorld(2, 1, 2);
 
         MockCollider obstacle = new MockCollider();
         obstacle.points = Collections.singletonList(new Point(0, 0));
         tinyWorld.addModel(obstacle);
 
-        Food foodInTinyWorld = new Food(1, tinyWorld);
+        FoodManager foodManagerInTinyWorld = new FoodManager(1, tinyWorld);
 
-        assertEquals(1, foodInTinyWorld.getCollider().size());
-        assertEquals(1, foodInTinyWorld.getCollider().get(0).getX());
+        assertEquals(1, foodManagerInTinyWorld.getCollider().size());
+        assertEquals(1, foodManagerInTinyWorld.getCollider().get(0).getX());
     }
 
     @Test
@@ -93,14 +93,14 @@ class FoodTest {
         obstacle.points = Collections.singletonList(new Point(0, 0));
         tinyWorld.addModel(obstacle);
 
-        Food foodInFullWorld = new Food(1, tinyWorld);
+        FoodManager foodManagerInFullWorld = new FoodManager(1, tinyWorld);
 
-        assertTrue(foodInFullWorld.getCollider().isEmpty());
+        assertTrue(foodManagerInFullWorld.getCollider().isEmpty());
     }
 
     @Test
     void testGetRenderData() {
-        var data = food.getRenderData();
+        var data = foodManager.getRenderData();
         assertFalse(data.isEmpty());
         assertEquals(FoodType.DEFAULT, data.get(0).value());
     }
