@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.scene.control.Button?>
+<VBox alignment="CENTER" spacing="15" fx:controller="game.controller.SceneController"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      style="-fx-padding: 20; -fx-background-color: #333;">
+
+    <Label fx:id="scoreLabel" text="Score: 0" textFill="WHITE" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+
+    <StackPane fx:id="canvasHolder" VBox.vgrow="ALWAYS" minWidth="0" minHeight="0" style="-fx-background-color: #000;">
+        <children>
+            <Canvas fx:id="gameCanvas" />
+
+            <Label fx:id="statusLabel" visible="false" mouseTransparent="true">
+                <font>
+                    <Font name="System Bold" size="40.0" />
+                </font>
+            </Label>
+        </children>
+    </StackPane>
+
+    <Button fx:id="restartButton" text="Restart" onAction="#handleRestart"
+            focusTraversable="false" />
+</VBox>
