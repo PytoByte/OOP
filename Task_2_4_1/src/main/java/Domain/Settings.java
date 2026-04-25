@@ -1,5 +1,6 @@
 package Domain;
 
 public class Settings {
-    int maxScorePerTask = 10, passThreshold = 50;
+    public int maxScorePerTask = 10;
+    public int passThreshold = 50;
 }

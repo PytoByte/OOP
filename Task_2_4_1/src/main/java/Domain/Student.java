@@ -1,11 +1,5 @@
 package Domain;
 
-public class Student {
-    String nick, fio, repoUrl;
+public record Student(String nick, String fio, String repoUrl) {
 
-    public Student(String n, String f, String r) {
-        nick = n;
-        fio = f;
-        repoUrl = r;
-    }
 }

@@ -15,6 +15,7 @@ public class Main {
         Config config = DslParser.parse(script);
         List<CheckResult> results = MockExecutor.execute(config);
         ReportGenerator.writeHtml(results);
+        ConfigPrinter.print(config);
         System.out.println("Отчёт сохранён в report.html");
     }
 }

@@ -1,13 +1,16 @@
 import Domain.CheckAssignment;
+import Domain.Checkpoint;
 import Domain.Config;
 import Domain.Student;
-import Domain.TaskDef;
+import Domain.Task;
 import groovy.lang.Binding;
 import groovy.lang.Closure;
 import groovy.lang.GroovyShell;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class DslParser {
@@ -27,10 +30,22 @@ public class DslParser {
 
         b.setVariable("task", new Closure<Void>(cfg) {
             public Void doCall(String id, Closure<?> block) {
-                cfg.currentTask = new TaskDef();
-                cfg.currentTask.id = id;
-                cfg.tasks.add(cfg.currentTask);
-                block.setDelegate(cfg);
+                Task task = new Task(id);
+                cfg.addTask(id, task);
+                b.setVariable("checkpoint", new Closure<Void>(task) {
+                    public Void doCall(String name, String formattedDate) {
+                        try {
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+                            task.addCheckpoint(
+                                    new Checkpoint(name, LocalDate.parse(formattedDate, formatter))
+                            );
+                        } catch (Exception e) {
+                            throw new RuntimeException("Ошибка даты '" + formattedDate + "': нужен формат ДД.ММ.ГГГГ", e);
+                        }
+                        return null;
+                    }
+                });
+                block.setDelegate(task);
                 block.setResolveStrategy(Closure.DELEGATE_FIRST);
                 block.call();
                 return null;
