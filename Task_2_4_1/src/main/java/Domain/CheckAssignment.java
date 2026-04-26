@@ -1,7 +1,12 @@
 package Domain;
 
-public class CheckAssignment {
-    public String group;
-    public String student;
-    public String taskId;
+public record CheckAssignment(Group group, Student student, Task task) {
+    @Override
+    public String toString() {
+        return "CheckAssignment{" +
+                "group=" + group +
+                ", student=" + student +
+                ", task=" + task +
+                '}';
+    }
 }

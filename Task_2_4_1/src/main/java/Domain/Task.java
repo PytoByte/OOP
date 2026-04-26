@@ -4,10 +4,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Task {
-    private String id;
+    private final String id;
     private String title = "Unnamed";
     private int maxPoints = 0;
-    private List<Checkpoint> checkpoints = new LinkedList<>();
+    private final List<Checkpoint> checkpoints = new LinkedList<>();
 
     public Task(String id) {
         this.id = id;
@@ -39,5 +39,15 @@ public class Task {
 
     public List<Checkpoint> getCheckpoints() {
         return new LinkedList<>(checkpoints);
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", maxPoints=" + maxPoints +
+                ", checkpoints=" + checkpoints +
+                '}';
     }
 }

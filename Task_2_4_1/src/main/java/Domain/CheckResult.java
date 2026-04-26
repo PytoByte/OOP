@@ -1,16 +1,38 @@
 package Domain;
 
-public class CheckResult {
-    public String group;
-    public String student;
-    public String taskId;
-    public String title;
-    public boolean build;
-    public boolean doc;
-    public boolean style;
-    public int p;
-    public int f;
-    public int s;
-    int bonus;
-    public int total;
+public record CheckResult(
+    CheckAssignment checkAssignment,
+    boolean download,
+    boolean build,
+    boolean doc,
+    boolean style,
+    int passedTestsCount,
+    int failedTestsCount,
+    int points
+) {
+    public static CheckResult failedDownload(CheckAssignment checkAssignment) {
+        return new CheckResult(
+                checkAssignment,
+                false,
+                false,
+                false,
+                false,
+                0,
+                0,
+                0
+        );
+    }
+
+    public static CheckResult failedBuild(CheckAssignment checkAssignment) {
+        return new CheckResult(
+                checkAssignment,
+                true,
+                false,
+                false,
+                false,
+                0,
+                0,
+                0
+        );
+    }
 }
