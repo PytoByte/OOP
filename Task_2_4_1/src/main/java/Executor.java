@@ -18,52 +18,30 @@ public class Executor {
     public static CheckResult executeCheckAssignment(CheckAssignment checkAssignment, Path workDir) {
         String studentNick = checkAssignment.student().nick();
         String taskId = checkAssignment.task().getId();
+        Path studentRepoPath = workDir.resolve(studentNick);
+        Path projectPath = studentRepoPath.resolve(taskId);
 
-        // Root folder for the student's repo
-        Path repoPath = workDir.resolve(studentNick);
+        String branchName = taskId.toLowerCase().replace('_', '-');
 
-        // 1. Clone
-        Path clonedPath = RepositoryWorker.cloneRepository(
-                checkAssignment.student().repoUrl(),
-                taskId.replace('T', 't').replace('_', '-'),
-                repoPath
-        );
-
-        if (clonedPath == null) {
-            System.err.println("[EXEC] Download failed for student: " + studentNick);
+        // 1. Клон
+        if (RepositoryWorker.cloneRepository(checkAssignment.student().repoUrl(), branchName, studentRepoPath) == null) {
             return CheckResult.failedDownload(checkAssignment);
         }
 
-        // 2. Identify the Project Directory (The subfolder where gradlew lives)
-        Path projectPath = clonedPath.resolve(taskId);
-        System.out.println("[EXEC] Processing task folder: " + projectPath.toAbsolutePath());
-
-        // 3. Compile
+        // 2. Компиляция (теперь за раз и main, и tests)
         boolean isCompiled = RepositoryWorker.compileProject(projectPath);
-        if (!isCompiled) {
-            System.err.println("[EXEC] Compilation failed for task: " + taskId);
-            return CheckResult.failedBuild(checkAssignment);
-        }
+        if (!isCompiled) return CheckResult.failedBuild(checkAssignment);
 
-        // 4. Documentation
-        boolean hasDocs = RepositoryWorker.generateDocumentation(projectPath);
+        // 3. Javadoc
+        boolean docsOk = RepositoryWorker.generateDocumentation(projectPath);
 
-        // 5. Code Style
+        // 4. Checkstyle (теперь CLI и берет конфиг из ресурсов сам)
         boolean styleOk = RepositoryWorker.checkCodeStyle(projectPath);
 
-        // 6. Tests
+        // 5. Тесты
         RepositoryWorker.TestResults testResults = RepositoryWorker.runTests(projectPath);
-        System.out.println("[EXEC] Test results: " + testResults);
 
-        return new CheckResult(
-                checkAssignment,
-                true,          // downloaded
-                isCompiled,    // compiled
-                hasDocs,       // docs
-                styleOk,       // style
-                testResults.passed,
-                testResults.failed,
-                testResults.skipped
-        );
+        return new CheckResult(checkAssignment, true, isCompiled, docsOk, styleOk,
+                testResults.passed, testResults.failed, testResults.skipped);
     }
 }

@@ -12,15 +12,16 @@ public class ReportGenerator {
             out.println("<html><head><meta charset='UTF-8'></head><body>");
             out.println("<table>");
             out.println("<tr>" +
-                    "<th>Студент</th>" +
-                    "<th>Задача</th>" +
-                    "<th>Чекпоинты</th>" +
-                    "<th>Клонирование</th>" +
-                    "<th>Сборка</th>" +
-                    "<th>Документация</th>" +
-                    "<th>Стиль кода</th>" +
-                    "<th>Тесты</th>" +
-                    "<th>Балл</th>" +
+                    "<th>Group</th>" +
+                    "<th>Student</th>" +
+                    "<th>Task</th>" +
+                    "<th>Checkpoints</th>" +
+                    "<th>Clone</th>" +
+                    "<th>Build</th>" +
+                    "<th>Docs</th>" +
+                    "<th>Checkstyle</th>" +
+                    "<th>Tests</th>" +
+                    "<th>Points</th>" +
                     "</tr>");
             for (CheckResult checkResult : result) {
                 out.printf("<tr>" +
@@ -31,14 +32,16 @@ public class ReportGenerator {
                                 "<td>%s</td>" +
                                 "<td>%s</td>" +
                                 "<td>%s</td>" +
+                                "<td>%s</td>" +
                                 "<td>%d/%d</td>" +
                                 "<td>%d</td>" +
                                 "</tr>\n",
+                        checkResult.checkAssignment().group().getName(),
                         checkResult.checkAssignment().student().name(),
                         checkResult.checkAssignment().task().getId(),
                         checkResult.checkAssignment().task().getCheckpoints().stream().map(
                                 checkpoint -> checkpoint.name() + " " + checkpoint.date().toString()
-                        ).collect(Collectors.joining(",<br>")),
+                        ).collect(Collectors.joining("<br>")),
                         checkResult.download() ? "OK" : "FAIL",
                         checkResult.build() ? "OK" : "FAIL",
                         checkResult.doc() ? "OK" : "FAIL",
