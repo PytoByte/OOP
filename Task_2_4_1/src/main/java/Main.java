@@ -9,16 +9,16 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        File script = new File("oop-checker.groovy");
+        File script = new File("./script/main.groovy");
         if (!script.exists()) {
-            System.err.println("Файл oop-checker.groovy не найден!");
+            System.err.println("Файл ./script/main.groovy не найден!");
             return;
         }
 
         Config config = DslParser.parse(script);
         List<CheckResult> results;
         try {
-            Path workDir = Files.createTempDirectory("oop-check-");
+            Path workDir = Files.createTempDirectory("oop-checker-");
             results = Executor.execute(config, workDir);
         } catch (IOException e) {
             e.printStackTrace();

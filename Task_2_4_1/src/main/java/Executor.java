@@ -15,30 +15,33 @@ public class Executor {
         return results;
     }
 
-    public static CheckResult executeCheckAssignment(CheckAssignment checkAssignment, Path workDir) {
+    public static CheckResult executeCheckAssignment(
+            CheckAssignment checkAssignment,
+            Path workDir
+    ) {
+        String studentName = checkAssignment.student().name();
         String studentNick = checkAssignment.student().nick();
         String taskId = checkAssignment.task().getId();
         Path studentRepoPath = workDir.resolve(studentNick);
         Path projectPath = studentRepoPath.resolve(taskId);
 
-        String branchName = taskId.toLowerCase().replace('_', '-');
+        System.out.printf("=== STUDENT: %s TASK: %s ===\n", studentName, taskId);
 
-        // 1. Клон
-        if (RepositoryWorker.cloneRepository(checkAssignment.student().repoUrl(), branchName, studentRepoPath) == null) {
+        String branchName = "main";
+
+        if (RepositoryWorker.cloneRepository(
+                checkAssignment.student().repoUrl(), branchName, studentRepoPath
+        ) == null) {
             return CheckResult.failedDownload(checkAssignment);
         }
 
-        // 2. Компиляция (теперь за раз и main, и tests)
         boolean isCompiled = RepositoryWorker.compileProject(projectPath);
         if (!isCompiled) return CheckResult.failedBuild(checkAssignment);
 
-        // 3. Javadoc
         boolean docsOk = RepositoryWorker.generateDocumentation(projectPath);
 
-        // 4. Checkstyle (теперь CLI и берет конфиг из ресурсов сам)
         boolean styleOk = RepositoryWorker.checkCodeStyle(projectPath);
 
-        // 5. Тесты
         RepositoryWorker.TestResults testResults = RepositoryWorker.runTests(projectPath);
 
         return new CheckResult(checkAssignment, true, isCompiled, docsOk, styleOk,

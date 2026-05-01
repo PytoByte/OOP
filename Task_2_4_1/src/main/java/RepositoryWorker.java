@@ -1,10 +1,19 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.PosixFilePermissions;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,11 +21,13 @@ import java.util.regex.Pattern;
 public class RepositoryWorker {
 
     private static final int DEFAULT_TIMEOUT_MIN = 10;
-    private static final String CHECKSTYLE_URL = "https://github.com/checkstyle/checkstyle/releases/download/checkstyle-10.17.0/checkstyle-10.17.0-all.jar";
+    private static final String CHECKSTYLE_URL = "https://github.com/checkstyle/" +
+            "checkstyle/releases/download/checkstyle-10.17.0/checkstyle-10.17.0-all.jar";
     private static final String JAR_NAME = "checkstyle-all.jar";
-    private static final Path TOOLS_DIR = Path.of(System.getProperty("user.home"), ".cache", "oop-checker");
+    private static final Path TOOLS_DIR = Path.of(
+            System.getProperty("user.home"), ".cache", "oop-checker"
+    );
 
-    // Метод для подготовки Checkstyle JAR
     private static Path prepareCheckstyle() throws IOException {
         Files.createDirectories(TOOLS_DIR);
         Path jarPath = TOOLS_DIR.resolve(JAR_NAME);
@@ -31,11 +42,13 @@ public class RepositoryWorker {
         return jarPath;
     }
 
-    // Метод для извлечения google_checks.xml из ресурсов вашего JAR
     private static Path prepareConfig() throws IOException {
         Path tempConfig = Files.createTempFile("google_checks", ".xml");
-        try (InputStream in = RepositoryWorker.class.getClassLoader().getResourceAsStream("google_checks.xml")) {
-            if (in == null) throw new IOException("Config google_checks.xml not found in resources!");
+        try (InputStream in = RepositoryWorker.class.getClassLoader()
+                .getResourceAsStream("google_checks.xml")) {
+            if (in == null) {
+                throw new IOException("Config google_checks.xml not found in resources!");
+            }
             Files.copy(in, tempConfig, StandardCopyOption.REPLACE_EXISTING);
         }
         tempConfig.toFile().deleteOnExit();
@@ -45,29 +58,41 @@ public class RepositoryWorker {
     public static Path cloneRepository(String repoUrl, String branch, Path workDir) {
         try {
             if (Files.exists(workDir)) {
-                // Если папка уже есть, удаляем (чтобы клон был чистым)
                 deleteDirectory(workDir);
             }
             Files.createDirectories(workDir);
-            List<String> command = List.of("git", "clone", "--branch", branch, "--depth", "1", repoUrl, ".");
+            List<String> command = List.of(
+                    "git", "clone", "--branch", branch, "--depth", "1", repoUrl, "."
+            );
             return execute(command, workDir, "[git]") ? workDir : null;
-        } catch (IOException e) { return null; }
+        } catch (IOException e) {
+            return null;
+        }
     }
 
     public static boolean compileProject(Path projectDir) {
-        // Компилируем всё сразу (main и test) одним вызовом
         return runGradle(projectDir, "testClasses");
     }
 
     public static boolean generateDocumentation(Path projectDir) {
         try {
-            String initContent = "allprojects { tasks.withType(Javadoc) { options.addBooleanOption('Xwerror', true); } }";
+            String initContent = "allprojects " +
+                    "{ tasks.withType(Javadoc) { " +
+                    "options.addBooleanOption('Xwerror', true);" +
+                    "} }";
             Path initScript = Files.createTempFile("javadoc-init", ".gradle");
             Files.writeString(initScript, initContent);
-            boolean result = runGradle(projectDir, "javadoc", "--init-script", initScript.toString());
+            boolean result = runGradle(
+                    projectDir,
+                    "javadoc",
+                    "--init-script",
+                    initScript.toString()
+            );
             Files.deleteIfExists(initScript);
             return result;
-        } catch (IOException e) { return false; }
+        } catch (IOException e) {
+            return false;
+        }
     }
 
     public static boolean checkCodeStyle(Path projectDir) {
@@ -76,7 +101,9 @@ public class RepositoryWorker {
             Path configPath = prepareConfig();
             Path srcDir = projectDir.resolve("src/main/java");
 
-            if (!Files.exists(srcDir)) return false;
+            if (!Files.exists(srcDir)) {
+                return false;
+            }
 
             List<String> command = List.of(
                     "java",
@@ -87,17 +114,18 @@ public class RepositoryWorker {
                     srcDir.toString()
             );
 
-            // Мы не можем просто использовать execute(command...),
-            // потому что нам нужно прочитать вывод и найти там слова [WARN] или [ERROR]
-            ProcessBuilder pb = new ProcessBuilder(command).directory(projectDir.toFile()).redirectErrorStream(true);
+            ProcessBuilder pb = new ProcessBuilder(command)
+                    .directory(projectDir.toFile())
+                    .redirectErrorStream(true);
             Process process = pb.start();
 
             boolean hasViolations = false;
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream(), StandardCharsets.UTF_8))) {
+            try (BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(process.getInputStream(), StandardCharsets.UTF_8)
+            )) {
                 String line;
                 while ((line = reader.readLine()) != null) {
                     System.out.println("[checkstyle] " + line);
-                    // Если в строке есть маркер нарушения стиля
                     if (line.contains("[WARN]") || line.contains("[ERROR]")) {
                         hasViolations = true;
                     }
@@ -106,8 +134,6 @@ public class RepositoryWorker {
 
             process.waitFor(DEFAULT_TIMEOUT_MIN, TimeUnit.MINUTES);
 
-            // Возвращаем true, только если процесс завершился без системных ошибок
-            // И не было найдено ни одного нарушения стиля
             return process.exitValue() == 0 && !hasViolations;
 
         } catch (Exception e) {
@@ -121,27 +147,28 @@ public class RepositoryWorker {
         return parseXmlResults(projectDir.resolve("build/test-results/test"));
     }
 
-    // --- Вспомогательные методы ---
-
     private static boolean runGradle(Path dir, String... args) {
         boolean isWin = System.getProperty("os.name").toLowerCase().contains("win");
         Path wrapper = dir.resolve(isWin ? "gradlew.bat" : "gradlew");
         if (!Files.exists(wrapper)) return false;
 
         if (!isWin) {
-            try { Files.setPosixFilePermissions(wrapper, PosixFilePermissions.fromString("rwxr-xr-x")); } catch (Exception ignored) {}
+            try {
+                Files.setPosixFilePermissions(
+                        wrapper, PosixFilePermissions.fromString("rwxr-xr-x")
+                );
+            } catch (Exception ignored) {
+            }
         }
 
         List<String> command = new ArrayList<>();
         command.add(wrapper.toAbsolutePath().toString());
 
-        // 1. Указываем JAVA_HOME текущей запущенной JVM (где точно есть компилятор)
         String currentJavaHome = System.getProperty("java.home");
         command.add("-Dorg.gradle.java.home=" + currentJavaHome);
 
-        // 2. ОТКЛЮЧАЕМ Toolchains студента, чтобы Gradle не пытался искать другую Java на диске
-        command.add("-Porg.gradle.java.installations.auto-detect=false");
-        command.add("-Porg.gradle.java.installations.auto-download=false");
+        command.add("-Porg.gradle.java.installations.auto-detect=true");
+        command.add("-Porg.gradle.java.installations.auto-download=true");
 
         command.addAll(Arrays.asList(args));
 
@@ -150,18 +177,28 @@ public class RepositoryWorker {
 
     private static boolean execute(List<String> command, Path dir, String logPrefix) {
         try {
-            ProcessBuilder pb = new ProcessBuilder(command).directory(dir.toFile()).redirectErrorStream(true);
+            ProcessBuilder pb = new ProcessBuilder(command)
+                    .directory(dir.toFile())
+                    .redirectErrorStream(true);
             Process process = pb.start();
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream(), StandardCharsets.UTF_8))) {
+            try (BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(process.getInputStream(), StandardCharsets.UTF_8)
+            )) {
                 reader.lines().forEach(line -> System.out.println(logPrefix + " " + line));
             }
-            return process.waitFor(DEFAULT_TIMEOUT_MIN, TimeUnit.MINUTES) && process.exitValue() == 0;
-        } catch (Exception e) { return false; }
+            return process.waitFor(DEFAULT_TIMEOUT_MIN, TimeUnit.MINUTES) &&
+                    process.exitValue() == 0;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     private static void deleteDirectory(Path path) throws IOException {
         if (Files.exists(path)) {
-            Files.walk(path).sorted(Comparator.reverseOrder()).map(Path::toFile).forEach(File::delete);
+            Files.walk(path)
+                    .sorted(Comparator.reverseOrder())
+                    .map(Path::toFile)
+                    .forEach(File::delete);
         }
     }
 
@@ -178,9 +215,11 @@ public class RepositoryWorker {
                         results.passed += (t - f - s);
                         results.failed += f;
                         results.skipped += s;
-                    } catch (IOException ignored) {}
+                    } catch (IOException ignored) {
+                    }
                 });
-            } catch (IOException ignored) {}
+            } catch (IOException ignored) {
+            }
         }
         return results;
     }

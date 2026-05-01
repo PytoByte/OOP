@@ -40,7 +40,8 @@ public class ReportGenerator {
                         checkResult.checkAssignment().student().name(),
                         checkResult.checkAssignment().task().getId(),
                         checkResult.checkAssignment().task().getCheckpoints().stream().map(
-                                checkpoint -> checkpoint.name() + " " + checkpoint.date().toString()
+                                checkpoint -> checkpoint.name() + " " + checkpoint.date()
+                                        .toString()
                         ).collect(Collectors.joining("<br>")),
                         checkResult.download() ? "OK" : "FAIL",
                         checkResult.build() ? "OK" : "FAIL",
