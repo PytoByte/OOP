@@ -7,6 +7,11 @@ public class Logger {
 
     public void info(String format, Object... args) {
         String message = String.format(format, args);
-        System.out.printf("[%s INFO] %s%n", name, message);
+        System.out.printf("[%s] %s%n", name, message);
+    }
+
+    public void error(String format, Object... args) {
+        String message = String.format(format, args);
+        System.err.printf("[%s] %s%n", name, message);
     }
 }

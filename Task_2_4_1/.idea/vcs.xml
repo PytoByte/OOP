@@ -2,5 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/oop-checker-work15888994841114006036/PytoByte" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/oop-checker-work3861611817495006292/PytoByte" vcs="Git" />
   </component>
 </project>

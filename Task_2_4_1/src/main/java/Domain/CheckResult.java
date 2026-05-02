@@ -1,7 +1,10 @@
 package Domain;
 
+import java.time.OffsetDateTime;
+
 public record CheckResult(
     CheckAssignment checkAssignment,
+    OffsetDateTime completeTime,
     boolean download,
     boolean build,
     boolean doc,
@@ -15,6 +18,7 @@ public record CheckResult(
     public static CheckResult failedDownload(CheckAssignment checkAssignment) {
         return new CheckResult(
                 checkAssignment,
+                null,
                 false,
                 false,
                 false,

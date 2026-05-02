@@ -1,10 +1,6 @@
 import Domain.CheckResult;
 import Domain.Config;
-
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.List;
 
 public class Main {
@@ -16,16 +12,10 @@ public class Main {
         }
 
         Config config = DslParser.parse(script);
-        List<CheckResult> results;
-        try {
-            Path workDir = Files.createTempDirectory("oop-checker-");
-            results = Executor.execute(config, workDir);
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e.getMessage());
-        }
+
+        List<CheckResult> results = Executor.execute(config);
+
         ReportGenerator.writeHtml(results);
-        System.out.println(config);
         System.out.println("Отчёт сохранён в report.html");
     }
 }

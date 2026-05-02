@@ -3,85 +3,107 @@ import Domain.CheckResult;
 import Domain.Config;
 import Domain.TestResults;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Executor {
 
-    public static List<CheckResult> execute(Config cfg, Path workDir) {
+    public static List<CheckResult> execute(Config cfg) {
         List<CheckResult> results = new ArrayList<>();
-        for (CheckAssignment assignment : cfg.getCheckAssignments()) {
-            results.add(executeCheckAssignment(assignment, workDir));
+        Path workDir = null;
+
+        try {
+            workDir = Files.createTempDirectory(Paths.get("."), "oop-checker-work");
+
+            for (CheckAssignment assignment : cfg.getCheckAssignments()) {
+                results.add(executeCheckAssignment(assignment, workDir));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (workDir != null) {
+                cleanup(workDir);
+            }
         }
         return results;
+    }
+
+    private static void cleanup(Path workDir) {
+        try {
+            if (Files.exists(workDir)) {
+                Files.walk(workDir)
+                        .sorted(java.util.Comparator.reverseOrder())
+                        .map(Path::toFile)
+                        .forEach(java.io.File::delete);
+            }
+        } catch (IOException e) {
+            System.err.println("Cleanup failed: " + e.getMessage());
+        }
     }
 
     public static CheckResult executeCheckAssignment(
             CheckAssignment checkAssignment,
             Path workDir
     ) {
-        String studentName = checkAssignment.student().name();
         String studentNick = checkAssignment.student().nick();
         String taskId = checkAssignment.task().getId();
         Path studentRepoPath = workDir.resolve(studentNick);
-        Path projectPath = studentRepoPath.resolve(taskId);
+
         Logger logger = new Logger("executor");
+        logger.info("=== STUDENT: %s TASK: %s ===", checkAssignment.student().name(), taskId);
 
-        logger.info("=== STUDENT: %s TASK: %s ===", studentName, taskId);
+        RepositoryWorker worker = new RepositoryWorker();
 
-        logger.info("Cloning");
-        if (RepositoryWorker.cloneRepository(
-                checkAssignment.student().repoUrl(),
-                "main",
-                studentRepoPath
-        )) {
-            logger.info("Cloning success");
-        } else {
+        logger.info("Cloning repo to: %s", studentRepoPath);
+        if (!worker.cloneRepository(checkAssignment.student().repoUrl(), "main", studentRepoPath)) {
             logger.info("Cloning failed");
             return CheckResult.failedDownload(checkAssignment);
         }
+        logger.info("Cloning success");
+
+        logger.info("Setting task context: %s", taskId);
+        OffsetDateTime commitDate = worker.setTask(taskId);
+
+        if (commitDate == null) {
+            logger.info("Task folder %s not found in repository!", taskId);
+            return CheckResult.failedDownload(checkAssignment);
+        }
+        logger.info("Task found. Latest commit date: %s", commitDate);
 
         logger.info("Compiling");
-        boolean isCompiled = RepositoryWorker.compileProject(projectPath);
-        if (isCompiled) {
-            logger.info("Compiling success");
-        } else {
-            logger.info("Compiling failed");
-        }
+        boolean isCompiled = worker.compileProject();
+        logger.info(isCompiled ? "Compiling success" : "Compiling failed");
 
         logger.info("Generate docs");
-        boolean docsOk = RepositoryWorker.generateDocumentation(projectPath);
-        if (docsOk) {
-            logger.info("Docs generation success");
-        } else {
-            logger.info("Docs generation failed");
-        }
+        boolean docsOk = worker.generateDocumentation();
+        logger.info(docsOk ? "Docs generation success" : "Docs generation failed");
 
         logger.info("Style checking");
-        boolean styleOk = RepositoryWorker.checkCodeStyle(projectPath);
-        if (styleOk) {
-            logger.info("Style checking success");
-        } else {
-            logger.info("Style checking failed");
-        }
+        boolean styleOk = worker.checkCodeStyle();
+        logger.info(styleOk ? "Style checking success" : "Style checking failed");
 
         logger.info("Test build & run");
-        boolean testsCompiled;
-        TestResults testResults;
-        try {
-            testResults = RepositoryWorker.runTests(projectPath);
-            testsCompiled = true;
-            logger.info("Test build & run success");
-        } catch (Exception e) {
-            testResults = TestResults.empty();
-            testsCompiled = false;
-            e.printStackTrace();
-            logger.info("Test build & run failed");
-        }
+        TestResults testResults = worker.runTests();
+        boolean testsCompiled = !testResults.equals(TestResults.error());
+        logger.info(testsCompiled ? "Test build & run success" : "Test build & run failed");
 
-        return new CheckResult(checkAssignment, true, isCompiled, docsOk, styleOk,
+        return new CheckResult(
+                checkAssignment,
+                commitDate,
+                true,
+                isCompiled,
+                docsOk,
+                styleOk,
                 testsCompiled,
-                testResults.passed(), testResults.failed(), testResults.skipped(), 2);
+                testResults.passed(),
+                testResults.failed(),
+                testResults.skipped(),
+                2
+        );
     }
 }
