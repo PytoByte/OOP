@@ -1,3 +1,5 @@
+import Domain.TestResults;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -15,6 +17,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -55,7 +58,7 @@ public class RepositoryWorker {
         return tempConfig;
     }
 
-    public static Path cloneRepository(String repoUrl, String branch, Path workDir) {
+    public static boolean cloneRepository(String repoUrl, String branch, Path workDir) {
         try {
             if (Files.exists(workDir)) {
                 deleteDirectory(workDir);
@@ -64,9 +67,9 @@ public class RepositoryWorker {
             List<String> command = List.of(
                     "git", "clone", "--branch", branch, "--depth", "1", repoUrl, "."
             );
-            return execute(command, workDir, "[git]") ? workDir : null;
+            return execute(command, workDir, "git");
         } catch (IOException e) {
-            return null;
+            return false;
         }
     }
 
@@ -101,43 +104,27 @@ public class RepositoryWorker {
             Path configPath = prepareConfig();
             Path srcDir = projectDir.resolve("src/main/java");
 
-            if (!Files.exists(srcDir)) {
-                return false;
-            }
+            if (!Files.exists(srcDir)) return false;
 
             List<String> command = List.of(
-                    "java",
-                    "-Duser.language=en",
-                    "-Dfile.encoding=UTF-8",
+                    "java", "-Duser.language=en", "-Dfile.encoding=UTF-8",
                     "-jar", jarPath.toString(),
                     "-c", configPath.toString(),
                     srcDir.toString()
             );
 
-            ProcessBuilder pb = new ProcessBuilder(command)
-                    .directory(projectDir.toFile())
-                    .redirectErrorStream(true);
-            Process process = pb.start();
+            // Флаг для отслеживания нарушений
+            final boolean[] hasViolations = {false};
 
-            boolean hasViolations = false;
-            try (BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(process.getInputStream(), StandardCharsets.UTF_8)
-            )) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    System.out.println("[checkstyle] " + line);
-                    if (line.contains("[WARN]") || line.contains("[ERROR]")) {
-                        hasViolations = true;
-                    }
+            boolean exitOk = execute(command, projectDir, "checkstyle", line -> {
+                if (line.contains("[WARN]") || line.contains("[ERROR]")) {
+                    hasViolations[0] = true;
                 }
-            }
+            });
 
-            process.waitFor(DEFAULT_TIMEOUT_MIN, TimeUnit.MINUTES);
-
-            return process.exitValue() == 0 && !hasViolations;
+            return exitOk && !hasViolations[0];
 
         } catch (Exception e) {
-            e.printStackTrace();
             return false;
         }
     }
@@ -172,10 +159,16 @@ public class RepositoryWorker {
 
         command.addAll(Arrays.asList(args));
 
-        return execute(command, dir, "[gradle]");
+        return execute(command, dir, "gradle");
     }
 
-    private static boolean execute(List<String> command, Path dir, String logPrefix) {
+    private static boolean execute(
+            List<String> command,
+            Path dir,
+            String loggerName,
+            Consumer<String> outputInspector
+    ) {
+        Logger logger = new Logger(loggerName);
         try {
             ProcessBuilder pb = new ProcessBuilder(command)
                     .directory(dir.toFile())
@@ -184,13 +177,21 @@ public class RepositoryWorker {
             try (BufferedReader reader = new BufferedReader(
                     new InputStreamReader(process.getInputStream(), StandardCharsets.UTF_8)
             )) {
-                reader.lines().forEach(line -> System.out.println(logPrefix + " " + line));
+                reader.lines().forEach(line -> {
+                    logger.info(line);
+                    if (outputInspector != null) {
+                        outputInspector.accept(line);
+                    }
+                });
             }
-            return process.waitFor(DEFAULT_TIMEOUT_MIN, TimeUnit.MINUTES) &&
-                    process.exitValue() == 0;
+            return process.waitFor(DEFAULT_TIMEOUT_MIN, TimeUnit.MINUTES) && process.exitValue() == 0;
         } catch (Exception e) {
             return false;
         }
+    }
+
+    private static boolean execute(List<String> command, Path dir, String loggerName) {
+        return execute(command, dir, loggerName, null);
     }
 
     private static void deleteDirectory(Path path) throws IOException {
@@ -203,7 +204,7 @@ public class RepositoryWorker {
     }
 
     private static TestResults parseXmlResults(Path dir) {
-        TestResults results = new TestResults();
+        final TestResults[] results = {TestResults.empty()};
         if (Files.exists(dir)) {
             try (var stream = Files.list(dir)) {
                 stream.filter(p -> p.toString().endsWith(".xml")).forEach(file -> {
@@ -212,24 +213,18 @@ public class RepositoryWorker {
                         int t = extractInt(content, "tests");
                         int f = extractInt(content, "failures");
                         int s = extractInt(content, "skipped");
-                        results.passed += (t - f - s);
-                        results.failed += f;
-                        results.skipped += s;
+                        results[0] = new TestResults(t - f - s, f, s);
                     } catch (IOException ignored) {
                     }
                 });
             } catch (IOException ignored) {
             }
         }
-        return results;
+        return results[0];
     }
 
     private static int extractInt(String xml, String attr) {
         Matcher m = Pattern.compile(attr + "=\"(\\d+)\"").matcher(xml);
         return m.find() ? Integer.parseInt(m.group(1)) : 0;
-    }
-
-    public static class TestResults {
-        public int passed = 0, failed = 0, skipped = 0;
     }
 }

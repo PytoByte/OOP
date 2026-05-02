@@ -20,6 +20,7 @@ public class ReportGenerator {
                     "<th>Build</th>" +
                     "<th>Docs</th>" +
                     "<th>Checkstyle</th>" +
+                    "<th>Tests build</th>" +
                     "<th>Tests</th>" +
                     "<th>Points</th>" +
                     "</tr>");
@@ -33,7 +34,8 @@ public class ReportGenerator {
                                 "<td>%s</td>" +
                                 "<td>%s</td>" +
                                 "<td>%s</td>" +
-                                "<td>%d/%d</td>" +
+                                "<td>%s</td>" +
+                                "<td>passed %d<br>failed %d<br>skipped %d</td>" +
                                 "<td>%d</td>" +
                                 "</tr>\n",
                         checkResult.checkAssignment().group().getName(),
@@ -47,7 +49,9 @@ public class ReportGenerator {
                         checkResult.build() ? "OK" : "FAIL",
                         checkResult.doc() ? "OK" : "FAIL",
                         checkResult.style() ? "OK" : "FAIL",
+                        checkResult.tests() ? "OK" : "FAIL",
                         checkResult.passedTestsCount(), checkResult.failedTestsCount(),
+                        checkResult.skippedTestsCount(),
                         checkResult.points());
             }
 

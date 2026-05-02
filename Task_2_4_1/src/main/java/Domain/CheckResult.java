@@ -6,8 +6,10 @@ public record CheckResult(
     boolean build,
     boolean doc,
     boolean style,
+    boolean tests,
     int passedTestsCount,
     int failedTestsCount,
+    int skippedTestsCount,
     int points
 ) {
     public static CheckResult failedDownload(CheckAssignment checkAssignment) {
@@ -17,19 +19,8 @@ public record CheckResult(
                 false,
                 false,
                 false,
+                false,
                 0,
-                0,
-                0
-        );
-    }
-
-    public static CheckResult failedBuild(CheckAssignment checkAssignment) {
-        return new CheckResult(
-                checkAssignment,
-                true,
-                false,
-                false,
-                false,
                 0,
                 0,
                 0

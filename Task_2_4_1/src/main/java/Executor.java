@@ -1,6 +1,8 @@
 import Domain.CheckAssignment;
 import Domain.CheckResult;
 import Domain.Config;
+import Domain.TestResults;
+
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,27 +26,62 @@ public class Executor {
         String taskId = checkAssignment.task().getId();
         Path studentRepoPath = workDir.resolve(studentNick);
         Path projectPath = studentRepoPath.resolve(taskId);
+        Logger logger = new Logger("executor");
 
-        System.out.printf("=== STUDENT: %s TASK: %s ===\n", studentName, taskId);
+        logger.info("=== STUDENT: %s TASK: %s ===", studentName, taskId);
 
-        String branchName = "main";
-
+        logger.info("Cloning");
         if (RepositoryWorker.cloneRepository(
-                checkAssignment.student().repoUrl(), branchName, studentRepoPath
-        ) == null) {
+                checkAssignment.student().repoUrl(),
+                "main",
+                studentRepoPath
+        )) {
+            logger.info("Cloning success");
+        } else {
+            logger.info("Cloning failed");
             return CheckResult.failedDownload(checkAssignment);
         }
 
+        logger.info("Compiling");
         boolean isCompiled = RepositoryWorker.compileProject(projectPath);
-        if (!isCompiled) return CheckResult.failedBuild(checkAssignment);
+        if (isCompiled) {
+            logger.info("Compiling success");
+        } else {
+            logger.info("Compiling failed");
+        }
 
+        logger.info("Generate docs");
         boolean docsOk = RepositoryWorker.generateDocumentation(projectPath);
+        if (docsOk) {
+            logger.info("Docs generation success");
+        } else {
+            logger.info("Docs generation failed");
+        }
 
+        logger.info("Style checking");
         boolean styleOk = RepositoryWorker.checkCodeStyle(projectPath);
+        if (styleOk) {
+            logger.info("Style checking success");
+        } else {
+            logger.info("Style checking failed");
+        }
 
-        RepositoryWorker.TestResults testResults = RepositoryWorker.runTests(projectPath);
+        logger.info("Test build & run");
+        boolean testsCompiled;
+        TestResults testResults;
+        try {
+            testResults = RepositoryWorker.runTests(projectPath);
+            testsCompiled = true;
+            logger.info("Test build & run success");
+        } catch (Exception e) {
+            testResults = TestResults.empty();
+            testsCompiled = false;
+            e.printStackTrace();
+            logger.info("Test build & run failed");
+        }
 
         return new CheckResult(checkAssignment, true, isCompiled, docsOk, styleOk,
-                testResults.passed, testResults.failed, testResults.skipped);
+                testsCompiled,
+                testResults.passed(), testResults.failed(), testResults.skipped(), 2);
     }
 }
