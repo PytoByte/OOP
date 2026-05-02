@@ -88,7 +88,7 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Creates an instance of a <code>CheckAssignment</code> record class.</div>
 </dd>
-<dt><a href="RepositoryWorker.html#checkCodeStyle(java.nio.file.Path)" class="member-name-link">checkCodeStyle(Path)</a> - Static method in class <a href="RepositoryWorker.html" title="class in Unnamed Package">RepositoryWorker</a></dt>
+<dt><a href="RepositoryWorker.html#checkCodeStyle()" class="member-name-link">checkCodeStyle()</a> - Method in class <a href="RepositoryWorker.html" title="class in Unnamed Package">RepositoryWorker</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="Context/CheckContext.html" class="type-name-link" title="class in Context">CheckContext</a> - Class in <a href="Context/package-summary.html">Context</a></dt>
 <dd>&nbsp;</dd>
@@ -104,14 +104,18 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="Domain/CheckResult.html" class="type-name-link" title="class in Domain">CheckResult</a> - Record Class in <a href="Domain/package-summary.html">Domain</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="Domain/CheckResult.html#%3Cinit%3E(Domain.CheckAssignment,boolean,boolean,boolean,boolean,boolean,int,int,int,int)" class="member-name-link">CheckResult(CheckAssignment, boolean, boolean, boolean, boolean, boolean, int, int, int, int)</a> - Constructor for record class Domain.<a href="Domain/CheckResult.html" title="class in Domain">CheckResult</a></dt>
+<dt><a href="Domain/CheckResult.html#%3Cinit%3E(Domain.CheckAssignment,java.time.OffsetDateTime,boolean,boolean,boolean,boolean,boolean,int,int,int,int)" class="member-name-link">CheckResult(CheckAssignment, OffsetDateTime, boolean, boolean, boolean, boolean, boolean, int, int, int, int)</a> - Constructor for record class Domain.<a href="Domain/CheckResult.html" title="class in Domain">CheckResult</a></dt>
 <dd>
 <div class="block">Creates an instance of a <code>CheckResult</code> record class.</div>
 </dd>
-<dt><a href="RepositoryWorker.html#cloneRepository(java.lang.String,java.lang.String,java.nio.file.Path)" class="member-name-link">cloneRepository(String, String, Path)</a> - Static method in class <a href="RepositoryWorker.html" title="class in Unnamed Package">RepositoryWorker</a></dt>
+<dt><a href="RepositoryWorker.html#cloneRepository(java.lang.String,java.lang.String,java.nio.file.Path)" class="member-name-link">cloneRepository(String, String, Path)</a> - Method in class <a href="RepositoryWorker.html" title="class in Unnamed Package">RepositoryWorker</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="RepositoryWorker.html#compileProject(java.nio.file.Path)" class="member-name-link">compileProject(Path)</a> - Static method in class <a href="RepositoryWorker.html" title="class in Unnamed Package">RepositoryWorker</a></dt>
+<dt><a href="RepositoryWorker.html#compileProject()" class="member-name-link">compileProject()</a> - Method in class <a href="RepositoryWorker.html" title="class in Unnamed Package">RepositoryWorker</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="Domain/CheckResult.html#completeTime()" class="member-name-link">completeTime()</a> - Method in record class Domain.<a href="Domain/CheckResult.html" title="class in Domain">CheckResult</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>completeTime</code> record component.</div>
+</dd>
 <dt><a href="Domain/Config.html" class="type-name-link" title="class in Domain">Config</a> - Class in <a href="Domain/package-summary.html">Domain</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="Domain/Config.html#%3Cinit%3E()" class="member-name-link">Config()</a> - Constructor for class Domain.<a href="Domain/Config.html" title="class in Domain">Config</a></dt>
@@ -142,8 +146,6 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:E">E</h2>
 <dl class="index">
-<dt><a href="Domain/TestResults.html#empty()" class="member-name-link">empty()</a> - Static method in record class Domain.<a href="Domain/TestResults.html" title="class in Domain">TestResults</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="Domain/CheckAssignment.html#equals(java.lang.Object)" class="member-name-link">equals(Object)</a> - Method in record class Domain.<a href="Domain/CheckAssignment.html" title="class in Domain">CheckAssignment</a></dt>
 <dd>
 <div class="block">Indicates whether some other object is "equal to" this one.</div>
@@ -164,7 +166,11 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Indicates whether some other object is "equal to" this one.</div>
 </dd>
-<dt><a href="Executor.html#execute(Domain.Config,java.nio.file.Path)" class="member-name-link">execute(Config, Path)</a> - Static method in class <a href="Executor.html" title="class in Unnamed Package">Executor</a></dt>
+<dt><a href="Domain/TestResults.html#error()" class="member-name-link">error()</a> - Static method in record class Domain.<a href="Domain/TestResults.html" title="class in Domain">TestResults</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="Logger.html#error(java.lang.String,java.lang.Object...)" class="member-name-link">error(String, Object...)</a> - Method in class <a href="Logger.html" title="class in Unnamed Package">Logger</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="Executor.html#execute(Domain.Config)" class="member-name-link">execute(Config)</a> - Static method in class <a href="Executor.html" title="class in Unnamed Package">Executor</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="Executor.html#executeCheckAssignment(Domain.CheckAssignment,java.nio.file.Path)" class="member-name-link">executeCheckAssignment(CheckAssignment, Path)</a> - Static method in class <a href="Executor.html" title="class in Unnamed Package">Executor</a></dt>
 <dd>&nbsp;</dd>
@@ -188,7 +194,7 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:G">G</h2>
 <dl class="index">
-<dt><a href="RepositoryWorker.html#generateDocumentation(java.nio.file.Path)" class="member-name-link">generateDocumentation(Path)</a> - Static method in class <a href="RepositoryWorker.html" title="class in Unnamed Package">RepositoryWorker</a></dt>
+<dt><a href="RepositoryWorker.html#generateDocumentation()" class="member-name-link">generateDocumentation()</a> - Method in class <a href="RepositoryWorker.html" title="class in Unnamed Package">RepositoryWorker</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="Domain/Config.html#getCheckAssignments()" class="member-name-link">getCheckAssignments()</a> - Method in class Domain.<a href="Domain/Config.html" title="class in Domain">Config</a></dt>
 <dd>&nbsp;</dd>
@@ -319,12 +325,14 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns the value of the <code>repoUrl</code> record component.</div>
 </dd>
-<dt><a href="RepositoryWorker.html#runTests(java.nio.file.Path)" class="member-name-link">runTests(Path)</a> - Static method in class <a href="RepositoryWorker.html" title="class in Unnamed Package">RepositoryWorker</a></dt>
+<dt><a href="RepositoryWorker.html#runTests()" class="member-name-link">runTests()</a> - Method in class <a href="RepositoryWorker.html" title="class in Unnamed Package">RepositoryWorker</a></dt>
 <dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:S">S</h2>
 <dl class="index">
 <dt><a href="Domain/Task.html#setMaxPoints(int)" class="member-name-link">setMaxPoints(int)</a> - Method in class Domain.<a href="Domain/Task.html" title="class in Domain">Task</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="RepositoryWorker.html#setTask(java.lang.String)" class="member-name-link">setTask(String)</a> - Method in class <a href="RepositoryWorker.html" title="class in Unnamed Package">RepositoryWorker</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="Domain/Task.html#setTitle(java.lang.String)" class="member-name-link">setTitle(String)</a> - Method in class Domain.<a href="Domain/Task.html" title="class in Domain">Task</a></dt>
 <dd>&nbsp;</dd>
