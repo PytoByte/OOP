@@ -8,13 +8,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Executor {
 
     public static List<CheckResult> execute(Config cfg) {
-        List<CheckResult> results = new ArrayList<>();
+        List<CheckResult> results = new LinkedList<>();
         Path workDir = null;
 
         try {
@@ -50,9 +50,12 @@ public class Executor {
             CheckAssignment checkAssignment,
             Path workDir
     ) {
-        String studentNick = checkAssignment.student().nick();
+        String repoUrl = String.format(
+                "https://github.com/%s/OOP",
+                checkAssignment.student().nick()
+        );
+        Path studentRepoPath = workDir.resolve(checkAssignment.student().nick());
         String taskId = checkAssignment.task().getId();
-        Path studentRepoPath = workDir.resolve(studentNick);
 
         Logger logger = new Logger("executor");
         logger.info("=== STUDENT: %s TASK: %s ===", checkAssignment.student().name(), taskId);
@@ -60,7 +63,7 @@ public class Executor {
         RepositoryWorker worker = new RepositoryWorker();
 
         logger.info("Cloning repo to: %s", studentRepoPath);
-        if (!worker.cloneRepository(checkAssignment.student().repoUrl(), "main", studentRepoPath)) {
+        if (!worker.cloneRepository(repoUrl, "main", studentRepoPath)) {
             logger.info("Cloning failed");
             return CheckResult.failedDownload(checkAssignment);
         }

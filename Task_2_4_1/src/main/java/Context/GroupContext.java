@@ -10,7 +10,7 @@ public class GroupContext {
         this.group = group;
     }
 
-    public void student(String name, String nick, String url) {
-        group.addStudent(new Student(name, nick, url));
+    public void student(String name, String nick) {
+        group.addStudent(new Student(name, nick));
     }
 }

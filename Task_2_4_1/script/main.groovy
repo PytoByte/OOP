@@ -1,7 +1,7 @@
 importConfig("script/tasks_base.groovy")
 
 group("24213") {
-    student("Маркидонов В.В.", "PytoByte", "https://github.com/PytoByte/OOP")
+    student("Маркидонов В.В.", "PytoByte")
 }
 
 check("24213", "Маркидонов В.В.") {

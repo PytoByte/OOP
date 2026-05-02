@@ -191,7 +191,7 @@ public class RepositoryWorker {
     }
 
     private Path prepareConfig() throws IOException {
-        Path cfg = TOOLS_DIR.resolve("google_checks.xml");
+        Path cfg = TOOLS_DIR.resolve("checkstyle.xml");
         if (!Files.exists(cfg)) {
             try (InputStream in = getClass().getResourceAsStream("/google_checks.xml")) {
                 if (in == null) {
