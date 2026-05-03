@@ -5,7 +5,7 @@
 <title>CheckResult (Task_2_4_1 1.0-SNAPSHOT API)</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="description" content="declaration: package: Domain, record: CheckResult">
+<meta name="description" content="declaration: package: Model, record: CheckResult">
 <meta name="generator" content="javadoc/ClassWriterImpl">
 <link rel="stylesheet" type="text/css" href="../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../script-dir/jquery-ui.min.css" title="Style">
@@ -67,18 +67,30 @@ loadScripts(document, 'script');</script>
 <main role="main">
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">Domain</a></div>
+<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">Model</a></div>
 <h1 title="Record Class CheckResult" class="title">Record Class CheckResult</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
 <div class="inheritance"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Record.html" title="class or interface in java.lang" class="external-link">java.lang.Record</a>
-<div class="inheritance">Domain.CheckResult</div>
+<div class="inheritance">Model.CheckResult</div>
 </div>
 </div>
 <section class="class-description" id="class-description">
+<dl class="notes">
+<dt>Record Components:</dt>
+<dd><code><span id="param-checkAssignment">checkAssignment</span></code> - task check assignment</dd>
+<dd><code><span id="param-completeDateTime">completeDateTime</span></code> - date and time when task was completed</dd>
+<dd><code><span id="param-download">download</span></code> - is download successful</dd>
+<dd><code><span id="param-build">build</span></code> - is build successful</dd>
+<dd><code><span id="param-doc">doc</span></code> - is docs generated successfully</dd>
+<dd><code><span id="param-style">style</span></code> - is code checkstyle passed</dd>
+<dd><code><span id="param-testResults">testResults</span></code> - results of tests run</dd>
+<dd><code><span id="param-points">points</span></code> - points for task</dd>
+</dl>
 <hr>
-<div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">CheckResult</span>(<a href="CheckAssignment.html" title="class in Domain">CheckAssignment</a>&nbsp;checkAssignment, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/OffsetDateTime.html" title="class or interface in java.time" class="external-link">OffsetDateTime</a>&nbsp;completeDateTime, boolean&nbsp;download, boolean&nbsp;build, boolean&nbsp;doc, boolean&nbsp;style, boolean&nbsp;tests, int&nbsp;passedTestsCount, int&nbsp;failedTestsCount, int&nbsp;skippedTestsCount, float&nbsp;points)
+<div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">CheckResult</span>(<a href="CheckAssignment.html" title="class in Model">CheckAssignment</a>&nbsp;checkAssignment, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/OffsetDateTime.html" title="class or interface in java.time" class="external-link">OffsetDateTime</a>&nbsp;completeDateTime, boolean&nbsp;download, boolean&nbsp;build, boolean&nbsp;doc, boolean&nbsp;style, <a href="TestResults.html" title="class in Model">TestResults</a>&nbsp;testResults, float&nbsp;points)
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Record.html" title="class or interface in java.lang" class="external-link">Record</a></span></div>
+<div class="block">Task check result model.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -90,16 +102,13 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(Domain.CheckAssignment,java.time.OffsetDateTime,boolean,boolean,boolean,boolean,boolean,int,int,int,float)" class="member-name-link">CheckResult</a><wbr>(<a href="CheckAssignment.html" title="class in Domain">CheckAssignment</a>&nbsp;checkAssignment,
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(Model.CheckAssignment,java.time.OffsetDateTime,boolean,boolean,boolean,boolean,Model.TestResults,float)" class="member-name-link">CheckResult</a><wbr>(<a href="CheckAssignment.html" title="class in Model">CheckAssignment</a>&nbsp;checkAssignment,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/OffsetDateTime.html" title="class or interface in java.time" class="external-link">OffsetDateTime</a>&nbsp;completeDateTime,
  boolean&nbsp;download,
  boolean&nbsp;build,
  boolean&nbsp;doc,
  boolean&nbsp;style,
- boolean&nbsp;tests,
- int&nbsp;passedTestsCount,
- int&nbsp;failedTestsCount,
- int&nbsp;skippedTestsCount,
+ <a href="TestResults.html" title="class in Model">TestResults</a>&nbsp;testResults,
  float&nbsp;points)</code></div>
 <div class="col-last even-row-color">
 <div class="block">Creates an instance of a <code>CheckResult</code> record class.</div>
@@ -121,74 +130,61 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#build()" class="member-name-link">build</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the value of the <code>build</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-build"><code>build</code></a> record component.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="CheckAssignment.html" title="class in Domain">CheckAssignment</a></code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="CheckAssignment.html" title="class in Model">CheckAssignment</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#checkAssignment()" class="member-name-link">checkAssignment</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the value of the <code>checkAssignment</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-checkAssignment"><code>checkAssignment</code></a> record component.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/OffsetDateTime.html" title="class or interface in java.time" class="external-link">OffsetDateTime</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#completeDateTime()" class="member-name-link">completeDateTime</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the value of the <code>completeDateTime</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-completeDateTime"><code>completeDateTime</code></a> record component.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#doc()" class="member-name-link">doc</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the value of the <code>doc</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-doc"><code>doc</code></a> record component.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#download()" class="member-name-link">download</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the value of the <code>download</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-download"><code>download</code></a> record component.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#equals(java.lang.Object)" class="member-name-link">equals</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;o)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Indicates whether some other object is "equal to" this one.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="CheckResult.html" title="class in Domain">CheckResult</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#failedDownload(Domain.CheckAssignment)" class="member-name-link">failedDownload</a><wbr>(<a href="CheckAssignment.html" title="class in Domain">CheckAssignment</a>&nbsp;checkAssignment)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#failedTestsCount()" class="member-name-link">failedTestsCount</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the value of the <code>failedTestsCount</code> record component.</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="CheckResult.html" title="class in Model">CheckResult</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#failedDownload(Model.CheckAssignment)" class="member-name-link">failedDownload</a><wbr>(<a href="CheckAssignment.html" title="class in Model">CheckAssignment</a>&nbsp;checkAssignment)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Factory of check result with failed download.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final int</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#hashCode()" class="member-name-link">hashCode</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final int</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#hashCode()" class="member-name-link">hashCode</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns a hash code value for this object.</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#passedTestsCount()" class="member-name-link">passedTestsCount</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the value of the <code>passedTestsCount</code> record component.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>float</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#points()" class="member-name-link">points</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the value of the <code>points</code> record component.</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#skippedTestsCount()" class="member-name-link">skippedTestsCount</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the value of the <code>skippedTestsCount</code> record component.</div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#style()" class="member-name-link">style</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the value of the <code>style</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-points"><code>points</code></a> record component.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#tests()" class="member-name-link">tests</a>()</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#style()" class="member-name-link">style</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the value of the <code>tests</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-style"><code>style</code></a> record component.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toString()" class="member-name-link">toString</a>()</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="TestResults.html" title="class in Model">TestResults</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#testResults()" class="member-name-link">testResults</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Returns the value of the <a href="#param-testResults"><code>testResults</code></a> record component.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toString()" class="member-name-link">toString</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns a string representation of this record class.</div>
 </div>
 </div>
@@ -209,33 +205,27 @@ loadScripts(document, 'script');</script>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(Domain.CheckAssignment,java.time.OffsetDateTime,boolean,boolean,boolean,boolean,boolean,int,int,int,float)">
+<section class="detail" id="&lt;init&gt;(Model.CheckAssignment,java.time.OffsetDateTime,boolean,boolean,boolean,boolean,Model.TestResults,float)">
 <h3>CheckResult</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">CheckResult</span><wbr><span class="parameters">(<a href="CheckAssignment.html" title="class in Domain">CheckAssignment</a>&nbsp;checkAssignment,
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">CheckResult</span><wbr><span class="parameters">(<a href="CheckAssignment.html" title="class in Model">CheckAssignment</a>&nbsp;checkAssignment,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/OffsetDateTime.html" title="class or interface in java.time" class="external-link">OffsetDateTime</a>&nbsp;completeDateTime,
  boolean&nbsp;download,
  boolean&nbsp;build,
  boolean&nbsp;doc,
  boolean&nbsp;style,
- boolean&nbsp;tests,
- int&nbsp;passedTestsCount,
- int&nbsp;failedTestsCount,
- int&nbsp;skippedTestsCount,
+ <a href="TestResults.html" title="class in Model">TestResults</a>&nbsp;testResults,
  float&nbsp;points)</span></div>
 <div class="block">Creates an instance of a <code>CheckResult</code> record class.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>checkAssignment</code> - the value for the <code>checkAssignment</code> record component</dd>
-<dd><code>completeDateTime</code> - the value for the <code>completeDateTime</code> record component</dd>
-<dd><code>download</code> - the value for the <code>download</code> record component</dd>
-<dd><code>build</code> - the value for the <code>build</code> record component</dd>
-<dd><code>doc</code> - the value for the <code>doc</code> record component</dd>
-<dd><code>style</code> - the value for the <code>style</code> record component</dd>
-<dd><code>tests</code> - the value for the <code>tests</code> record component</dd>
-<dd><code>passedTestsCount</code> - the value for the <code>passedTestsCount</code> record component</dd>
-<dd><code>failedTestsCount</code> - the value for the <code>failedTestsCount</code> record component</dd>
-<dd><code>skippedTestsCount</code> - the value for the <code>skippedTestsCount</code> record component</dd>
-<dd><code>points</code> - the value for the <code>points</code> record component</dd>
+<dd><code>checkAssignment</code> - the value for the <a href="#param-checkAssignment"><code>checkAssignment</code></a> record component</dd>
+<dd><code>completeDateTime</code> - the value for the <a href="#param-completeDateTime"><code>completeDateTime</code></a> record component</dd>
+<dd><code>download</code> - the value for the <a href="#param-download"><code>download</code></a> record component</dd>
+<dd><code>build</code> - the value for the <a href="#param-build"><code>build</code></a> record component</dd>
+<dd><code>doc</code> - the value for the <a href="#param-doc"><code>doc</code></a> record component</dd>
+<dd><code>style</code> - the value for the <a href="#param-style"><code>style</code></a> record component</dd>
+<dd><code>testResults</code> - the value for the <a href="#param-testResults"><code>testResults</code></a> record component</dd>
+<dd><code>points</code> - the value for the <a href="#param-points"><code>points</code></a> record component</dd>
 </dl>
 </section>
 </li>
@@ -248,9 +238,16 @@ loadScripts(document, 'script');</script>
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="failedDownload(Domain.CheckAssignment)">
+<section class="detail" id="failedDownload(Model.CheckAssignment)">
 <h3>failedDownload</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="CheckResult.html" title="class in Domain">CheckResult</a></span>&nbsp;<span class="element-name">failedDownload</span><wbr><span class="parameters">(<a href="CheckAssignment.html" title="class in Domain">CheckAssignment</a>&nbsp;checkAssignment)</span></div>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="CheckResult.html" title="class in Model">CheckResult</a></span>&nbsp;<span class="element-name">failedDownload</span><wbr><span class="parameters">(<a href="CheckAssignment.html" title="class in Model">CheckAssignment</a>&nbsp;checkAssignment)</span></div>
+<div class="block">Factory of check result with failed download.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>checkAssignment</code> - task check assignment</dd>
+<dt>Returns:</dt>
+<dd>check result with everything failed</dd>
+</dl>
 </section>
 </li>
 <li>
@@ -297,11 +294,11 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="checkAssignment()">
 <h3>checkAssignment</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="CheckAssignment.html" title="class in Domain">CheckAssignment</a></span>&nbsp;<span class="element-name">checkAssignment</span>()</div>
-<div class="block">Returns the value of the <code>checkAssignment</code> record component.</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="CheckAssignment.html" title="class in Model">CheckAssignment</a></span>&nbsp;<span class="element-name">checkAssignment</span>()</div>
+<div class="block">Returns the value of the <a href="#param-checkAssignment"><code>checkAssignment</code></a> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the value of the <code>checkAssignment</code> record component</dd>
+<dd>the value of the <a href="#param-checkAssignment"><code>checkAssignment</code></a> record component</dd>
 </dl>
 </section>
 </li>
@@ -309,10 +306,10 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="completeDateTime()">
 <h3>completeDateTime</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/OffsetDateTime.html" title="class or interface in java.time" class="external-link">OffsetDateTime</a></span>&nbsp;<span class="element-name">completeDateTime</span>()</div>
-<div class="block">Returns the value of the <code>completeDateTime</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-completeDateTime"><code>completeDateTime</code></a> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the value of the <code>completeDateTime</code> record component</dd>
+<dd>the value of the <a href="#param-completeDateTime"><code>completeDateTime</code></a> record component</dd>
 </dl>
 </section>
 </li>
@@ -320,10 +317,10 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="download()">
 <h3>download</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">download</span>()</div>
-<div class="block">Returns the value of the <code>download</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-download"><code>download</code></a> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the value of the <code>download</code> record component</dd>
+<dd>the value of the <a href="#param-download"><code>download</code></a> record component</dd>
 </dl>
 </section>
 </li>
@@ -331,10 +328,10 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="build()">
 <h3>build</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">build</span>()</div>
-<div class="block">Returns the value of the <code>build</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-build"><code>build</code></a> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the value of the <code>build</code> record component</dd>
+<dd>the value of the <a href="#param-build"><code>build</code></a> record component</dd>
 </dl>
 </section>
 </li>
@@ -342,10 +339,10 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="doc()">
 <h3>doc</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">doc</span>()</div>
-<div class="block">Returns the value of the <code>doc</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-doc"><code>doc</code></a> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the value of the <code>doc</code> record component</dd>
+<dd>the value of the <a href="#param-doc"><code>doc</code></a> record component</dd>
 </dl>
 </section>
 </li>
@@ -353,54 +350,21 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="style()">
 <h3>style</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">style</span>()</div>
-<div class="block">Returns the value of the <code>style</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-style"><code>style</code></a> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the value of the <code>style</code> record component</dd>
+<dd>the value of the <a href="#param-style"><code>style</code></a> record component</dd>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="tests()">
-<h3>tests</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">tests</span>()</div>
-<div class="block">Returns the value of the <code>tests</code> record component.</div>
+<section class="detail" id="testResults()">
+<h3>testResults</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="TestResults.html" title="class in Model">TestResults</a></span>&nbsp;<span class="element-name">testResults</span>()</div>
+<div class="block">Returns the value of the <a href="#param-testResults"><code>testResults</code></a> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the value of the <code>tests</code> record component</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="passedTestsCount()">
-<h3>passedTestsCount</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">passedTestsCount</span>()</div>
-<div class="block">Returns the value of the <code>passedTestsCount</code> record component.</div>
-<dl class="notes">
-<dt>Returns:</dt>
-<dd>the value of the <code>passedTestsCount</code> record component</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="failedTestsCount()">
-<h3>failedTestsCount</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">failedTestsCount</span>()</div>
-<div class="block">Returns the value of the <code>failedTestsCount</code> record component.</div>
-<dl class="notes">
-<dt>Returns:</dt>
-<dd>the value of the <code>failedTestsCount</code> record component</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="skippedTestsCount()">
-<h3>skippedTestsCount</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">skippedTestsCount</span>()</div>
-<div class="block">Returns the value of the <code>skippedTestsCount</code> record component.</div>
-<dl class="notes">
-<dt>Returns:</dt>
-<dd>the value of the <code>skippedTestsCount</code> record component</dd>
+<dd>the value of the <a href="#param-testResults"><code>testResults</code></a> record component</dd>
 </dl>
 </section>
 </li>
@@ -408,10 +372,10 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="points()">
 <h3>points</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">float</span>&nbsp;<span class="element-name">points</span>()</div>
-<div class="block">Returns the value of the <code>points</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-points"><code>points</code></a> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the value of the <code>points</code> record component</dd>
+<dd>the value of the <a href="#param-points"><code>points</code></a> record component</dd>
 </dl>
 </section>
 </li>

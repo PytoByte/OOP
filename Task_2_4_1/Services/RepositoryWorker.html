@@ -77,6 +77,7 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">RepositoryWorker</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
+<div class="block">Worker for cloning repositories and running checks.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -88,10 +89,12 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(Domain.CommandExecutor,java.nio.file.Path,java.lang.String)" class="member-name-link">RepositoryWorker</a><wbr>(<a href="../Domain/CommandExecutor.html" title="interface in Domain">CommandExecutor</a>&nbsp;executor,
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(Model.CommandExecutor,java.nio.file.Path,java.lang.String)" class="member-name-link">RepositoryWorker</a><wbr>(<a href="../Model/CommandExecutor.html" title="interface in Model">CommandExecutor</a>&nbsp;executor,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;toolsDir,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;checkstyleUrl)</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Creates a new RepositoryWorker.</div>
+</div>
 </div>
 </section>
 </li>
@@ -108,24 +111,36 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#checkCodeStyle()" class="member-name-link">checkCodeStyle</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Runs Checkstyle code style validation.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#cloneRepository(java.lang.String,java.lang.String,java.nio.file.Path)" class="member-name-link">cloneRepository</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;url,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;branch,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;workDir)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Clones a git repository to the specified work directory.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#compileProject()" class="member-name-link">compileProject</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Compiles the project using Gradle.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#generateDocumentation()" class="member-name-link">generateDocumentation</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../Domain/TestResults.html" title="class in Domain">TestResults</a></code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Generates Javadoc documentation for the project.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../Model/TestResults.html" title="class in Model">TestResults</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#runTests()" class="member-name-link">runTests</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Runs project tests and parses results.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/OffsetDateTime.html" title="class or interface in java.time" class="external-link">OffsetDateTime</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setTask(java.lang.String)" class="member-name-link">setTask</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;taskId)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Sets the task directory and returns the commit date.</div>
+</div>
 </div>
 </div>
 </div>
@@ -144,11 +159,18 @@ loadScripts(document, 'script');</script>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(Domain.CommandExecutor,java.nio.file.Path,java.lang.String)">
+<section class="detail" id="&lt;init&gt;(Model.CommandExecutor,java.nio.file.Path,java.lang.String)">
 <h3>RepositoryWorker</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">RepositoryWorker</span><wbr><span class="parameters">(<a href="../Domain/CommandExecutor.html" title="interface in Domain">CommandExecutor</a>&nbsp;executor,
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">RepositoryWorker</span><wbr><span class="parameters">(<a href="../Model/CommandExecutor.html" title="interface in Model">CommandExecutor</a>&nbsp;executor,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;toolsDir,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;checkstyleUrl)</span></div>
+<div class="block">Creates a new RepositoryWorker.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>executor</code> - command executor for running external processes</dd>
+<dd><code>toolsDir</code> - directory for storing tools like checkstyle</dd>
+<dd><code>checkstyleUrl</code> - URL to download checkstyle jar</dd>
+</dl>
 </section>
 </li>
 </ul>
@@ -165,36 +187,72 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">cloneRepository</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;url,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;branch,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;workDir)</span></div>
+<div class="block">Clones a git repository to the specified work directory.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>url</code> - repository URL</dd>
+<dd><code>branch</code> - branch name to clone</dd>
+<dd><code>workDir</code> - target directory for the clone</dd>
+<dt>Returns:</dt>
+<dd>true if clone succeeded, false otherwise</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="setTask(java.lang.String)">
 <h3>setTask</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/OffsetDateTime.html" title="class or interface in java.time" class="external-link">OffsetDateTime</a></span>&nbsp;<span class="element-name">setTask</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;taskId)</span></div>
+<div class="block">Sets the task directory and returns the commit date.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>taskId</code> - the task directory name</dd>
+<dt>Returns:</dt>
+<dd>commit date of the task, or null if not found</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="compileProject()">
 <h3>compileProject</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">compileProject</span>()</div>
+<div class="block">Compiles the project using Gradle.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>true if compilation succeeded, false otherwise</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="checkCodeStyle()">
 <h3>checkCodeStyle</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">checkCodeStyle</span>()</div>
+<div class="block">Runs Checkstyle code style validation.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>true if no warnings or errors found, false otherwise</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="generateDocumentation()">
 <h3>generateDocumentation</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">generateDocumentation</span>()</div>
+<div class="block">Generates Javadoc documentation for the project.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>true if generation succeeded, false otherwise</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="runTests()">
 <h3>runTests</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../Domain/TestResults.html" title="class in Domain">TestResults</a></span>&nbsp;<span class="element-name">runTests</span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../Model/TestResults.html" title="class in Model">TestResults</a></span>&nbsp;<span class="element-name">runTests</span>()</div>
+<div class="block">Runs project tests and parses results.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>TestResults with passed/failed/skipped counts, or error result on failure</dd>
+</dl>
 </section>
 </li>
 </ul>

@@ -77,6 +77,7 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">CheckContext</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
+<div class="block">Context for "check" function in gradle.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -90,11 +91,15 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(Services.CheckAssignmentBuilder,java.lang.String)" class="member-name-link">CheckContext</a><wbr>(<a href="../Services/CheckAssignmentBuilder.html" title="class in Services">CheckAssignmentBuilder</a>&nbsp;builder,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;groupName)</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Check for all students in group.</div>
+</div>
 <div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(Services.CheckAssignmentBuilder,java.lang.String,java.lang.String)" class="member-name-link">CheckContext</a><wbr>(<a href="../Services/CheckAssignmentBuilder.html" title="class in Services">CheckAssignmentBuilder</a>&nbsp;builder,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;groupName,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;studentName)</code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-last odd-row-color">
+<div class="block">Check for specific student.</div>
+</div>
 </div>
 </section>
 </li>
@@ -111,7 +116,9 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#task(java.lang.String)" class="member-name-link">task</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;taskId)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Specifies a task to be checked.</div>
+</div>
 </div>
 </div>
 </div>
@@ -135,6 +142,13 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">CheckContext</span><wbr><span class="parameters">(<a href="../Services/CheckAssignmentBuilder.html" title="class in Services">CheckAssignmentBuilder</a>&nbsp;builder,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;groupName,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;studentName)</span></div>
+<div class="block">Check for specific student.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>builder</code> - builder of check assignments</dd>
+<dd><code>groupName</code> - existing group name</dd>
+<dd><code>studentName</code> - existing student name</dd>
+</dl>
 </section>
 </li>
 <li>
@@ -142,6 +156,12 @@ loadScripts(document, 'script');</script>
 <h3>CheckContext</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">CheckContext</span><wbr><span class="parameters">(<a href="../Services/CheckAssignmentBuilder.html" title="class in Services">CheckAssignmentBuilder</a>&nbsp;builder,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;groupName)</span></div>
+<div class="block">Check for all students in group.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>builder</code> - builder of check assignments</dd>
+<dd><code>groupName</code> - existing group name</dd>
+</dl>
 </section>
 </li>
 </ul>
@@ -156,6 +176,11 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="task(java.lang.String)">
 <h3>task</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">task</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;taskId)</span></div>
+<div class="block">Specifies a task to be checked.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>taskId</code> - the ID of the task</dd>
+</dl>
 </section>
 </li>
 </ul>
