@@ -5,7 +5,7 @@
 <title>Executor (Task_2_4_1 1.0-SNAPSHOT API)</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="description" content="declaration: package: Services, class: Executor">
+<meta name="description" content="declaration: package: services, class: Executor">
 <meta name="generator" content="javadoc/ClassWriterImpl">
 <link rel="stylesheet" type="text/css" href="../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../script-dir/jquery-ui.min.css" title="Style">
@@ -67,11 +67,11 @@ loadScripts(document, 'script');</script>
 <main role="main">
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">Services</a></div>
+<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">services</a></div>
 <h1 title="Class Executor" class="title">Class Executor</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
-<div class="inheritance">Services.Executor</div>
+<div class="inheritance">services.Executor</div>
 </div>
 <section class="class-description" id="class-description">
 <hr>
@@ -110,11 +110,11 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(Model.CommandExecutor)" class="member-name-link">Executor</a><wbr>(<a href="../Model/CommandExecutor.html" title="interface in Model">CommandExecutor</a>&nbsp;commandExecutor)</code></div>
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(model.CommandExecutor)" class="member-name-link">Executor</a><wbr>(<a href="../model/CommandExecutor.html" title="interface in model">CommandExecutor</a>&nbsp;commandExecutor)</code></div>
 <div class="col-last even-row-color">
 <div class="block">Constructor with default paths and checkstyle repository url.</div>
 </div>
-<div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(Model.CommandExecutor,java.nio.file.Path,java.nio.file.Path,java.lang.String)" class="member-name-link">Executor</a><wbr>(<a href="../Model/CommandExecutor.html" title="interface in Model">CommandExecutor</a>&nbsp;commandExecutor,
+<div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(model.CommandExecutor,java.nio.file.Path,java.nio.file.Path,java.lang.String)" class="member-name-link">Executor</a><wbr>(<a href="../model/CommandExecutor.html" title="interface in model">CommandExecutor</a>&nbsp;commandExecutor,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;tempDir,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;toolsDir,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;checkstyleUrl)</code></div>
@@ -135,13 +135,13 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../Model/CheckResult.html" title="class in Model">CheckResult</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#execute(java.util.List)" class="member-name-link">execute</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../Model/CheckAssignment.html" title="class in Model">CheckAssignment</a>&gt;&nbsp;checkAssignments)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../model/CheckResult.html" title="class in model">CheckResult</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#execute(java.util.List)" class="member-name-link">execute</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../model/CheckAssignment.html" title="class in model">CheckAssignment</a>&gt;&nbsp;checkAssignments)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Main method for execution many check assignments.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../Model/CheckResult.html" title="class in Model">CheckResult</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#executeCheckAssignment(Model.CheckAssignment,java.nio.file.Path)" class="member-name-link">executeCheckAssignment</a><wbr>(<a href="../Model/CheckAssignment.html" title="class in Model">CheckAssignment</a>&nbsp;checkAssignment,
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../model/CheckResult.html" title="class in model">CheckResult</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#executeCheckAssignment(model.CheckAssignment,java.nio.file.Path)" class="member-name-link">executeCheckAssignment</a><wbr>(<a href="../model/CheckAssignment.html" title="class in model">CheckAssignment</a>&nbsp;checkAssignment,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;tempDir)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Executor of single check assignment.</div>
@@ -183,7 +183,7 @@ loadScripts(document, 'script');</script>
 <dt>See Also:</dt>
 <dd>
 <ul class="see-list">
-<li><a href="../constant-values.html#Services.Executor.DEFAULT_CHECKSTYLE_DOWNLOAD_URL">Constant Field Values</a></li>
+<li><a href="../constant-values.html#services.Executor.DEFAULT_CHECKSTYLE_DOWNLOAD_URL">Constant Field Values</a></li>
 </ul>
 </dd>
 </dl>
@@ -198,9 +198,9 @@ loadScripts(document, 'script');</script>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(Model.CommandExecutor)">
+<section class="detail" id="&lt;init&gt;(model.CommandExecutor)">
 <h3>Executor</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">Executor</span><wbr><span class="parameters">(<a href="../Model/CommandExecutor.html" title="interface in Model">CommandExecutor</a>&nbsp;commandExecutor)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">Executor</span><wbr><span class="parameters">(<a href="../model/CommandExecutor.html" title="interface in model">CommandExecutor</a>&nbsp;commandExecutor)</span></div>
 <div class="block">Constructor with default paths and checkstyle repository url.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -209,9 +209,9 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="&lt;init&gt;(Model.CommandExecutor,java.nio.file.Path,java.nio.file.Path,java.lang.String)">
+<section class="detail" id="&lt;init&gt;(model.CommandExecutor,java.nio.file.Path,java.nio.file.Path,java.lang.String)">
 <h3>Executor</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">Executor</span><wbr><span class="parameters">(<a href="../Model/CommandExecutor.html" title="interface in Model">CommandExecutor</a>&nbsp;commandExecutor,
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">Executor</span><wbr><span class="parameters">(<a href="../model/CommandExecutor.html" title="interface in model">CommandExecutor</a>&nbsp;commandExecutor,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;tempDir,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;toolsDir,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;checkstyleUrl)</span></div>
@@ -236,7 +236,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="execute(java.util.List)">
 <h3>execute</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../Model/CheckResult.html" title="class in Model">CheckResult</a>&gt;</span>&nbsp;<span class="element-name">execute</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../Model/CheckAssignment.html" title="class in Model">CheckAssignment</a>&gt;&nbsp;checkAssignments)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../model/CheckResult.html" title="class in model">CheckResult</a>&gt;</span>&nbsp;<span class="element-name">execute</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../model/CheckAssignment.html" title="class in model">CheckAssignment</a>&gt;&nbsp;checkAssignments)</span></div>
 <div class="block">Main method for execution many check assignments.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -245,9 +245,9 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="executeCheckAssignment(Model.CheckAssignment,java.nio.file.Path)">
+<section class="detail" id="executeCheckAssignment(model.CheckAssignment,java.nio.file.Path)">
 <h3>executeCheckAssignment</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../Model/CheckResult.html" title="class in Model">CheckResult</a></span>&nbsp;<span class="element-name">executeCheckAssignment</span><wbr><span class="parameters">(<a href="../Model/CheckAssignment.html" title="class in Model">CheckAssignment</a>&nbsp;checkAssignment,
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../model/CheckResult.html" title="class in model">CheckResult</a></span>&nbsp;<span class="element-name">executeCheckAssignment</span><wbr><span class="parameters">(<a href="../model/CheckAssignment.html" title="class in model">CheckAssignment</a>&nbsp;checkAssignment,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;tempDir)</span></div>
 <div class="block">Executor of single check assignment.</div>
 <dl class="notes">
