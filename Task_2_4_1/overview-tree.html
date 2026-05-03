@@ -51,7 +51,9 @@ loadScripts(document, 'script');</script>
 <span class="package-hierarchy-label">Package Hierarchies:</span>
 <ul class="horizontal">
 <li><a href="Context/package-tree.html">Context</a>, </li>
-<li><a href="Domain/package-tree.html">Domain</a></li>
+<li><a href="Domain/package-tree.html">Domain</a>, </li>
+<li><a href="Dsl/package-tree.html">Dsl</a>, </li>
+<li><a href="Services/package-tree.html">Services</a></li>
 </ul>
 </div>
 <section class="hierarchy">
@@ -59,38 +61,45 @@ loadScripts(document, 'script');</script>
 <ul>
 <li class="circle">java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" class="type-name-link external-link" title="class or interface in java.lang">Object</a>
 <ul>
+<li class="circle">Services.<a href="Services/CheckAssignmentBuilder.html" class="type-name-link" title="class in Services">CheckAssignmentBuilder</a></li>
 <li class="circle">Context.<a href="Context/CheckContext.html" class="type-name-link" title="class in Context">CheckContext</a></li>
-<li class="circle">Domain.<a href="Domain/Config.html" class="type-name-link" title="class in Domain">Config</a></li>
-<li class="circle"><a href="DslParser.html" class="type-name-link" title="class in Unnamed Package">DslParser</a></li>
-<li class="circle"><a href="Executor.html" class="type-name-link" title="class in Unnamed Package">Executor</a></li>
+<li class="circle">Services.<a href="Services/Executor.html" class="type-name-link" title="class in Services">Executor</a></li>
 <li class="circle">groovy.lang.GroovyObjectSupport (implements groovy.lang.GroovyObject)
 <ul>
 <li class="circle">groovy.lang.Script
 <ul>
-<li class="circle"><a href="BaseConfigScript.html" class="type-name-link" title="class in Unnamed Package">BaseConfigScript</a></li>
+<li class="circle">Dsl.<a href="Dsl/BaseConfigScript.html" class="type-name-link" title="class in Dsl">BaseConfigScript</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="circle">Domain.<a href="Domain/Group.html" class="type-name-link" title="class in Domain">Group</a></li>
 <li class="circle">Context.<a href="Context/GroupContext.html" class="type-name-link" title="class in Context">GroupContext</a></li>
-<li class="circle"><a href="Logger.html" class="type-name-link" title="class in Unnamed Package">Logger</a></li>
+<li class="circle">Services.<a href="Services/Logger.html" class="type-name-link" title="class in Services">Logger</a></li>
 <li class="circle"><a href="Main.html" class="type-name-link" title="class in Unnamed Package">Main</a></li>
+<li class="circle">Dsl.<a href="Dsl/Parser.html" class="type-name-link" title="class in Dsl">Parser</a></li>
+<li class="circle">Services.<a href="Services/RealCommandExecutor.html" class="type-name-link" title="class in Services">RealCommandExecutor</a> (implements Domain.<a href="Domain/CommandExecutor.html" title="interface in Domain">CommandExecutor</a>)</li>
 <li class="circle">java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Record.html" class="type-name-link external-link" title="class or interface in java.lang">Record</a>
 <ul>
 <li class="circle">Domain.<a href="Domain/CheckAssignment.html" class="type-name-link" title="class in Domain">CheckAssignment</a></li>
 <li class="circle">Domain.<a href="Domain/Checkpoint.html" class="type-name-link" title="class in Domain">Checkpoint</a></li>
 <li class="circle">Domain.<a href="Domain/CheckResult.html" class="type-name-link" title="class in Domain">CheckResult</a></li>
+<li class="circle">Domain.<a href="Domain/Group.html" class="type-name-link" title="class in Domain">Group</a></li>
 <li class="circle">Domain.<a href="Domain/Student.html" class="type-name-link" title="class in Domain">Student</a></li>
+<li class="circle">Domain.<a href="Domain/Task.html" class="type-name-link" title="class in Domain">Task</a></li>
 <li class="circle">Domain.<a href="Domain/TestResults.html" class="type-name-link" title="class in Domain">TestResults</a></li>
 </ul>
 </li>
-<li class="circle"><a href="ReportGenerator.html" class="type-name-link" title="class in Unnamed Package">ReportGenerator</a></li>
-<li class="circle"><a href="RepositoryWorker.html" class="type-name-link" title="class in Unnamed Package">RepositoryWorker</a></li>
-<li class="circle">Domain.<a href="Domain/Task.html" class="type-name-link" title="class in Domain">Task</a></li>
+<li class="circle">Services.<a href="Services/ReportGenerator.html" class="type-name-link" title="class in Services">ReportGenerator</a></li>
+<li class="circle">Services.<a href="Services/RepositoryWorker.html" class="type-name-link" title="class in Services">RepositoryWorker</a></li>
 <li class="circle">Context.<a href="Context/TaskContext.html" class="type-name-link" title="class in Context">TaskContext</a></li>
 </ul>
 </li>
+</ul>
+</section>
+<section class="hierarchy">
+<h2 title="Interface Hierarchy">Interface Hierarchy</h2>
+<ul>
+<li class="circle">Domain.<a href="Domain/CommandExecutor.html" class="type-name-link" title="interface in Domain">CommandExecutor</a></li>
 </ul>
 </section>
 </main>

@@ -52,23 +52,27 @@ loadScripts(document, 'script');</script>
 <a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:L">L</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:W">W</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a>
 <h2 class="title" id="I:A">A</h2>
 <dl class="index">
-<dt><a href="Domain/Config.html#addCheckAssignment(java.lang.String,java.lang.String,java.lang.String)" class="member-name-link">addCheckAssignment(String, String, String)</a> - Method in class Domain.<a href="Domain/Config.html" title="class in Domain">Config</a></dt>
+<dt><a href="Services/CheckAssignmentBuilder.html#addCheckAssignment(java.lang.String,java.lang.String)" class="member-name-link">addCheckAssignment(String, String)</a> - Method in class Services.<a href="Services/CheckAssignmentBuilder.html" title="class in Services">CheckAssignmentBuilder</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="Domain/Task.html#addCheckpoint(Domain.Checkpoint)" class="member-name-link">addCheckpoint(Checkpoint)</a> - Method in class Domain.<a href="Domain/Task.html" title="class in Domain">Task</a></dt>
+<dt><a href="Services/CheckAssignmentBuilder.html#addCheckAssignment(java.lang.String,java.lang.String,java.lang.String)" class="member-name-link">addCheckAssignment(String, String, String)</a> - Method in class Services.<a href="Services/CheckAssignmentBuilder.html" title="class in Services">CheckAssignmentBuilder</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="Domain/Config.html#addGroup(Domain.Group)" class="member-name-link">addGroup(Group)</a> - Method in class Domain.<a href="Domain/Config.html" title="class in Domain">Config</a></dt>
+<dt><a href="Services/CheckAssignmentBuilder.html#addGroup(Domain.Group)" class="member-name-link">addGroup(Group)</a> - Method in class Services.<a href="Services/CheckAssignmentBuilder.html" title="class in Services">CheckAssignmentBuilder</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="Domain/Group.html#addStudent(Domain.Student)" class="member-name-link">addStudent(Student)</a> - Method in class Domain.<a href="Domain/Group.html" title="class in Domain">Group</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="Domain/Config.html#addTask(Domain.Task)" class="member-name-link">addTask(Task)</a> - Method in class Domain.<a href="Domain/Config.html" title="class in Domain">Config</a></dt>
+<dt><a href="Services/CheckAssignmentBuilder.html#addTask(Domain.Task)" class="member-name-link">addTask(Task)</a> - Method in class Services.<a href="Services/CheckAssignmentBuilder.html" title="class in Services">CheckAssignmentBuilder</a></dt>
 <dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:B">B</h2>
 <dl class="index">
-<dt><a href="BaseConfigScript.html" class="type-name-link" title="class in Unnamed Package">BaseConfigScript</a> - Class in <a href="package-summary.html">Unnamed Package</a></dt>
+<dt><a href="Dsl/BaseConfigScript.html" class="type-name-link" title="class in Dsl">BaseConfigScript</a> - Class in <a href="Dsl/package-summary.html">Dsl</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="BaseConfigScript.html#%3Cinit%3E()" class="member-name-link">BaseConfigScript()</a> - Constructor for class <a href="BaseConfigScript.html" title="class in Unnamed Package">BaseConfigScript</a></dt>
+<dt><a href="Dsl/BaseConfigScript.html#%3Cinit%3E()" class="member-name-link">BaseConfigScript()</a> - Constructor for class Dsl.<a href="Dsl/BaseConfigScript.html" title="class in Dsl">BaseConfigScript</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="Context/TaskContext.html#basePoints" class="member-name-link">basePoints</a> - Variable in class Context.<a href="Context/TaskContext.html" title="class in Context">TaskContext</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="Domain/Task.html#basePoints()" class="member-name-link">basePoints()</a> - Method in record class Domain.<a href="Domain/Task.html" title="class in Domain">Task</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>basePoints</code> record component.</div>
+</dd>
 <dt><a href="Domain/CheckResult.html#build()" class="member-name-link">build()</a> - Method in record class Domain.<a href="Domain/CheckResult.html" title="class in Domain">CheckResult</a></dt>
 <dd>
 <div class="block">Returns the value of the <code>build</code> record component.</div>
@@ -76,7 +80,7 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:C">C</h2>
 <dl class="index">
-<dt><a href="BaseConfigScript.html#check(java.lang.String,java.lang.String,groovy.lang.Closure)" class="member-name-link">check(String, String, Closure&lt;?&gt;)</a> - Method in class <a href="BaseConfigScript.html" title="class in Unnamed Package">BaseConfigScript</a></dt>
+<dt><a href="Dsl/BaseConfigScript.html#check(java.lang.String,java.lang.String,groovy.lang.Closure)" class="member-name-link">check(String, String, Closure&lt;?&gt;)</a> - Method in class Dsl.<a href="Dsl/BaseConfigScript.html" title="class in Dsl">BaseConfigScript</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="Domain/CheckResult.html#checkAssignment()" class="member-name-link">checkAssignment()</a> - Method in record class Domain.<a href="Domain/CheckResult.html" title="class in Domain">CheckResult</a></dt>
 <dd>
@@ -88,38 +92,46 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Creates an instance of a <code>CheckAssignment</code> record class.</div>
 </dd>
-<dt><a href="RepositoryWorker.html#checkCodeStyle()" class="member-name-link">checkCodeStyle()</a> - Method in class <a href="RepositoryWorker.html" title="class in Unnamed Package">RepositoryWorker</a></dt>
+<dt><a href="Services/CheckAssignmentBuilder.html" class="type-name-link" title="class in Services">CheckAssignmentBuilder</a> - Class in <a href="Services/package-summary.html">Services</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="Services/CheckAssignmentBuilder.html#%3Cinit%3E()" class="member-name-link">CheckAssignmentBuilder()</a> - Constructor for class Services.<a href="Services/CheckAssignmentBuilder.html" title="class in Services">CheckAssignmentBuilder</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="Services/RepositoryWorker.html#checkCodeStyle()" class="member-name-link">checkCodeStyle()</a> - Method in class Services.<a href="Services/RepositoryWorker.html" title="class in Services">RepositoryWorker</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="Context/CheckContext.html" class="type-name-link" title="class in Context">CheckContext</a> - Class in <a href="Context/package-summary.html">Context</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="Context/CheckContext.html#%3Cinit%3E(Domain.Config,java.lang.String,java.lang.String)" class="member-name-link">CheckContext(Config, String, String)</a> - Constructor for class Context.<a href="Context/CheckContext.html" title="class in Context">CheckContext</a></dt>
+<dt><a href="Context/CheckContext.html#%3Cinit%3E(Services.CheckAssignmentBuilder,java.lang.String)" class="member-name-link">CheckContext(CheckAssignmentBuilder, String)</a> - Constructor for class Context.<a href="Context/CheckContext.html" title="class in Context">CheckContext</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="Context/TaskContext.html#checkpoint(java.lang.String,java.lang.String)" class="member-name-link">checkpoint(String, String)</a> - Method in class Context.<a href="Context/TaskContext.html" title="class in Context">TaskContext</a></dt>
+<dt><a href="Context/CheckContext.html#%3Cinit%3E(Services.CheckAssignmentBuilder,java.lang.String,java.lang.String)" class="member-name-link">CheckContext(CheckAssignmentBuilder, String, String)</a> - Constructor for class Context.<a href="Context/CheckContext.html" title="class in Context">CheckContext</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="Context/TaskContext.html#checkpoint(java.lang.String,java.lang.String,float)" class="member-name-link">checkpoint(String, String, float)</a> - Method in class Context.<a href="Context/TaskContext.html" title="class in Context">TaskContext</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="Domain/Checkpoint.html" class="type-name-link" title="class in Domain">Checkpoint</a> - Record Class in <a href="Domain/package-summary.html">Domain</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="Domain/Checkpoint.html#%3Cinit%3E(java.lang.String,java.time.LocalDate)" class="member-name-link">Checkpoint(String, LocalDate)</a> - Constructor for record class Domain.<a href="Domain/Checkpoint.html" title="class in Domain">Checkpoint</a></dt>
+<dt><a href="Domain/Checkpoint.html#%3Cinit%3E(java.lang.String,java.time.LocalDate,float)" class="member-name-link">Checkpoint(String, LocalDate, float)</a> - Constructor for record class Domain.<a href="Domain/Checkpoint.html" title="class in Domain">Checkpoint</a></dt>
 <dd>
 <div class="block">Creates an instance of a <code>Checkpoint</code> record class.</div>
 </dd>
+<dt><a href="Domain/Task.html#checkpoints()" class="member-name-link">checkpoints()</a> - Method in record class Domain.<a href="Domain/Task.html" title="class in Domain">Task</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>checkpoints</code> record component.</div>
+</dd>
 <dt><a href="Domain/CheckResult.html" class="type-name-link" title="class in Domain">CheckResult</a> - Record Class in <a href="Domain/package-summary.html">Domain</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="Domain/CheckResult.html#%3Cinit%3E(Domain.CheckAssignment,java.time.OffsetDateTime,boolean,boolean,boolean,boolean,boolean,int,int,int,int)" class="member-name-link">CheckResult(CheckAssignment, OffsetDateTime, boolean, boolean, boolean, boolean, boolean, int, int, int, int)</a> - Constructor for record class Domain.<a href="Domain/CheckResult.html" title="class in Domain">CheckResult</a></dt>
+<dt><a href="Domain/CheckResult.html#%3Cinit%3E(Domain.CheckAssignment,java.time.OffsetDateTime,boolean,boolean,boolean,boolean,boolean,int,int,int,float)" class="member-name-link">CheckResult(CheckAssignment, OffsetDateTime, boolean, boolean, boolean, boolean, boolean, int, int, int, float)</a> - Constructor for record class Domain.<a href="Domain/CheckResult.html" title="class in Domain">CheckResult</a></dt>
 <dd>
 <div class="block">Creates an instance of a <code>CheckResult</code> record class.</div>
 </dd>
-<dt><a href="RepositoryWorker.html#cloneRepository(java.lang.String,java.lang.String,java.nio.file.Path)" class="member-name-link">cloneRepository(String, String, Path)</a> - Method in class <a href="RepositoryWorker.html" title="class in Unnamed Package">RepositoryWorker</a></dt>
+<dt><a href="Services/RepositoryWorker.html#cloneRepository(java.lang.String,java.lang.String,java.nio.file.Path)" class="member-name-link">cloneRepository(String, String, Path)</a> - Method in class Services.<a href="Services/RepositoryWorker.html" title="class in Services">RepositoryWorker</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="RepositoryWorker.html#compileProject()" class="member-name-link">compileProject()</a> - Method in class <a href="RepositoryWorker.html" title="class in Unnamed Package">RepositoryWorker</a></dt>
+<dt><a href="Domain/CommandExecutor.html" class="type-name-link" title="interface in Domain">CommandExecutor</a> - Interface in <a href="Domain/package-summary.html">Domain</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="Domain/CheckResult.html#completeTime()" class="member-name-link">completeTime()</a> - Method in record class Domain.<a href="Domain/CheckResult.html" title="class in Domain">CheckResult</a></dt>
+<dt><a href="Services/RepositoryWorker.html#compileProject()" class="member-name-link">compileProject()</a> - Method in class Services.<a href="Services/RepositoryWorker.html" title="class in Services">RepositoryWorker</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="Domain/CheckResult.html#completeDateTime()" class="member-name-link">completeDateTime()</a> - Method in record class Domain.<a href="Domain/CheckResult.html" title="class in Domain">CheckResult</a></dt>
 <dd>
-<div class="block">Returns the value of the <code>completeTime</code> record component.</div>
+<div class="block">Returns the value of the <code>completeDateTime</code> record component.</div>
 </dd>
-<dt><a href="Domain/Config.html" class="type-name-link" title="class in Domain">Config</a> - Class in <a href="Domain/package-summary.html">Domain</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="Domain/Config.html#%3Cinit%3E()" class="member-name-link">Config()</a> - Constructor for class Domain.<a href="Domain/Config.html" title="class in Domain">Config</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="Context/package-summary.html">Context</a> - package Context</dt>
 <dd>&nbsp;</dd>
 </dl>
@@ -139,9 +151,7 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns the value of the <code>download</code> record component.</div>
 </dd>
-<dt><a href="DslParser.html" class="type-name-link" title="class in Unnamed Package">DslParser</a> - Class in <a href="package-summary.html">Unnamed Package</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="DslParser.html#%3Cinit%3E()" class="member-name-link">DslParser()</a> - Constructor for class <a href="DslParser.html" title="class in Unnamed Package">DslParser</a></dt>
+<dt><a href="Dsl/package-summary.html">Dsl</a> - package Dsl</dt>
 <dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:E">E</h2>
@@ -158,7 +168,15 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Indicates whether some other object is "equal to" this one.</div>
 </dd>
+<dt><a href="Domain/Group.html#equals(java.lang.Object)" class="member-name-link">equals(Object)</a> - Method in record class Domain.<a href="Domain/Group.html" title="class in Domain">Group</a></dt>
+<dd>
+<div class="block">Indicates whether some other object is "equal to" this one.</div>
+</dd>
 <dt><a href="Domain/Student.html#equals(java.lang.Object)" class="member-name-link">equals(Object)</a> - Method in record class Domain.<a href="Domain/Student.html" title="class in Domain">Student</a></dt>
+<dd>
+<div class="block">Indicates whether some other object is "equal to" this one.</div>
+</dd>
+<dt><a href="Domain/Task.html#equals(java.lang.Object)" class="member-name-link">equals(Object)</a> - Method in record class Domain.<a href="Domain/Task.html" title="class in Domain">Task</a></dt>
 <dd>
 <div class="block">Indicates whether some other object is "equal to" this one.</div>
 </dd>
@@ -168,15 +186,23 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="Domain/TestResults.html#error()" class="member-name-link">error()</a> - Static method in record class Domain.<a href="Domain/TestResults.html" title="class in Domain">TestResults</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="Logger.html#error(java.lang.String,java.lang.Object...)" class="member-name-link">error(String, Object...)</a> - Method in class <a href="Logger.html" title="class in Unnamed Package">Logger</a></dt>
+<dt><a href="Domain/CommandExecutor.html#execute(java.nio.file.Path,java.util.List,java.lang.String)" class="member-name-link">execute(Path, List&lt;String&gt;, String)</a> - Method in interface Domain.<a href="Domain/CommandExecutor.html" title="interface in Domain">CommandExecutor</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="Executor.html#execute(Domain.Config)" class="member-name-link">execute(Config)</a> - Static method in class <a href="Executor.html" title="class in Unnamed Package">Executor</a></dt>
+<dt><a href="Domain/CommandExecutor.html#execute(java.nio.file.Path,java.util.List,java.lang.String,java.util.function.Consumer)" class="member-name-link">execute(Path, List&lt;String&gt;, String, Consumer&lt;String&gt;)</a> - Method in interface Domain.<a href="Domain/CommandExecutor.html" title="interface in Domain">CommandExecutor</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="Executor.html#executeCheckAssignment(Domain.CheckAssignment,java.nio.file.Path)" class="member-name-link">executeCheckAssignment(CheckAssignment, Path)</a> - Static method in class <a href="Executor.html" title="class in Unnamed Package">Executor</a></dt>
+<dt><a href="Services/RealCommandExecutor.html#execute(java.nio.file.Path,java.util.List,java.lang.String,java.util.function.Consumer)" class="member-name-link">execute(Path, List&lt;String&gt;, String, Consumer&lt;String&gt;)</a> - Method in class Services.<a href="Services/RealCommandExecutor.html" title="class in Services">RealCommandExecutor</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="Executor.html" class="type-name-link" title="class in Unnamed Package">Executor</a> - Class in <a href="package-summary.html">Unnamed Package</a></dt>
+<dt><a href="Services/Executor.html#execute(java.util.List)" class="member-name-link">execute(List&lt;CheckAssignment&gt;)</a> - Method in class Services.<a href="Services/Executor.html" title="class in Services">Executor</a></dt>
+<dd>
+<div class="block">Основной метод запуска проверки.</div>
+</dd>
+<dt><a href="Services/Executor.html#executeCheckAssignment(Domain.CheckAssignment,java.nio.file.Path)" class="member-name-link">executeCheckAssignment(CheckAssignment, Path)</a> - Method in class Services.<a href="Services/Executor.html" title="class in Services">Executor</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="Executor.html#%3Cinit%3E()" class="member-name-link">Executor()</a> - Constructor for class <a href="Executor.html" title="class in Unnamed Package">Executor</a></dt>
+<dt><a href="Services/Executor.html" class="type-name-link" title="class in Services">Executor</a> - Class in <a href="Services/package-summary.html">Services</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="Services/Executor.html#%3Cinit%3E(Domain.CommandExecutor)" class="member-name-link">Executor(CommandExecutor)</a> - Constructor for class Services.<a href="Services/Executor.html" title="class in Services">Executor</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="Services/Executor.html#%3Cinit%3E(Domain.CommandExecutor,java.nio.file.Path,java.nio.file.Path,java.lang.String)" class="member-name-link">Executor(CommandExecutor, Path, Path, String)</a> - Constructor for class Services.<a href="Services/Executor.html" title="class in Services">Executor</a></dt>
 <dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:F">F</h2>
@@ -194,39 +220,25 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:G">G</h2>
 <dl class="index">
-<dt><a href="RepositoryWorker.html#generateDocumentation()" class="member-name-link">generateDocumentation()</a> - Method in class <a href="RepositoryWorker.html" title="class in Unnamed Package">RepositoryWorker</a></dt>
+<dt><a href="Services/RepositoryWorker.html#generateDocumentation()" class="member-name-link">generateDocumentation()</a> - Method in class Services.<a href="Services/RepositoryWorker.html" title="class in Services">RepositoryWorker</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="Domain/Config.html#getCheckAssignments()" class="member-name-link">getCheckAssignments()</a> - Method in class Domain.<a href="Domain/Config.html" title="class in Domain">Config</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="Domain/Task.html#getCheckpoints()" class="member-name-link">getCheckpoints()</a> - Method in class Domain.<a href="Domain/Task.html" title="class in Domain">Task</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="Domain/Config.html#getGroup(java.lang.String)" class="member-name-link">getGroup(String)</a> - Method in class Domain.<a href="Domain/Config.html" title="class in Domain">Config</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="Domain/Task.html#getId()" class="member-name-link">getId()</a> - Method in class Domain.<a href="Domain/Task.html" title="class in Domain">Task</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="Domain/Task.html#getMaxPoints()" class="member-name-link">getMaxPoints()</a> - Method in class Domain.<a href="Domain/Task.html" title="class in Domain">Task</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="Domain/Group.html#getName()" class="member-name-link">getName()</a> - Method in class Domain.<a href="Domain/Group.html" title="class in Domain">Group</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="Domain/Group.html#getStudent(java.lang.String)" class="member-name-link">getStudent(String)</a> - Method in class Domain.<a href="Domain/Group.html" title="class in Domain">Group</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="Domain/Config.html#getTask(java.lang.String)" class="member-name-link">getTask(String)</a> - Method in class Domain.<a href="Domain/Config.html" title="class in Domain">Config</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="Domain/Task.html#getTitle()" class="member-name-link">getTitle()</a> - Method in class Domain.<a href="Domain/Task.html" title="class in Domain">Task</a></dt>
+<dt><a href="Services/CheckAssignmentBuilder.html#getCheckAssignments()" class="member-name-link">getCheckAssignments()</a> - Method in class Services.<a href="Services/CheckAssignmentBuilder.html" title="class in Services">CheckAssignmentBuilder</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="Domain/CheckAssignment.html#group()" class="member-name-link">group()</a> - Method in record class Domain.<a href="Domain/CheckAssignment.html" title="class in Domain">CheckAssignment</a></dt>
 <dd>
 <div class="block">Returns the value of the <code>group</code> record component.</div>
 </dd>
-<dt><a href="BaseConfigScript.html#group(java.lang.String,groovy.lang.Closure)" class="member-name-link">group(String, Closure&lt;?&gt;)</a> - Method in class <a href="BaseConfigScript.html" title="class in Unnamed Package">BaseConfigScript</a></dt>
+<dt><a href="Dsl/BaseConfigScript.html#group(java.lang.String,groovy.lang.Closure)" class="member-name-link">group(String, Closure&lt;?&gt;)</a> - Method in class Dsl.<a href="Dsl/BaseConfigScript.html" title="class in Dsl">BaseConfigScript</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="Domain/Group.html" class="type-name-link" title="class in Domain">Group</a> - Class in <a href="Domain/package-summary.html">Domain</a></dt>
+<dt><a href="Domain/Group.html" class="type-name-link" title="class in Domain">Group</a> - Record Class in <a href="Domain/package-summary.html">Domain</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="Domain/Group.html#%3Cinit%3E(java.lang.String)" class="member-name-link">Group(String)</a> - Constructor for class Domain.<a href="Domain/Group.html" title="class in Domain">Group</a></dt>
-<dd>&nbsp;</dd>
+<dt><a href="Domain/Group.html#%3Cinit%3E(java.lang.String,java.util.Map)" class="member-name-link">Group(String, Map&lt;String, Student&gt;)</a> - Constructor for record class Domain.<a href="Domain/Group.html" title="class in Domain">Group</a></dt>
+<dd>
+<div class="block">Creates an instance of a <code>Group</code> record class.</div>
+</dd>
 <dt><a href="Context/GroupContext.html" class="type-name-link" title="class in Context">GroupContext</a> - Class in <a href="Context/package-summary.html">Context</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="Context/GroupContext.html#%3Cinit%3E(Domain.Group)" class="member-name-link">GroupContext(Group)</a> - Constructor for class Context.<a href="Context/GroupContext.html" title="class in Context">GroupContext</a></dt>
+<dt><a href="Context/GroupContext.html#%3Cinit%3E(java.lang.String)" class="member-name-link">GroupContext(String)</a> - Constructor for class Context.<a href="Context/GroupContext.html" title="class in Context">GroupContext</a></dt>
 <dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:H">H</h2>
@@ -243,7 +255,15 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns a hash code value for this object.</div>
 </dd>
+<dt><a href="Domain/Group.html#hashCode()" class="member-name-link">hashCode()</a> - Method in record class Domain.<a href="Domain/Group.html" title="class in Domain">Group</a></dt>
+<dd>
+<div class="block">Returns a hash code value for this object.</div>
+</dd>
 <dt><a href="Domain/Student.html#hashCode()" class="member-name-link">hashCode()</a> - Method in record class Domain.<a href="Domain/Student.html" title="class in Domain">Student</a></dt>
+<dd>
+<div class="block">Returns a hash code value for this object.</div>
+</dd>
+<dt><a href="Domain/Task.html#hashCode()" class="member-name-link">hashCode()</a> - Method in record class Domain.<a href="Domain/Task.html" title="class in Domain">Task</a></dt>
 <dd>
 <div class="block">Returns a hash code value for this object.</div>
 </dd>
@@ -254,16 +274,24 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:I">I</h2>
 <dl class="index">
-<dt><a href="BaseConfigScript.html#importConfig(java.lang.String)" class="member-name-link">importConfig(String)</a> - Method in class <a href="BaseConfigScript.html" title="class in Unnamed Package">BaseConfigScript</a></dt>
+<dt><a href="Context/TaskContext.html#id" class="member-name-link">id</a> - Variable in class Context.<a href="Context/TaskContext.html" title="class in Context">TaskContext</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="Logger.html#info(java.lang.String,java.lang.Object...)" class="member-name-link">info(String, Object...)</a> - Method in class <a href="Logger.html" title="class in Unnamed Package">Logger</a></dt>
+<dt><a href="Domain/Task.html#id()" class="member-name-link">id()</a> - Method in record class Domain.<a href="Domain/Task.html" title="class in Domain">Task</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>id</code> record component.</div>
+</dd>
+<dt><a href="Dsl/BaseConfigScript.html#importConfig(java.lang.String)" class="member-name-link">importConfig(String)</a> - Method in class Dsl.<a href="Dsl/BaseConfigScript.html" title="class in Dsl">BaseConfigScript</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="Services/Logger.html#info(java.lang.String,java.lang.Object...)" class="member-name-link">info(String, Object...)</a> - Method in class Services.<a href="Services/Logger.html" title="class in Services">Logger</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="Domain/TestResults.html#isError()" class="member-name-link">isError()</a> - Method in record class Domain.<a href="Domain/TestResults.html" title="class in Domain">TestResults</a></dt>
 <dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:L">L</h2>
 <dl class="index">
-<dt><a href="Logger.html" class="type-name-link" title="class in Unnamed Package">Logger</a> - Class in <a href="package-summary.html">Unnamed Package</a></dt>
+<dt><a href="Services/Logger.html" class="type-name-link" title="class in Services">Logger</a> - Class in <a href="Services/package-summary.html">Services</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="Logger.html#%3Cinit%3E(java.lang.String)" class="member-name-link">Logger(String)</a> - Constructor for class <a href="Logger.html" title="class in Unnamed Package">Logger</a></dt>
+<dt><a href="Services/Logger.html#%3Cinit%3E(java.lang.String)" class="member-name-link">Logger(String)</a> - Constructor for class Services.<a href="Services/Logger.html" title="class in Services">Logger</a></dt>
 <dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:M">M</h2>
@@ -274,12 +302,14 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="Main.html#%3Cinit%3E()" class="member-name-link">Main()</a> - Constructor for class <a href="Main.html" title="class in Unnamed Package">Main</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="Context/TaskContext.html#maxPoints" class="member-name-link">maxPoints</a> - Variable in class Context.<a href="Context/TaskContext.html" title="class in Context">TaskContext</a></dt>
-<dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:N">N</h2>
 <dl class="index">
 <dt><a href="Domain/Checkpoint.html#name()" class="member-name-link">name()</a> - Method in record class Domain.<a href="Domain/Checkpoint.html" title="class in Domain">Checkpoint</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>name</code> record component.</div>
+</dd>
+<dt><a href="Domain/Group.html#name()" class="member-name-link">name()</a> - Method in record class Domain.<a href="Domain/Group.html" title="class in Domain">Group</a></dt>
 <dd>
 <div class="block">Returns the value of the <code>name</code> record component.</div>
 </dd>
@@ -294,9 +324,13 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:P">P</h2>
 <dl class="index">
-<dt><a href="DslParser.html#parse(java.io.File)" class="member-name-link">parse(File)</a> - Static method in class <a href="DslParser.html" title="class in Unnamed Package">DslParser</a></dt>
+<dt><a href="Dsl/Parser.html#parse(java.io.File)" class="member-name-link">parse(File)</a> - Static method in class Dsl.<a href="Dsl/Parser.html" title="class in Dsl">Parser</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="DslParser.html#parse(java.io.File,Domain.Config)" class="member-name-link">parse(File, Config)</a> - Static method in class <a href="DslParser.html" title="class in Unnamed Package">DslParser</a></dt>
+<dt><a href="Dsl/Parser.html#parse(java.io.File,Services.CheckAssignmentBuilder)" class="member-name-link">parse(File, CheckAssignmentBuilder)</a> - Static method in class Dsl.<a href="Dsl/Parser.html" title="class in Dsl">Parser</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="Dsl/Parser.html" class="type-name-link" title="class in Dsl">Parser</a> - Class in <a href="Dsl/package-summary.html">Dsl</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="Dsl/Parser.html#%3Cinit%3E()" class="member-name-link">Parser()</a> - Constructor for class Dsl.<a href="Dsl/Parser.html" title="class in Dsl">Parser</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="Domain/TestResults.html#passed()" class="member-name-link">passed()</a> - Method in record class Domain.<a href="Domain/TestResults.html" title="class in Domain">TestResults</a></dt>
 <dd>
@@ -310,27 +344,37 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns the value of the <code>points</code> record component.</div>
 </dd>
+<dt><a href="Context/GroupContext.html#produce()" class="member-name-link">produce()</a> - Method in class Context.<a href="Context/GroupContext.html" title="class in Context">GroupContext</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="Context/TaskContext.html#produce()" class="member-name-link">produce()</a> - Method in class Context.<a href="Context/TaskContext.html" title="class in Context">TaskContext</a></dt>
+<dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:R">R</h2>
 <dl class="index">
-<dt><a href="ReportGenerator.html" class="type-name-link" title="class in Unnamed Package">ReportGenerator</a> - Class in <a href="package-summary.html">Unnamed Package</a></dt>
+<dt><a href="Services/RealCommandExecutor.html" class="type-name-link" title="class in Services">RealCommandExecutor</a> - Class in <a href="Services/package-summary.html">Services</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="ReportGenerator.html#%3Cinit%3E()" class="member-name-link">ReportGenerator()</a> - Constructor for class <a href="ReportGenerator.html" title="class in Unnamed Package">ReportGenerator</a></dt>
+<dt><a href="Services/RealCommandExecutor.html#%3Cinit%3E()" class="member-name-link">RealCommandExecutor()</a> - Constructor for class Services.<a href="Services/RealCommandExecutor.html" title="class in Services">RealCommandExecutor</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="RepositoryWorker.html" class="type-name-link" title="class in Unnamed Package">RepositoryWorker</a> - Class in <a href="package-summary.html">Unnamed Package</a></dt>
+<dt><a href="Services/ReportGenerator.html" class="type-name-link" title="class in Services">ReportGenerator</a> - Class in <a href="Services/package-summary.html">Services</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="RepositoryWorker.html#%3Cinit%3E()" class="member-name-link">RepositoryWorker()</a> - Constructor for class <a href="RepositoryWorker.html" title="class in Unnamed Package">RepositoryWorker</a></dt>
+<dt><a href="Services/ReportGenerator.html#%3Cinit%3E()" class="member-name-link">ReportGenerator()</a> - Constructor for class Services.<a href="Services/ReportGenerator.html" title="class in Services">ReportGenerator</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="RepositoryWorker.html#runTests()" class="member-name-link">runTests()</a> - Method in class <a href="RepositoryWorker.html" title="class in Unnamed Package">RepositoryWorker</a></dt>
+<dt><a href="Services/RepositoryWorker.html" class="type-name-link" title="class in Services">RepositoryWorker</a> - Class in <a href="Services/package-summary.html">Services</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="Services/RepositoryWorker.html#%3Cinit%3E(Domain.CommandExecutor,java.nio.file.Path,java.lang.String)" class="member-name-link">RepositoryWorker(CommandExecutor, Path, String)</a> - Constructor for class Services.<a href="Services/RepositoryWorker.html" title="class in Services">RepositoryWorker</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="Domain/Checkpoint.html#rewardPoints()" class="member-name-link">rewardPoints()</a> - Method in record class Domain.<a href="Domain/Checkpoint.html" title="class in Domain">Checkpoint</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>rewardPoints</code> record component.</div>
+</dd>
+<dt><a href="Services/RepositoryWorker.html#runTests()" class="member-name-link">runTests()</a> - Method in class Services.<a href="Services/RepositoryWorker.html" title="class in Services">RepositoryWorker</a></dt>
 <dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:S">S</h2>
 <dl class="index">
-<dt><a href="Domain/Task.html#setMaxPoints(int)" class="member-name-link">setMaxPoints(int)</a> - Method in class Domain.<a href="Domain/Task.html" title="class in Domain">Task</a></dt>
+<dt><a href="Services/package-summary.html">Services</a> - package Services</dt>
 <dd>&nbsp;</dd>
-<dt><a href="RepositoryWorker.html#setTask(java.lang.String)" class="member-name-link">setTask(String)</a> - Method in class <a href="RepositoryWorker.html" title="class in Unnamed Package">RepositoryWorker</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="Domain/Task.html#setTitle(java.lang.String)" class="member-name-link">setTitle(String)</a> - Method in class Domain.<a href="Domain/Task.html" title="class in Domain">Task</a></dt>
+<dt><a href="Services/RepositoryWorker.html#setTask(java.lang.String)" class="member-name-link">setTask(String)</a> - Method in class Services.<a href="Services/RepositoryWorker.html" title="class in Services">RepositoryWorker</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="Domain/TestResults.html#skipped()" class="member-name-link">skipped()</a> - Method in record class Domain.<a href="Domain/TestResults.html" title="class in Domain">TestResults</a></dt>
 <dd>
@@ -352,6 +396,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Creates an instance of a <code>Student</code> record class.</div>
 </dd>
+<dt><a href="Domain/Group.html#students()" class="member-name-link">students()</a> - Method in record class Domain.<a href="Domain/Group.html" title="class in Domain">Group</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>students</code> record component.</div>
+</dd>
 <dt><a href="Domain/CheckResult.html#style()" class="member-name-link">style()</a> - Method in record class Domain.<a href="Domain/CheckResult.html" title="class in Domain">CheckResult</a></dt>
 <dd>
 <div class="block">Returns the value of the <code>style</code> record component.</div>
@@ -365,15 +413,17 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="Context/CheckContext.html#task(java.lang.String)" class="member-name-link">task(String)</a> - Method in class Context.<a href="Context/CheckContext.html" title="class in Context">CheckContext</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="BaseConfigScript.html#task(java.lang.String,groovy.lang.Closure)" class="member-name-link">task(String, Closure&lt;?&gt;)</a> - Method in class <a href="BaseConfigScript.html" title="class in Unnamed Package">BaseConfigScript</a></dt>
+<dt><a href="Dsl/BaseConfigScript.html#task(java.lang.String,groovy.lang.Closure)" class="member-name-link">task(String, Closure&lt;?&gt;)</a> - Method in class Dsl.<a href="Dsl/BaseConfigScript.html" title="class in Dsl">BaseConfigScript</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="Domain/Task.html" class="type-name-link" title="class in Domain">Task</a> - Class in <a href="Domain/package-summary.html">Domain</a></dt>
+<dt><a href="Domain/Task.html" class="type-name-link" title="class in Domain">Task</a> - Record Class in <a href="Domain/package-summary.html">Domain</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="Domain/Task.html#%3Cinit%3E(java.lang.String)" class="member-name-link">Task(String)</a> - Constructor for class Domain.<a href="Domain/Task.html" title="class in Domain">Task</a></dt>
-<dd>&nbsp;</dd>
+<dt><a href="Domain/Task.html#%3Cinit%3E(java.lang.String,java.lang.String,float,java.util.List)" class="member-name-link">Task(String, String, float, List&lt;Checkpoint&gt;)</a> - Constructor for record class Domain.<a href="Domain/Task.html" title="class in Domain">Task</a></dt>
+<dd>
+<div class="block">Creates an instance of a <code>Task</code> record class.</div>
+</dd>
 <dt><a href="Context/TaskContext.html" class="type-name-link" title="class in Context">TaskContext</a> - Class in <a href="Context/package-summary.html">Context</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="Context/TaskContext.html#%3Cinit%3E(Domain.Task)" class="member-name-link">TaskContext(Task)</a> - Constructor for class Context.<a href="Context/TaskContext.html" title="class in Context">TaskContext</a></dt>
+<dt><a href="Context/TaskContext.html#%3Cinit%3E(java.lang.String)" class="member-name-link">TaskContext(String)</a> - Constructor for class Context.<a href="Context/TaskContext.html" title="class in Context">TaskContext</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="Domain/TestResults.html" class="type-name-link" title="class in Domain">TestResults</a> - Record Class in <a href="Domain/package-summary.html">Domain</a></dt>
 <dd>&nbsp;</dd>
@@ -387,6 +437,10 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="Context/TaskContext.html#title" class="member-name-link">title</a> - Variable in class Context.<a href="Context/TaskContext.html" title="class in Context">TaskContext</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="Domain/Task.html#title()" class="member-name-link">title()</a> - Method in record class Domain.<a href="Domain/Task.html" title="class in Domain">Task</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>title</code> record component.</div>
+</dd>
 <dt><a href="Domain/CheckAssignment.html#toString()" class="member-name-link">toString()</a> - Method in record class Domain.<a href="Domain/CheckAssignment.html" title="class in Domain">CheckAssignment</a></dt>
 <dd>
 <div class="block">Returns a string representation of this record class.</div>
@@ -399,16 +453,18 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns a string representation of this record class.</div>
 </dd>
-<dt><a href="Domain/Config.html#toString()" class="member-name-link">toString()</a> - Method in class Domain.<a href="Domain/Config.html" title="class in Domain">Config</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="Domain/Group.html#toString()" class="member-name-link">toString()</a> - Method in class Domain.<a href="Domain/Group.html" title="class in Domain">Group</a></dt>
-<dd>&nbsp;</dd>
+<dt><a href="Domain/Group.html#toString()" class="member-name-link">toString()</a> - Method in record class Domain.<a href="Domain/Group.html" title="class in Domain">Group</a></dt>
+<dd>
+<div class="block">Returns a string representation of this record class.</div>
+</dd>
 <dt><a href="Domain/Student.html#toString()" class="member-name-link">toString()</a> - Method in record class Domain.<a href="Domain/Student.html" title="class in Domain">Student</a></dt>
 <dd>
 <div class="block">Returns a string representation of this record class.</div>
 </dd>
-<dt><a href="Domain/Task.html#toString()" class="member-name-link">toString()</a> - Method in class Domain.<a href="Domain/Task.html" title="class in Domain">Task</a></dt>
-<dd>&nbsp;</dd>
+<dt><a href="Domain/Task.html#toString()" class="member-name-link">toString()</a> - Method in record class Domain.<a href="Domain/Task.html" title="class in Domain">Task</a></dt>
+<dd>
+<div class="block">Returns a string representation of this record class.</div>
+</dd>
 <dt><a href="Domain/TestResults.html#toString()" class="member-name-link">toString()</a> - Method in record class Domain.<a href="Domain/TestResults.html" title="class in Domain">TestResults</a></dt>
 <dd>
 <div class="block">Returns a string representation of this record class.</div>
@@ -416,7 +472,7 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:W">W</h2>
 <dl class="index">
-<dt><a href="ReportGenerator.html#writeHtml(java.util.List)" class="member-name-link">writeHtml(List&lt;CheckResult&gt;)</a> - Static method in class <a href="ReportGenerator.html" title="class in Unnamed Package">ReportGenerator</a></dt>
+<dt><a href="Services/ReportGenerator.html#writeHtml(java.util.List,java.io.File)" class="member-name-link">writeHtml(List&lt;CheckResult&gt;, File)</a> - Static method in class Services.<a href="Services/ReportGenerator.html" title="class in Services">ReportGenerator</a></dt>
 <dd>&nbsp;</dd>
 </dl>
 <a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:L">L</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:W">W</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a></main>

@@ -77,7 +77,7 @@ loadScripts(document, 'script');</script>
 </div>
 <section class="class-description" id="class-description">
 <hr>
-<div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">CheckResult</span>(<a href="CheckAssignment.html" title="class in Domain">CheckAssignment</a>&nbsp;checkAssignment, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/OffsetDateTime.html" title="class or interface in java.time" class="external-link">OffsetDateTime</a>&nbsp;completeTime, boolean&nbsp;download, boolean&nbsp;build, boolean&nbsp;doc, boolean&nbsp;style, boolean&nbsp;tests, int&nbsp;passedTestsCount, int&nbsp;failedTestsCount, int&nbsp;skippedTestsCount, int&nbsp;points)
+<div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">CheckResult</span>(<a href="CheckAssignment.html" title="class in Domain">CheckAssignment</a>&nbsp;checkAssignment, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/OffsetDateTime.html" title="class or interface in java.time" class="external-link">OffsetDateTime</a>&nbsp;completeDateTime, boolean&nbsp;download, boolean&nbsp;build, boolean&nbsp;doc, boolean&nbsp;style, boolean&nbsp;tests, int&nbsp;passedTestsCount, int&nbsp;failedTestsCount, int&nbsp;skippedTestsCount, float&nbsp;points)
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Record.html" title="class or interface in java.lang" class="external-link">Record</a></span></div>
 </section>
 <section class="summary">
@@ -90,8 +90,8 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(Domain.CheckAssignment,java.time.OffsetDateTime,boolean,boolean,boolean,boolean,boolean,int,int,int,int)" class="member-name-link">CheckResult</a><wbr>(<a href="CheckAssignment.html" title="class in Domain">CheckAssignment</a>&nbsp;checkAssignment,
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/OffsetDateTime.html" title="class or interface in java.time" class="external-link">OffsetDateTime</a>&nbsp;completeTime,
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(Domain.CheckAssignment,java.time.OffsetDateTime,boolean,boolean,boolean,boolean,boolean,int,int,int,float)" class="member-name-link">CheckResult</a><wbr>(<a href="CheckAssignment.html" title="class in Domain">CheckAssignment</a>&nbsp;checkAssignment,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/OffsetDateTime.html" title="class or interface in java.time" class="external-link">OffsetDateTime</a>&nbsp;completeDateTime,
  boolean&nbsp;download,
  boolean&nbsp;build,
  boolean&nbsp;doc,
@@ -100,7 +100,7 @@ loadScripts(document, 'script');</script>
  int&nbsp;passedTestsCount,
  int&nbsp;failedTestsCount,
  int&nbsp;skippedTestsCount,
- int&nbsp;points)</code></div>
+ float&nbsp;points)</code></div>
 <div class="col-last even-row-color">
 <div class="block">Creates an instance of a <code>CheckResult</code> record class.</div>
 </div>
@@ -129,9 +129,9 @@ loadScripts(document, 'script');</script>
 <div class="block">Returns the value of the <code>checkAssignment</code> record component.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/OffsetDateTime.html" title="class or interface in java.time" class="external-link">OffsetDateTime</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#completeTime()" class="member-name-link">completeTime</a>()</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#completeDateTime()" class="member-name-link">completeDateTime</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the value of the <code>completeTime</code> record component.</div>
+<div class="block">Returns the value of the <code>completeDateTime</code> record component.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#doc()" class="member-name-link">doc</a>()</code></div>
@@ -166,7 +166,7 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the value of the <code>passedTestsCount</code> record component.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>float</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#points()" class="member-name-link">points</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the value of the <code>points</code> record component.</div>
@@ -209,10 +209,10 @@ loadScripts(document, 'script');</script>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(Domain.CheckAssignment,java.time.OffsetDateTime,boolean,boolean,boolean,boolean,boolean,int,int,int,int)">
+<section class="detail" id="&lt;init&gt;(Domain.CheckAssignment,java.time.OffsetDateTime,boolean,boolean,boolean,boolean,boolean,int,int,int,float)">
 <h3>CheckResult</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">CheckResult</span><wbr><span class="parameters">(<a href="CheckAssignment.html" title="class in Domain">CheckAssignment</a>&nbsp;checkAssignment,
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/OffsetDateTime.html" title="class or interface in java.time" class="external-link">OffsetDateTime</a>&nbsp;completeTime,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/OffsetDateTime.html" title="class or interface in java.time" class="external-link">OffsetDateTime</a>&nbsp;completeDateTime,
  boolean&nbsp;download,
  boolean&nbsp;build,
  boolean&nbsp;doc,
@@ -221,12 +221,12 @@ loadScripts(document, 'script');</script>
  int&nbsp;passedTestsCount,
  int&nbsp;failedTestsCount,
  int&nbsp;skippedTestsCount,
- int&nbsp;points)</span></div>
+ float&nbsp;points)</span></div>
 <div class="block">Creates an instance of a <code>CheckResult</code> record class.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>checkAssignment</code> - the value for the <code>checkAssignment</code> record component</dd>
-<dd><code>completeTime</code> - the value for the <code>completeTime</code> record component</dd>
+<dd><code>completeDateTime</code> - the value for the <code>completeDateTime</code> record component</dd>
 <dd><code>download</code> - the value for the <code>download</code> record component</dd>
 <dd><code>build</code> - the value for the <code>build</code> record component</dd>
 <dd><code>doc</code> - the value for the <code>doc</code> record component</dd>
@@ -306,13 +306,13 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="completeTime()">
-<h3>completeTime</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/OffsetDateTime.html" title="class or interface in java.time" class="external-link">OffsetDateTime</a></span>&nbsp;<span class="element-name">completeTime</span>()</div>
-<div class="block">Returns the value of the <code>completeTime</code> record component.</div>
+<section class="detail" id="completeDateTime()">
+<h3>completeDateTime</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/OffsetDateTime.html" title="class or interface in java.time" class="external-link">OffsetDateTime</a></span>&nbsp;<span class="element-name">completeDateTime</span>()</div>
+<div class="block">Returns the value of the <code>completeDateTime</code> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the value of the <code>completeTime</code> record component</dd>
+<dd>the value of the <code>completeDateTime</code> record component</dd>
 </dl>
 </section>
 </li>
@@ -407,7 +407,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="points()">
 <h3>points</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">points</span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">float</span>&nbsp;<span class="element-name">points</span>()</div>
 <div class="block">Returns the value of the <code>points</code> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>
