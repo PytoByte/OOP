@@ -5,19 +5,25 @@ import Domain.Task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.LinkedList;
+import java.util.List;
 
 public class TaskContext {
-    private final Task task;
+    public final String id;
+    public String title = "Unnamed";
+    public float basePoints = 1;
+    List<Checkpoint> checkpoints = new LinkedList<>();
 
-    public String title;
-    public int maxPoints;
-
-    public TaskContext(Task task) {
-        this.task = task;
+    public TaskContext(String id) {
+        this.id = id;
     }
 
-    public void checkpoint(String name, String date) {
+    public void checkpoint(String name, String date, float rewardPoints) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        task.addCheckpoint(new Checkpoint(name, LocalDate.parse(date, formatter)));
+        checkpoints.add(new Checkpoint(name, LocalDate.parse(date, formatter), rewardPoints));
+    }
+
+    public Task produce() {
+        return new Task(id, title, basePoints, List.copyOf(checkpoints));
     }
 }

@@ -1,5 +1,11 @@
+import Domain.CheckAssignment;
 import Domain.CheckResult;
-import Domain.Config;
+import Services.CheckAssignmentBuilder;
+import Dsl.Parser;
+import Services.Executor;
+import Services.RealCommandExecutor;
+import Services.ReportGenerator;
+
 import java.io.File;
 import java.util.List;
 
@@ -7,15 +13,18 @@ public class Main {
     public static void main(String[] args) {
         File script = new File("./script/main.groovy");
         if (!script.exists()) {
-            System.err.println("Файл ./script/main.groovy не найден!");
+            System.err.println("File \"./script/main.groovy\" not found!");
             return;
         }
 
-        Config config = DslParser.parse(script);
+        List<CheckAssignment> checkAssignments = Parser.parse(script);
 
-        List<CheckResult> results = Executor.execute(config);
+        Executor executor = new Executor(new RealCommandExecutor());
+        List<CheckResult> results = executor.execute(checkAssignments);
 
-        ReportGenerator.writeHtml(results);
-        System.out.println("Отчёт сохранён в report.html");
+        File reportFile = new File("report.html");
+        ReportGenerator.writeHtml(results, reportFile);
+
+        System.out.println("Report saved at: " + reportFile.getAbsolutePath());
     }
 }

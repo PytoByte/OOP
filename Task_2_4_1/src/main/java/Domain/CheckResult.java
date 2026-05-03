@@ -4,7 +4,7 @@ import java.time.OffsetDateTime;
 
 public record CheckResult(
     CheckAssignment checkAssignment,
-    OffsetDateTime completeTime,
+    OffsetDateTime completeDateTime,
     boolean download,
     boolean build,
     boolean doc,
@@ -13,7 +13,7 @@ public record CheckResult(
     int passedTestsCount,
     int failedTestsCount,
     int skippedTestsCount,
-    int points
+    float points
 ) {
     public static CheckResult failedDownload(CheckAssignment checkAssignment) {
         return new CheckResult(

@@ -1,6 +1,9 @@
+package Services;
+
 import Domain.CheckResult;
 import Domain.Checkpoint;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
@@ -9,8 +12,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ReportGenerator {
-    public static void writeHtml(List<CheckResult> result) {
-        try (PrintWriter out = new PrintWriter("report.html", StandardCharsets.UTF_8)) {
+    public static void writeHtml(List<CheckResult> result, File reportFile) {
+        try (PrintWriter out = new PrintWriter(reportFile, StandardCharsets.UTF_8)) {
             out.println("<html><head><meta charset='UTF-8'>");
             out.println("<style>table{border-collapse:collapse;} " +
                     "th,td{border:1px solid #ccc; padding:8px;}</style>");
@@ -31,10 +34,12 @@ public class ReportGenerator {
                     "</tr>");
 
             for (CheckResult checkResult : result) {
-                // Формируем колонку чекпоинтов со сравнением времени
-                String checkpointsStatus = checkResult.checkAssignment().task().getCheckpoints().stream()
+                String checkpointsStatus = checkResult.checkAssignment().task().checkpoints()
+                        .stream()
                         .map(checkpoint -> {
-                            String status = getStatusLabel(checkResult.completeTime(), checkpoint);
+                            String status = getStatusLabel(
+                                    checkResult.completeDateTime(), checkpoint
+                            );
                             return String.format("%s (%s) %s",
                                     checkpoint.name(),
                                     checkpoint.date(),
@@ -55,11 +60,11 @@ public class ReportGenerator {
                                 "<td>passed %d<br>failed %d<br>skipped %d</td>" +
                                 "<td>%s</td>" +
                                 "</tr>\n",
-                        checkResult.checkAssignment().group().getName(),
+                        checkResult.checkAssignment().group().name(),
                         checkResult.checkAssignment().student().name(),
                         String.format("%s<br>%s",
-                                checkResult.checkAssignment().task().getId(),
-                                checkResult.checkAssignment().task().getTitle()
+                                checkResult.checkAssignment().task().id(),
+                                checkResult.checkAssignment().task().title()
                         ),
                         checkpointsStatus,
                         checkResult.download() ? "OK" : "FAIL",
@@ -70,9 +75,11 @@ public class ReportGenerator {
                         checkResult.passedTestsCount(),
                         checkResult.failedTestsCount(),
                         checkResult.skippedTestsCount(),
-                        String.format("%d/%d",
+                        String.format("%.02f/%.02f",
                                 checkResult.points(),
-                                checkResult.checkAssignment().task().getMaxPoints()
+                                checkResult.checkAssignment().task().basePoints() +
+                                        checkResult.checkAssignment().task().checkpoints().stream()
+                                                .mapToDouble(Checkpoint::rewardPoints).sum()
                         )
                 );
             }

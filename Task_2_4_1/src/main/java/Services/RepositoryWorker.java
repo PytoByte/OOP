@@ -1,47 +1,50 @@
+package Services;
+
+import Domain.CommandExecutor;
 import Domain.TestResults;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.URI;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-import java.util.function.Consumer;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Element;
 
 public class RepositoryWorker {
-    private static final int TIMEOUT_MIN = 10;
-    private static final String CHECKSTYLE_URL = "https://github.com/checkstyle/checkstyle/" +
-            "releases/download/checkstyle-10.17.0/checkstyle-10.17.0-all.jar";
-    private static final Path TOOLS_DIR = Path.of("tools").toAbsolutePath();
-    private static final Path CHECKSTYLE_JAR = TOOLS_DIR.resolve("checkstyle-all.jar");
+    private final CommandExecutor executor;
+    private final Path toolsDir;
+    private final String checkstyleUrl;
 
     private Path repoRoot;
     private Path taskDir;
 
+    public RepositoryWorker(CommandExecutor executor, Path toolsDir, String checkstyleUrl) {
+        this.executor = executor;
+        this.toolsDir = toolsDir.toAbsolutePath();
+        this.checkstyleUrl = checkstyleUrl;
+    }
+
     public boolean cloneRepository(String url, String branch, Path workDir) {
-        Logger logger = new Logger("worker");
         this.repoRoot = workDir.toAbsolutePath();
         try {
             if (Files.exists(repoRoot)) {
                 deleteDirectory(repoRoot);
             }
             Files.createDirectories(repoRoot);
-            return exec(repoRoot, List.of("git", "clone", "--branch", branch, url, "."), "git");
+            return executor.execute(
+                    repoRoot,
+                    List.of("git", "clone", "--branch", branch, url, "."),
+                    "git"
+            );
         } catch (IOException e) {
-            logger.error("Cloning error: %s", e.getMessage());
             return false;
         }
     }
@@ -62,26 +65,25 @@ public class RepositoryWorker {
         return runGradle("testClasses");
     }
 
-    public boolean generateDocumentation() {
-        return runGradle("javadoc", "-x", "test");
-    }
-
     public boolean checkCodeStyle() {
         try {
-            Path jar = prepareCheckstyle();
-            Path config = prepareConfig();
+            Path checkstyleJar = prepareCheckstyleJar();
+            Path checkstyleXml = prepareCheckstyleXml();
             Path src = taskDir.resolve("src");
             String targetPath = Files.exists(src) ? src.toString() : taskDir.toString();
 
             List<String> cmd = List.of(
-                    "java", "-Duser.language=en",
-                    "-jar", jar.toAbsolutePath().toString(),
-                    "-c", config.toAbsolutePath().toString(),
+                    "java",
+                    "-Duser.language=en",
+                    "-jar",
+                    checkstyleJar.toAbsolutePath().toString(),
+                    "-c",
+                    checkstyleXml.toAbsolutePath().toString(),
                     targetPath
             );
 
             final boolean[] failed = {false};
-            boolean ok = exec(taskDir, cmd, "style", line -> {
+            boolean ok = executor.execute(taskDir, cmd, "style", line -> {
                 if (line.contains("[WARN]") || line.contains("[ERROR]")) {
                     failed[0] = true;
                 }
@@ -92,68 +94,43 @@ public class RepositoryWorker {
         }
     }
 
+    public boolean generateDocumentation() {
+        return runGradle("javadoc", "-x", "test");
+    }
+
     public TestResults runTests() {
-        runGradle("test");
+        if (!runGradle("test")) {
+            return TestResults.error();
+        }
         return parseXml(taskDir.resolve("build/test-results/test"));
     }
 
     private OffsetDateTime getCommitDate(String taskId) {
         String[] date = {null};
         List<String> cmd = List.of("git", "log", "-1", "--format=%cI", "--", taskId);
-        if (exec(repoRoot, cmd, "git-log-date",
-                line -> date[0] = line.trim()) && date[0] != null) {
+        if (executor.execute(repoRoot, cmd, "git-log-date",
+                line -> date[0] = line.trim()) && date[0] != null
+        ) {
             try {
                 return OffsetDateTime.parse(date[0], DateTimeFormatter.ISO_OFFSET_DATE_TIME);
-            } catch (Exception e) {
-                return null;
+            } catch (Exception ignored) {
             }
         }
         return null;
     }
 
     private boolean runGradle(String... args) {
-        Path wrapper = taskDir.resolve("gradlew.bat");
-
+        boolean isWindows = System.getProperty("os.name").toLowerCase().contains("win");
+        Path wrapper = taskDir.resolve(isWindows ? "gradlew.bat" : "gradlew");
         List<String> cmd = new LinkedList<>();
         cmd.add(wrapper.toAbsolutePath().toString());
-        String currentJavaHome = System.getProperty("java.home");
-        cmd.add("-Dorg.gradle.java.home=" + currentJavaHome);
+        cmd.add("-Dorg.gradle.java.home=" + System.getProperty("java.home"));
+        cmd.add("-Duser.language=en");
+        cmd.add("--max-workers=1");
         cmd.add("--no-daemon");
         cmd.addAll(Arrays.asList(args));
-        return exec(taskDir, cmd, "gradle");
-    }
 
-    private boolean exec(
-            Path dir,
-            List<String> cmd,
-            String loggerName,
-            Consumer<String> inspector
-    ) {
-        Logger logger = new Logger(loggerName);
-        try {
-            Process process = new ProcessBuilder(cmd)
-                    .directory(dir.toFile())
-                    .redirectErrorStream(true)
-                    .start();
-
-            try (BufferedReader r = new BufferedReader(
-                    new InputStreamReader(process.getInputStream(), StandardCharsets.UTF_8))) {
-                String line;
-                while ((line = r.readLine()) != null) {
-                    logger.info(line);
-                    if (inspector != null) {
-                        inspector.accept(line);
-                    }
-                }
-            }
-            return process.waitFor(TIMEOUT_MIN, TimeUnit.MINUTES) && process.exitValue() == 0;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    private boolean exec(Path dir, List<String> cmd, String prefix) {
-        return exec(dir, cmd, prefix, null);
+        return executor.execute(taskDir, cmd, "gradle");
     }
 
     private TestResults parseXml(Path dir) {
@@ -179,31 +156,34 @@ public class RepositoryWorker {
         }
     }
 
-    private Path prepareCheckstyle() throws IOException {
-        Files.createDirectories(TOOLS_DIR);
-        if (!Files.exists(CHECKSTYLE_JAR)) {
-            System.out.println("[worker] Downloading Checkstyle...");
-            try (InputStream in = URI.create(CHECKSTYLE_URL).toURL().openStream()) {
-                Files.copy(in, CHECKSTYLE_JAR, StandardCopyOption.REPLACE_EXISTING);
+    private Path prepareCheckstyleJar() throws IOException {
+        Files.createDirectories(toolsDir);
+        Path checkstyleJar = toolsDir.resolve("checkstyle-all.jar");
+        if (!Files.exists(checkstyleJar)) {
+            try (InputStream in = URI.create(checkstyleUrl).toURL().openStream()) {
+                Files.copy(in, checkstyleJar, StandardCopyOption.REPLACE_EXISTING);
             }
         }
-        return CHECKSTYLE_JAR;
+        return checkstyleJar;
     }
 
-    private Path prepareConfig() throws IOException {
-        Path cfg = TOOLS_DIR.resolve("checkstyle.xml");
-        if (!Files.exists(cfg)) {
+    private Path prepareCheckstyleXml() throws IOException {
+        Path checkstyleXml = toolsDir.resolve("checkstyle.xml");
+        if (!Files.exists(checkstyleXml)) {
             try (InputStream in = getClass().getResourceAsStream("/google_checks.xml")) {
                 if (in == null) {
-                    throw new IOException("google_checks.xml not found in resources");
+                    throw new IOException("checkstyle.xml not found");
                 }
-                Files.copy(in, cfg, StandardCopyOption.REPLACE_EXISTING);
+                Files.copy(in, checkstyleXml, StandardCopyOption.REPLACE_EXISTING);
             }
         }
-        return cfg;
+        return checkstyleXml;
     }
 
     private void deleteDirectory(Path path) throws IOException {
+        if (!Files.exists(path)) {
+            return;
+        }
         try (var stream = Files.walk(path)) {
             stream.sorted(Comparator.reverseOrder()).forEach(p -> p.toFile().delete());
         }
