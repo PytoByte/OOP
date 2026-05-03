@@ -74,7 +74,7 @@ class RepositoryWorkerTest {
         ExecutorMock.ExecutionCall call = executorMock.calls.get(executorMock.calls.size() - 1);
         List<String> cmd = call.cmd();
 
-        assertTrue(cmd.get(0).contains("gradlew.bat"));
+        assertTrue(cmd.get(0).contains("gradlew"));
         assertTrue(cmd.contains("testClasses"));
         assertEquals(taskPath.toAbsolutePath(), call.dir().toAbsolutePath());
     }

@@ -16,7 +16,7 @@ public class Parser {
         config.setScriptBaseClass(BaseConfigScript.class.getName());
 
         Binding b = new Binding();
-        b.setVariable("generator", builder);
+        b.setVariable("builder", builder);
 
         GroovyShell shell = new GroovyShell(b, config);
         try {

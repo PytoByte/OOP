@@ -11,7 +11,7 @@ import java.io.File;
 
 public abstract class BaseConfigScript extends Script {
     private CheckAssignmentBuilder builder() {
-        return (CheckAssignmentBuilder) getBinding().getVariable("generator");
+        return (CheckAssignmentBuilder) getBinding().getVariable("builder");
     }
 
     public void importConfig(String name) {
