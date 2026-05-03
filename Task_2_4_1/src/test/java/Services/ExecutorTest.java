@@ -1,6 +1,6 @@
 package Services;
 
-import Domain.*;
+import Model.*;
 import Mock.ExecutorMock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,17 +24,17 @@ class ExecutorTest {
 
     private ExecutorMock commandMock;
     private Executor executor;
-    private Path workDir;
+    private Path tempWorkDir;
 
     private Group testGroup;
     private Student testStudent;
 
     @BeforeEach
     void setUp() throws IOException {
-        workDir = tempDir.resolve("work").toAbsolutePath();
+        tempWorkDir = tempDir.resolve("work").toAbsolutePath();
         Path toolsDir = tempDir.resolve("tools").toAbsolutePath();
 
-        Files.createDirectories(workDir);
+        Files.createDirectories(tempWorkDir);
         Files.createDirectories(toolsDir);
 
         commandMock = new ExecutorMock() {
@@ -47,15 +47,15 @@ class ExecutorTest {
             ) {
                 if (cmd.contains("clone")) {
                     try {
-                        Files.createDirectories(workDir.resolve("tester").resolve("task_1"));
-                        Files.createDirectories(workDir.resolve("tester").resolve("task_3"));
+                        Files.createDirectories(tempWorkDir.resolve("tester").resolve("task_1"));
+                        Files.createDirectories(tempWorkDir.resolve("tester").resolve("task_3"));
                     } catch (IOException ignored) {}
                 }
                 return super.execute(dir, cmd, loggerName, inspector);
             }
         };
 
-        executor = new Executor(commandMock, workDir, toolsDir, "file:///fake/checkstyle.jar");
+        executor = new Executor(commandMock, tempWorkDir, toolsDir, "file:///fake/checkstyle.jar");
 
         testStudent = new Student("tester", "tester");
         testGroup = new Group("M30-212", Map.of("tester", testStudent));
@@ -91,9 +91,9 @@ class ExecutorTest {
         Task task = new Task("task_3", "Lab 3", 10.0f, List.of(deadline));
         CheckAssignment assignment = new CheckAssignment(testGroup, testStudent, task);
 
-        Files.createDirectories(workDir.resolve("tester").resolve("task_3"));
+        Files.createDirectories(tempWorkDir.resolve("tester").resolve("task_3"));
 
-        CheckResult res = executor.executeCheckAssignment(assignment, workDir);
+        CheckResult res = executor.executeCheckAssignment(assignment, tempWorkDir);
 
         assertTrue(res.download());
         assertEquals(10.0f, res.points());
@@ -106,7 +106,7 @@ class ExecutorTest {
         Task task = new Task("task_2", "Lab 2", 10.0f, List.of());
         CheckAssignment assignment = new CheckAssignment(testGroup, testStudent, task);
 
-        CheckResult res = executor.executeCheckAssignment(assignment, workDir);
+        CheckResult res = executor.executeCheckAssignment(assignment, tempWorkDir);
 
         assertFalse(res.download());
         assertEquals(0.0f, res.points());

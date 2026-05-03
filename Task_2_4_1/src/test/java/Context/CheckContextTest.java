@@ -1,9 +1,9 @@
 package Context;
 
-import Domain.Group;
-import Domain.Student;
-import Domain.Task;
-import Domain.CheckAssignment;
+import Model.Group;
+import Model.Student;
+import Model.Task;
+import Model.CheckAssignment;
 import Services.CheckAssignmentBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

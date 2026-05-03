@@ -1,6 +1,6 @@
 package Services;
 
-import Domain.*;
+import Model.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -12,7 +12,6 @@ import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -38,10 +37,7 @@ class ReportGeneratorTest {
                 true,
                 false,
                 true,
-                true,
-                10,
-                2,
-                0,
+                new TestResults(10, 2, 0),
                 5.0f
         );
 

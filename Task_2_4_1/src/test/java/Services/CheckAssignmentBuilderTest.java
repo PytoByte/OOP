@@ -1,9 +1,9 @@
 package Services;
 
-import Domain.Group;
-import Domain.Student;
-import Domain.Task;
-import Domain.CheckAssignment;
+import Model.Group;
+import Model.Student;
+import Model.Task;
+import Model.CheckAssignment;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.List;
@@ -37,7 +37,7 @@ class CheckAssignmentBuilderTest {
 
     @Test
     void testAddSingleStudentAssignment() {
-        builder.addCheckAssignment(GROUP_NAME, "ivan-nick", TASK_ID);
+        builder.buildCheckAssignment(GROUP_NAME, "ivan-nick", TASK_ID);
 
         List<CheckAssignment> results = builder.getCheckAssignments();
 
@@ -48,7 +48,7 @@ class CheckAssignmentBuilderTest {
 
     @Test
     void testAddFullGroupAssignment() {
-        builder.addCheckAssignment(GROUP_NAME, TASK_ID);
+        builder.buildCheckAssignments(GROUP_NAME, TASK_ID);
 
         List<CheckAssignment> results = builder.getCheckAssignments();
 
@@ -81,8 +81,8 @@ class CheckAssignmentBuilderTest {
 
     @Test
     void testAddDuplicateAssignmentDoesNotIncreaseSize() {
-        builder.addCheckAssignment(GROUP_NAME, "ivan-nick", TASK_ID);
-        builder.addCheckAssignment(GROUP_NAME, "ivan-nick", TASK_ID);
+        builder.buildCheckAssignment(GROUP_NAME, "ivan-nick", TASK_ID);
+        builder.buildCheckAssignment(GROUP_NAME, "ivan-nick", TASK_ID);
 
         List<CheckAssignment> results = builder.getCheckAssignments();
 
@@ -92,7 +92,7 @@ class CheckAssignmentBuilderTest {
     @Test
     void testThrowsExceptionWhenGroupNotFound() {
         NullPointerException ex = assertThrows(NullPointerException.class, () -> {
-            builder.addCheckAssignment("NON_EXISTENT", TASK_ID);
+            builder.buildCheckAssignments("NON_EXISTENT", TASK_ID);
         });
         assertTrue(ex.getMessage().contains("Group not found"));
     }
@@ -100,7 +100,7 @@ class CheckAssignmentBuilderTest {
     @Test
     void testThrowsExceptionWhenStudentNotFound() {
         NullPointerException ex = assertThrows(NullPointerException.class, () -> {
-            builder.addCheckAssignment(GROUP_NAME, "ghost-nick", TASK_ID);
+            builder.buildCheckAssignment(GROUP_NAME, "ghost-nick", TASK_ID);
         });
         assertTrue(ex.getMessage().contains("Student not found"));
     }
@@ -108,14 +108,14 @@ class CheckAssignmentBuilderTest {
     @Test
     void testThrowsExceptionWhenTaskNotFound() {
         NullPointerException ex = assertThrows(NullPointerException.class, () -> {
-            builder.addCheckAssignment(GROUP_NAME, "ivan-nick", "wrong_task");
+            builder.buildCheckAssignment(GROUP_NAME, "ivan-nick", "wrong_task");
         });
         assertTrue(ex.getMessage().contains("Task not found"));
     }
 
     @Test
     void testGetCheckAssignmentsReturnsImmutableList() {
-        builder.addCheckAssignment(GROUP_NAME, "ivan-nick", TASK_ID);
+        builder.buildCheckAssignment(GROUP_NAME, "ivan-nick", TASK_ID);
         List<CheckAssignment> list = builder.getCheckAssignments();
 
         assertThrows(UnsupportedOperationException.class, () -> {

@@ -1,6 +1,6 @@
 package Services;
 
-import Domain.TestResults;
+import Model.TestResults;
 import Mock.ExecutorMock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

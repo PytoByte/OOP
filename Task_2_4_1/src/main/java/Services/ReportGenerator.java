@@ -1,7 +1,7 @@
 package Services;
 
-import Domain.CheckResult;
-import Domain.Checkpoint;
+import Model.CheckResult;
+import Model.Checkpoint;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,7 +11,17 @@ import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Report generator for task check results.
+ */
 public class ReportGenerator {
+
+    /**
+     * Write report in html format.
+     *
+     * @param result list of task check results
+     * @param reportFile file where report will be written
+     */
     public static void writeHtml(List<CheckResult> result, File reportFile) {
         try (PrintWriter out = new PrintWriter(reportFile, StandardCharsets.UTF_8)) {
             out.println("<html><head><meta charset='UTF-8'>");
@@ -19,6 +29,7 @@ public class ReportGenerator {
                     "th,td{border:1px solid #ccc; padding:8px;}</style>");
             out.println("</head><body>");
             out.println("<table>");
+
             out.println("<tr>" +
                     "<th>Group</th>" +
                     "<th>Student</th>" +
@@ -34,76 +45,124 @@ public class ReportGenerator {
                     "</tr>");
 
             for (CheckResult checkResult : result) {
-                String checkpointsStatus = checkResult.checkAssignment().task().checkpoints()
-                        .stream()
-                        .map(checkpoint -> {
-                            String status = getStatusLabel(
-                                    checkResult.completeDateTime(), checkpoint
-                            );
-                            return String.format("%s (%s) %s",
-                                    checkpoint.name(),
-                                    checkpoint.date(),
-                                    status);
-                        })
-                        .collect(Collectors.joining("<br>"));
-
-                out.printf("<tr>" +
-                                "<td>%s</td>" +
-                                "<td>%s</td>" +
-                                "<td>%s</td>" +
-                                "<td>%s</td>" +
-                                "<td>%s</td>" +
-                                "<td>%s</td>" +
-                                "<td>%s</td>" +
-                                "<td>%s</td>" +
-                                "<td>%s</td>" +
-                                "<td>passed %d<br>failed %d<br>skipped %d</td>" +
-                                "<td>%s</td>" +
-                                "</tr>\n",
-                        checkResult.checkAssignment().group().name(),
-                        checkResult.checkAssignment().student().name(),
-                        String.format("%s<br>%s",
-                                checkResult.checkAssignment().task().id(),
-                                checkResult.checkAssignment().task().title()
-                        ),
-                        checkpointsStatus,
-                        checkResult.download() ? "OK" : "FAIL",
-                        checkResult.build() ? "OK" : "FAIL",
-                        checkResult.doc() ? "OK" : "FAIL",
-                        checkResult.style() ? "OK" : "FAIL",
-                        checkResult.tests() ? "OK" : "FAIL",
-                        checkResult.passedTestsCount(),
-                        checkResult.failedTestsCount(),
-                        checkResult.skippedTestsCount(),
-                        String.format("%.02f/%.02f",
-                                checkResult.points(),
-                                checkResult.checkAssignment().task().basePoints() +
-                                        checkResult.checkAssignment().task().checkpoints().stream()
-                                                .mapToDouble(Checkpoint::rewardPoints).sum()
-                        )
-                );
+                writeResultRow(out, checkResult);
             }
 
-            out.println("</table>");
-            out.println("</body></html>");
+            out.println("</table></body></html>");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * Сравнивает время коммита с датой дедлайна.
-     * Коммит считается вовремя, если его дата (без учета времени) <= дате дедлайна.
+     * Writes a single result row to the table.
+     *
+     * @param out the PrintWriter to write to
+     * @param checkResult the check result to render
      */
-    private static String getStatusLabel(OffsetDateTime commitTime, Checkpoint checkpoint) {
-        if (commitTime == null) {
+    private static void writeResultRow(PrintWriter out, CheckResult checkResult) {
+        String checkpointsHtml = formatCheckpoints(checkResult);
+        String taskCell = String.format("%s<br>%s",
+                checkResult.checkAssignment().task().id(),
+                checkResult.checkAssignment().task().title()
+        );
+        String pointsCell = formatPoints(checkResult);
+        String testsCell = String.format("passed %d<br>failed %d<br>skipped %d",
+                checkResult.testResults().passed(),
+                checkResult.testResults().failed(),
+                checkResult.testResults().skipped()
+        );
+
+        out.printf("<tr>" +
+                        "<td>%s</td>" +
+                        "<td>%s</td>" +
+                        "<td>%s</td>" +
+                        "<td>%s</td>" +
+                        "<td>%s</td>" +
+                        "<td>%s</td>" +
+                        "<td>%s</td>" +
+                        "<td>%s</td>" +
+                        "<td>%s</td>" +
+                        "<td>%s</td>" +
+                        "<td>%s</td>" +
+                        "</tr>\n",
+                checkResult.checkAssignment().group().name(),
+                checkResult.checkAssignment().student().name(),
+                taskCell,
+                checkpointsHtml,
+                boolToStatus(checkResult.download()),
+                boolToStatus(checkResult.build()),
+                boolToStatus(checkResult.doc()),
+                boolToStatus(checkResult.style()),
+                boolToStatus(!checkResult.testResults().isError()),
+                testsCell,
+                pointsCell
+        );
+    }
+
+    /**
+     * Formats checkpoints as HTML with status labels.
+     *
+     * @param checkResult the check result containing checkpoint data
+     * @return HTML string with checkpoint info
+     */
+    private static String formatCheckpoints(CheckResult checkResult) {
+        return checkResult.checkAssignment().task().checkpoints()
+                .stream()
+                .map(checkpoint -> {
+                    String status = getCheckpointStatusLabel(
+                            checkResult.completeDateTime(), checkpoint
+                    );
+                    return String.format("%s (%s) %s",
+                            checkpoint.name(),
+                            checkpoint.date(),
+                            status);
+                })
+                .collect(Collectors.joining("<br>"));
+    }
+
+    /**
+     * Formats total and max points for display.
+     *
+     * @param checkResult the check result containing points data
+     * @return formatted points string, e.g. "85.00/100.00"
+     */
+    private static String formatPoints(CheckResult checkResult) {
+        float earned = checkResult.points();
+        double max = checkResult.checkAssignment().task().basePoints() +
+                checkResult.checkAssignment().task().checkpoints()
+                        .stream()
+                        .mapToDouble(Checkpoint::rewardPoints)
+                        .sum();
+        return String.format("%.02f/%.02f", earned, max);
+    }
+
+    /**
+     * Converts boolean to OK/FAIL label.
+     *
+     * @param value the boolean value
+     * @return "OK" if true, "FAIL" otherwise
+     */
+    private static String boolToStatus(boolean value) {
+        return value ? "OK" : "FAIL";
+    }
+
+    /**
+     * Get label of checkpoint status.
+     *
+     * @param completeDateTime when task was completed
+     * @param checkpoint checkpoint model
+     * @return checkpoint status label
+     */
+    private static String getCheckpointStatusLabel(
+            OffsetDateTime completeDateTime,
+            Checkpoint checkpoint
+    ) {
+        if (completeDateTime == null) {
             return "[NO DATA]";
         }
-
-        if (commitTime.toLocalDate().isAfter(checkpoint.date())) {
-            return "[FAILED]";
-        } else {
-            return "[PASSED]";
-        }
+        return completeDateTime.toLocalDate().isAfter(checkpoint.date())
+                ? "[FAILED]"
+                : "[PASSED]";
     }
 }

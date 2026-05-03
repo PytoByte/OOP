@@ -1,6 +1,5 @@
-import Domain.CheckAssignment;
-import Domain.CheckResult;
-import Services.CheckAssignmentBuilder;
+import Model.CheckAssignment;
+import Model.CheckResult;
 import Dsl.Parser;
 import Services.Executor;
 import Services.RealCommandExecutor;
@@ -9,7 +8,15 @@ import Services.ReportGenerator;
 import java.io.File;
 import java.util.List;
 
+/**
+ * Main class.
+ */
 public class Main {
+    /**
+     * Main method.
+     *
+     * @param args any args
+     */
     public static void main(String[] args) {
         File script = new File("./script/main.groovy");
         if (!script.exists()) {

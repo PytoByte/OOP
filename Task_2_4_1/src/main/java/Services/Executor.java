@@ -1,6 +1,6 @@
 package Services;
 
-import Domain.*;
+import Model.*;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -10,47 +10,64 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Comparator;
 
+/**
+ * Executor of check assignments.
+ */
 public class Executor {
     private final CommandExecutor commandExecutor;
-    private final Path workDir;
+    private final Path tempDir;
     private final Path toolsDir;
     private final String checkstyleUrl;
 
-    private final static Path DEFAULT_WORKDIR = Path.of("oop-checker").toAbsolutePath();
-    private final static Path DEFAULT_TOOLS_DIR = Path.of("tools").toAbsolutePath();
+    public final static Path DEFAULT_TEMP_DIR = Path.of("oop-checker").toAbsolutePath();
+    public final static Path DEFAULT_TOOLS_DIR = Path.of("tools").toAbsolutePath();
+    public final static String DEFAULT_CHECKSTYLE_DOWNLOAD_URL = "https://github.com/checkstyle/" +
+            "checkstyle/releases/download/checkstyle-10.17.0/checkstyle-10.17.0-all.jar";
 
+    /**
+     * Constructor with default paths and checkstyle repository url.
+     *
+     * @param commandExecutor any command executor
+     */
     public Executor(CommandExecutor commandExecutor) {
         this(
                 commandExecutor,
-                DEFAULT_WORKDIR,
+                DEFAULT_TEMP_DIR,
                 DEFAULT_TOOLS_DIR,
-                "https://github.com/checkstyle/checkstyle/releases/download/" +
-                        "checkstyle-10.17.0/checkstyle-10.17.0-all.jar"
+                DEFAULT_CHECKSTYLE_DOWNLOAD_URL
         );
     }
 
+    /**
+     * Extended constructor with paths and checkstyle url selection.
+     *
+     * @param commandExecutor any command executor
+     * @param tempDir path for dir with temp files. After checkstyle dir will be deleted
+     * @param toolsDir dir with tools (checkstyle jar and checkstyle xml)
+     * @param checkstyleUrl url with checkstyle jar
+     */
     public Executor(
             CommandExecutor commandExecutor,
-            Path workDir,
+            Path tempDir,
             Path toolsDir,
             String checkstyleUrl
     ) {
         this.commandExecutor = commandExecutor;
         this.toolsDir = toolsDir.toAbsolutePath();
         this.checkstyleUrl = checkstyleUrl;
-        this.workDir = workDir;
+        this.tempDir = tempDir;
     }
 
     /**
-     * Основной метод запуска проверки.
-     * @param checkAssignments список заданий
+     * Main method for execution many check assignments.
+     *
+     * @param checkAssignments list of check assignments
      */
     public List<CheckResult> execute(List<CheckAssignment> checkAssignments) {
         List<CheckResult> results = new LinkedList<>();
-        Path absoluteWorkDir = workDir.toAbsolutePath().normalize();
+        Path absoluteWorkDir = tempDir.toAbsolutePath().normalize();
 
         try {
-            // Очищаем и пересоздаем рабочую папку
             cleanup(absoluteWorkDir);
             Files.createDirectories(absoluteWorkDir);
 
@@ -65,10 +82,16 @@ public class Executor {
         return results;
     }
 
-    // Внутренняя логика осталась прежней, но теперь она использует переданный путь
-    public CheckResult executeCheckAssignment(CheckAssignment checkAssignment, Path workDir) {
+    /**
+     * Executor of single check assignment.
+     *
+     * @param checkAssignment task check assignment
+     * @param tempDir dir with temp files
+     * @return result of check assignment
+     */
+    public CheckResult executeCheckAssignment(CheckAssignment checkAssignment, Path tempDir) {
         String repoUrl = String.format("https://github.com/%s/OOP", checkAssignment.student().nick());
-        Path studentRepoPath = workDir.resolve(checkAssignment.student().nick());
+        Path studentRepoPath = tempDir.resolve(checkAssignment.student().nick());
         String taskId = checkAssignment.task().id();
 
         Logger logger = new Logger("executor");
@@ -90,9 +113,7 @@ public class Executor {
         boolean styleOk = worker.checkCodeStyle();
 
         TestResults testResults = worker.runTests();
-        boolean testsCompiled = !testResults.isError();
 
-        // Расчет баллов
         float points = checkAssignment.task().basePoints();
         for (Checkpoint checkpoint : checkAssignment.task().checkpoints()) {
             if (!commitDateTime.toLocalDate().isAfter(checkpoint.date())) {
@@ -102,15 +123,18 @@ public class Executor {
 
         return new CheckResult(
                 checkAssignment, commitDateTime, true, isCompiled,
-                docsOk, styleOk, testsCompiled,
-                testResults.passed(), testResults.failed(), testResults.skipped(),
-                points
+                docsOk, styleOk, testResults, points
         );
     }
 
-    private void cleanup(Path workDir) {
-        if (!Files.exists(workDir)) return;
-        try (var stream = Files.walk(workDir)) {
+    /**
+     * Delete temp dir.
+     *
+     * @param tempDir temp dir
+     */
+    private void cleanup(Path tempDir) {
+        if (!Files.exists(tempDir)) return;
+        try (var stream = Files.walk(tempDir)) {
             stream.sorted(Comparator.reverseOrder())
                     .map(Path::toFile)
                     .forEach(java.io.File::delete);

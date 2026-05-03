@@ -1,7 +1,7 @@
 package Context;
 
-import Domain.Group;
-import Domain.Student;
+import Model.Group;
+import Model.Student;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

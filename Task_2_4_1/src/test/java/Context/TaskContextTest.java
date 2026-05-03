@@ -1,7 +1,7 @@
 package Context;
 
-import Domain.Checkpoint;
-import Domain.Task;
+import Model.Checkpoint;
+import Model.Task;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

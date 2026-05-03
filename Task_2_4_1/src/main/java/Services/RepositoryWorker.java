@@ -1,7 +1,7 @@
 package Services;
 
-import Domain.CommandExecutor;
-import Domain.TestResults;
+import Model.CommandExecutor;
+import Model.TestResults;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -18,6 +18,9 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Element;
 
+/**
+ * Worker for cloning repositories and running checks.
+ */
 public class RepositoryWorker {
     private final CommandExecutor executor;
     private final Path toolsDir;
@@ -26,12 +29,27 @@ public class RepositoryWorker {
     private Path repoRoot;
     private Path taskDir;
 
+    /**
+     * Creates a new RepositoryWorker.
+     *
+     * @param executor command executor for running external processes
+     * @param toolsDir directory for storing tools like checkstyle
+     * @param checkstyleUrl URL to download checkstyle jar
+     */
     public RepositoryWorker(CommandExecutor executor, Path toolsDir, String checkstyleUrl) {
         this.executor = executor;
         this.toolsDir = toolsDir.toAbsolutePath();
         this.checkstyleUrl = checkstyleUrl;
     }
 
+    /**
+     * Clones a git repository to the specified work directory.
+     *
+     * @param url repository URL
+     * @param branch branch name to clone
+     * @param workDir target directory for the clone
+     * @return true if clone succeeded, false otherwise
+     */
     public boolean cloneRepository(String url, String branch, Path workDir) {
         this.repoRoot = workDir.toAbsolutePath();
         try {
@@ -49,6 +67,12 @@ public class RepositoryWorker {
         }
     }
 
+    /**
+     * Sets the task directory and returns the commit date.
+     *
+     * @param taskId the task directory name
+     * @return commit date of the task, or null if not found
+     */
     public OffsetDateTime setTask(String taskId) {
         if (repoRoot == null) {
             return null;
@@ -61,10 +85,20 @@ public class RepositoryWorker {
         return getCommitDate(taskId);
     }
 
+    /**
+     * Compiles the project using Gradle.
+     *
+     * @return true if compilation succeeded, false otherwise
+     */
     public boolean compileProject() {
         return runGradle("testClasses");
     }
 
+    /**
+     * Runs Checkstyle code style validation.
+     *
+     * @return true if no warnings or errors found, false otherwise
+     */
     public boolean checkCodeStyle() {
         try {
             Path checkstyleJar = prepareCheckstyleJar();
@@ -94,10 +128,20 @@ public class RepositoryWorker {
         }
     }
 
+    /**
+     * Generates Javadoc documentation for the project.
+     *
+     * @return true if generation succeeded, false otherwise
+     */
     public boolean generateDocumentation() {
         return runGradle("javadoc", "-x", "test");
     }
 
+    /**
+     * Runs project tests and parses results.
+     *
+     * @return TestResults with passed/failed/skipped counts, or error result on failure
+     */
     public TestResults runTests() {
         if (!runGradle("test")) {
             return TestResults.error();
@@ -105,6 +149,12 @@ public class RepositoryWorker {
         return parseXml(taskDir.resolve("build/test-results/test"));
     }
 
+    /**
+     * Gets the commit date for a task from git log.
+     *
+     * @param taskId the task directory name
+     * @return commit date as OffsetDateTime, or null if unavailable
+     */
     private OffsetDateTime getCommitDate(String taskId) {
         String[] date = {null};
         List<String> cmd = List.of("git", "log", "-1", "--format=%cI", "--", taskId);
@@ -119,6 +169,12 @@ public class RepositoryWorker {
         return null;
     }
 
+    /**
+     * Runs a Gradle command with standard options.
+     *
+     * @param args Gradle task and arguments
+     * @return true if command succeeded, false otherwise
+     */
     private boolean runGradle(String... args) {
         boolean isWindows = System.getProperty("os.name").toLowerCase().contains("win");
         Path wrapper = taskDir.resolve(isWindows ? "gradlew.bat" : "gradlew");
@@ -133,6 +189,12 @@ public class RepositoryWorker {
         return executor.execute(taskDir, cmd, "gradle");
     }
 
+    /**
+     * Parses JUnit XML test results from the specified directory.
+     *
+     * @param dir directory containing test result XML files
+     * @return aggregated TestResults, or error result on failure
+     */
     private TestResults parseXml(Path dir) {
         if (!Files.exists(dir)) {
             return TestResults.error();
@@ -156,6 +218,12 @@ public class RepositoryWorker {
         }
     }
 
+    /**
+     * Downloads checkstyle jar if not already present.
+     *
+     * @return path to the checkstyle jar file
+     * @throws IOException if download fails
+     */
     private Path prepareCheckstyleJar() throws IOException {
         Files.createDirectories(toolsDir);
         Path checkstyleJar = toolsDir.resolve("checkstyle-all.jar");
@@ -167,6 +235,12 @@ public class RepositoryWorker {
         return checkstyleJar;
     }
 
+    /**
+     * Copies checkstyle config XML from resources if not already present.
+     *
+     * @return path to the checkstyle xml file
+     * @throws IOException if resource not found or copy fails
+     */
     private Path prepareCheckstyleXml() throws IOException {
         Path checkstyleXml = toolsDir.resolve("checkstyle.xml");
         if (!Files.exists(checkstyleXml)) {
@@ -180,6 +254,12 @@ public class RepositoryWorker {
         return checkstyleXml;
     }
 
+    /**
+     * Recursively deletes a directory and its contents.
+     *
+     * @param path directory to delete
+     * @throws IOException if deletion fails
+     */
     private void deleteDirectory(Path path) throws IOException {
         if (!Files.exists(path)) {
             return;
