@@ -1,12 +1,11 @@
-import Model.CheckAssignment;
-import Model.CheckResult;
-import Dsl.Parser;
-import Services.Executor;
-import Services.RealCommandExecutor;
-import Services.ReportGenerator;
-
+import dsl.Parser;
 import java.io.File;
 import java.util.List;
+import model.CheckAssignment;
+import model.CheckResult;
+import services.Executor;
+import services.RealCommandExecutor;
+import services.ReportGenerator;
 
 /**
  * Main class.
