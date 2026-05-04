@@ -24,24 +24,24 @@ public class ReportGenerator {
     public static void writeHtml(List<CheckResult> result, File reportFile) {
         try (PrintWriter out = new PrintWriter(reportFile, StandardCharsets.UTF_8)) {
             out.println("<html><head><meta charset='UTF-8'>");
-            out.println("<style>table{border-collapse:collapse;} " +
-                    "th,td{border:1px solid #ccc; padding:8px;}</style>");
+            out.println("<style>table{border-collapse:collapse;} "
+                    + "th,td{border:1px solid #ccc; padding:8px;}</style>");
             out.println("</head><body>");
             out.println("<table>");
 
-            out.println("<tr>" +
-                    "<th>Group</th>" +
-                    "<th>Student</th>" +
-                    "<th>Task</th>" +
-                    "<th>Checkpoints</th>" +
-                    "<th>Clone</th>" +
-                    "<th>Build</th>" +
-                    "<th>Docs</th>" +
-                    "<th>Checkstyle</th>" +
-                    "<th>Tests build</th>" +
-                    "<th>Tests</th>" +
-                    "<th>Points</th>" +
-                    "</tr>");
+            out.println("<tr>"
+                    + "<th>Group</th>"
+                    + "<th>Student</th>"
+                    + "<th>Task</th>"
+                    + "<th>Checkpoints</th>"
+                    + "<th>Clone</th>"
+                    + "<th>Build</th>"
+                    + "<th>Docs</th>"
+                    + "<th>Checkstyle</th>"
+                    + "<th>Tests build</th>"
+                    + "<th>Tests</th>"
+                    + "<th>Points</th>"
+                    + "</tr>");
 
             for (CheckResult checkResult : result) {
                 writeResultRow(out, checkResult);
@@ -72,19 +72,19 @@ public class ReportGenerator {
                 checkResult.testResults().skipped()
         );
 
-        out.printf("<tr>" +
-                        "<td>%s</td>" +
-                        "<td>%s</td>" +
-                        "<td>%s</td>" +
-                        "<td>%s</td>" +
-                        "<td>%s</td>" +
-                        "<td>%s</td>" +
-                        "<td>%s</td>" +
-                        "<td>%s</td>" +
-                        "<td>%s</td>" +
-                        "<td>%s</td>" +
-                        "<td>%s</td>" +
-                        "</tr>\n",
+        out.printf("<tr>"
+                        + "<td>%s</td>"
+                        + "<td>%s</td>"
+                        + "<td>%s</td>"
+                        + "<td>%s</td>"
+                        + "<td>%s</td>"
+                        + "<td>%s</td>"
+                        + "<td>%s</td>"
+                        + "<td>%s</td>"
+                        + "<td>%s</td>"
+                        + "<td>%s</td>"
+                        + "<td>%s</td>"
+                        + "</tr>\n",
                 checkResult.checkAssignment().group().name(),
                 checkResult.checkAssignment().student().name(),
                 taskCell,

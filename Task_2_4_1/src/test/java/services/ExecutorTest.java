@@ -53,15 +53,26 @@ class ExecutorTest {
             ) {
                 if (cmd.contains("clone")) {
                     try {
-                        Files.createDirectories(tempWorkDir.resolve("tester").resolve("task_1"));
-                        Files.createDirectories(tempWorkDir.resolve("tester").resolve("task_3"));
-                    } catch (IOException ignored) {}
+                        Files.createDirectories(tempWorkDir
+                                .resolve("tester")
+                                .resolve("task_1"));
+                        Files.createDirectories(tempWorkDir
+                                .resolve("tester")
+                                .resolve("task_3"));
+                    } catch (IOException ignored) {
+
+                    }
                 }
                 return super.execute(dir, cmd, loggerName, inspector);
             }
         };
 
-        executor = new Executor(commandMock, tempWorkDir, toolsDir, "file:///fake/checkstyle.jar");
+        executor = new Executor(
+                commandMock,
+                tempWorkDir,
+                toolsDir,
+                "file:///fake/checkstyle.jar"
+        );
 
         testStudent = new Student("tester", "tester");
         testGroup = new Group("M30-212", Map.of("tester", testStudent));

@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 
 class TaskContextTest {
     private TaskContext context;
-    private final String TASK_ID = "lab1";
+    private static final String TASK_ID = "lab1";
 
     @BeforeEach
     void setUp() {

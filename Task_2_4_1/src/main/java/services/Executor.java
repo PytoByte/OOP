@@ -1,7 +1,5 @@
 package services;
 
-import model.*;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -9,6 +7,11 @@ import java.time.OffsetDateTime;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Comparator;
+import model.CheckAssignment;
+import model.CheckResult;
+import model.Checkpoint;
+import model.CommandExecutor;
+import model.TestResults;
 
 /**
  * Executor of check assignments.
@@ -19,10 +22,10 @@ public class Executor {
     private final Path toolsDir;
     private final String checkstyleUrl;
 
-    public final static Path DEFAULT_TEMP_DIR = Path.of("oop-checker").toAbsolutePath();
-    public final static Path DEFAULT_TOOLS_DIR = Path.of("tools").toAbsolutePath();
-    public final static String DEFAULT_CHECKSTYLE_DOWNLOAD_URL = "https://github.com/checkstyle/" +
-            "checkstyle/releases/download/checkstyle-10.17.0/checkstyle-10.17.0-all.jar";
+    public static final Path DEFAULT_TEMP_DIR = Path.of("oop-checker").toAbsolutePath();
+    public static final Path DEFAULT_TOOLS_DIR = Path.of("tools").toAbsolutePath();
+    public static final String DEFAULT_CHECKSTYLE_DOWNLOAD_URL = "https://github.com/checkstyle/"
+            + "checkstyle/releases/download/checkstyle-10.17.0/checkstyle-10.17.0-all.jar";
 
     /**
      * Constructor with default paths and checkstyle repository url.
@@ -133,7 +136,9 @@ public class Executor {
      * @param tempDir temp dir
      */
     private void cleanup(Path tempDir) {
-        if (!Files.exists(tempDir)) return;
+        if (!Files.exists(tempDir)) {
+            return;
+        }
         try (var stream = Files.walk(tempDir)) {
             stream.sorted(Comparator.reverseOrder())
                     .map(Path::toFile)

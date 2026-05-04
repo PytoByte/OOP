@@ -11,16 +11,14 @@ import java.nio.file.Path;
 import java.time.OffsetDateTime;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import model.TestResults;
+import org.junit.jupiter.api.Test;
 import mock.ExecutorMock;
+import model.TestResults;
 
 class RepositoryWorkerTest {
-
     @TempDir
     Path tempDir;
-
     private ExecutorMock executorMock;
     private RepositoryWorker worker;
     private Path toolsDir;
@@ -65,16 +63,13 @@ class RepositoryWorkerTest {
 
     @Test
     void testCompileProjectBuildsCorrectCommand() throws IOException {
-        Path taskPath = setupTaskContext("Task_1_1");
-
-        boolean ok = worker.compileProject();
-
-        assertTrue(ok);
+        assertTrue(worker.compileProject());
         ExecutorMock.ExecutionCall call = executorMock.calls.get(executorMock.calls.size() - 1);
         List<String> cmd = call.cmd();
 
         assertTrue(cmd.get(0).contains("gradlew"));
         assertTrue(cmd.contains("testClasses"));
+        Path taskPath = setupTaskContext("Task_1_1");
         assertEquals(taskPath.toAbsolutePath(), call.dir().toAbsolutePath());
     }
 
@@ -124,7 +119,7 @@ class RepositoryWorkerTest {
 
         worker.cloneRepository("url", "branch", repoDir);
 
-        assertFalse(Files.exists(repoDir.resolve("old_file.txt")), "Старые файлы должны быть удалены перед клонированием");
+        assertFalse(Files.exists(repoDir.resolve("old_file.txt")));
     }
 
     /**

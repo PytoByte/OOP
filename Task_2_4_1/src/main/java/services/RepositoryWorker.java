@@ -164,6 +164,7 @@ public class RepositoryWorker {
             try {
                 return OffsetDateTime.parse(date[0], DateTimeFormatter.ISO_OFFSET_DATE_TIME);
             } catch (Exception ignored) {
+
             }
         }
         return null;

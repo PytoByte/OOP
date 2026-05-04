@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 /**
- * Executor of terminal commands
+ * Executor of terminal commands.
  */
 public interface CommandExecutor {
     /**

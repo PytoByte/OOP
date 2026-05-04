@@ -6,23 +6,20 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 import java.util.Map;
+import model.CheckAssignment;
 import model.Group;
 import model.Student;
 import model.Task;
-import model.CheckAssignment;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class CheckAssignmentBuilderTest {
     private CheckAssignmentBuilder builder;
-    private final String GROUP_NAME = "test-group";
-    private final String TASK_ID = "lab1";
+    private static final String GROUP_NAME = "test-group";
+    private static final String TASK_ID = "lab1";
 
     @BeforeEach
     void setUp() {
-        builder = new CheckAssignmentBuilder();
-
-        // Подготавливаем базовые данные
         Student s1 = new Student("Ivanov", "ivan-nick");
         Student s2 = new Student("Petrov", "petr-nick");
 
@@ -33,6 +30,7 @@ class CheckAssignmentBuilderTest {
 
         Task task = new Task(TASK_ID, "Threading", 5.0f, List.of());
 
+        builder = new CheckAssignmentBuilder();
         builder.addGroup(group);
         builder.addTask(task);
     }

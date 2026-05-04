@@ -5,10 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
 import java.util.Map;
+import model.CheckAssignment;
 import model.Group;
 import model.Student;
 import model.Task;
-import model.CheckAssignment;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import services.CheckAssignmentBuilder;
@@ -16,9 +16,9 @@ import services.CheckAssignmentBuilder;
 class CheckContextTest {
 
     private CheckAssignmentBuilder builder;
-    private final String GROUP_NAME = "test-group";
-    private final String TASK_ID = "lab1";
-    private final String STUDENT_NICK = "tester-nick";
+    private static final String GROUP_NAME = "test-group";
+    private static final String TASK_ID = "lab1";
+    private static final String STUDENT_NICK = "tester-nick";
 
     @BeforeEach
     void setUp() {

@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 class GroupContextTest {
 
     private GroupContext context;
-    private final String GROUP_NAME = "test-group";
+    private static final String GROUP_NAME = "test-group";
 
     @BeforeEach
     void setUp() {
