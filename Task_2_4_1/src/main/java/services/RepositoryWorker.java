@@ -54,7 +54,7 @@ public class RepositoryWorker {
         this.repoRoot = workDir.toAbsolutePath();
         try {
             if (Files.exists(repoRoot)) {
-                deleteDirectory(repoRoot);
+                return true;
             }
             Files.createDirectories(repoRoot);
             return executor.execute(

@@ -111,16 +111,6 @@ class RepositoryWorkerTest {
         assertEquals(1, results.skipped());
     }
 
-    @Test
-    void testDeleteDirectoryBeforeClone() throws IOException {
-        Files.createDirectories(repoDir);
-        Files.createFile(repoDir.resolve("old_file.txt"));
-
-        worker.cloneRepository("url", "branch", repoDir);
-
-        assertFalse(Files.exists(repoDir.resolve("old_file.txt")));
-    }
-
     private Path setupTaskContext(String taskId) throws IOException {
         worker.cloneRepository("url", "branch", repoDir);
 

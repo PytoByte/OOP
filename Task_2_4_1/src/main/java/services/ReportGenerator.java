@@ -34,7 +34,8 @@ public class ReportGenerator {
                     + "<th>Student</th>"
                     + "<th>Task</th>"
                     + "<th>Checkpoints</th>"
-                    + "<th>Clone</th>"
+                    + "<th>Download</th>"
+                    + "<th>Task found</th>"
                     + "<th>Build</th>"
                     + "<th>Docs</th>"
                     + "<th>Checkstyle</th>"
@@ -84,12 +85,14 @@ public class ReportGenerator {
                         + "<td>%s</td>"
                         + "<td>%s</td>"
                         + "<td>%s</td>"
+                        + "<td>%s</td>"
                         + "</tr>\n",
                 checkResult.checkAssignment().group().name(),
                 checkResult.checkAssignment().student().name(),
                 taskCell,
                 checkpointsHtml,
                 boolToStatus(checkResult.download()),
+                boolToStatus(checkResult.taskFound()),
                 boolToStatus(checkResult.build()),
                 boolToStatus(checkResult.doc()),
                 boolToStatus(checkResult.style()),

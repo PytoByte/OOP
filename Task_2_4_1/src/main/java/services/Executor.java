@@ -93,22 +93,30 @@ public class Executor {
      * @return result of check assignment
      */
     public CheckResult executeCheckAssignment(CheckAssignment checkAssignment, Path tempDir) {
-        String repoUrl = String.format("https://github.com/%s/OOP", checkAssignment.student().nick());
+        String repoUrl = String.format(
+                "https://github.com/%s/OOP",
+                checkAssignment.student().nick()
+        );
         Path studentRepoPath = tempDir.resolve(checkAssignment.student().nick());
-        String taskId = checkAssignment.task().id();
 
         Logger logger = new Logger("executor");
-        logger.info("=== STUDENT: %s TASK: %s ===", checkAssignment.student().name(), taskId);
+        logger.info("\n===\nCheck assignment\nGroup: %s\nStudent: %s\nTask: %s\n===",
+                checkAssignment.group().name(),
+                checkAssignment.student().name(),
+                checkAssignment.task().id()
+        );
 
         RepositoryWorker worker = new RepositoryWorker(commandExecutor, toolsDir, checkstyleUrl);
 
         if (!worker.cloneRepository(repoUrl, "main", studentRepoPath)) {
+            logger.info("Check assignment ended with failed download");
             return CheckResult.failedDownload(checkAssignment);
         }
 
-        OffsetDateTime commitDateTime = worker.setTask(taskId);
+        OffsetDateTime commitDateTime = worker.setTask(checkAssignment.task().id());
         if (commitDateTime == null) {
-            return CheckResult.failedDownload(checkAssignment);
+            logger.info("Check assignment ended with task not found");
+            return CheckResult.taskNotFound(checkAssignment);
         }
 
         boolean isCompiled = worker.compileProject();
@@ -124,8 +132,9 @@ public class Executor {
             }
         }
 
+        logger.info("Check assignment ended successfully");
         return new CheckResult(
-                checkAssignment, commitDateTime, true, isCompiled,
+                checkAssignment, commitDateTime, true, true, isCompiled,
                 docsOk, styleOk, testResults, points
         );
     }

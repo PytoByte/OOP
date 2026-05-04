@@ -40,6 +40,7 @@ class ReportGeneratorTest {
                 OffsetDateTime.now(),
                 true,
                 true,
+                true,
                 false,
                 true,
                 new TestResults(10, 2, 0),
