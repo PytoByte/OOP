@@ -9,7 +9,6 @@ import java.nio.file.StandardCopyOption;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
@@ -251,20 +250,5 @@ public class RepositoryWorker {
             }
         }
         return checkstyleXml;
-    }
-
-    /**
-     * Recursively deletes a directory and its contents.
-     *
-     * @param path directory to delete
-     * @throws IOException if deletion fails
-     */
-    private void deleteDirectory(Path path) throws IOException {
-        if (!Files.exists(path)) {
-            return;
-        }
-        try (var stream = Files.walk(path)) {
-            stream.sorted(Comparator.reverseOrder()).forEach(p -> p.toFile().delete());
-        }
     }
 }
