@@ -64,10 +64,10 @@ class RepositoryWorkerTest {
     @Test
     void testCompileProjectBuildsCorrectCommand() throws IOException {
         Path taskPath = setupTaskContext("Task_1_1");
-        ExecutorMock.ExecutionCall call = executorMock.calls.get(executorMock.calls.size() - 1);
-        List<String> cmd = call.cmd();
-        assertEquals(taskPath.toAbsolutePath(), call.dir().toAbsolutePath());
         assertTrue(worker.compileProject());
+        ExecutorMock.ExecutionCall call = executorMock.calls.get(executorMock.calls.size() - 1);
+        assertEquals(taskPath.toAbsolutePath(), call.dir().toAbsolutePath());
+        List<String> cmd = call.cmd();;
         assertTrue(cmd.get(0).contains("gradlew"));
         assertTrue(cmd.contains("testClasses"));;
     }
@@ -84,7 +84,7 @@ class RepositoryWorkerTest {
 
         boolean result = worker.checkCodeStyle();
 
-        assertFalse(result, "Checkstyle должен вернуть false, если найден [WARN]");
+        assertFalse(result);
     }
 
     @Test
@@ -121,10 +121,6 @@ class RepositoryWorkerTest {
         assertFalse(Files.exists(repoDir.resolve("old_file.txt")));
     }
 
-    /**
-     * Вспомогательный метод теперь работает корректно:
-     * Сначала инициализирует репозиторий, потом создает в нем файлы задачи.
-     */
     private Path setupTaskContext(String taskId) throws IOException {
         worker.cloneRepository("url", "branch", repoDir);
 
