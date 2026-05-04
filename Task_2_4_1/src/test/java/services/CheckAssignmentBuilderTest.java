@@ -61,9 +61,9 @@ class CheckAssignmentBuilderTest {
     void testAddTaskThrowsExceptionWhenAlreadyExists() {
         Task duplicateTask = new Task(TASK_ID, "Different Title", 10.0f, List.of());
 
-        RuntimeException ex = assertThrows(RuntimeException.class, () -> {
-            builder.addTask(duplicateTask);
-        });
+        RuntimeException ex = assertThrows(RuntimeException.class, () ->
+            builder.addTask(duplicateTask)
+        );
 
         assertEquals("Task already exist: " + TASK_ID, ex.getMessage());
     }
@@ -72,9 +72,9 @@ class CheckAssignmentBuilderTest {
     void testAddGroupThrowsExceptionWhenAlreadyExists() {
         Group duplicateGroup = new Group(GROUP_NAME, Map.of());
 
-        RuntimeException ex = assertThrows(RuntimeException.class, () -> {
-            builder.addGroup(duplicateGroup);
-        });
+        RuntimeException ex = assertThrows(RuntimeException.class, () ->
+            builder.addGroup(duplicateGroup)
+        );
 
         assertEquals("Group already exist: " + GROUP_NAME, ex.getMessage());
     }
@@ -86,30 +86,30 @@ class CheckAssignmentBuilderTest {
 
         List<CheckAssignment> results = builder.getCheckAssignments();
 
-        assertEquals(1, results.size(), "Set should prevent duplicate assignments");
+        assertEquals(1, results.size());
     }
 
     @Test
     void testThrowsExceptionWhenGroupNotFound() {
-        NullPointerException ex = assertThrows(NullPointerException.class, () -> {
-            builder.buildCheckAssignments("NON_EXISTENT", TASK_ID);
-        });
+        NullPointerException ex = assertThrows(NullPointerException.class, () ->
+            builder.buildCheckAssignments("NON_EXISTENT", TASK_ID)
+        );
         assertTrue(ex.getMessage().contains("Group not found"));
     }
 
     @Test
     void testThrowsExceptionWhenStudentNotFound() {
-        NullPointerException ex = assertThrows(NullPointerException.class, () -> {
-            builder.buildCheckAssignment(GROUP_NAME, "ghost-nick", TASK_ID);
-        });
+        NullPointerException ex = assertThrows(NullPointerException.class, () ->
+            builder.buildCheckAssignment(GROUP_NAME, "ghost-nick", TASK_ID)
+        );
         assertTrue(ex.getMessage().contains("Student not found"));
     }
 
     @Test
     void testThrowsExceptionWhenTaskNotFound() {
-        NullPointerException ex = assertThrows(NullPointerException.class, () -> {
-            builder.buildCheckAssignment(GROUP_NAME, "ivan-nick", "wrong_task");
-        });
+        NullPointerException ex = assertThrows(NullPointerException.class, () ->
+                builder.buildCheckAssignment(GROUP_NAME, "ivan-nick", "wrong_task")
+        );
         assertTrue(ex.getMessage().contains("Task not found"));
     }
 
@@ -118,8 +118,6 @@ class CheckAssignmentBuilderTest {
         builder.buildCheckAssignment(GROUP_NAME, "ivan-nick", TASK_ID);
         List<CheckAssignment> list = builder.getCheckAssignments();
 
-        assertThrows(UnsupportedOperationException.class, () -> {
-            list.clear();
-        });
+        assertThrows(UnsupportedOperationException.class, list::clear);
     }
 }

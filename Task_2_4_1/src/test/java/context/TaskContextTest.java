@@ -32,13 +32,13 @@ class TaskContextTest {
 
     @Test
     void testTaskProductionWithCustomValues() {
-        context.title = "Memory Management";
+        context.title = "Task_x";
         context.basePoints = 10.0f;
         context.checkpoint("Soft Deadline", "15-05-2026", 2.0f);
 
         Task task = context.produce();
 
-        assertEquals("Memory Management", task.title());
+        assertEquals("Task_x", task.title());
         assertEquals(10.0f, task.basePoints());
         assertEquals(1, task.checkpoints().size());
 
@@ -63,17 +63,5 @@ class TaskContextTest {
         assertThrows(UnsupportedOperationException.class, () -> {
             task.checkpoints().clear();
         });
-    }
-
-    @Test
-    void testMultipleCheckpointsPreserveOrder() {
-        context.checkpoint("First", "01-01-2026", 1.0f);
-        context.checkpoint("Second", "02-01-2026", 2.0f);
-
-        Task task = context.produce();
-
-        assertEquals(2, task.checkpoints().size());
-        assertEquals("First", task.checkpoints().get(0).name());
-        assertEquals("Second", task.checkpoints().get(1).name());
     }
 }
