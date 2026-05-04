@@ -10,10 +10,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.OffsetDateTime;
 import java.util.List;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import mock.ExecutorMock;
 import model.TestResults;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 class RepositoryWorkerTest {
@@ -63,14 +63,13 @@ class RepositoryWorkerTest {
 
     @Test
     void testCompileProjectBuildsCorrectCommand() throws IOException {
-        assertTrue(worker.compileProject());
+        Path taskPath = setupTaskContext("Task_1_1");
         ExecutorMock.ExecutionCall call = executorMock.calls.get(executorMock.calls.size() - 1);
         List<String> cmd = call.cmd();
-
-        assertTrue(cmd.get(0).contains("gradlew"));
-        assertTrue(cmd.contains("testClasses"));
-        Path taskPath = setupTaskContext("Task_1_1");
         assertEquals(taskPath.toAbsolutePath(), call.dir().toAbsolutePath());
+        assertTrue(worker.compileProject());
+        assertTrue(cmd.get(0).contains("gradlew"));
+        assertTrue(cmd.contains("testClasses"));;
     }
 
     @Test
