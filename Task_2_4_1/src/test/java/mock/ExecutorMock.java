@@ -15,7 +15,12 @@ public class ExecutorMock implements CommandExecutor {
     public String outputToInject = null;
 
     @Override
-    public boolean execute(Path dir, List<String> cmd, String loggerName, Consumer<String> inspector) {
+    public boolean execute(
+            Path dir,
+            List<String> cmd,
+            String loggerName,
+            Consumer<String> inspector
+    ) {
         calls.add(new ExecutionCall(dir, cmd, loggerName));
         if (inspector != null && outputToInject != null) {
             inspector.accept(outputToInject);

@@ -59,8 +59,9 @@ class ExecutorTest {
                         Files.createDirectories(tempWorkDir
                                 .resolve("tester")
                                 .resolve("task_3"));
-                    } catch (IOException ignored) {
-
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        throw new RuntimeException("Cannot create dirs");
                     }
                 }
                 return super.execute(dir, cmd, loggerName, inspector);
@@ -94,8 +95,8 @@ class ExecutorTest {
         assertFalse(results.isEmpty());
         CheckResult res = results.get(0);
 
-        assertTrue(res.download(), "Download failed: RepositoryWorker didn't find the task directory");
-        assertTrue(res.build(), "Build failed");
+        assertTrue(res.download());
+        assertTrue(res.build());
         assertEquals(7.0f, res.points());
     }
 

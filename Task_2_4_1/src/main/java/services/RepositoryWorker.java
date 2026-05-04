@@ -161,11 +161,7 @@ public class RepositoryWorker {
         if (executor.execute(repoRoot, cmd, "git-log-date",
                 line -> date[0] = line.trim()) && date[0] != null
         ) {
-            try {
-                return OffsetDateTime.parse(date[0], DateTimeFormatter.ISO_OFFSET_DATE_TIME);
-            } catch (Exception ignored) {
-
-            }
+            return OffsetDateTime.parse(date[0], DateTimeFormatter.ISO_OFFSET_DATE_TIME);
         }
         return null;
     }
@@ -201,7 +197,9 @@ public class RepositoryWorker {
             return TestResults.error();
         }
         try (var stream = Files.list(dir)) {
-            int passedTotal = 0, failedTotal = 0, skippedTotal = 0;
+            int passedTotal = 0;
+            int failedTotal = 0;
+            int skippedTotal = 0;
             DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             for (Path file : stream.filter(path -> path.toString().endsWith(".xml")).toList()) {
                 Element root = db.parse(file.toFile()).getDocumentElement();

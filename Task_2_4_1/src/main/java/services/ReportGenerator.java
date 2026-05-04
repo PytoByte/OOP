@@ -128,8 +128,8 @@ public class ReportGenerator {
      */
     private static String formatPoints(CheckResult checkResult) {
         float earned = checkResult.points();
-        double max = checkResult.checkAssignment().task().basePoints() +
-                checkResult.checkAssignment().task().checkpoints()
+        double max = checkResult.checkAssignment().task().basePoints()
+                + checkResult.checkAssignment().task().checkpoints()
                         .stream()
                         .mapToDouble(Checkpoint::rewardPoints)
                         .sum();
