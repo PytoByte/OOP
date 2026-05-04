@@ -81,6 +81,7 @@ loadScripts(document, 'script');</script>
 <dd><code><span id="param-checkAssignment">checkAssignment</span></code> - task check assignment</dd>
 <dd><code><span id="param-completeDateTime">completeDateTime</span></code> - date and time when task was completed</dd>
 <dd><code><span id="param-download">download</span></code> - is download successful</dd>
+<dd><code><span id="param-taskFound">taskFound</span></code> - is repository contains task</dd>
 <dd><code><span id="param-build">build</span></code> - is build successful</dd>
 <dd><code><span id="param-doc">doc</span></code> - is docs generated successfully</dd>
 <dd><code><span id="param-style">style</span></code> - is code checkstyle passed</dd>
@@ -88,7 +89,7 @@ loadScripts(document, 'script');</script>
 <dd><code><span id="param-points">points</span></code> - points for task</dd>
 </dl>
 <hr>
-<div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">CheckResult</span>(<a href="CheckAssignment.html" title="class in model">CheckAssignment</a>&nbsp;checkAssignment, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/OffsetDateTime.html" title="class or interface in java.time" class="external-link">OffsetDateTime</a>&nbsp;completeDateTime, boolean&nbsp;download, boolean&nbsp;build, boolean&nbsp;doc, boolean&nbsp;style, <a href="TestResults.html" title="class in model">TestResults</a>&nbsp;testResults, float&nbsp;points)
+<div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">CheckResult</span>(<a href="CheckAssignment.html" title="class in model">CheckAssignment</a>&nbsp;checkAssignment, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/OffsetDateTime.html" title="class or interface in java.time" class="external-link">OffsetDateTime</a>&nbsp;completeDateTime, boolean&nbsp;download, boolean&nbsp;taskFound, boolean&nbsp;build, boolean&nbsp;doc, boolean&nbsp;style, <a href="TestResults.html" title="class in model">TestResults</a>&nbsp;testResults, float&nbsp;points)
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Record.html" title="class or interface in java.lang" class="external-link">Record</a></span></div>
 <div class="block">Task check result model.</div>
 </section>
@@ -102,9 +103,10 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(model.CheckAssignment,java.time.OffsetDateTime,boolean,boolean,boolean,boolean,model.TestResults,float)" class="member-name-link">CheckResult</a><wbr>(<a href="CheckAssignment.html" title="class in model">CheckAssignment</a>&nbsp;checkAssignment,
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(model.CheckAssignment,java.time.OffsetDateTime,boolean,boolean,boolean,boolean,boolean,model.TestResults,float)" class="member-name-link">CheckResult</a><wbr>(<a href="CheckAssignment.html" title="class in model">CheckAssignment</a>&nbsp;checkAssignment,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/OffsetDateTime.html" title="class or interface in java.time" class="external-link">OffsetDateTime</a>&nbsp;completeDateTime,
  boolean&nbsp;download,
+ boolean&nbsp;taskFound,
  boolean&nbsp;build,
  boolean&nbsp;doc,
  boolean&nbsp;style,
@@ -177,6 +179,16 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the value of the <a href="#param-style"><code>style</code></a> record component.</div>
 </div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#taskFound()" class="member-name-link">taskFound</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Returns the value of the <a href="#param-taskFound"><code>taskFound</code></a> record component.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="CheckResult.html" title="class in model">CheckResult</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#taskNotFound(model.CheckAssignment)" class="member-name-link">taskNotFound</a><wbr>(<a href="CheckAssignment.html" title="class in model">CheckAssignment</a>&nbsp;checkAssignment)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Factory of check result with task not found.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="TestResults.html" title="class in model">TestResults</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#testResults()" class="member-name-link">testResults</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -205,11 +217,12 @@ loadScripts(document, 'script');</script>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(model.CheckAssignment,java.time.OffsetDateTime,boolean,boolean,boolean,boolean,model.TestResults,float)">
+<section class="detail" id="&lt;init&gt;(model.CheckAssignment,java.time.OffsetDateTime,boolean,boolean,boolean,boolean,boolean,model.TestResults,float)">
 <h3>CheckResult</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">CheckResult</span><wbr><span class="parameters">(<a href="CheckAssignment.html" title="class in model">CheckAssignment</a>&nbsp;checkAssignment,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/OffsetDateTime.html" title="class or interface in java.time" class="external-link">OffsetDateTime</a>&nbsp;completeDateTime,
  boolean&nbsp;download,
+ boolean&nbsp;taskFound,
  boolean&nbsp;build,
  boolean&nbsp;doc,
  boolean&nbsp;style,
@@ -221,6 +234,7 @@ loadScripts(document, 'script');</script>
 <dd><code>checkAssignment</code> - the value for the <a href="#param-checkAssignment"><code>checkAssignment</code></a> record component</dd>
 <dd><code>completeDateTime</code> - the value for the <a href="#param-completeDateTime"><code>completeDateTime</code></a> record component</dd>
 <dd><code>download</code> - the value for the <a href="#param-download"><code>download</code></a> record component</dd>
+<dd><code>taskFound</code> - the value for the <a href="#param-taskFound"><code>taskFound</code></a> record component</dd>
 <dd><code>build</code> - the value for the <a href="#param-build"><code>build</code></a> record component</dd>
 <dd><code>doc</code> - the value for the <a href="#param-doc"><code>doc</code></a> record component</dd>
 <dd><code>style</code> - the value for the <a href="#param-style"><code>style</code></a> record component</dd>
@@ -247,6 +261,19 @@ loadScripts(document, 'script');</script>
 <dd><code>checkAssignment</code> - task check assignment</dd>
 <dt>Returns:</dt>
 <dd>check result with everything failed</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="taskNotFound(model.CheckAssignment)">
+<h3>taskNotFound</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="CheckResult.html" title="class in model">CheckResult</a></span>&nbsp;<span class="element-name">taskNotFound</span><wbr><span class="parameters">(<a href="CheckAssignment.html" title="class in model">CheckAssignment</a>&nbsp;checkAssignment)</span></div>
+<div class="block">Factory of check result with task not found.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>checkAssignment</code> - task check assignment</dd>
+<dt>Returns:</dt>
+<dd>check result with everything failed except download</dd>
 </dl>
 </section>
 </li>
@@ -321,6 +348,17 @@ loadScripts(document, 'script');</script>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>the value of the <a href="#param-download"><code>download</code></a> record component</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="taskFound()">
+<h3>taskFound</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">taskFound</span>()</div>
+<div class="block">Returns the value of the <a href="#param-taskFound"><code>taskFound</code></a> record component.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the value of the <a href="#param-taskFound"><code>taskFound</code></a> record component</dd>
 </dl>
 </section>
 </li>
