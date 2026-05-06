@@ -11,15 +11,21 @@ import services.ReportGenerator;
  * Main class.
  */
 public class Main {
+    private static final String DEFAULT_SCRIPT_PATH = "./script/main.groovy";
+
     /**
      * Main method.
      *
-     * @param args any args
+     * @param args command-line arguments:
+     *             [0] = path to script file (default: ./script/main.groovy)
      */
     public static void main(String[] args) {
-        File script = new File("./script/main.groovy");
+        String scriptPath = (args.length > 0) ? args[0] : DEFAULT_SCRIPT_PATH;
+        File script = new File(scriptPath);
+
         if (!script.exists()) {
-            System.err.println("File \"./script/main.groovy\" not found!");
+            System.err.println("File \"" + scriptPath + "\" not found!");
+            System.err.println("Usage: java Main [path/to/script.groovy]");
             return;
         }
 
