@@ -16,9 +16,24 @@ class LoggerTest {
             Logger logger = new Logger("test");
             logger.info("Hello %s", "world");
             String output = bos.toString().trim();
-            assertTrue(output.contains("[test] Hello world"));
+            assertTrue(output.contains("(INFO) [test] Hello world"));
         } finally {
             System.setOut(originalOut);
+        }
+    }
+
+    @Test
+    void error() {
+        PrintStream originalErr = System.err;
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        System.setErr(new PrintStream(bos));
+        try {
+            Logger logger = new Logger("test");
+            logger.error("Hello %s", "world");
+            String output = bos.toString().trim();
+            assertTrue(output.contains("(ERROR) [test] Hello world"));
+        } finally {
+            System.setErr(originalErr);
         }
     }
 }

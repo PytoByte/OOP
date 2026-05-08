@@ -39,7 +39,14 @@ public class Main {
         }
 
         Executor executor = new Executor(new RealCommandExecutor());
-        List<CheckResult> results = executor.execute(checkAssignments);
+
+        List<CheckResult> results;
+        try {
+            results = executor.execute(checkAssignments);
+        } catch (Exception e) {
+            System.err.println("Executing check assignments failed: " + e.getMessage());
+            return;
+        }
 
         File reportFile = new File("report.html");
         try {

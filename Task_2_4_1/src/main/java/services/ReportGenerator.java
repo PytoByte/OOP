@@ -69,11 +69,11 @@ public class ReportGenerator {
                 checkResult.checkAssignment().task().title()
         );
         String pointsCell = formatPoints(checkResult);
-        String testsCell = String.format("passed %d<br>failed %d<br>skipped %d",
+        String testsCell = checkResult.testResults().isError() ? "Error" :
+                String.format("passed %s<br>failed %s<br>skipped %s",
                 checkResult.testResults().passed(),
                 checkResult.testResults().failed(),
-                checkResult.testResults().skipped()
-        );
+                checkResult.testResults().skipped());
 
         out.printf("<tr>"
                         + "<td>%s</td>"
@@ -98,7 +98,8 @@ public class ReportGenerator {
                 boolToStatus(checkResult.build()),
                 boolToStatus(checkResult.doc()),
                 boolToStatus(checkResult.style()),
-                boolToStatus(!checkResult.testResults().isError()),
+                boolToStatus(!checkResult.testResults().isError()
+                        && checkResult.testResults().failed() == 0),
                 testsCell,
                 pointsCell
         );

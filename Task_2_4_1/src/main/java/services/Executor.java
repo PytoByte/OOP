@@ -7,6 +7,7 @@ import java.time.OffsetDateTime;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+
 import model.CheckAssignment;
 import model.CheckResult;
 import model.Checkpoint;
@@ -21,6 +22,7 @@ public class Executor {
     private final Path tempDir;
     private final Path toolsDir;
     private final String checkstyleUrl;
+    private final Logger logger = new Logger("executor");
 
     public static final Path DEFAULT_TEMP_DIR = Path.of("oop-checker").toAbsolutePath();
     public static final Path DEFAULT_TOOLS_DIR = Path.of("tools").toAbsolutePath();
@@ -45,9 +47,9 @@ public class Executor {
      * Extended constructor with paths and checkstyle url selection.
      *
      * @param commandExecutor any command executor
-     * @param tempDir path for dir with temp files. After checkstyle dir will be deleted
-     * @param toolsDir dir with tools (checkstyle jar and checkstyle xml)
-     * @param checkstyleUrl url with checkstyle jar
+     * @param tempDir         path for dir with temp files. After checkstyle dir will be deleted
+     * @param toolsDir        dir with tools (checkstyle jar and checkstyle xml)
+     * @param checkstyleUrl   url with checkstyle jar
      */
     public Executor(
             CommandExecutor commandExecutor,
@@ -65,23 +67,19 @@ public class Executor {
      * Main method for execution many check assignments.
      *
      * @param checkAssignments list of check assignments
+     * @throws IOException if cleanup temp files or create temp dirs failed
      */
-    public List<CheckResult> execute(List<CheckAssignment> checkAssignments) {
+    public List<CheckResult> execute(List<CheckAssignment> checkAssignments) throws IOException {
         List<CheckResult> results = new LinkedList<>();
         Path absoluteWorkDir = tempDir.toAbsolutePath().normalize();
 
-        try {
-            cleanup(absoluteWorkDir);
-            Files.createDirectories(absoluteWorkDir);
-
-            for (CheckAssignment assignment : checkAssignments) {
-                results.add(executeCheckAssignment(assignment, absoluteWorkDir));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            cleanup(absoluteWorkDir);
+        cleanup(absoluteWorkDir);
+        Files.createDirectories(absoluteWorkDir);
+        for (CheckAssignment assignment : checkAssignments) {
+            results.add(executeCheckAssignment(assignment, absoluteWorkDir));
         }
+        cleanup(absoluteWorkDir);
+
         return results;
     }
 
@@ -89,7 +87,7 @@ public class Executor {
      * Executor of single check assignment.
      *
      * @param checkAssignment task check assignment
-     * @param tempDir dir with temp files
+     * @param tempDir         dir with temp files
      * @return result of check assignment
      */
     public CheckResult executeCheckAssignment(CheckAssignment checkAssignment, Path tempDir) {
@@ -99,7 +97,6 @@ public class Executor {
         );
         Path studentRepoPath = tempDir.resolve(checkAssignment.student().nick());
 
-        Logger logger = new Logger("executor");
         logger.info("\n===\nCheck assignment\nGroup: %s\nStudent: %s\nTask: %s\n===",
                 checkAssignment.group().name(),
                 checkAssignment.student().name(),
@@ -114,7 +111,7 @@ public class Executor {
                 return CheckResult.failedDownload(checkAssignment);
             }
         } catch (Exception e) {
-            logger.info("Check assignment ended with exception: %s", e.getMessage());
+            logger.error("Check assignment ended with exception: %s", e.getMessage());
             return CheckResult.failedDownload(checkAssignment);
         }
 
@@ -131,14 +128,14 @@ public class Executor {
         try {
             styleOk = worker.checkCodeStyle();
         } catch (Exception e) {
-            logger.info("Check style failed with exception %s", e.getMessage());
+            logger.error("Check style failed with exception %s", e.getMessage());
         }
 
         TestResults testResults = null;
         try {
             testResults = worker.runTests();
         } catch (Exception e) {
-            logger.info("Run tests failed with exception %s", e.getMessage());
+            logger.error("Run tests failed with exception %s", e.getMessage());
         }
 
         float points = checkAssignment.task().basePoints();
@@ -159,8 +156,9 @@ public class Executor {
      * Delete temp dir.
      *
      * @param tempDir temp dir
+     * @throws IOException if cleanup failed
      */
-    private void cleanup(Path tempDir) {
+    private void cleanup(Path tempDir) throws IOException {
         if (!Files.exists(tempDir)) {
             return;
         }
@@ -169,7 +167,7 @@ public class Executor {
                     .map(Path::toFile)
                     .forEach(java.io.File::delete);
         } catch (IOException e) {
-            System.err.println("Cleanup failed: " + e.getMessage());
+            throw new IOException("Cleanup failed", e);
         }
     }
 }

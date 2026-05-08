@@ -82,7 +82,7 @@ class ExecutorTest {
     }
 
     @Test
-    void testSuccessfulExecutionFlow() {
+    void testSuccessfulExecutionFlow() throws IOException {
         Checkpoint cp = new Checkpoint("Soft Deadline", LocalDate.now().plusDays(1), 2.0f);
         Task task = new Task("task_1", "Lab 1", 5.0f, List.of(cp));
         CheckAssignment assignment = new CheckAssignment(testGroup, testStudent, task);

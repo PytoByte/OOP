@@ -33,7 +33,7 @@ class RepositoryWorkerTest {
     }
 
     @Test
-    void testCloneRepository() {
+    void testCloneRepository() throws IOException {
         boolean result = worker.cloneRepository("https://github.com/test/repo", "main", repoDir);
 
         assertTrue(result);
