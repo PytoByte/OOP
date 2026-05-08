@@ -7,7 +7,6 @@ import java.time.OffsetDateTime;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
-
 import model.CheckAssignment;
 import model.CheckResult;
 import model.Checkpoint;
@@ -121,9 +120,6 @@ public class Executor {
             return CheckResult.taskNotFound(checkAssignment);
         }
 
-        boolean isCompiled = worker.compileProject();
-        boolean docsOk = worker.generateDocumentation();
-
         boolean styleOk = false;
         try {
             styleOk = worker.checkCodeStyle();
@@ -144,7 +140,8 @@ public class Executor {
                 points += checkpoint.rewardPoints();
             }
         }
-
+        boolean isCompiled = worker.compileProject();
+        boolean docsOk = worker.generateDocumentation();
         logger.info("Check assignment ended successfully");
         return new CheckResult(
                 checkAssignment, commitDateTime, true, true, isCompiled,

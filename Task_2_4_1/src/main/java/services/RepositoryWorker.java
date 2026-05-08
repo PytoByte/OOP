@@ -13,6 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+
 import model.CommandExecutor;
 import model.TestResults;
 import model.TestResultsParseException;
@@ -32,8 +33,8 @@ public class RepositoryWorker {
     /**
      * Creates a new RepositoryWorker.
      *
-     * @param executor command executor for running external processes
-     * @param toolsDir directory for storing tools like checkstyle
+     * @param executor      command executor for running external processes
+     * @param toolsDir      directory for storing tools like checkstyle
      * @param checkstyleUrl URL to download checkstyle jar
      */
     public RepositoryWorker(CommandExecutor executor, Path toolsDir, String checkstyleUrl) {
@@ -45,8 +46,8 @@ public class RepositoryWorker {
     /**
      * Clones a git repository to the specified work directory.
      *
-     * @param url repository URL
-     * @param branch branch name to clone
+     * @param url     repository URL
+     * @param branch  branch name to clone
      * @param workDir target directory for the clone
      * @return true if clone succeeded, false otherwise
      * @throws IOException if can't create repository dir
@@ -119,10 +120,10 @@ public class RepositoryWorker {
         final boolean[] hasWarnings = {false};
         boolean checkstyleExecuted = executor.execute(taskDir, cmd, "style",
                 line -> {
-            if (line.contains("[WARN]") || line.contains("[ERROR]")) {
-                hasWarnings[0] = true;
-            }
-        });
+                    if (line.contains("[WARN]") || line.contains("[ERROR]")) {
+                        hasWarnings[0] = true;
+                    }
+                });
         return checkstyleExecuted && !hasWarnings[0];
     }
 
@@ -139,7 +140,7 @@ public class RepositoryWorker {
      * Runs project tests and parses results.
      *
      * @return TestResults with passed/failed/skipped counts, or error result on failure
-     * @throws IOException if test results dir not found
+     * @throws IOException               if test results dir not found
      * @throws TestResultsParseException if there is an exception in parsing process
      */
     public TestResults runTests() throws IOException {
@@ -191,7 +192,7 @@ public class RepositoryWorker {
      *
      * @param dir directory containing test result XML files
      * @return aggregated TestResults
-     * @throws IOException if test results dir not found
+     * @throws IOException               if test results dir not found
      * @throws TestResultsParseException if there is an exception in parsing process
      */
     private TestResults parseXml(Path dir) throws IOException {
