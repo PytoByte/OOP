@@ -236,11 +236,14 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="execute(java.util.List)">
 <h3>execute</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../model/CheckResult.html" title="class in model">CheckResult</a>&gt;</span>&nbsp;<span class="element-name">execute</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../model/CheckAssignment.html" title="class in model">CheckAssignment</a>&gt;&nbsp;checkAssignments)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../model/CheckResult.html" title="class in model">CheckResult</a>&gt;</span>&nbsp;<span class="element-name">execute</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../model/CheckAssignment.html" title="class in model">CheckAssignment</a>&gt;&nbsp;checkAssignments)</span>
+                          throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></span></div>
 <div class="block">Main method for execution many check assignments.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>checkAssignments</code> - list of check assignments</dd>
+<dt>Throws:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></code> - if cleanup temp files or create temp dirs failed</dd>
 </dl>
 </section>
 </li>

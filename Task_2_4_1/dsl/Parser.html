@@ -151,7 +151,9 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="parse(java.io.File,services.CheckAssignmentBuilder)">
 <h3>parse</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../model/CheckAssignment.html" title="class in model">CheckAssignment</a>&gt;</span>&nbsp;<span class="element-name">parse</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/File.html" title="class or interface in java.io" class="external-link">File</a>&nbsp;file,
- <a href="../services/CheckAssignmentBuilder.html" title="class in services">CheckAssignmentBuilder</a>&nbsp;builder)</span></div>
+ <a href="../services/CheckAssignmentBuilder.html" title="class in services">CheckAssignmentBuilder</a>&nbsp;builder)</span>
+                                   throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a>,
+org.codehaus.groovy.control.CompilationFailedException</span></div>
 <div class="block">Parses a configuration file using the provided builder.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -160,20 +162,27 @@ loadScripts(document, 'script');</script>
 <dt>Returns:</dt>
 <dd>list of CheckAssignment objects built from the script</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/RuntimeException.html" title="class or interface in java.lang" class="external-link">RuntimeException</a></code> - if an I/O error occurs during script evaluation</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></code> - if can't access the script file</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/FileNotFoundException.html" title="class or interface in java.io" class="external-link">FileNotFoundException</a></code> - if file not fount</dd>
+<dd><code>org.codehaus.groovy.control.CompilationFailedException</code> - if script compilation failed</dd>
 </dl>
 </section>
 </li>
 <li>
 <section class="detail" id="parse(java.io.File)">
 <h3>parse</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../model/CheckAssignment.html" title="class in model">CheckAssignment</a>&gt;</span>&nbsp;<span class="element-name">parse</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/File.html" title="class or interface in java.io" class="external-link">File</a>&nbsp;file)</span></div>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../model/CheckAssignment.html" title="class in model">CheckAssignment</a>&gt;</span>&nbsp;<span class="element-name">parse</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/File.html" title="class or interface in java.io" class="external-link">File</a>&nbsp;file)</span>
+                                   throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a>,
+org.codehaus.groovy.control.CompilationFailedException</span></div>
 <div class="block">Parses a configuration file with a new builder instance.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>file</code> - the configuration file to parse</dd>
 <dt>Returns:</dt>
 <dd>list of CheckAssignment objects built from the script</dd>
+<dt>Throws:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></code> - if file not found</dd>
+<dd><code>org.codehaus.groovy.control.CompilationFailedException</code> - if script compilation failed</dd>
 </dl>
 </section>
 </li>
