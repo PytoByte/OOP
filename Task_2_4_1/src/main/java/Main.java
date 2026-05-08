@@ -1,5 +1,6 @@
 import dsl.Parser;
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import model.CheckAssignment;
 import model.CheckResult;
@@ -29,14 +30,24 @@ public class Main {
             return;
         }
 
-        List<CheckAssignment> checkAssignments = Parser.parse(script);
+        List<CheckAssignment> checkAssignments;
+        try {
+            checkAssignments = Parser.parse(script);
+        } catch (Exception e) {
+            System.err.println("Script parsing failed: " + e.getMessage());
+            return;
+        }
 
         Executor executor = new Executor(new RealCommandExecutor());
         List<CheckResult> results = executor.execute(checkAssignments);
 
         File reportFile = new File("report.html");
-        ReportGenerator.writeHtml(results, reportFile);
-
-        System.out.println("Report saved at: " + reportFile.getAbsolutePath());
+        try {
+            ReportGenerator.writeHtml(results, reportFile);
+            System.out.println("Report saved at: " + reportFile.getAbsolutePath());
+        } catch (IOException e) {
+            System.err.println("Report save failed: " + reportFile.getAbsolutePath());
+            System.err.println("Cause: " + e.getMessage());
+        }
     }
 }

@@ -15,6 +15,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import model.CommandExecutor;
 import model.TestResults;
+import model.TestResultsParseException;
 import org.w3c.dom.Element;
 
 /**
@@ -48,22 +49,22 @@ public class RepositoryWorker {
      * @param branch branch name to clone
      * @param workDir target directory for the clone
      * @return true if clone succeeded, false otherwise
+     * @throws IOException if can't create repository dir
      */
-    public boolean cloneRepository(String url, String branch, Path workDir) {
+    public boolean cloneRepository(String url, String branch, Path workDir) throws IOException {
         this.repoRoot = workDir.toAbsolutePath();
-        try {
-            if (Files.exists(repoRoot)) {
-                return true;
-            }
-            Files.createDirectories(repoRoot);
-            return executor.execute(
-                    repoRoot,
-                    List.of("git", "clone", "--branch", branch, url, "."),
-                    "git"
-            );
-        } catch (IOException e) {
-            return false;
+
+        if (Files.exists(repoRoot)) {
+            return true;
         }
+
+        Files.createDirectories(repoRoot);
+
+        return executor.execute(
+                repoRoot,
+                List.of("git", "clone", "--branch", branch, url, "."),
+                "git"
+        );
     }
 
     /**
@@ -97,34 +98,32 @@ public class RepositoryWorker {
      * Runs Checkstyle code style validation.
      *
      * @return true if no warnings or errors found, false otherwise
+     * @throws IOException if checkstyleJar or checkstyleXml not found
      */
-    public boolean checkCodeStyle() {
-        try {
-            Path checkstyleJar = prepareCheckstyleJar();
-            Path checkstyleXml = prepareCheckstyleXml();
-            Path src = taskDir.resolve("src");
-            String targetPath = Files.exists(src) ? src.toString() : taskDir.toString();
+    public boolean checkCodeStyle() throws IOException {
+        Path checkstyleJar = prepareCheckstyleJar();
+        Path checkstyleXml = prepareCheckstyleXml();
+        Path src = taskDir.resolve("src");
+        String targetPath = Files.exists(src) ? src.toString() : taskDir.toString();
 
-            List<String> cmd = List.of(
-                    "java",
-                    "-Duser.language=en",
-                    "-jar",
-                    checkstyleJar.toAbsolutePath().toString(),
-                    "-c",
-                    checkstyleXml.toAbsolutePath().toString(),
-                    targetPath
-            );
+        List<String> cmd = List.of(
+                "java",
+                "-Duser.language=en",
+                "-jar",
+                checkstyleJar.toAbsolutePath().toString(),
+                "-c",
+                checkstyleXml.toAbsolutePath().toString(),
+                targetPath
+        );
 
-            final boolean[] failed = {false};
-            boolean ok = executor.execute(taskDir, cmd, "style", line -> {
-                if (line.contains("[WARN]") || line.contains("[ERROR]")) {
-                    failed[0] = true;
-                }
-            });
-            return ok && !failed[0];
-        } catch (IOException e) {
-            return false;
-        }
+        final boolean[] hasWarnings = {false};
+        boolean checkstyleExecuted = executor.execute(taskDir, cmd, "style",
+                line -> {
+            if (line.contains("[WARN]") || line.contains("[ERROR]")) {
+                hasWarnings[0] = true;
+            }
+        });
+        return checkstyleExecuted && !hasWarnings[0];
     }
 
     /**
@@ -140,8 +139,10 @@ public class RepositoryWorker {
      * Runs project tests and parses results.
      *
      * @return TestResults with passed/failed/skipped counts, or error result on failure
+     * @throws IOException if test results dir not found
+     * @throws TestResultsParseException if there is an exception in parsing process
      */
-    public TestResults runTests() {
+    public TestResults runTests() throws IOException {
         if (!runGradle("test")) {
             return TestResults.error();
         }
@@ -189,11 +190,15 @@ public class RepositoryWorker {
      * Parses JUnit XML test results from the specified directory.
      *
      * @param dir directory containing test result XML files
-     * @return aggregated TestResults, or error result on failure
+     * @return aggregated TestResults
+     * @throws IOException if test results dir not found
+     * @throws TestResultsParseException if there is an exception in parsing process
      */
-    private TestResults parseXml(Path dir) {
+    private TestResults parseXml(Path dir) throws IOException {
         if (!Files.exists(dir)) {
-            return TestResults.error();
+            throw new IOException(
+                    String.format("Test results dir not found: %s", dir.toAbsolutePath())
+            );
         }
         try (var stream = Files.list(dir)) {
             int passedTotal = 0;
@@ -212,7 +217,9 @@ public class RepositoryWorker {
             }
             return new TestResults(passedTotal, failedTotal, skippedTotal);
         } catch (Exception e) {
-            return TestResults.error();
+            throw new TestResultsParseException(
+                    String.format("Failed to parse test results %s", dir.toAbsolutePath()), e
+            );
         }
     }
 
@@ -220,7 +227,7 @@ public class RepositoryWorker {
      * Downloads checkstyle jar if not already present.
      *
      * @return path to the checkstyle jar file
-     * @throws IOException if download fails
+     * @throws IOException if download fails or tools dir can't be created
      */
     private Path prepareCheckstyleJar() throws IOException {
         Files.createDirectories(toolsDir);
@@ -228,6 +235,8 @@ public class RepositoryWorker {
         if (!Files.exists(checkstyleJar)) {
             try (InputStream in = URI.create(checkstyleUrl).toURL().openStream()) {
                 Files.copy(in, checkstyleJar, StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException e) {
+                throw new IOException(String.format("Download failed %s", checkstyleUrl), e);
             }
         }
         return checkstyleJar;
@@ -244,7 +253,9 @@ public class RepositoryWorker {
         if (!Files.exists(checkstyleXml)) {
             try (InputStream in = getClass().getResourceAsStream("/google_checks.xml")) {
                 if (in == null) {
-                    throw new IOException("checkstyle.xml not found");
+                    throw new IOException(
+                            String.format("File not found: %s", checkstyleXml.toAbsolutePath())
+                    );
                 }
                 Files.copy(in, checkstyleXml, StandardCopyOption.REPLACE_EXISTING);
             }

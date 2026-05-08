@@ -108,8 +108,13 @@ public class Executor {
 
         RepositoryWorker worker = new RepositoryWorker(commandExecutor, toolsDir, checkstyleUrl);
 
-        if (!worker.cloneRepository(repoUrl, "main", studentRepoPath)) {
-            logger.info("Check assignment ended with failed download");
+        try {
+            if (!worker.cloneRepository(repoUrl, "main", studentRepoPath)) {
+                logger.info("Check assignment ended with failed download");
+                return CheckResult.failedDownload(checkAssignment);
+            }
+        } catch (Exception e) {
+            logger.info("Check assignment ended with exception: %s", e.getMessage());
             return CheckResult.failedDownload(checkAssignment);
         }
 
@@ -121,9 +126,20 @@ public class Executor {
 
         boolean isCompiled = worker.compileProject();
         boolean docsOk = worker.generateDocumentation();
-        boolean styleOk = worker.checkCodeStyle();
 
-        TestResults testResults = worker.runTests();
+        boolean styleOk = false;
+        try {
+            styleOk = worker.checkCodeStyle();
+        } catch (Exception e) {
+            logger.info("Check style failed with exception %s", e.getMessage());
+        }
+
+        TestResults testResults = null;
+        try {
+            testResults = worker.runTests();
+        } catch (Exception e) {
+            logger.info("Run tests failed with exception %s", e.getMessage());
+        }
 
         float points = checkAssignment.task().basePoints();
         for (Checkpoint checkpoint : checkAssignment.task().checkpoints()) {

@@ -21,7 +21,7 @@ public class ReportGenerator {
      * @param result list of task check results
      * @param reportFile file where report will be written
      */
-    public static void writeHtml(List<CheckResult> result, File reportFile) {
+    public static void writeHtml(List<CheckResult> result, File reportFile) throws IOException {
         try (PrintWriter out = new PrintWriter(reportFile, StandardCharsets.UTF_8)) {
             out.println("<html><head><meta charset='UTF-8'>");
             out.println("<style>table{border-collapse:collapse;} "
@@ -50,7 +50,9 @@ public class ReportGenerator {
 
             out.println("</table></body></html>");
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new IOException(
+                    String.format("Can't create report file %s", reportFile.getAbsolutePath()), e
+            );
         }
     }
 

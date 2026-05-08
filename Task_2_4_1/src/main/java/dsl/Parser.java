@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import model.CheckAssignment;
+import org.codehaus.groovy.control.CompilationFailedException;
 import org.codehaus.groovy.control.CompilerConfiguration;
 import services.CheckAssignmentBuilder;
 
@@ -20,9 +21,11 @@ public class Parser {
      * @param file the configuration file to parse
      * @param builder the builder instance for constructing the model
      * @return list of CheckAssignment objects built from the script
-     * @throws RuntimeException if an I/O error occurs during script evaluation
+     * @throws IOException if file not found
+     * @throws CompilationFailedException if script compilation failed
      */
-    public static List<CheckAssignment> parse(File file, CheckAssignmentBuilder builder) {
+    public static List<CheckAssignment> parse(File file, CheckAssignmentBuilder builder)
+            throws IOException, CompilationFailedException {
         CompilerConfiguration config = new CompilerConfiguration();
         config.setScriptBaseClass(BaseConfigScript.class.getName());
 
@@ -30,11 +33,7 @@ public class Parser {
         b.setVariable("builder", builder);
 
         GroovyShell shell = new GroovyShell(b, config);
-        try {
-            shell.evaluate(file);
-        } catch (IOException e) {
-            throw new RuntimeException("Script error", e);
-        }
+        shell.evaluate(file);
         return builder.getCheckAssignments();
     }
 
@@ -43,8 +42,11 @@ public class Parser {
      *
      * @param file the configuration file to parse
      * @return list of CheckAssignment objects built from the script
+     * @throws IOException if file not found
+     * @throws CompilationFailedException if script compilation failed
      */
-    public static List<CheckAssignment> parse(File file) {
+    public static List<CheckAssignment> parse(File file)
+            throws IOException, CompilationFailedException {
         return parse(file, new CheckAssignmentBuilder());
     }
 }

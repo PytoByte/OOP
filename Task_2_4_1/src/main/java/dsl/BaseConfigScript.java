@@ -6,6 +6,7 @@ import context.TaskContext;
 import groovy.lang.Closure;
 import groovy.lang.Script;
 import java.io.File;
+import java.io.IOException;
 import services.CheckAssignmentBuilder;
 
 /**
@@ -26,7 +27,7 @@ public abstract class BaseConfigScript extends Script {
      *
      * @param name the path to the configuration file, for example script/tasks_base.groovy
      */
-    public void importConfig(String name) {
+    public void importConfig(String name) throws IOException {
         Parser.parse(new File(name), builder());
     }
 
