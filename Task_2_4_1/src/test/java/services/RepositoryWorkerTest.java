@@ -3,6 +3,7 @@ package services;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.time.OffsetDateTime;
 import java.util.List;
 import mock.ExecutorMock;
 import model.TestResults;
+import model.TestResultsParseException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -121,5 +123,21 @@ class RepositoryWorkerTest {
         worker.setTask(taskId);
 
         return taskPath;
+    }
+
+    @Test
+    void testRunTestsThrowsParseExceptionOnBrokenXml() throws IOException {
+        Path taskPath = setupTaskContext("Task_Error");
+        Path xmlDir = taskPath.resolve("build/test-results/test");
+        Files.createDirectories(xmlDir);
+
+        String brokenXml = "<testsuite tests='TEN' failures='0' errors='0' skipped='0' />";
+        Files.writeString(xmlDir.resolve("broken.xml"), brokenXml);
+
+        executorMock.nextResult = true;
+
+        assertThrows(TestResultsParseException.class, () -> {
+            worker.runTests();
+        });
     }
 }
