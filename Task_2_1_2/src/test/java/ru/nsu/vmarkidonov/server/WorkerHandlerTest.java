@@ -352,4 +352,85 @@ class WorkerHandlerTest {
             }
         }
     }
+
+    @Test
+    void testProtocolViolationOnStatus() throws Exception {
+        TaskManager taskManager = new TaskManager();
+        try (ServerSocket ss = new ServerSocket(0)) {
+            int port = ss.getLocalPort();
+            Thread client = new Thread(() -> {
+                try (Socket s = new Socket("localhost", port);
+                     DataInputStream in = new DataInputStream(s.getInputStream());
+                     DataOutputStream out = new DataOutputStream(s.getOutputStream())) {
+                    assertEquals(Protocol.STATUS.ordinal(), in.readInt());
+                    out.writeInt(999);
+                    out.flush();
+                } catch (Exception e) {
+                    fail(e);
+                }
+            });
+            client.start();
+            try (Socket accepted = ss.accept()) {
+                WorkerHandler handler = new WorkerHandler(accepted, taskManager, 0); // Пинг срабатывает сразу
+                handler.run();
+            }
+        }
+    }
+
+    @Test
+    void testProtocolViolationOnTaskAccept() throws Exception {
+        TaskManager taskManager = new TaskManager();
+        taskManager.submitBatch(new long[][]{{1L}});
+        try (ServerSocket ss = new ServerSocket(0)) {
+            int port = ss.getLocalPort();
+            Thread client = new Thread(() -> {
+                try (Socket s = new Socket("localhost", port);
+                     DataInputStream in = new DataInputStream(s.getInputStream());
+                     DataOutputStream out = new DataOutputStream(s.getOutputStream())) {
+                    in.readInt();
+                    in.readInt();
+                    in.readLong();
+                    out.writeInt(999);
+                    out.flush();
+                } catch (Exception e) {
+                    fail(e);
+                }
+            });
+            client.start();
+            try (Socket accepted = ss.accept()) {
+                WorkerHandler handler = new WorkerHandler(accepted, taskManager, 10000);
+                handler.run();
+            }
+        }
+    }
+
+    @Test
+    void testStopSignalSentWhenCompositeFound() throws Exception {
+        TaskManager taskManager = new TaskManager();
+        taskManager.submitBatch(new long[][]{{1L}});
+        try (ServerSocket ss = new ServerSocket(0)) {
+            int port = ss.getLocalPort();
+            Thread client = new Thread(() -> {
+                try (Socket s = new Socket("localhost", port);
+                     DataInputStream in = new DataInputStream(s.getInputStream())) {
+                    in.readInt();
+                    Thread.sleep(500);
+                } catch (Exception e) {
+                    fail(e);
+                }
+            });
+            client.start();
+            try (Socket accepted = ss.accept()) {
+                WorkerHandler handler = new WorkerHandler(accepted, taskManager, 10000);
+                Thread handlerThread = new Thread(handler);
+                handlerThread.start();
+
+                Thread.sleep(100);
+                taskManager.taskFinished(true);
+                Thread.sleep(500);
+                handler.stop();
+                handlerThread.join(1000);
+            }
+        }
+    }
 }
