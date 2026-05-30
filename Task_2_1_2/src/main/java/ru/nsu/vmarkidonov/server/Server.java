@@ -122,7 +122,7 @@ public class Server {
     }
 
     /**
-     * Прекращает отправку UDP-анонсов, закрывает серверный сокет и останавливает все сессии воркеров.
+     * Остановка сервера и закрытие сокетов воркеров.
      */
     public void stop() {
         isRunning = false;
@@ -137,7 +137,7 @@ public class Server {
             try {
                 serverSocket.close();
             } catch (IOException ignored) {
-
+                System.out.println("Игнорирование IO ошибки закрытия сокета сервера");
             }
         }
 

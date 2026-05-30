@@ -3,6 +3,7 @@ package ru.nsu.vmarkidonov.worker;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -30,7 +31,8 @@ class ServerLocatorTest {
                 );
                 Thread.sleep(100);
                 socket.send(packet);
-            } catch (Exception ignored) {
+            } catch (Exception e) {
+                fail(e);
             }
         });
         senderThread.start();
@@ -58,7 +60,8 @@ class ServerLocatorTest {
                 );
                 Thread.sleep(100);
                 socket.send(packet);
-            } catch (Exception ignored) {
+            } catch (Exception e) {
+                fail(e);
             }
         });
         senderThread.start();
@@ -67,7 +70,8 @@ class ServerLocatorTest {
 
         try {
             senderThread.join();
-        } catch (InterruptedException ignored) {
+        } catch (InterruptedException e) {
+            fail(e);
         }
     }
 
@@ -86,7 +90,8 @@ class ServerLocatorTest {
                 );
                 Thread.sleep(100);
                 socket.send(packet);
-            } catch (Exception ignored) {
+            } catch (Exception e) {
+                fail(e);
             }
         });
         senderThread.start();
@@ -95,7 +100,8 @@ class ServerLocatorTest {
 
         try {
             senderThread.join();
-        } catch (InterruptedException ignored) {
+        } catch (InterruptedException e) {
+            fail(e);
         }
     }
 

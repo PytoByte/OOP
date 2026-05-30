@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.net.ServerSocket;
 import java.net.Socket;
-
 import org.junit.jupiter.api.Test;
 import ru.nsu.vmarkidonov.Protocol;
 

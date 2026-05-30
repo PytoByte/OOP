@@ -40,7 +40,8 @@ class WorkerTest {
                     );
                     Thread.sleep(200);
                     ds.send(packet);
-                } catch (Exception _) {
+                } catch (Exception e) {
+                    fail(e);
                 }
             });
             broadcaster.start();

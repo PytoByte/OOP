@@ -206,8 +206,9 @@ public class Worker implements Runnable {
                 out.writeBoolean(hasComposite);
                 out.flush();
             }
-        } catch (Exception ignored) {
-
+        } catch (Exception e) {
+            System.err.println("Ошибка IO при ответе серверу на задачу " + e);
+            stop();
         }
     }
 
@@ -221,7 +222,7 @@ public class Worker implements Runnable {
             try {
                 currentSocket.close();
             } catch (IOException ignored) {
-
+                System.out.println("Игнорирование ошибки закрытия серверного сокета");
             }
         }
     }

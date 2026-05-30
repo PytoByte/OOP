@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -90,7 +91,8 @@ class TaskManagerTest {
             try {
                 manager.waitForCompletion();
                 latch.countDown();
-            } catch (InterruptedException ignored) {
+            } catch (InterruptedException e) {
+                fail(e);
             }
         });
         waiterThread.start();

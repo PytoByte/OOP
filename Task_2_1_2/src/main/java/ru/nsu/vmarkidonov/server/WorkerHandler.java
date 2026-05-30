@@ -44,12 +44,8 @@ public class WorkerHandler implements Runnable {
 
             while (!socket.isClosed() && !Thread.currentThread().isInterrupted()) {
                 if (taskManager.isFoundComposite() && isBusy && currentTask != null) {
-                    try {
-                        out.writeInt(Protocol.STOP.ordinal());
-                        out.flush();
-                    } catch (IOException ignored) {
-
-                    }
+                    out.writeInt(Protocol.STOP.ordinal());
+                    out.flush();
                 }
 
                 if (!isBusy) {
@@ -130,7 +126,7 @@ public class WorkerHandler implements Runnable {
             try {
                 socket.close();
             } catch (IOException ignored) {
-
+                System.out.println("Игнорирование IO ошибки закрытия сокета воркера");
             }
         }
     }

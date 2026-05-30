@@ -11,7 +11,6 @@ import java.io.DataOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.atomic.AtomicReference;
-
 import org.junit.jupiter.api.Test;
 import ru.nsu.vmarkidonov.Protocol;
 
@@ -75,7 +74,10 @@ class WorkerHandlerTest {
                 }
 
                 long start = System.currentTimeMillis();
-                while (taskManager.hasActiveBatch() && (System.currentTimeMillis() - start < 2000)) {
+                while (
+                        taskManager.hasActiveBatch()
+                                && (System.currentTimeMillis() - start < 2000)
+                ) {
                     Thread.sleep(50);
                 }
 
