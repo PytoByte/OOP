@@ -11,6 +11,10 @@ import ru.nsu.vmarkidonov.Protocol;
  * Обработчик сетевой сессии отдельного вычислительного узла (воркера) на стороне сервера.
  */
 public class WorkerHandler implements Runnable {
+    private static final int DEFAULT_SO_TIMEOUT_MS = 1000;
+    private static final int HANDSHAKE_TIMEOUT_MS = 5000;
+    private static final int IDLE_POLLING_INTERVAL_MS = 200;
+
     private final Socket socket;
     private final TaskManager taskManager;
     private final int pingIntervalMs;
@@ -39,7 +43,7 @@ public class WorkerHandler implements Runnable {
                 DataInputStream in = new DataInputStream(socket.getInputStream());
                 DataOutputStream out = new DataOutputStream(socket.getOutputStream())
         ) {
-            socket.setSoTimeout(1000);
+            socket.setSoTimeout(DEFAULT_SO_TIMEOUT_MS);
             long lastActivityTime = System.currentTimeMillis();
 
             while (!socket.isClosed() && !Thread.currentThread().isInterrupted()) {
@@ -52,20 +56,16 @@ public class WorkerHandler implements Runnable {
                     if (taskManager.hasActiveBatch()) {
                         currentTask = taskManager.getNextTask();
                         if (currentTask != null) {
-                            out.writeInt(Protocol.TASK.ordinal());
-                            out.writeInt(currentTask.length);
-                            for (long num : currentTask) {
-                                out.writeLong(num);
-                            }
+                            out.write(new TaskMessage(currentTask).toByteArray());
                             out.flush();
 
-                            socket.setSoTimeout(5000);
+                            socket.setSoTimeout(HANDSHAKE_TIMEOUT_MS);
                             if (Protocol.fromOrdinal(in.readInt()) != Protocol.ACCEPT) {
                                 throw new IOException("Нарушение протокола: ожидался ACCEPT");
                             }
                             isBusy = true;
                             lastActivityTime = System.currentTimeMillis();
-                            socket.setSoTimeout(1000);
+                            socket.setSoTimeout(DEFAULT_SO_TIMEOUT_MS);
                             continue;
                         }
                     }
@@ -73,14 +73,14 @@ public class WorkerHandler implements Runnable {
                     if (System.currentTimeMillis() - lastActivityTime > pingIntervalMs) {
                         out.writeInt(Protocol.STATUS.ordinal());
                         out.flush();
-                        socket.setSoTimeout(5000);
+                        socket.setSoTimeout(HANDSHAKE_TIMEOUT_MS);
                         if (Protocol.fromOrdinal(in.readInt()) != Protocol.OK) {
                             throw new IOException("Нарушение протокола: ожидался OK");
                         }
                         lastActivityTime = System.currentTimeMillis();
-                        socket.setSoTimeout(1000);
+                        socket.setSoTimeout(DEFAULT_SO_TIMEOUT_MS);
                     } else {
-                        Thread.sleep(200);
+                        Thread.sleep(IDLE_POLLING_INTERVAL_MS);
                     }
                 } else {
                     try {
