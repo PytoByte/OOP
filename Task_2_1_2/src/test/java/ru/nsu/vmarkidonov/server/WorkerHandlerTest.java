@@ -371,7 +371,7 @@ class WorkerHandlerTest {
             });
             client.start();
             try (Socket accepted = ss.accept()) {
-                WorkerHandler handler = new WorkerHandler(accepted, taskManager, 0); // Пинг срабатывает сразу
+                WorkerHandler handler = new WorkerHandler(accepted, taskManager, 0);
                 handler.run();
             }
         }
