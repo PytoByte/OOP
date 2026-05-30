@@ -1,6 +1,7 @@
 package ru.nsu.vmarkidonov;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
 import org.junit.jupiter.api.Test;
@@ -33,5 +34,30 @@ class MainTest {
     @Test
     void testMainWithInvalidArgs() throws Exception {
         Main.main(new String[]{"invalid"});
+    }
+
+    @Test
+    void testMainModes() throws Exception {
+        Thread serverThread = new Thread(() -> {
+            try {
+                Main.main(new String[]{"server"});
+            } catch (Exception e) {
+                fail(e);
+            }
+        });
+        serverThread.start();
+        Thread.sleep(500);
+        serverThread.interrupt();
+
+        Thread workerThread = new Thread(() -> {
+            try {
+                Main.main(new String[]{"worker"});
+            } catch (Exception e) {
+                fail(e);
+            }
+        });
+        workerThread.start();
+        Thread.sleep(500);
+        workerThread.interrupt();
     }
 }

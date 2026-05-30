@@ -3,6 +3,7 @@ package ru.nsu.vmarkidonov.server;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -69,9 +70,7 @@ class WorkerHandlerTest {
 
                 clientThread.join(2000);
 
-                if (threadException.get() != null) {
-                    fail("Ошибка в фоновом потоке воркера", threadException.get());
-                }
+                assertNull(threadException.get());
 
                 long start = System.currentTimeMillis();
                 while (
@@ -127,9 +126,7 @@ class WorkerHandlerTest {
 
                 clientThread.join(2000);
 
-                if (threadException.get() != null) {
-                    fail("Ошибка в фоновом потоке воркера", threadException.get());
-                }
+                assertNull(threadException.get());
 
                 handler.stop();
                 handlerThread.join(1000);
@@ -190,9 +187,7 @@ class WorkerHandlerTest {
 
                 clientThread.join(2000);
 
-                if (threadException.get() != null) {
-                    fail("Ошибка в фоновом потоке воркера", threadException.get());
-                }
+                assertNull(threadException.get());
 
                 handler.stop();
                 handlerThread.join(1000);
@@ -259,5 +254,29 @@ class WorkerHandlerTest {
             }
         }
         assertTrue(taskManager.hasActiveBatch());
+    }
+
+    @Test
+    void testHandlerInterruption() throws Exception {
+        TaskManager taskManager = new TaskManager();
+        try (ServerSocket ss = new ServerSocket(0)) {
+            Thread t = new Thread(() -> {
+                try (Socket s = new Socket("localhost", ss.getLocalPort())) {
+                    s.getInputStream().read();
+                } catch (Exception e) {
+                    fail(e);
+                }
+            });
+            t.start();
+
+            try (Socket accepted = ss.accept()) {
+                WorkerHandler handler = new WorkerHandler(accepted, taskManager, 100);
+                Thread handlerThread = new Thread(handler);
+                handlerThread.start();
+
+                handlerThread.interrupt();
+                handlerThread.join(1000);
+            }
+        }
     }
 }
