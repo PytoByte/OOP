@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"ru.nsu.vmarkidonov"},{"l":"ru.nsu.vmarkidonov.server"},{"l":"ru.nsu.vmarkidonov.worker"}];updateSearchResults();
