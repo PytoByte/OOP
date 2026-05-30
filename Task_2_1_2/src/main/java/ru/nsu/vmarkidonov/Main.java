@@ -31,17 +31,14 @@ public class Main {
         } else if (args.length > 0 && args[0].equalsIgnoreCase("worker")) {
             startWorker();
         } else if (args.length > 0 && args[0].equalsIgnoreCase("test")) {
-            Server server = startServer();
-            Thread.sleep(1000);
-
             int workerCount = 2;
             Worker[] workers = new Worker[workerCount];
             System.out.println("Запуск " + workerCount + " вычислительных воркеров...");
             for (int i = 0; i < workerCount; i++) {
                 workers[i] = startWorker();
             }
-            Thread.sleep(1000);
-
+            Server server = startServer();
+            Thread.sleep(3000);
             runTests(server);
 
             System.out.println("\nТесты завершены. Остановка фоновых служб...");
@@ -103,8 +100,7 @@ public class Main {
         long[] firstBatch = {6, 8, 7, 13, 5, 9, 4};
         long[] secondBatch = {
                 20319251, 6997901, 6997927, 6997937, 17858849,
-                6997967, 6998009, 6998029, 6998039, 20165149,
-                6998051, 6998053
+                6997967, 6998009, 6998029, 6998039, 20165149, 6998051, 6998053
         };
 
         System.out.println("\n--- ТЕСТ ПАКЕТА №1 ---");

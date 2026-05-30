@@ -6,7 +6,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 
 /**
- * Служба широковещательного UDP-оповещения узлов-воркеров о присутствии и сетевых параметрах сервера.
+ * Служба широковещательного UDP-оповещения воркеров о присутствии и сетевых параметрах сервера.
  */
 public class ServerAnnouncer implements Runnable {
     private static final String BROADCAST_IP = "255.255.255.255";
@@ -54,7 +54,7 @@ public class ServerAnnouncer implements Runnable {
             if (active) {
                 System.err.println("Ошибка вещания сервера: " + e.getMessage());
             }
-        } catch (InterruptedException _) {
+        } catch (InterruptedException ignored) {
             Thread.currentThread().interrupt();
         } finally {
             active = false;

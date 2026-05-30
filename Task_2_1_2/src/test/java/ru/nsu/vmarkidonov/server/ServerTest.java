@@ -4,12 +4,15 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.net.ServerSocket;
 import java.net.Socket;
+
 import org.junit.jupiter.api.Test;
 import ru.nsu.vmarkidonov.Protocol;
 
@@ -34,46 +37,48 @@ class ServerTest {
         Thread workerSim = new Thread(() -> {
             try {
                 Thread.sleep(100);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
 
-                try (Socket socket = new Socket("localhost", port);
-                     DataInputStream in = new DataInputStream(socket.getInputStream());
-                     DataOutputStream out = new DataOutputStream(socket.getOutputStream())
-                ) {
+            try (Socket socket = new Socket("localhost", port);
+                 DataInputStream in = new DataInputStream(socket.getInputStream());
+                 DataOutputStream out = new DataOutputStream(socket.getOutputStream())
+            ) {
 
-                    assertEquals(Protocol.TASK.ordinal(), in.readInt());
-                    int length1 = in.readInt();
-                    assertEquals(2, length1);
+                assertEquals(Protocol.TASK.ordinal(), in.readInt());
+                int length1 = in.readInt();
+                assertEquals(2, length1);
 
-                    long[] chunk1 = new long[length1];
-                    for (int i = 0; i < length1; i++) {
-                        chunk1[i] = in.readLong();
-                    }
-                    assertArrayEquals(new long[]{3L, 5L}, chunk1);
-
-                    out.writeInt(Protocol.ACCEPT.ordinal());
-                    out.flush();
-                    out.writeInt(Protocol.RESULT.ordinal());
-                    out.writeBoolean(false);
-                    out.flush();
-
-                    assertEquals(Protocol.TASK.ordinal(), in.readInt());
-                    int length2 = in.readInt();
-                    assertEquals(1, length2);
-
-                    long[] chunk2 = new long[length2];
-                    for (int i = 0; i < length2; i++) {
-                        chunk2[i] = in.readLong();
-                    }
-                    assertArrayEquals(new long[]{7L}, chunk2);
-
-                    out.writeInt(Protocol.ACCEPT.ordinal());
-                    out.flush();
-                    out.writeInt(Protocol.RESULT.ordinal());
-                    out.writeBoolean(false);
-                    out.flush();
+                long[] chunk1 = new long[length1];
+                for (int i = 0; i < length1; i++) {
+                    chunk1[i] = in.readLong();
                 }
-            } catch (Exception _) {
+                assertArrayEquals(new long[]{3L, 5L}, chunk1);
 
+                out.writeInt(Protocol.ACCEPT.ordinal());
+                out.flush();
+                out.writeInt(Protocol.RESULT.ordinal());
+                out.writeBoolean(false);
+                out.flush();
+
+                assertEquals(Protocol.TASK.ordinal(), in.readInt());
+                int length2 = in.readInt();
+                assertEquals(1, length2);
+
+                long[] chunk2 = new long[length2];
+                for (int i = 0; i < length2; i++) {
+                    chunk2[i] = in.readLong();
+                }
+                assertArrayEquals(new long[]{7L}, chunk2);
+
+                out.writeInt(Protocol.ACCEPT.ordinal());
+                out.flush();
+                out.writeInt(Protocol.RESULT.ordinal());
+                out.writeBoolean(false);
+                out.flush();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         });
         workerSim.start();
@@ -113,7 +118,8 @@ class ServerTest {
                     out.writeBoolean(true);
                     out.flush();
                 }
-            } catch (Exception ignored) {
+            } catch (Exception e) {
+                fail(e);
             }
         });
         workerSim.start();

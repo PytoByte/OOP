@@ -9,7 +9,7 @@ public class PrimeChecker {
      * Проверяет, является ли заданное число простым.
      *
      * @param n проверяемое число
-     * @return true, если число является простым, и false, если оно составное или меньше либо равно 1
+     * @return true, если число является простым, и false, если оно составное
      */
     public static boolean isPrime(long n) {
         if (n <= 1) {

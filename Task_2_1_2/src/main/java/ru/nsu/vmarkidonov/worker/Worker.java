@@ -56,7 +56,7 @@ public class Worker implements Runnable {
                 System.err.println("Сервер не отозвался. Повтор через 2.5 секунды...");
                 try {
                     Thread.sleep(2500);
-                } catch (InterruptedException _) {
+                } catch (InterruptedException ignored) {
                     Thread.currentThread().interrupt();
                 }
             }
@@ -110,6 +110,10 @@ public class Worker implements Runnable {
                 case STATUS -> sendResponse(out, Protocol.OK);
                 case STOP -> interruptFlag.set(true);
                 case TASK -> handleTask(in, out, interruptFlag);
+                default -> {
+                    System.err.println("Неожиданный ответ сервера: " + flag.name());
+                    stop();
+                }
             }
         }
     }
@@ -202,7 +206,7 @@ public class Worker implements Runnable {
                 out.writeBoolean(hasComposite);
                 out.flush();
             }
-        } catch (Exception _) {
+        } catch (Exception ignored) {
 
         }
     }
@@ -216,7 +220,7 @@ public class Worker implements Runnable {
         if (currentSocket != null) {
             try {
                 currentSocket.close();
-            } catch (IOException _) {
+            } catch (IOException ignored) {
 
             }
         }

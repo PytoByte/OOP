@@ -7,7 +7,8 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Координирующий TCP-сервер для распределенной проверки массивов чисел на наличие составных элементов.
+ * Координирующий TCP-сервер
+ * для распределенной проверки массивов чисел на наличие составных элементов.
  */
 public class Server {
     private final int tcpPort;
@@ -29,7 +30,7 @@ public class Server {
      * @param taskManager менеджер распределения пакетов вычислений и отслеживания результатов
      * @param announcer служба широковещательного UDP-оповещения о присутствии сервера в сети
      * @param chunkSize максимальный размер блока чисел, отправляемого воркеру на проверку
-     * @param pingIntervalMs периодичность проверки доступности подключенных воркеров в миллисекундах
+     * @param pingIntervalMs периодичность проверки доступности воркеров в миллисекундах
      */
     public Server(
             int tcpPort,
@@ -85,7 +86,7 @@ public class Server {
                     }
                 });
                 handlerThread.start();
-            } catch (IOException _) {
+            } catch (IOException ignored) {
                 if (!isRunning) {
                     break;
                 }
@@ -136,6 +137,7 @@ public class Server {
             try {
                 serverSocket.close();
             } catch (IOException ignored) {
+
             }
         }
 

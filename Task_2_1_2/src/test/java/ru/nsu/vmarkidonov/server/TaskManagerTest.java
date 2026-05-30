@@ -47,8 +47,8 @@ class TaskManagerTest {
         long[][] chunks = {{1L}, {2L}};
         manager.submitBatch(chunks);
 
-        long[] t1 = manager.getNextTask();
-        long[] t2 = manager.getNextTask();
+        manager.getNextTask();
+        manager.getNextTask();
 
         manager.taskFinished(false);
         assertTrue(manager.hasActiveBatch());

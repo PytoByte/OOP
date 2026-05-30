@@ -47,7 +47,7 @@ public class WorkerHandler implements Runnable {
                     try {
                         out.writeInt(Protocol.STOP.ordinal());
                         out.flush();
-                    } catch (IOException _) {
+                    } catch (IOException ignored) {
 
                     }
                 }
@@ -98,7 +98,7 @@ public class WorkerHandler implements Runnable {
                         } else {
                             throw new IOException("Нарушение протокола: ожидался RESULT");
                         }
-                    } catch (SocketTimeoutException _) {
+                    } catch (SocketTimeoutException ignored) {
                         if (taskManager.isFoundComposite()) {
                             isBusy = false;
                             currentTask = null;
@@ -106,7 +106,7 @@ public class WorkerHandler implements Runnable {
                     }
                 }
             }
-        } catch (InterruptedException _) {
+        } catch (InterruptedException ignored) {
             Thread.currentThread().interrupt();
         } catch (IOException e) {
             if (!socket.isClosed()) {
@@ -129,7 +129,7 @@ public class WorkerHandler implements Runnable {
         if (socket != null && !socket.isClosed()) {
             try {
                 socket.close();
-            } catch (IOException _) {
+            } catch (IOException ignored) {
 
             }
         }

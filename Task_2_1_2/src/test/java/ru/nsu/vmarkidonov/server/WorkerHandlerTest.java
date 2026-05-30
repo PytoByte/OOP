@@ -11,6 +11,7 @@ import java.io.DataOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.atomic.AtomicReference;
+
 import org.junit.jupiter.api.Test;
 import ru.nsu.vmarkidonov.Protocol;
 
@@ -29,10 +30,14 @@ class WorkerHandlerTest {
 
             Thread clientThread = new Thread(() -> {
                 try {
-                    Thread.sleep(50); // Даем серверу время вызвать accept()
-                    try (Socket clientSocket = new Socket("localhost", port);
-                         DataInputStream in = new DataInputStream(clientSocket.getInputStream());
-                         DataOutputStream out = new DataOutputStream(clientSocket.getOutputStream())) {
+                    Thread.sleep(50);
+                    try (
+                            Socket clientSocket = new Socket("localhost", port);
+                            DataInputStream in = new DataInputStream(clientSocket.getInputStream());
+                            DataOutputStream out = new DataOutputStream(
+                                    clientSocket.getOutputStream()
+                            )
+                    ) {
 
                         if (in.readInt() == Protocol.TASK.ordinal()) {
                             int length = in.readInt();
@@ -94,9 +99,13 @@ class WorkerHandlerTest {
             Thread clientThread = new Thread(() -> {
                 try {
                     Thread.sleep(50);
-                    try (Socket clientSocket = new Socket("localhost", port);
-                         DataInputStream in = new DataInputStream(clientSocket.getInputStream());
-                         DataOutputStream out = new DataOutputStream(clientSocket.getOutputStream())) {
+                    try (
+                            Socket clientSocket = new Socket("localhost", port);
+                            DataInputStream in = new DataInputStream(clientSocket.getInputStream());
+                            DataOutputStream out = new DataOutputStream(
+                                    clientSocket.getOutputStream()
+                            )
+                    ) {
 
                         if (in.readInt() == Protocol.STATUS.ordinal()) {
                             out.writeInt(Protocol.OK.ordinal());
@@ -142,7 +151,8 @@ class WorkerHandlerTest {
                     Thread.sleep(50);
                     try (Socket clientSocket = new Socket("localhost", port);
                          DataInputStream in = new DataInputStream(clientSocket.getInputStream());
-                         DataOutputStream out = new DataOutputStream(clientSocket.getOutputStream())) {
+                         DataOutputStream out = new DataOutputStream(clientSocket.getOutputStream())
+                    ) {
 
                         if (in.readInt() == Protocol.TASK.ordinal()) {
                             int length = in.readInt();
@@ -167,7 +177,10 @@ class WorkerHandlerTest {
                 handlerThread.start();
 
                 long start = System.currentTimeMillis();
-                while (!taskManager.getNextTask().equals(chunks[0]) && (System.currentTimeMillis() - start < 1000)) {
+                while (
+                        !taskManager.getNextTask().equals(chunks[0])
+                                && (System.currentTimeMillis() - start < 1000)
+                ) {
                     Thread.sleep(10);
                 }
 

@@ -3,6 +3,7 @@ package ru.nsu.vmarkidonov.worker;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -103,7 +104,8 @@ class WorkerTest {
                     );
                     Thread.sleep(200);
                     ds.send(packet);
-                } catch (Exception _) {
+                } catch (Exception e) {
+                    fail(e);
                 }
             });
             broadcaster.start();
