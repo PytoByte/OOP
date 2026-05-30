@@ -1,9 +1,9 @@
 package ru.nsu.vmarkidonov.server;
 
-import ru.nsu.vmarkidonov.Protocol;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import ru.nsu.vmarkidonov.Protocol;
 
 public class TaskMessage {
     private final long[] numbers;
