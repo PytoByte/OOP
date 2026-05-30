@@ -246,9 +246,10 @@ class WorkerHandlerTest {
             Thread client = new Thread(() -> {
                 try (Socket s = new Socket("localhost", port)) {
                     DataInputStream in = new DataInputStream(s.getInputStream());
-                    if (in.readInt() == Protocol.TASK.ordinal()) {
-                    }
-                } catch (Exception ignored) {}
+                    assertEquals(Protocol.TASK.ordinal(), in.readInt());
+                } catch (Exception e) {
+                    fail(e);
+                }
             });
             client.start();
 
@@ -303,7 +304,9 @@ class WorkerHandlerTest {
                     out.flush();
                     out.writeInt(999);
                     out.flush();
-                } catch (Exception ignored) {}
+                } catch (Exception e) {
+                    fail(e);
+                }
             });
             client.start();
 
@@ -332,7 +335,9 @@ class WorkerHandlerTest {
                     out.writeInt(Protocol.ACCEPT.ordinal());
                     out.flush();
                     Thread.sleep(2000);
-                } catch (Exception ignored) {}
+                } catch (Exception e) {
+                    fail(e);
+                }
             });
             client.start();
 
