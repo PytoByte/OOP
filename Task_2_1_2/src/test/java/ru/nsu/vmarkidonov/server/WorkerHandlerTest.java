@@ -213,7 +213,11 @@ class WorkerHandlerTest {
             clientThread.start();
 
             try (Socket accepted = serverSocket.accept()) {
-                WorkerHandler handler = new WorkerHandler(accepted, taskManager, 10000);
+                WorkerHandler handler = new WorkerHandler(
+                        accepted,
+                        taskManager,
+                        10000
+                );
                 long[][] chunks = {{1L}};
                 taskManager.submitBatch(chunks);
                 handler.run();
@@ -249,7 +253,11 @@ class WorkerHandlerTest {
             client.start();
 
             try (Socket accepted = ss.accept()) {
-                WorkerHandler handler = new WorkerHandler(accepted, taskManager, 10000);
+                WorkerHandler handler = new WorkerHandler(
+                        accepted,
+                        taskManager,
+                        10000
+                );
                 handler.run();
             }
         }
@@ -276,6 +284,66 @@ class WorkerHandlerTest {
 
                 handlerThread.interrupt();
                 handlerThread.join(1000);
+            }
+        }
+    }
+
+    @Test
+    void testProtocolViolationOnResult() throws Exception {
+        TaskManager taskManager = new TaskManager();
+        long[][] chunks = {{1L}};
+        taskManager.submitBatch(chunks);
+
+        try (ServerSocket ss = new ServerSocket(0)) {
+            int port = ss.getLocalPort();
+            Thread client = new Thread(() -> {
+                try (Socket s = new Socket("localhost", port);
+                     DataOutputStream out = new DataOutputStream(s.getOutputStream())) {
+                    out.writeInt(Protocol.ACCEPT.ordinal());
+                    out.flush();
+                    out.writeInt(999);
+                    out.flush();
+                } catch (Exception ignored) {}
+            });
+            client.start();
+
+            try (Socket accepted = ss.accept()) {
+                WorkerHandler handler = new WorkerHandler(
+                        accepted,
+                        taskManager,
+                        10000
+                );
+                handler.run();
+            }
+        }
+    }
+
+    @Test
+    void testTimeoutWhenBusy() throws Exception {
+        TaskManager taskManager = new TaskManager();
+        long[][] chunks = {{1L}};
+        taskManager.submitBatch(chunks);
+
+        try (ServerSocket ss = new ServerSocket(0)) {
+            int port = ss.getLocalPort();
+            Thread client = new Thread(() -> {
+                try (Socket s = new Socket("localhost", port);
+                     DataOutputStream out = new DataOutputStream(s.getOutputStream())) {
+                    out.writeInt(Protocol.ACCEPT.ordinal());
+                    out.flush();
+                    Thread.sleep(2000);
+                } catch (Exception ignored) {}
+            });
+            client.start();
+
+            try (Socket accepted = ss.accept()) {
+                taskManager.taskFinished(true);
+                WorkerHandler handler = new WorkerHandler(
+                        accepted,
+                        taskManager,
+                        10000
+                );
+                handler.run();
             }
         }
     }

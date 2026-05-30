@@ -3,61 +3,55 @@ package ru.nsu.vmarkidonov;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import java.io.IOException;
 import org.junit.jupiter.api.Test;
 import ru.nsu.vmarkidonov.server.Server;
-import ru.nsu.vmarkidonov.worker.Worker;
 
 class MainTest {
-
     @Test
-    void testStartServerInitialization() throws IOException {
+    void testRunTestsLogic() throws Exception {
         Server server = Main.startServer();
-        server.stop();
+        try {
+            assertTrue(Main.runTests(server));
+        } finally {
+            server.stop();
+        }
     }
 
     @Test
-    void testStartWorkerInitialization() {
-        Worker worker = Main.startWorker();
-        worker.stop();
+    void testMainInvalidArgs() throws Exception {
+        Main.main(new String[]{"wrong_mode"});
     }
 
     @Test
-    void testRunTestsDoesNotThrowException() throws IOException {
-        Server server = Main.startServer();
-        Worker worker = Main.startWorker();
-        assertTrue(Main.runTests(server));
-        worker.stop();
-        server.stop();
+    void testMainModesRunSuccessfully() throws Exception {
+        String[] modes = {"server", "worker"};
+        for (String mode : modes) {
+            Thread t = new Thread(() -> {
+                try {
+                    Main.main(new String[]{mode});
+                } catch (Exception e) {
+                    fail(e);
+                }
+            });
+            t.start();
+            Thread.sleep(800);
+            t.interrupt();
+            t.join(1000);
+        }
     }
 
     @Test
-    void testMainWithInvalidArgs() throws Exception {
-        Main.main(new String[]{"invalid"});
-    }
-
-    @Test
-    void testMainModes() throws Exception {
-        Thread serverThread = new Thread(() -> {
+    void testMainTestModeFullCycle() throws Exception {
+        Thread testThread = new Thread(() -> {
             try {
-                Main.main(new String[]{"server"});
+                Main.main(new String[]{"test"});
             } catch (Exception e) {
                 fail(e);
             }
         });
-        serverThread.start();
-        Thread.sleep(500);
-        serverThread.interrupt();
-
-        Thread workerThread = new Thread(() -> {
-            try {
-                Main.main(new String[]{"worker"});
-            } catch (Exception e) {
-                fail(e);
-            }
-        });
-        workerThread.start();
-        Thread.sleep(500);
-        workerThread.interrupt();
+        testThread.start();
+        Thread.sleep(4500);
+        testThread.interrupt();
+        testThread.join(1000);
     }
 }

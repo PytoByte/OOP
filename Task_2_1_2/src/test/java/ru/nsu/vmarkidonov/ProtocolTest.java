@@ -27,10 +27,12 @@ class ProtocolTest {
     void testFromOrdinalOverflowBoundary() {
         int outOfBoundsOrdinal = Protocol.values().length;
         assertThrows(
-                IllegalArgumentException.class, () -> Protocol.fromOrdinal(outOfBoundsOrdinal)
+                IllegalArgumentException.class,
+                () -> Protocol.fromOrdinal(outOfBoundsOrdinal)
         );
         assertThrows(
-                IllegalArgumentException.class, () -> Protocol.fromOrdinal(outOfBoundsOrdinal + 1)
+                IllegalArgumentException.class,
+                () -> Protocol.fromOrdinal(outOfBoundsOrdinal + 1)
         );
     }
 }
