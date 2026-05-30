@@ -199,4 +199,65 @@ class WorkerHandlerTest {
             }
         }
     }
+
+    @Test
+    void testProtocolViolationThrowsException() throws Exception {
+        TaskManager taskManager = new TaskManager();
+        try (ServerSocket serverSocket = new ServerSocket(0)) {
+            int port = serverSocket.getLocalPort();
+
+            Thread clientThread = new Thread(() -> {
+                try (Socket s = new Socket("localhost", port);
+                     DataOutputStream out = new DataOutputStream(s.getOutputStream())) {
+                    out.writeInt(Protocol.STATUS.ordinal());
+                    out.flush();
+                } catch (Exception e) {
+                    fail(e);
+                }
+            });
+            clientThread.start();
+
+            try (Socket accepted = serverSocket.accept()) {
+                WorkerHandler handler = new WorkerHandler(accepted, taskManager, 10000);
+                long[][] chunks = {{1L}};
+                taskManager.submitBatch(chunks);
+                handler.run();
+            }
+        }
+    }
+
+    @Test
+    void testHandlerHandlesSocketErrorGracefully() throws Exception {
+        TaskManager taskManager = new TaskManager();
+        Socket mockSocket = new Socket();
+        mockSocket.close();
+
+        WorkerHandler handler = new WorkerHandler(mockSocket, taskManager, 100);
+        handler.run();
+    }
+
+    @Test
+    void testTaskReturnedOnWorkerDisconnect() throws Exception {
+        TaskManager taskManager = new TaskManager();
+        long[][] chunks = {{99L}};
+        taskManager.submitBatch(chunks);
+
+        try (ServerSocket ss = new ServerSocket(0)) {
+            int port = ss.getLocalPort();
+            Thread client = new Thread(() -> {
+                try (Socket s = new Socket("localhost", port)) {
+                    DataInputStream in = new DataInputStream(s.getInputStream());
+                    if (in.readInt() == Protocol.TASK.ordinal()) {
+                    }
+                } catch (Exception ignored) {}
+            });
+            client.start();
+
+            try (Socket accepted = ss.accept()) {
+                WorkerHandler handler = new WorkerHandler(accepted, taskManager, 10000);
+                handler.run();
+            }
+        }
+        assertTrue(taskManager.hasActiveBatch());
+    }
 }

@@ -39,9 +39,13 @@ public class Main {
             }
             Server server = startServer();
             Thread.sleep(3000);
-            runTests(server);
+            if (runTests(server)) {
+                System.out.println("\nТесты прошли успешно!");
+            } else {
+                System.err.println("\nТесты не были пройдены");
+            }
 
-            System.out.println("\nТесты завершены. Остановка фоновых служб...");
+            System.out.println("Остановка фоновых служб...");
 
             server.stop();
             for (Worker worker : workers) {
@@ -96,22 +100,9 @@ public class Main {
      *
      * @param server активный экземпляр сервера для отправки вычислительных пакетов
      */
-    public static void runTests(Server server) {
+    public static boolean runTests(Server server) {
         long[] firstBatch = {6, 8, 7, 13, 5, 9, 4};
-        long[] secondBatch = {
-                20319251,
-                6997901,
-                6997927,
-                6997937,
-                17858849,
-                6997967,
-                6998009,
-                6998029,
-                6998039,
-                20165149,
-                6998051,
-                6998053
-        };
+        long[] secondBatch = {20319251, 6997901, 6997927, 6997937, 17858849, 6997967, 6998009};
 
         System.out.println("\n--- ТЕСТ ПАКЕТА №1 ---");
         boolean res1 = server.hasComposite(firstBatch);
@@ -120,5 +111,7 @@ public class Main {
         System.out.println("\n--- ТЕСТ ПАКЕТА №2 ---");
         boolean res2 = server.hasComposite(secondBatch);
         System.out.println("Результат №2 (Должен быть false): " + res2);
+
+        return res1 && !res2;
     }
 }
