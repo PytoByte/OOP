@@ -69,6 +69,22 @@ loadScripts(document, 'script');</script>
 <dl class="index">
 <dt><a href="game/model/SnakePart.html#BODY" class="member-name-link">BODY</a> - Enum constant in enum class game.model.<a href="game/model/SnakePart.html" title="enum class in game.model">SnakePart</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="game/model/Bot.html" class="type-name-link" title="class in game.model">Bot</a> - Class in <a href="game/model/package-summary.html">game.model</a></dt>
+<dd>
+<div class="block">Класс бота.</div>
+</dd>
+<dt><a href="game/model/Bot.html#%3Cinit%3E(int,int,int,game.model.Direction,game.model.GameWorld)" class="member-name-link">Bot(int, int, int, Direction, GameWorld)</a> - Constructor for class game.model.<a href="game/model/Bot.html" title="class in game.model">Bot</a></dt>
+<dd>
+<div class="block">Базовый конструктор класса.</div>
+</dd>
+<dt><a href="game/view/BotView.html" class="type-name-link" title="class in game.view">BotView</a> - Class in <a href="game/view/package-summary.html">game.view</a></dt>
+<dd>
+<div class="block">Визуальное отображение бота.</div>
+</dd>
+<dt><a href="game/view/BotView.html#%3Cinit%3E(game.model.Bot)" class="member-name-link">BotView(Bot)</a> - Constructor for class game.view.<a href="game/view/BotView.html" title="class in game.view">BotView</a></dt>
+<dd>
+<div class="block">Базовый конструктор класса.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:C">C</h2>
 <dl class="index">
@@ -88,6 +104,8 @@ loadScripts(document, 'script');</script>
 <h2 class="title" id="I:D">D</h2>
 <dl class="index">
 <dt><a href="game/model/FoodType.html#DEFAULT" class="member-name-link">DEFAULT</a> - Enum constant in enum class game.model.<a href="game/model/FoodType.html" title="enum class in game.model">FoodType</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="game/model/Snake.html#direction" class="member-name-link">direction</a> - Variable in class game.model.<a href="game/model/Snake.html" title="class in game.model">Snake</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="game/model/Direction.html" class="type-name-link" title="enum class in game.model">Direction</a> - Enum Class in <a href="game/model/package-summary.html">game.model</a></dt>
 <dd>
@@ -111,6 +129,10 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:F">F</h2>
 <dl class="index">
+<dt><a href="game/model/Snake.html#foodCollision(game.model.ConstPoint)" class="member-name-link">foodCollision(ConstPoint)</a> - Method in class game.model.<a href="game/model/Snake.html" title="class in game.model">Snake</a></dt>
+<dd>
+<div class="block">Обработчик коллизии с едой.</div>
+</dd>
 <dt><a href="game/model/FoodManager.html" class="type-name-link" title="class in game.model">FoodManager</a> - Class in <a href="game/model/package-summary.html">game.model</a></dt>
 <dd>
 <div class="block">Модель еды.</div>
@@ -130,6 +152,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="game/view/FoodView.html#%3Cinit%3E(game.model.Renderable)" class="member-name-link">FoodView(Renderable&lt;FoodType&gt;)</a> - Constructor for class game.view.<a href="game/view/FoodView.html" title="class in game.view">FoodView</a></dt>
 <dd>
 <div class="block">Базовый конструктор класса.</div>
+</dd>
+<dt><a href="game/model/Point.html#fromConstPoint(game.model.ConstPoint)" class="member-name-link">fromConstPoint(ConstPoint)</a> - Static method in class game.model.<a href="game/model/Point.html" title="class in game.model">Point</a></dt>
+<dd>
+<div class="block">Создать изменяемую копию константной точки.</div>
 </dd>
 </dl>
 <h2 class="title" id="I:G">G</h2>
@@ -162,6 +188,8 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Базовый конструктор класса.</div>
 </dd>
+<dt><a href="game/model/Snake.html#gameWorld" class="member-name-link">gameWorld</a> - Variable in class game.model.<a href="game/model/Snake.html" title="class in game.model">Snake</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="game/model/GameWorld.html" class="type-name-link" title="class in game.model">GameWorld</a> - Class in <a href="game/model/package-summary.html">game.model</a></dt>
 <dd>
 <div class="block">Модель игрового мира.</div>
@@ -178,6 +206,8 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="game/controller/SceneController.html#getCanvasHolder()" class="member-name-link">getCanvasHolder()</a> - Method in class game.controller.<a href="game/controller/SceneController.html" title="class in game.controller">SceneController</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="game/model/Bot.html#getCollider()" class="member-name-link">getCollider()</a> - Method in class game.model.<a href="game/model/Bot.html" title="class in game.model">Bot</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="game/model/Collider.html#getCollider()" class="member-name-link">getCollider()</a> - Method in interface game.model.<a href="game/model/Collider.html" title="interface in game.model">Collider</a></dt>
 <dd>
 <div class="block">Возвращает хитбокс объекта.</div>
@@ -186,9 +216,19 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="game/model/Snake.html#getCollider()" class="member-name-link">getCollider()</a> - Method in class game.model.<a href="game/model/Snake.html" title="class in game.model">Snake</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="game/model/GameWorld.html#getFoodPoints()" class="member-name-link">getFoodPoints()</a> - Method in class game.model.<a href="game/model/GameWorld.html" title="class in game.model">GameWorld</a></dt>
+<dd>
+<div class="block">Возвращает координаты всей еды на поле.</div>
+</dd>
 <dt><a href="game/model/Snake.html#getHead()" class="member-name-link">getHead()</a> - Method in class game.model.<a href="game/model/Snake.html" title="class in game.model">Snake</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="game/model/GameWorld.html#getHeight()" class="member-name-link">getHeight()</a> - Method in class game.model.<a href="game/model/GameWorld.html" title="class in game.model">GameWorld</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="game/model/Direction.html#getLeft()" class="member-name-link">getLeft()</a> - Method in enum class game.model.<a href="game/model/Direction.html" title="enum class in game.model">Direction</a></dt>
+<dd>
+<div class="block">Направление слева от текущего.</div>
+</dd>
+<dt><a href="game/model/Bot.html#getRenderData()" class="member-name-link">getRenderData()</a> - Method in class game.model.<a href="game/model/Bot.html" title="class in game.model">Bot</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="game/model/FoodManager.html#getRenderData()" class="member-name-link">getRenderData()</a> - Method in class game.model.<a href="game/model/FoodManager.html" title="class in game.model">FoodManager</a></dt>
 <dd>&nbsp;</dd>
@@ -198,11 +238,17 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="game/model/Snake.html#getRenderData()" class="member-name-link">getRenderData()</a> - Method in class game.model.<a href="game/model/Snake.html" title="class in game.model">Snake</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="game/model/Direction.html#getRight()" class="member-name-link">getRight()</a> - Method in enum class game.model.<a href="game/model/Direction.html" title="enum class in game.model">Direction</a></dt>
+<dd>
+<div class="block">Направление справа от текущего.</div>
+</dd>
 <dt><a href="game/model/GameWorld.html#getScore()" class="member-name-link">getScore()</a> - Method in class game.model.<a href="game/model/GameWorld.html" title="class in game.model">GameWorld</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="game/model/Snake.html#getSize()" class="member-name-link">getSize()</a> - Method in class game.model.<a href="game/model/Snake.html" title="class in game.model">Snake</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="game/model/Snake.html#getStartDirection()" class="member-name-link">getStartDirection()</a> - Method in class game.model.<a href="game/model/Snake.html" title="class in game.model">Snake</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="game/view/BotView.html#getView()" class="member-name-link">getView()</a> - Method in class game.view.<a href="game/view/BotView.html" title="class in game.view">BotView</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="game/view/FoodView.html#getView()" class="member-name-link">getView()</a> - Method in class game.view.<a href="game/view/FoodView.html" title="class in game.view">FoodView</a></dt>
 <dd>&nbsp;</dd>
@@ -241,6 +287,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="game/model/GameWorld.html#increaseScore(int)" class="member-name-link">increaseScore(int)</a> - Method in class game.model.<a href="game/model/GameWorld.html" title="class in game.model">GameWorld</a></dt>
 <dd>
 <div class="block">Увеличить счёт.</div>
+</dd>
+<dt><a href="game/model/Bot.html#isAlive()" class="member-name-link">isAlive()</a> - Method in class game.model.<a href="game/model/Bot.html" title="class in game.model">Bot</a></dt>
+<dd>
+<div class="block">Проверка жив ли бот.</div>
 </dd>
 <dt><a href="game/model/GameWorld.html#isGameOver()" class="member-name-link">isGameOver()</a> - Method in class game.model.<a href="game/model/GameWorld.html" title="class in game.model">GameWorld</a></dt>
 <dd>&nbsp;</dd>
@@ -285,6 +335,8 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:O">O</h2>
 <dl class="index">
+<dt><a href="game/model/Bot.html#onCollision(game.model.Collider,game.model.ConstPoint)" class="member-name-link">onCollision(Collider, ConstPoint)</a> - Method in class game.model.<a href="game/model/Bot.html" title="class in game.model">Bot</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="game/model/Collider.html#onCollision(game.model.Collider,game.model.ConstPoint)" class="member-name-link">onCollision(Collider, ConstPoint)</a> - Method in interface game.model.<a href="game/model/Collider.html" title="interface in game.model">Collider</a></dt>
 <dd>
 <div class="block">Обработчик коллизии.</div>
@@ -339,6 +391,8 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="game/controller/SnakeController.html#restart()" class="member-name-link">restart()</a> - Method in class game.controller.<a href="game/controller/SnakeController.html" title="class in game.controller">SnakeController</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="game/model/Bot.html#restart()" class="member-name-link">restart()</a> - Method in class game.model.<a href="game/model/Bot.html" title="class in game.model">Bot</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="game/model/FoodManager.html#restart()" class="member-name-link">restart()</a> - Method in class game.model.<a href="game/model/FoodManager.html" title="class in game.model">FoodManager</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="game/model/GameWorld.html#restart()" class="member-name-link">restart()</a> - Method in class game.model.<a href="game/model/GameWorld.html" title="class in game.model">GameWorld</a></dt>
@@ -366,6 +420,12 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="game/controller/SceneController.html#%3Cinit%3E()" class="member-name-link">SceneController()</a> - Constructor for class game.controller.<a href="game/controller/SceneController.html" title="class in game.controller">SceneController</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="game/model/Bot.html#selfCollision()" class="member-name-link">selfCollision()</a> - Method in class game.model.<a href="game/model/Bot.html" title="class in game.model">Bot</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="game/model/Snake.html#selfCollision()" class="member-name-link">selfCollision()</a> - Method in class game.model.<a href="game/model/Snake.html" title="class in game.model">Snake</a></dt>
+<dd>
+<div class="block">Обработчик коллизии с самим собой.</div>
+</dd>
 <dt><a href="game/model/Snake.html#setDirection(game.model.Direction)" class="member-name-link">setDirection(Direction)</a> - Method in class game.model.<a href="game/model/Snake.html" title="class in game.model">Snake</a></dt>
 <dd>
 <div class="block">Устанавливает направление движения змейки.</div>
@@ -483,6 +543,8 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Интерфейс игровых моделей, требующих обновление на каждый тик.</div>
 </dd>
+<dt><a href="game/model/Bot.html#update()" class="member-name-link">update()</a> - Method in class game.model.<a href="game/model/Bot.html" title="class in game.model">Bot</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="game/model/Snake.html#update()" class="member-name-link">update()</a> - Method in class game.model.<a href="game/model/Snake.html" title="class in game.model">Snake</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="game/model/Updatable.html#update()" class="member-name-link">update()</a> - Method in interface game.model.<a href="game/model/Updatable.html" title="interface in game.model">Updatable</a></dt>
@@ -527,6 +589,10 @@ the order they are declared.</div>
 <div class="block">Returns an array containing the constants of this enum class, in
 the order they are declared.</div>
 </dd>
+<dt><a href="game/model/Direction.html#vecX" class="member-name-link">vecX</a> - Variable in enum class game.model.<a href="game/model/Direction.html" title="enum class in game.model">Direction</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="game/model/Direction.html#vecY" class="member-name-link">vecY</a> - Variable in enum class game.model.<a href="game/model/Direction.html" title="enum class in game.model">Direction</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="game/view/View.html" class="type-name-link" title="interface in game.view">View</a> - Interface in <a href="game/view/package-summary.html">game.view</a></dt>
 <dd>
 <div class="block">Интерфейс для визуального представления игровых объектов.</div>
