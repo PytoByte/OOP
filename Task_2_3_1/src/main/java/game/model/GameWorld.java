@@ -146,12 +146,25 @@ public class GameWorld {
     }
 
     /**
+     * Возвращает координаты всей еды на поле.
+     */
+    public List<ConstPoint> getFoodPoints() {
+        List<ConstPoint> foodPoints = new ArrayList<>();
+        for (Collider collider : colliders) {
+            if (collider instanceof FoodManager) {
+                foodPoints.addAll(collider.getCollider());
+            }
+        }
+        return foodPoints;
+    }
+
+    /**
      * Увеличить счёт.
      *
      * @param inc на сколько увеличить счёт
      */
     public void increaseScore(int inc) {
-        this.score += inc;
+        this.score = Math.max(0, this.score + inc);
     }
 
     public int getWidth() {

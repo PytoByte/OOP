@@ -4,10 +4,12 @@ import game.controller.GameController;
 import game.controller.JavafxTimer;
 import game.controller.SceneController;
 import game.controller.SnakeController;
+import game.model.Bot;
 import game.model.Direction;
 import game.model.FoodManager;
 import game.model.GameWorld;
 import game.model.Snake;
+import game.view.BotView;
 import game.view.FoodView;
 import game.view.GameView;
 import game.view.SnakeView;
@@ -42,7 +44,7 @@ public class SnakeGame extends Application {
 
         SceneController sceneController = loader.getController();
         Canvas canvas = sceneController.getCanvas();
-        GameWorld gameWorld = new GameWorld(8, 8, 10);
+        GameWorld gameWorld = new GameWorld(10, 10, 15);
         GameView gameView = new GameView(gameWorld, canvas);
         GameController gameController = new GameController(
                 gameWorld,
@@ -75,6 +77,17 @@ public class SnakeGame extends Application {
         gameWorld.addModel(snake);
         gameController.addController(snakeController);
         gameView.addView(snakeView);
+
+        Bot bot = new Bot(
+                gameWorld.getWidth() / 2 - 4,
+                gameWorld.getHeight() / 2 - 4,
+                2,
+                Direction.RIGHT,
+                gameWorld
+        );
+        BotView botView = new BotView(bot);
+        gameWorld.addModel(bot);
+        gameView.addView(botView);
 
         FoodManager foodManager = new FoodManager(3, gameWorld);
         FoodView foodView = new FoodView(foodManager);

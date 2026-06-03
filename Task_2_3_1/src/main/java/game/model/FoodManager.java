@@ -98,10 +98,24 @@ public class FoodManager implements Renderable<FoodType>, Collider, Restartable 
         }
     }
 
+    /**
+     * Обработчик коллизии с ботом.
+     *
+     * @param bot Бот
+     * @param p Точка в которой произошла коллизия
+     */
+    private void botCollision(Snake bot, ConstPoint p) {
+        if (bot.getHead().equals(p)) {
+            gameWorld.increaseScore(-1);
+        }
+    }
+
     @Override
     public void onCollision(Collider other, ConstPoint p) {
         generalCollision(p);
-        if (other instanceof Snake snake) {
+        if (other instanceof Bot bot) {
+            botCollision(bot, p);
+        } else if (other instanceof Snake snake) {
             snakeCollision(snake, p);
         }
     }
