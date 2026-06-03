@@ -4,11 +4,13 @@ import game.model.Bot;
 import game.model.ConstPoint;
 import game.model.Pair;
 import game.model.SnakePart;
-import javafx.scene.paint.Color;
-
 import java.util.Collections;
 import java.util.LinkedList;
+import javafx.scene.paint.Color;
 
+/**
+ * Визуальное отображение бота.
+ */
 public class BotView implements View {
     Bot bot;
     Color headColor = Color.ORANGE;
