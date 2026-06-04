@@ -8,13 +8,13 @@ import java.util.List;
  * Модель змейки.
  */
 public class Snake implements Renderable<SnakePart>, Collider, Updatable, Restartable {
-    private final GameWorld gameWorld;
+    protected final GameWorld gameWorld;
     private final List<Point> points = new LinkedList<>();
     private final int startX;
     private final int startY;
     private final int startSize;
     private final Direction startDirection;
-    private Direction direction;
+    protected Direction direction;
     private int size;
 
     /**
@@ -46,28 +46,14 @@ public class Snake implements Renderable<SnakePart>, Collider, Updatable, Restar
     @Override
     public void update() {
         ConstPoint head = getHead();
-        Point nextPos = new Point(head.getX(), head.getY());
 
         int fieldWidth = gameWorld.getWidth();
         int fieldHeight = gameWorld.getHeight();
 
-        switch (direction) {
-            case UP -> {
-                nextPos.setY((head.getY() - 1 + fieldHeight) % fieldHeight);
-            }
-            case DOWN -> {
-                nextPos.setY((head.getY() + 1) % fieldHeight);
-            }
-            case LEFT -> {
-                nextPos.setX((head.getX() - 1 + fieldWidth) % fieldWidth);
-            }
-            case RIGHT -> {
-                nextPos.setX((head.getX() + 1) % fieldWidth);
-            }
-            default -> {
-                System.err.printf("Unexpected snake direction %s\n", direction);
-            }
-        }
+        Point nextPos = new Point(
+                (head.getX() + direction.vecX + fieldWidth) % fieldWidth,
+                (head.getY() + direction.vecY + fieldHeight) % fieldHeight
+        );
 
         for (Point body : points) {
             int oldX = body.getX();
@@ -79,8 +65,8 @@ public class Snake implements Renderable<SnakePart>, Collider, Updatable, Restar
             nextPos.setX(oldX);
             nextPos.setY(oldY);
 
-            if (body != head && body.equals(head)) {
-                gameWorld.setGameOver(true);
+            if (body.equals(head) && body != head) {
+                selfCollision();
             }
         }
 
@@ -88,8 +74,9 @@ public class Snake implements Renderable<SnakePart>, Collider, Updatable, Restar
         if (points.size() < size) {
             points.add(newBody);
         }
+
         if (newBody.equals(head)) {
-            gameWorld.setGameOver(true);
+            selfCollision();
         }
     }
 
@@ -109,6 +96,8 @@ public class Snake implements Renderable<SnakePart>, Collider, Updatable, Restar
     public void onCollision(Collider other, ConstPoint p) {
         if (other instanceof FoodManager) {
             foodCollision(p);
+        } else if (other instanceof Bot bot) {
+            botCollision(bot, p);
         }
     }
 
@@ -117,9 +106,27 @@ public class Snake implements Renderable<SnakePart>, Collider, Updatable, Restar
      *
      * @param p Точка в которой произошла коллизия
      */
-    private void foodCollision(ConstPoint p) {
+    protected void foodCollision(ConstPoint p) {
         if (getHead().equals(p)) {
             size++;
+        }
+    }
+
+    /**
+     * Обработчик коллизии с самим собой.
+     */
+    protected void selfCollision() {
+        gameWorld.setGameOver(true);
+    }
+
+    /**
+     * Обработчик коллизии с ботом.
+     *
+     * @param p Точка в которой произошла коллизия
+     */
+    private void botCollision(Bot bot, ConstPoint p) {
+        if (getHead().equals(p) && bot.isAlive()) {
+            gameWorld.setGameOver(true);
         }
     }
 

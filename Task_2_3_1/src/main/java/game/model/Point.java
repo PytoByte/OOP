@@ -75,4 +75,14 @@ public class Point implements ConstPoint {
     public void setY(int coordY) {
         this.coordY = coordY;
     }
+
+    /**
+     * Создать изменяемую копию константной точки.
+     *
+     * @param constPoint константная точка
+     * @return изменяемая копия константной точки
+     */
+    public static Point fromConstPoint(ConstPoint constPoint) {
+        return new Point(constPoint.getX(), constPoint.getY());
+    }
 }
